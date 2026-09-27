@@ -833,6 +833,11 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 
 /* sign-in gate */
 .gate-gsi { min-height: 44px; margin: 4px 0 6px; }
+/* Google's button is an iframe with a light colour scheme; on our dark page the browser paints it an opaque white box.
+   Matching the scheme keeps it transparent, and the rounded clip hides any leftover corner. */
+.gate-gsi, .gate-gsi iframe { color-scheme: light; }
+.gate-gsi > div { display: inline-block; border-radius: 999px; overflow: hidden; background: transparent; }
+.gate-gsi iframe { background: transparent !important; }
 .gate-dev { display: grid; gap: 8px; margin: 12px 0 4px; padding: 12px; border: 1px dashed var(--line-2); border-radius: 10px; }
 .gate-dev label { display: grid; gap: 6px; font-size: 13px; color: var(--text-dim); }
 .gate-dev input { height: 38px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 10px; font-family: var(--mono); }
