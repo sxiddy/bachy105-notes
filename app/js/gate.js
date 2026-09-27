@@ -51,7 +51,7 @@
           <div id="gsi" class="gate-gsi"></div>
           ${S.devLogin ? `<form id="dev-login" class="gate-dev"><label>Local test only: sign in as<input id="dev-email" value="test@${esc(domain)}"></label><button class="btn" type="submit">Sign in (dev)</button></form>` : ''}
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
-          <p class="gate-muted gate-small">Only …@${esc(domain)} accounts are accepted. Staff and personal Gmail accounts can't sign in. Your account works on 1 phone + 1 laptop/PC.</p>
+          <p class="gate-muted gate-small">Only …@${esc(domain)} accounts are accepted. Staff and personal Gmail accounts can't sign in. Your account works on 1 phone + 1 laptop/PC. <a href="privacy.html" style="color:inherit">Privacy</a></p>
         </div>
       </div>`;
     const out = document.getElementById('gate-msg');

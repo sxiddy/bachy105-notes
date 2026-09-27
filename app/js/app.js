@@ -468,7 +468,7 @@ window.__startApp = function () {
   function srcLabel(src) {
     const m = String(src || '').match(/\/(?:slides|images|hi)\/s(\d+)/) || String(src || '').match(/\/(?:pages|images)\/p(\d+)/);
     if (!m) return '';
-    return (/\/p\d+/.test(src) || /m4\//.test(src) ? 'Page ' : 'Slide ') + parseInt(m[1], 10);
+    return 'BACHY105 course ' + (/\/p\d+/.test(src) || /m4\//.test(src) ? 'notes, VIT · Page ' : 'slides, VIT · Slide ') + parseInt(m[1], 10);
   }
   function hydrate(root) {
     // figures
@@ -635,6 +635,7 @@ window.__startApp = function () {
         <div class="eyebrow"><span class="code">BACHY105</span><span>Applied Chemistry</span><span class="dot">·</span><span>Fall semester 2026–27</span></div>
         <h1 class="h-display">${words.map((w, i) => `<span class="w${i === 2 ? ' w-u' : ''}" style="--i:${i}">${w}</span>`).join(' ')}</h1>
         <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the slides${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
+        <p class="credit">Based on the BACHY105 Applied Chemistry course material taught at VIT. Slide diagrams are reproduced from the course slides and credited to their authors; the notes, questions and interactive models are written for this site. <a href="privacy.html">Privacy</a></p>
         <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div><button class="btn small" data-act="share">${icon('share')}Share progress</button></div>
         ${last ? `<div class="continue"><a class="btn primary" href="${last.hash}">Continue: ${rt(last.title)} ${icon('right')}</a></div>` : (TOPICS[0] ? `<div class="continue"><a class="btn primary" href="#${TOPICS[0].id}">Start with ${rt(TOPICS[0].title)} ${icon('right')}</a></div>` : '')}
       </section>
@@ -773,11 +774,18 @@ window.__startApp = function () {
     }
     function paintNav() {
       const prev = t.tabs[i - 1], next = t.tabs[i + 1];
+      const conf = (S.confusing[t.id] || []).includes(i);
       nav.innerHTML = `
-        ${prev ? `<button class="btn" data-go="${i - 1}">${icon('left')}<span class="lbl">${rt(prev.title)}</span></button>` : '<span></span>'}
-        <span class="pos">${i + 1} / ${n} <button class="btn small ghost conf-btn${(S.confusing[t.id] || []).includes(i) ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${(S.confusing[t.id] || []).includes(i) ? 'Marked confusing' : 'Confusing?'}</span></button><button class="btn small ghost conf-btn" data-act="report" data-t="${t.id}" data-i="${i}" title="Found a mistake? Tell us">${icon('warn')}<span class="lbl">Report mistake</span></button></span>
-        ${next ? `<button class="btn primary" data-go="${i + 1}"><span class="lbl">Next: ${rt(next.title)}</span>${icon('right')}</button>`
-          : (nx ? `<a class="btn primary" href="#${nx.key}"><span class="lbl">Next: ${rt(nx.title)}</span>${icon('right')}</a>` : '<span></span>')}`;
+        <div class="tn-row">
+          ${prev ? `<button class="btn" data-go="${i - 1}" title="${esc(plain(prev.title))}">${icon('left')}<span class="lbl">${rt(prev.title)}</span></button>` : '<span></span>'}
+          <span class="pos">${i + 1} / ${n}</span>
+          ${next ? `<button class="btn primary" data-go="${i + 1}" title="Next: ${esc(plain(next.title))}"><span class="lbl">Next: ${rt(next.title)}</span>${icon('right')}</button>`
+            : (nx ? `<a class="btn primary" href="#${nx.key}" title="Next: ${esc(plain(nx.title))}"><span class="lbl">Next: ${rt(nx.title)}</span>${icon('right')}</a>` : '<span></span>')}
+        </div>
+        <div class="tn-tools">
+          <button class="btn small ghost conf-btn${conf ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${conf ? 'Marked confusing' : 'Confusing?'}</span></button>
+          <button class="btn small ghost conf-btn" data-act="report" data-t="${t.id}" data-i="${i}" title="Found a mistake? Tell us">${icon('warn')}<span class="lbl">Report mistake</span></button>
+        </div>`;
     }
     const checkEl = $('[data-check]', el);
     const checkQs = (QBY[t.id] || []).filter((q) => q.options).slice(0, 2);

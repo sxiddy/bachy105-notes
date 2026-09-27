@@ -286,9 +286,15 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .tab-ink { position: absolute; bottom: 0; height: 2px; background: var(--white); border-radius: 2px; transition: left 0.38s var(--ease-out), width 0.38s var(--ease-out); pointer-events: none; }
 .panel { padding-top: 30px; min-height: 40vh; }
 .panel.leave { opacity: 0; transform: translateY(-4px); transition: opacity 0.12s, transform 0.12s; }
-.tab-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 44px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
-.tab-nav .pos { font-family: var(--mono); font-size: 12px; color: var(--text-faint); }
-.tab-nav .btn { max-width: 46%; overflow: hidden; text-overflow: ellipsis; }
+.tab-nav { margin: 44px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.tn-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 14px; }
+.tn-row > :first-child { justify-self: start; }
+.tn-row > :last-child { justify-self: end; }
+.tn-row .btn { max-width: 100%; min-width: 0; }
+.tn-row .btn .lbl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tn-row .pos { font-family: var(--mono); font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+.tn-tools { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tn-tools .conf-btn { margin-left: 0; }
 .next-topic {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px; margin-top: 18px; padding: 20px 22px;
   border: 1px solid var(--line); border-radius: 14px; text-decoration: none; background: var(--bg-2); transition: border-color 0.25s, background 0.25s;
@@ -719,7 +725,7 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
   .fface .ftext { font-size: 21px; }
   .quiz-card { padding: 18px; }
   .frow > .flabel { width: 100%; }
-  .tab-nav .btn .lbl { display: none; }
+  .tn-row { gap: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
@@ -809,7 +815,6 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
   .bnav svg.i { width: 20px; height: 20px; }
   .view { padding-bottom: 150px; }
   .toasts { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
-  .conf-btn .lbl { display: none; }
   .sidebar { bottom: calc(66px + env(safe-area-inset-bottom, 0px)); } /* keep the menu footer above the tab bar */
   .sb-foot { flex-wrap: wrap; }
 }
@@ -835,3 +840,7 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .linkish { border: 0; background: none; padding: 0; color: var(--text-2); text-decoration: underline; cursor: pointer; font: inherit; }
 .linkish:hover { color: var(--white); }
 .gate-restore input[readonly] { opacity: 0.85; cursor: default; }
+
+/* course credit on the home page */
+.credit { font-size: 13px; line-height: 1.6; color: var(--text-faint); max-width: 62ch; margin: -6px 0 22px; }
+.credit a { color: var(--text-dim); }
