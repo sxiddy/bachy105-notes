@@ -74,7 +74,7 @@
   }
   function days(obj, n) {
     const out = []; const d = new Date();
-    for (let i = n - 1; i >= 0; i--) { const x = new Date(d); x.setUTCDate(d.getUTCDate() - i); const k = x.toISOString().slice(0, 10); out.push([k, (obj && obj[k]) || 0]); }
+    for (let i = n - 1; i >= 0; i--) { const x = new Date(d); x.setTime(d.getTime() - i * 864e5); const k = new Date(x.getTime() + 5.5 * 3600e3).toISOString().slice(0, 10); out.push([k, (obj && obj[k]) || 0]); }
     return out;
   }
   function bars(series) {
@@ -82,7 +82,10 @@
     return `<div class="bars">${series.map(([k, v]) => `<div style="height:${Math.max(2, (v / max) * 100)}%" data-tip="${k}: ${v}"></div>`).join('')}</div><div class="axis"><span>${series[0][0]}</span><span>${series[series.length - 1][0]}</span></div>`;
   }
   let fbFilter = 'open';
-  const when = (s) => esc(String(s || '').replace('T', ' ').slice(0, 16));
+  // all times in Indian time (IST, UTC+5:30)
+  const IST = 5.5 * 3600e3;
+  const ist = (s) => { const t = Date.parse(s); return isNaN(t) ? '' : new Date(t + IST).toISOString().replace('T', ' ').slice(0, 16); };
+  const when = (s) => esc(ist(s));
   const pct = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '—');
   const modName = (s, id) => { const m = (s.paidModules || []).find((x) => x.id === id); return m ? 'Module ' + (+m.num) : id; };
   const modsLabel = (s, mods) => (mods && mods.length ? mods.map((id) => modName(s, id)).join(', ') + ' only' : 'All modules');
@@ -103,12 +106,12 @@
     const list = (s.students || []).filter((x) => !q || x.email.includes(q.toLowerCase()));
     if (!list.length) return `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
     const rows = list.slice(0, 300).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
-    return tbl(['Student email', 'Access', 'First sign-in (UTC)', 'Last used (UTC)', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
+    return tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
   }
   function studentsCSV(s) {
     const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
-    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at', 'free_modules', 'first_sign_in', 'last_seen', 'sign_ins', 'phones', 'pcs'];
-    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? x.paid.at : '', x.free ? (x.free.modules || ['all']).join(' ') : '', x.first, x.lastSeen, x.logins, x.phones, x.pcs].map(q).join(','));
+    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at_ist', 'free_modules', 'first_sign_in_ist', 'last_used_ist', 'sign_ins', 'phones', 'pcs'];
+    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? ist(x.paid.at) : '', x.free ? (x.free.modules || ['all']).join(' ') : '', ist(x.first), ist(x.lastSeen), x.logins, x.phones, x.pcs].map(q).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bachy105-students-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
@@ -187,12 +190,12 @@
 
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports</h2><div id="fbl">${feedbackHTML(s)}</div></section>` : ''}
 
-      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (UTC)', 'Student', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.email)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
+      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (IST)', 'Student', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.email)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
 
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
         <p class="muted">Add a VIT student email and that student gets the ticked modules free. Nothing for them to do: it unlocks as soon as they sign in with that account. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
         <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
-        ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (UTC)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
+        ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (IST)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>

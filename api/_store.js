@@ -30,6 +30,8 @@ function pairs(flat) {
 }
 
 const ipHash = (req) => crypto.createHash('sha256').update(String((req.headers['x-forwarded-for'] || '').split(',')[0] || req.socket?.remoteAddress || '') + '|bn').digest('hex').slice(0, 16);
-const today = () => new Date().toISOString().slice(0, 10);
+// days are counted in Indian time (IST, UTC+5:30)
+const IST = 5.5 * 3600e3;
+const today = () => new Date(Date.now() + IST).toISOString().slice(0, 10);
 
 module.exports = { configured: () => !!creds(), pipeline, pairs, ipHash, today };

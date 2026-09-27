@@ -28,7 +28,9 @@ async function paidPayments(pages) {
 const iso = (sec) => new Date(sec * 1000).toISOString();
 const feedbackId = (x) => x.id || crypto.createHash('sha1').update(String(x.at) + '|' + String(x.text)).digest('hex').slice(0, 12);
 const parseJSON = (s, d) => { try { return JSON.parse(s) ?? d; } catch (e) { return d; } };
-const lastDays = (n) => Array.from({ length: n }, (_, i) => new Date(Date.now() - i * 864e5).toISOString().slice(0, 10));
+const IST = 5.5 * 3600e3; // days in Indian time
+const istDay = (ms) => new Date(ms + IST).toISOString().slice(0, 10);
+const lastDays = (n) => Array.from({ length: n }, (_, i) => istDay(Date.now() - i * 864e5));
 
 module.exports = handle(async (req, res) => {
   const key = req.headers['x-admin-key'] || '';
@@ -112,7 +114,7 @@ module.exports = handle(async (req, res) => {
 
   const [pays, cfg] = await Promise.all([paidPayments(10), settings()]);
   const byDay = {};
-  pays.forEach((p) => { const d = iso(p.created_at).slice(0, 10); byDay[d] = (byDay[d] || 0) + 1; });
+  pays.forEach((p) => { const d = istDay(p.created_at * 1000); byDay[d] = (byDay[d] || 0) + 1; });
   let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [];
   if (store.configured()) {
     const [v, w, f, fr, lm, qz, ql, cf, cl, fn, fs, bn] = await store.pipeline([
