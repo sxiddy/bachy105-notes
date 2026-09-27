@@ -67,13 +67,18 @@ window.__startApp = function () {
     pause: '<path d="M8 5v14M16 5v14"/>',
     copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',
+    share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',
+    flag: '<path d="M5 21V4h11l-1.5 4L16 12H5"/>',
+    menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
     lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   };
   const icon = (n, cls) => `<svg class="i${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ''}</svg>`;
 
   // ================================================================ store
   const KEY = 'bachy105-notes:v1';
-  function blank() { return { visited: {}, done: {}, tags: {}, notes: {}, hl: {}, q: {}, cards: {}, last: null, ui: { closed: {}, lastTab: {} } }; }
+  function blank() { return { visited: {}, done: {}, tags: {}, notes: {}, hl: {}, q: {}, cards: {}, confusing: {}, last: null, ui: { closed: {}, lastTab: {} } }; }
   function normalize(s) {
     const b = blank();
     if (!s || typeof s !== 'object') return b;
@@ -184,6 +189,7 @@ window.__startApp = function () {
   mountPoint.appendChild(app);
   document.body.appendChild(toasts);
   if (S.ui.recall) document.body.classList.add('recall');
+  document.documentElement.dataset.mode = S.ui.theme === 'light' ? 'light' : 'dark';
 
   function toast(msg, ico) {
     const t = h('div', { class: 'toast', html: (ico ? icon(ico) : '') + esc(msg) });
@@ -269,6 +275,7 @@ window.__startApp = function () {
     const lc = $('[data-labcount]', sidebar); if (lc) lc.textContent = allViz().length || '';
   }
   function setActive(key) {
+    $$('a', bnav).forEach((a) => a.classList.toggle('on', a.dataset.key === key || (key && a.dataset.key === 'home' && (TOPIC[key] || /summary|^m[234]$/.test(key)))));
     $$('.sb-link, .sb-topic', sidebar).forEach((a) => a.classList.toggle('active', a.dataset.key === key));
     const act = $(`[data-key="${key}"]`, sidebar);
     if (act) {
@@ -298,6 +305,7 @@ window.__startApp = function () {
       <nav class="crumbs" aria-label="Breadcrumb"></nav>
       <div class="top-progress"><span class="lbl" data-overall></span><div class="bar"><i data-overall-bar></i></div></div>
       <button class="pill" data-act="focus" title="Focus mode (F)">${icon('timer')}<span class="lbl">Focus</span><span class="timer" hidden></span></button>
+      <button class="icon-btn" data-act="theme" title="Light / dark mode" aria-label="Toggle light or dark mode">${icon(S.ui.theme === 'light' ? 'moon' : 'sun')}</button>
       <button class="pill${S.ui.recall ? ' on' : ''}" data-act="recall" title="Recall mode (R): blanks every key term">${icon('eye')}<span class="lbl">Recall</span><span class="switch"></span></button>
       <div class="read-bar"></div>`;
     updateOverall();
@@ -618,7 +626,7 @@ window.__startApp = function () {
         <div class="eyebrow"><span class="code">BACHY105</span><span>Applied Chemistry</span><span class="dot">·</span><span>Fall semester 2026–27</span></div>
         <h1 class="h-display">${words.map((w, i) => `<span class="w${i === 2 ? ' w-u' : ''}" style="--i:${i}">${w}</span>`).join(' ')}</h1>
         <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the slides${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
-        <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div></div>
+        <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div><button class="btn small" data-act="share">${icon('share')}Share progress</button></div>
         ${last ? `<div class="continue"><a class="btn primary" href="${last.hash}">Continue: ${rt(last.title)} ${icon('right')}</a></div>` : (TOPICS[0] ? `<div class="continue"><a class="btn primary" href="#${TOPICS[0].id}">Start with ${rt(TOPICS[0].title)} ${icon('right')}</a></div>` : '')}
       </section>
       <div class="how">
@@ -757,7 +765,7 @@ window.__startApp = function () {
       const prev = t.tabs[i - 1], next = t.tabs[i + 1];
       nav.innerHTML = `
         ${prev ? `<button class="btn" data-go="${i - 1}">${icon('left')}<span class="lbl">${rt(prev.title)}</span></button>` : '<span></span>'}
-        <span class="pos">${i + 1} / ${n}</span>
+        <span class="pos">${i + 1} / ${n} <button class="btn small ghost conf-btn${(S.confusing[t.id] || []).includes(i) ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${(S.confusing[t.id] || []).includes(i) ? 'Marked confusing' : 'Confusing?'}</span></button></span>
         ${next ? `<button class="btn primary" data-go="${i + 1}"><span class="lbl">Next: ${rt(next.title)}</span>${icon('right')}</button>`
           : (nx ? `<a class="btn primary" href="#${nx.key}"><span class="lbl">Next: ${rt(nx.title)}</span>${icon('right')}</a>` : '<span></span>')}`;
     }
@@ -1031,7 +1039,7 @@ window.__startApp = function () {
       let p = pool();
       if (quizUI.preset) { quizUI.preset = null; return p; }
       if (quizUI.smart) {
-        const w = (q) => { const st = S.q[q.id]; if (!st || !st.seen) return 0; if (st.status === 'revisit' || st.wrong > st.right) return 1; return 2; };
+        const w = (q) => { if ((S.confusing[q.topic] || []).length) return -1; const st = S.q[q.id]; if (!st || !st.seen) return 0; if (st.status === 'revisit' || st.wrong > st.right) return 1; return 2; };
         p = shuffle(p).sort((a, b) => w(a) - w(b));
       } else p = shuffle(p);
       return quizUI.count ? p.slice(0, quizUI.count) : p;
@@ -1045,7 +1053,7 @@ window.__startApp = function () {
           <div class="frow"><span class="flabel">Modules</span>${MODULES.filter((m) => m.topics.length).map((m) => `<button class="fchip" data-m="${m.id}">Module ${+m.num} · ${esc(m.title)}</button>`).join('')}</div>
           <div class="frow"><span class="flabel">Format</span>${[['mcq', 'Multiple choice'], ['open', 'Open (self-marked)'], ['mixed', 'Both']].map(([v, l]) => `<button class="fchip" data-fmt="${v}">${l}</button>`).join('')}</div>
           <div class="frow"><span class="flabel">Length</span>${[[10, '10'], [20, '20'], [30, '30'], [0, 'All']].map(([v, l]) => `<button class="fchip" data-n="${v}">${l}</button>`).join('')}</div>
-          <div class="frow"><span class="flabel">Order</span><button class="pill" data-smart><span>Unseen and missed first</span><span class="switch"></span></button></div>
+          <div class="frow"><span class="flabel">Order</span><button class="pill" data-smart><span>Weak spots, unseen and missed first</span><span class="switch"></span></button></div>
           <div class="frow"><button class="btn primary" data-start></button></div>
         </div>`;
       const paint = () => {
@@ -1291,6 +1299,7 @@ window.__startApp = function () {
     const hl = [];
     TOPICS.forEach((t) => (S.hl[t.id] || []).forEach((x) => hl.push({ t, x })));
     const notes = TOPICS.filter((t) => S.notes[t.id]);
+    const weak = []; TOPICS.forEach((t) => (S.confusing[t.id] || []).forEach((i) => { if (t.tabs[i]) weak.push({ t, i }); }));
     const tagged = TOPICS.filter((t) => S.tags[t.id]);
     const rv = QS.filter((q) => S.q[q.id] && S.q[q.id].status === 'revisit');
     const learning = CARDS.filter((c) => S.cards[c.key] === 'again').length;
@@ -1298,7 +1307,10 @@ window.__startApp = function () {
       <div class="eyebrow"><span class="code">Yours</span><span>${hl.length} highlights · ${notes.length} notes · ${rv.length} to revisit</span></div>
       <h1 class="h-display">Highlights & notes</h1>
       <p class="blurb">Everything you've marked, in one place. Select text in any topic to add a highlight.</p>
-      <section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Highlights <small>${hl.length}</small></h2>
+      <section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">My weak spots <small>${weak.length}</small></h2>
+        ${weak.length ? `<div>${weak.map(({ t, i }) => `<a class="trow" href="#${t.id}.${i}"><span class="tick" style="box-shadow:none;background:none;color:var(--warn)">${icon('flag')}</span><div><h3>${rt(t.tabs[i].title)}</h3><p>${rt(t.title)}</p></div><span class="meta">revisit <span class="arrow">→</span></span></a>`).join('')}</div><p class="muted" style="font-size:14px;margin-top:10px">The quiz asks about these topics first.</p>` : '<div class="empty">Tap "Confusing?" at the bottom of any tab to collect it here.</div>'}
+      </section>
+      <section class="sum-sec"><h2 class="h-sec">Highlights <small>${hl.length}</small></h2>
         ${hl.length ? hl.map(({ t, x }) => `<div class="hl-item"><span class="sw c${x.c}"></span><div><q>${esc(x.text)}</q><a href="#${t.id}.${x.tab}">${rt(t.title)} › ${esc((t.tabs[x.tab] || {}).title || '')}</a></div><button class="icon-btn" data-del="${t.id}|${x.id}" aria-label="Remove highlight">${icon('x')}</button></div>`).join('') : '<div class="empty">No highlights yet. Select any line in a topic and pick a colour.</div>'}
       </section>
       <section class="sum-sec"><h2 class="h-sec">My notes <small>${notes.length}</small></h2>
@@ -1477,6 +1489,19 @@ window.__startApp = function () {
   }
   function refreshAll() { buildSidebar(); updateOverall(); if (current) render(parse(hashOf(current))); }
 
+  function shareProgress() {
+    const d = doneIn(TOPICS), n = TOPICS.length, url = location.origin + location.pathname;
+    const text = d ? `I've finished ${d} of ${n} topics on BACHY105 Notes. Module 2 is free, try it: ${url}` : `Studying Applied Chemistry (BACHY105)? Module 2 notes, diagrams and quizzes are free here: ${url}`;
+    const copy = () => { try { navigator.clipboard.writeText(text).then(() => toast('Copied. Paste it in your group chat', 'copy'), () => toast(text)); } catch (e) { toast(text); } };
+    if (navigator.share) navigator.share({ title: 'BACHY105 Notes', text, url }).catch(() => {}); else copy();
+  }
+
+  // bottom tab bar (phones)
+  const bnav = h('nav', { class: 'bnav', 'aria-label': 'Quick navigation' });
+  bnav.innerHTML = [['#home', 'home', 'Notes', 'home'], [null, 'search', 'Search', 'search'], ['#quiz', 'quiz', 'Quiz', 'quiz'], ['#cards', 'cards', 'Cards', 'cards'], [null, 'menu', 'Menu', 'sidebar']]
+    .map(([href, ic, label, key]) => href ? `<a href="${href}" data-key="${key}">${icon(ic)}<span>${label}</span></a>` : `<button type="button" data-act="${key}">${icon(ic)}<span>${label}</span></button>`).join('');
+  document.body.appendChild(bnav);
+
   // ================================================================ global events
   document.addEventListener('click', (e) => {
     const tagDot = e.target.closest('.tag-dot[data-act="tag"]');
@@ -1496,6 +1521,14 @@ window.__startApp = function () {
       else if (k === 'focus') { if (document.body.classList.contains('focus') && e.target.closest('.timer')) { startTimer(!timerState.running); paintTimer(); } else toggleFocus(); }
       else if (k === 'keys') openKeys();
       else if (k === 'backup') openBackup();
+      else if (k === 'theme') { S.ui.theme = S.ui.theme === 'light' ? 'dark' : 'light'; save(); document.documentElement.dataset.mode = S.ui.theme; act.innerHTML = icon(S.ui.theme === 'light' ? 'moon' : 'sun'); }
+      else if (k === 'confusing') {
+        const tid = act.dataset.t, ti = +act.dataset.i, list = S.confusing[tid] || (S.confusing[tid] = []);
+        const on = !list.includes(ti); if (on) list.push(ti); else list.splice(list.indexOf(ti), 1); if (!list.length) delete S.confusing[tid]; save();
+        act.classList.toggle('on', on); act.querySelector('.lbl').textContent = on ? 'Marked confusing' : 'Confusing?';
+        toast(on ? 'Added to My weak spots' : 'Removed from weak spots', 'flag');
+      }
+      else if (k === 'share') shareProgress();
       else if (k === 'tag') { e.preventDefault(); e.stopPropagation(); cycleTag(act.dataset.t); }
       else if (k === 'group') {
         const g = act.closest('.sb-group'); const id = act.dataset.g;

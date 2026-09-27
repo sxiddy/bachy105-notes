@@ -765,3 +765,45 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .lock-card p { margin: 3px 0 0; font-size: 14px; color: var(--text-dim); }
 .lock-card .arrow { transition: transform 0.3s var(--ease); }
 .lock-card:hover .arrow { transform: translateX(4px); }
+
+/* light mode (toggle in the top bar) */
+:root[data-mode="light"] {
+  color-scheme: light;
+  --bg: #f7f7f5; --bg-2: #efefec; --surface: #e8e8e4; --surface-2: #e0e0db; --surface-3: #d6d6d0;
+  --line: #dcdcd6; --line-2: #cbcbc4;
+  --text: #45454c; --text-2: #2c2c32; --text-dim: #6d6d75; --text-faint: #96969d; --white: #111114;
+  --hl-1: rgba(17, 17, 20, 0.12);
+}
+:root[data-mode="light"] .topbar { background: rgba(247, 247, 245, 0.85); }
+:root[data-mode="light"] .tabs-wrap { background: rgba(247, 247, 245, 0.92); }
+:root[data-mode="light"] .gate { background: radial-gradient(90% 60% at 20% 0%, #ffffff, var(--bg) 70%); }
+:root[data-mode="light"] .fface { background: var(--bg-2); }
+:root[data-mode="light"] .btn.primary, :root[data-mode="light"] .pill.on, :root[data-mode="light"] .fchip.on,
+:root[data-mode="light"] .vseg-btn.on, :root[data-mode="light"] .vbtn.on, :root[data-mode="light"] .vbtn.primary { color: #f7f7f5; }
+:root[data-mode="light"] .toast { color: #f7f7f5; }
+/* diagrams keep their dark palette so their colours stay correct */
+:root[data-mode="light"] .viz {
+  --bg: #151517; --bg-2: #1b1b1e; --surface: #202024; --surface-2: #27272c; --surface-3: #2e2e34;
+  --line: #2f2f35; --line-2: #3a3a41; --text: #b3b3bb; --text-2: #cfcfd6; --text-dim: #80808a; --text-faint: #5c5c66; --white: #f4f4f6;
+  color: var(--text);
+}
+:root[data-mode="light"] .viz .vbtn.on, :root[data-mode="light"] .viz .vseg-btn.on, :root[data-mode="light"] .viz .vbtn.primary { color: #151517; }
+
+/* "Confusing?" flag on each tab */
+.conf-btn { margin-left: 10px; height: 26px; font-size: 12px; padding: 0 9px; color: var(--text-dim); vertical-align: middle; }
+.conf-btn svg.i { width: 13px; height: 13px; }
+.conf-btn.on { color: var(--warn); border-color: rgba(233, 196, 106, 0.5); }
+
+/* bottom tab bar: phones only (narrow screen AND touch). Never on desktop, even in a small window. */
+.bnav { display: none; }
+@media (max-width: 640px) and (hover: none) and (pointer: coarse) {
+  .bnav { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); background: rgba(21, 21, 23, 0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
+  :root[data-mode="light"] .bnav { background: rgba(247, 247, 245, 0.95); }
+  .bnav a, .bnav button { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0; border: 0; background: transparent; color: var(--text-dim); font-size: 11px; text-decoration: none; border-radius: 10px; }
+  .bnav a.on, .bnav a:active, .bnav button:active { color: var(--white); background: var(--surface); }
+  .bnav svg.i { width: 20px; height: 20px; }
+  .view { padding-bottom: 150px; }
+  .toasts { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .conf-btn .lbl { display: none; }
+}
