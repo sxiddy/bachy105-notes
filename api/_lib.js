@@ -52,6 +52,19 @@ function readToken(req) {
   try { return JSON.parse(Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8')); } catch (e) { return null; }
 }
 
+// Who can see the paid modules: a paid token, the owner token, or a free-access token whose phone is still
+// on the owner's free list (so removing someone from the list locks them out straight away).
+const last10 = (s) => String(s || '').replace(/\D/g, '').slice(-10);
+async function hasAccess(req) {
+  const t = readToken(req);
+  if (!t) return null;
+  if (!String(t.p).startsWith('free:')) return t;
+  const store = require('./_store');
+  if (!store.configured()) return null;
+  const [on] = await store.pipeline([['HEXISTS', 'free', String(t.p).slice(5)]]);
+  return on ? t : null;
+}
+
 function accessCookie(paymentId, deviceId) {
   const secure = process.env.VERCEL ? '; Secure' : '';
   return `${COOKIE}=${makeToken(paymentId, deviceId)}; Path=/; Max-Age=${MAX_AGE}; HttpOnly; SameSite=Lax${secure}`;
@@ -116,4 +129,4 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, handle };
+module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, handle };

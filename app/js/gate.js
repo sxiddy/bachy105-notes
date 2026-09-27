@@ -62,9 +62,9 @@
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
           <p class="gate-muted gate-small">Google Pay, PhonePe, Paytm, BHIM or any UPI ID. After paying, access is saved in this browser. To open it on your other device (your phone or your PC), or after clearing cookies, use <b>the phone number you paid with</b>.</p>
           <details class="gate-restore">
-            <summary>Already paid? Restore access</summary>
+            <summary>Already paid, or given free access? Unlock here</summary>
             <form id="gate-form">
-              <label>Phone number you paid with<input id="gate-phone" inputmode="numeric" placeholder="10-digit number" autocomplete="tel" required></label>
+              <label>Phone number you paid with (or that was given free access)<input id="gate-phone" inputmode="numeric" placeholder="10-digit number" autocomplete="tel" required></label>
               <label>Payment ID <span class="gate-muted">(optional)</span><input id="gate-pid" placeholder="pay_XXXXXXXXXXXXXX" autocomplete="off"></label>
               <button class="btn" type="submit">Restore access</button>
             </form>

@@ -63,6 +63,7 @@
     const visitors = v30.reduce((a, x) => a + x[1], 0);
     const views = Object.entries(s.views || {}).sort((a, b) => b[1] - a[1]).slice(0, 15);
     $('#out').innerHTML = `
+      <div class="note"><div class="note-label">Your own access</div><p>Unlock every module on this device, free, with no device limit. Do it once on each phone or PC you use.</p><p style="margin-top:10px"><button class="btn primary" id="me">Unlock the full site on this device</button> <span class="msg" id="mm" style="display:inline-block;margin-left:10px"></span></p></div>
       ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. <b>Visitors, topic views, feedback and the 2-device limit</b> start working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
       <div class="kpis">
         <div><div class="v">${s.payments.count}</div><div class="l">paid users</div></div>
@@ -75,10 +76,31 @@
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Most opened topics</h2>${views.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Topic</th><th>Opens</th></tr></thead><tbody>${views.map(([t, n]) => `<tr><td>${esc(t)}</td><td>${n}</td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No data yet.</p>'}</section>` : ''}
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports <small>${(s.feedback || []).length}</small></h2>${(s.feedback || []).length ? s.feedback.map((f) => `<div class="fb"><small>${esc((f.at || '').replace('T', ' ').slice(0, 16))} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p></div>`).join('') : '<p class="muted">No reports yet.</p>'}</section>` : ''}
       <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>When (UTC)</th><th>Phone</th><th>Payment ID</th></tr></thead><tbody>${s.payments.recent.map((p) => `<tr><td>${esc(p.at.replace('T', ' ').slice(0, 16))}</td><td>${esc(p.phone)}</td><td><code>${esc(p.id)}</code></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No payments yet.</p>'}</section>
+      <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
+        <p class="muted">Add a phone number and that person gets everything free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same limit as payers: 1 phone + 1 laptop/PC. Remove them and access stops right away.</p>
+        <form class="row" id="gf"><input id="gp" inputmode="numeric" placeholder="10-digit phone" required><input id="gn" placeholder="Name (optional)" style="min-width:160px"><button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        ${(s.free || []).length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Phone</th><th>Name</th><th>Added (UTC)</th><th></th></tr></thead><tbody>${s.free.map((f) => `<tr><td><code>${esc(f.phone)}</code></td><td>${esc(f.name)}</td><td>${esc((f.at || '').replace('T', ' ').slice(0, 16))}</td><td><button class="btn ghost" data-revoke="${esc(f.phone)}">Remove</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">Nobody yet.</p>'}
+      </section>
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
         <p class="muted">Each payment works on 1 phone and 1 laptop/PC${s.storage ? `. Payments using both their phone and PC slots: <b>${s.fullDeviceSlots}</b>` : ' (active once storage is set up)'}. If a student gets a new phone, free their slots here.</p>
         <form class="row" id="rf"><input id="rp" inputmode="numeric" placeholder="Student's 10-digit phone" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
       </section>`;
+    $('#me').addEventListener('click', async () => {
+      $('#mm').textContent = 'Unlocking…';
+      try { await call('POST', { action: 'unlock-me' }); $('#mm').innerHTML = 'Done. <a href="./" style="color:inherit">Open the site →</a>'; }
+      catch (err) { $('#mm').textContent = err.message; }
+    });
+    $('#gf').addEventListener('submit', async (e) => {
+      e.preventDefault(); $('#gm').textContent = 'Saving…';
+      try { await call('POST', { action: 'grant', phone: $('#gp').value, name: $('#gn').value }); $('#gm').textContent = 'Added. Refreshing the list…'; load(); }
+      catch (err) { $('#gm').textContent = err.message; }
+    });
+    document.querySelectorAll('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
+      if (!confirm('Remove free access for ' + b.dataset.revoke + '?')) return;
+      b.disabled = true;
+      try { await call('POST', { action: 'revoke', phone: b.dataset.revoke }); load(); }
+      catch (err) { b.disabled = false; alert(err.message); }
+    }));
     $('#rf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#rm').textContent = 'Resetting…';
       try { const r = await call('POST', { action: 'reset-devices', phone: $('#rp').value }); $('#rm').textContent = `Done. ${r.reset} payment(s) reset; they can now unlock on new devices.`; }
