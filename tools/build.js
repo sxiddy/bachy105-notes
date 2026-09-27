@@ -27,9 +27,16 @@ const dims = {};
 for (const f of fs.readdirSync(PIMG).filter((f) => /^manifest-.*\.json$/.test(f))) Object.assign(dims, JSON.parse(fs.readFileSync(path.join(PIMG, f), 'utf8')));
 fs.writeFileSync(path.join(PDATA, 'figs.js'), `FIGDIMS(${JSON.stringify(dims)});\n`);
 
-// list of protected files the gate loads after payment (file names only, no content)
-const dataFiles = [...contentFiles, 'figs.js'];
-fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.DATA_FILES = ${JSON.stringify(dataFiles)};\n`);
+// paid diagram code (Modules 3 and 4) lives outside app/ and is served like the notes
+const paidViz = fs.readdirSync(path.join(ROOT, 'viz-paid')).filter((f) => /\.js$/.test(f)).sort();
+for (const f of paidViz) fs.copyFileSync(path.join(ROOT, 'viz-paid', f), path.join(PDATA, f));
+
+// file lists the gate loads (names only, no content). Module 2 is free; the rest needs payment.
+const FREE = ['chunk-A.js', 'chunk-B.js', 'chunk-C.js', 'q-M2.js', 'summary-m2.js'];
+const freeFiles = [...contentFiles.filter((f) => FREE.includes(f)), 'figs.js'];
+const paidFiles = [...paidViz, ...contentFiles.filter((f) => !FREE.includes(f))];
+const dataFiles = [...freeFiles, ...paidFiles];
+fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.FREE_FILES = ${JSON.stringify(freeFiles)};\nwindow.PAID_FILES = ${JSON.stringify(paidFiles)};\n`);
 
 const vizFiles = fs.readdirSync(path.join(APP, 'js', 'viz')).filter((f) => /\.js$/.test(f)).sort();
 const scripts = ['js/boot.js', 'js/viz-core.js', ...vizFiles.map((f) => 'js/viz/' + f), 'js/app.js', 'js/data-files.js', 'js/gate.js'];

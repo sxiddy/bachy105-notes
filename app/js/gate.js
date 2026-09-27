@@ -15,10 +15,14 @@
     return j;
   }
 
-  async function unlock() {
+  // Paid users get everything; everyone else gets Module 2 and sees Modules 3–4 as locked.
+  async function start(paid) {
     root.innerHTML = '<div class="gate"><div class="gate-card"><p class="gate-muted">Loading your notes…</p></div></div>';
     try {
-      for (const f of window.DATA_FILES || []) await loadScript('data/' + f);
+      const files = (window.FREE_FILES || []).concat(paid ? window.PAID_FILES || [] : []);
+      for (const f of files) await loadScript('data/' + f);
+      window.APP_LOCKED = !paid;
+      window.__showPaywall = paywall;
       root.innerHTML = '';
       window.__startApp();
     } catch (e) {
@@ -33,7 +37,7 @@
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
-          <p class="gate-lead">Modules 2, 3 and 4 as short tabbed notes, with every slide diagram, 34 interactive models, a scenario question bank, quiz, flashcards and module summaries.</p>
+          <p class="gate-lead">Module 2 is free. Unlock <b>Module 3 (Functional Materials)</b> and <b>Module 4 (Spectroscopy &amp; XRD)</b>: their notes, slide diagrams, 22 interactive models, questions, quiz, flashcards and summaries.</p>
           <div class="gate-price"><span class="gate-rs">₹${rs}</span><span class="gate-muted">one-time · pay with any UPI app</span></div>
           <button class="btn primary gate-pay" id="gate-pay">Pay ₹${rs} with UPI</button>
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
@@ -46,6 +50,7 @@
               <button class="btn" type="submit">Restore access</button>
             </form>
           </details>
+          <p style="margin-top:22px"><a class="btn ghost" href="./" id="gate-back">← Back to the free Module 2</a></p>
         </div>
       </div>`;
     const payBtn = document.getElementById('gate-pay'), out = document.getElementById('gate-msg');
@@ -67,7 +72,7 @@
           } },
           handler: async (resp) => {
             say('Payment received. Confirming…');
-            try { await api('/api/verify-payment', resp); say('Unlocked.'); unlock(); }
+            try { await api('/api/verify-payment', resp); say('Unlocked. Loading Modules 3 and 4…'); history.replaceState(null, '', location.pathname); location.reload(); }
             catch (e) { say(e.message + ' If money was taken, use "Restore access" with your payment ID: ' + resp.razorpay_payment_id); payBtn.disabled = false; }
           },
           modal: { ondismiss: () => { say('Payment cancelled.'); payBtn.disabled = false; } },
@@ -79,7 +84,7 @@
     document.getElementById('gate-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       say('Checking your payment…');
-      try { await api('/api/restore', { paymentId: document.getElementById('gate-pid').value.trim(), phone: document.getElementById('gate-phone').value }); say('Access restored.'); unlock(); }
+      try { await api('/api/restore', { paymentId: document.getElementById('gate-pid').value.trim(), phone: document.getElementById('gate-phone').value }); say('Access restored.'); history.replaceState(null, '', location.pathname); location.reload(); }
       catch (err) { say(err.message); }
     });
   }
@@ -88,7 +93,7 @@
     try {
       const s = await api('/api/session');
       price = s.price || price;
-      if (s.paid) unlock(); else paywall();
-    } catch (e) { paywall('Could not reach the server. ' + e.message); }
+      start(!!s.paid);
+    } catch (e) { start(false); }
   })();
 })();

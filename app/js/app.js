@@ -67,6 +67,7 @@ window.__startApp = function () {
     pause: '<path d="M8 5v14M16 5v14"/>',
     copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   };
   const icon = (n, cls) => `<svg class="i${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ''}</svg>`;
 
@@ -114,6 +115,8 @@ window.__startApp = function () {
     (ch.figures || []).forEach((f) => { FIGS[f.id] = f; });
   });
   const SUM = D.summaries || {};
+  // Free users only have Module 2 loaded; Modules 3–4 show as locked with an unlock button.
+  MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && m.id !== 'm2' && !m.topics.length; });
 
   // reading order: m2 topics, m2 summary, m3 topics, ...
   const ORDER = [];
@@ -220,6 +223,10 @@ window.__startApp = function () {
               <a class="sb-topic summary" href="#${m.id}-summary" data-key="${m.id}-summary">${icon('book')}<span class="lbl">Module summary</span></a>
             </div></div>
           </div>`).join('')}
+        ${MODULES.filter((m) => m.locked).map((m) => `
+          <div class="sb-group locked"><a class="sb-group-head" href="#unlock" title="Unlock for ₹50">
+            <span class="sb-num">${m.num}</span><span class="sb-gtitle">${esc(m.title)}</span><span class="sb-gcount">${icon('lock')}</span>
+          </a></div>`).join('')}
         <div class="sb-label">Practice</div>
         <div class="sb-group${S.ui.closed.qbank !== false ? ' closed' : ''}" data-group="qbank">
           <button class="sb-group-head" data-act="group" data-g="qbank" aria-expanded="${S.ui.closed.qbank === false}">
@@ -358,8 +365,11 @@ window.__startApp = function () {
   function parse(hash) {
     const raw = String(hash || '').replace(/^#/, '') || 'home';
     if (raw === 'home') return { view: 'home' };
+    if (raw === 'unlock') return { view: 'unlock' };
+    if (MOD[raw] && MOD[raw].locked) return { view: 'unlock' };
     if (MOD[raw]) return { view: 'module', mod: raw };
     let m = raw.match(/^(m[234])-summary$/);
+    if (m && MOD[m[1]] && MOD[m[1]].locked) return { view: 'unlock' };
     if (m && MOD[m[1]]) return { view: 'summary', mod: m[1] };
     m = raw.match(/^(questions|cards|quiz|formulas|lab|mine)(?:\.([a-z0-9-]+))?$/);
     if (m) return { view: m[1], arg: m[2] || null };
@@ -399,6 +409,10 @@ window.__startApp = function () {
   }
 
   function render(r) {
+    if (r.view === 'unlock') {
+      if (window.APP_LOCKED && window.__showPaywall) { window.__showPaywall(); return; }
+      r = { view: 'home' }; replaceHash('#home');
+    }
     const run = () => {
       clearMounted();
       if (current && current.cleanup) try { current.cleanup(); } catch (e) { /* ignore */ }
@@ -617,6 +631,12 @@ window.__startApp = function () {
           <div class="mod-head"><span class="mod-num">Module ${m.num}</span><h2 class="h-sec"><a href="#${m.id}" style="text-decoration:none">${esc(m.title)}</a></h2><span class="count">${doneIn(m.topics)}/${m.topics.length} done</span></div>
           <p class="mod-syl">${esc(m.syllabus)}</p>
           <div>${m.topics.map(topicRow).join('')}${summaryRow(m)}</div>
+        </section>`).join('')}
+      ${MODULES.filter((m) => m.locked).map((m) => `
+        <section class="mod-sec">
+          <div class="mod-head"><span class="mod-num">Module ${m.num}</span><h2 class="h-sec">${esc(m.title)}</h2><span class="count">${icon('lock')} locked</span></div>
+          <p class="mod-syl">${esc(m.syllabus)}</p>
+          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock Modules 3 and 4 for ₹50</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
         </section>`).join('')}
       <section class="mod-sec">
         <div class="mod-head"><h2 class="h-sec">Practice</h2></div>
