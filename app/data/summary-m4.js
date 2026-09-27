@@ -29,7 +29,7 @@ SUMMARY({
     { value: '8.33 × 10⁻⁵ M', what: 'Beer–Lambert example (A 0.70, ε 8400)' }, { value: '325 / 351 nm', what: 'Vitamin A₁ / A₂' },
     { value: '0.01–10 nm', what: 'X-ray wavelength' }, { value: '25–150 kV', what: 'X-ray tube voltage' },
     { value: '1.5406 Å, 8.04 keV', what: 'Cu Kα' }, { value: '0.94', what: 'Scherrer k (spherical, cubic)' },
-    { value: '3.22 nm', what: 'Scherrer example result' }, { value: '3.69 Å', what: 'Bragg example (λ 0.9 Å, θ 7°)' }
+    { value: '3.22 nm', what: 'Scherrer example with k = 0.9 (3.36 nm with 0.94)' }, { value: '3.69 Å', what: 'Bragg example (λ 0.9 Å, θ 7°)' }
   ],
   traps: [
     `<p>Use <b>θ = 2θ/2</b> in Bragg and Scherrer.</p>`,
