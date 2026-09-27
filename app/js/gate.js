@@ -77,7 +77,9 @@
     loadScript('https://accounts.google.com/gsi/client').then(() => {
       const g = window.google && window.google.accounts && window.google.accounts.id;
       if (!g) { say('Google sign-in could not load. Check your connection and reload.'); return; }
-      g.initialize({ client_id: S.googleClientId, hd: domain, ux_mode: 'redirect', login_uri: location.origin + '/api/login', auto_select: false });
+      // Pop-up sign-in (the full-page redirect flow in api/login.js is ready too; switch ux_mode to 'redirect' once Google
+      // has activated the /api/login redirect URI, which can take a few hours after it's added).
+      g.initialize({ client_id: S.googleClientId, hd: domain, ux_mode: 'popup', auto_select: false, callback: (r) => login({ credential: r.credential }) });
       g.renderButton(document.getElementById('gsi'), { theme: 'filled_black', size: 'large', shape: 'pill', text: 'signin_with', logo_alignment: 'left', width: 300 });
     }).catch(() => say('Google sign-in could not load. Check your connection (or an ad blocker) and reload.'));
   }
