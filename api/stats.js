@@ -104,13 +104,13 @@ module.exports = handle(async (req, res) => {
       return send(res, 200, { ok: true });
     }
     if (a === 'reset-devices') {
-      await store.pipeline([['DEL', ...deviceKeys(email)]]);
+      await store.pipeline([['DEL', ...deviceKeys(email), `devices:${email}:phone`, `devices:${email}:pc`]]);
       return send(res, 200, { ok: true });
     }
 
     // lookup
     const mine = (await paidPayments(20)).filter((p) => normEmail((p.notes || {}).email) === email);
-    const [paidRaw, freeRaw, limRaw, ...counts] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'free', email], ['HGET', 'limits', email], ...deviceKeys(email).map((k) => ['SCARD', k])]);
+    const [paidRaw, freeRaw, limRaw, ...counts] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'free', email], ['HGET', 'limits', email], ...deviceKeys(email).map((k) => ['ZCARD', k])]);
     const pd = paidRaw != null ? parseJSON(paidRaw, {}) : null;
     const fr = freeRaw != null ? parseJSON(freeRaw, {}) : null;
     const lim = parseLimits(limRaw);
@@ -160,13 +160,13 @@ module.exports = handle(async (req, res) => {
     banner = parseJSON(bn, null);
 
     // every student who has signed in (plus anyone paid or on the free list), newest activity first
-    const [uf, ul, us, un, pd, dk, uv] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'devices:*@*'], ['HGETALL', 'userVisits']]);
+    const [uf, ul, us, un, pd, dk, uv] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'dev*:*@*'], ['HGETALL', 'userVisits']]);
     const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd), visitsBy = store.pairs(uv);
     const freeBy = Object.fromEntries(free.map((f) => [f.email, f]));
     // students who signed in before this list existed only left a device record ("devices:<email>:<kind>")
-    const early = (dk || []).map((k) => k.slice(8, k.lastIndexOf(':'))).filter(isStudentEmail);
+    const early = (dk || []).map((k) => k.slice(k.indexOf(':') + 1, k.lastIndexOf(':'))).filter(isStudentEmail);
     const emails = [...new Set([...Object.keys(first), ...Object.keys(paidBy), ...Object.keys(freeBy), ...early])].slice(0, 2000);
-    const dc = emails.length ? await store.pipeline(emails.flatMap((e) => deviceKeys(e).map((k) => ['SCARD', k]))) : [];
+    const dc = emails.length ? await store.pipeline(emails.flatMap((e) => deviceKeys(e).map((k) => ['ZCARD', k]))) : [];
     students = emails.map((e, i) => {
       const p = paidBy[e] != null ? parseJSON(paidBy[e], {}) : null;
       return {

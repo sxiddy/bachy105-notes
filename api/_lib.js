@@ -85,6 +85,7 @@ async function hasAccess(req) {
   if (!u) return null;
   const store = require('./_store');
   if (!store.configured()) return null;
+  if (!(await deviceActive(u, req))) return null;
   const [paid, free] = await store.pipeline([['HGET', 'paid', u.e], ['HGET', 'free', u.e]]);
   if (paid != null) return { email: u.e, paid: true, modules: null };
   if (free == null) return null;
@@ -190,7 +191,7 @@ function deviceIdFrom(b) {
   return /^[a-f0-9]{32}$/.test(d) ? d : crypto.randomBytes(16).toString('hex');
 }
 const deviceKind = (req) => (/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test((req && req.headers['user-agent']) || '') ? 'phone' : 'pc');
-const deviceKeys = (email) => DEVICE_KINDS.map((k) => `devices:${email}:${k}`);
+const deviceKeys = (email) => DEVICE_KINDS.map((k) => `devz:${email}:${k}`); // sorted sets: device id -> last use
 const DEFAULT_LIMITS = { phone: 1, pc: 1 };
 function parseLimits(raw) {
   let x = {}; try { x = JSON.parse(raw || '{}') || {}; } catch (e) {}
@@ -201,18 +202,24 @@ const plural = (n, k) => `${n} ${n === 1 ? KIND_NAME[k] : k === 'pc' ? 'laptops/
 async function claimDevice(email, deviceId, req) {
   const store = require('./_store');
   if (!store.configured()) return { ok: true, enforced: false };
-  const kind = deviceKind(req), key = `devices:${email}:${kind}`;
-  const [isMember, count, raw] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key], ['HGET', 'limits', email]]);
-  if (isMember) return { ok: true, enforced: true, kind };
+  const kind = deviceKind(req), key = `devz:${email}:${kind}`;
+  // "Newest sign-in wins": signing in on another phone/PC (or another browser) never fails; once the limit is
+  // passed, the least recently used device of that kind is signed out. Scores are last-use times.
+  const [raw] = await store.pipeline([['HGET', 'limits', email]]);
   const lim = parseLimits(raw);
-  if (count >= lim[kind]) {
-    const why = lim[kind] === 0
-      ? `This account can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.`
-      : `This account has reached the device limit (${plural(lim[kind], kind)}). It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
-    return { ok: false, why };
-  }
-  await store.pipeline([['SADD', key, deviceId]]);
-  return { ok: true, enforced: true, kind };
+  if (lim[kind] === 0) return { ok: false, why: `This account can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.` };
+  const [, count] = await store.pipeline([['ZADD', key, Date.now(), deviceId], ['ZCARD', key]]);
+  if (count > lim[kind]) await store.pipeline([['ZREMRANGEBYRANK', key, 0, count - lim[kind] - 1]]);
+  return { ok: true, enforced: true, kind, replaced: count > lim[kind] };
+}
+// Is this signed-in browser still one of the account's active devices? (false = signed out by a newer sign-in)
+async function deviceActive(u, req) {
+  if (!u || !u.d) return true; // sign-ins from before device tracking, or not yet claimed
+  const store = require('./_store');
+  if (!store.configured()) return true;
+  const key = `devz:${u.e}:${deviceKind(req)}`;
+  const [score] = await store.pipeline([['ZSCORE', key, u.d]]);
+  return score != null;
 }
 
 function handle(fn) {
@@ -225,5 +232,5 @@ function handle(fn) {
 module.exports = {
   PRICE, DOMAIN, MAX_DEVICES, env, send, body, hmac, safeEqual,
   getUser, isOwner, hasAccess, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
-  razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle,
+  razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, deviceActive, parseLimits, handle,
 };

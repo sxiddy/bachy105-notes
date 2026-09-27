@@ -2,7 +2,7 @@
 //   user: the signed-in student's email (null = show the sign-in screen)
 //   modules: null = every paid module; otherwise the module ids a single-module grant unlocks
 // Also records when a signed-in student last used the site and counts their visits (one per page load), for the owner's student list on /stats.html.
-const { send, getUser, isOwner, hasAccess, settings, claimDevice, userCookie, clearUserCookie, DOMAIN, handle } = require('./_lib');
+const { send, getUser, isOwner, hasAccess, settings, claimDevice, deviceActive, userCookie, clearUserCookie, DOMAIN, handle } = require('./_lib');
 const store = require('./_store');
 
 module.exports = handle(async (req, res) => {
@@ -10,6 +10,11 @@ module.exports = handle(async (req, res) => {
   let u = getUser(req), headers, deviceError = null;
   // a sign-in that arrived without a device id claims its device slot here, with the id this browser keeps
   const d = new URL(req.url, 'http://x').searchParams.get('d') || '';
+  // signed out here because this account signed in on a newer phone/PC (newest sign-in wins)
+  if (u && u.d && process.env.DEV_BYPASS !== '1' && !(await deviceActive(u, req))) {
+    u = null; headers = { 'Set-Cookie': clearUserCookie() };
+    deviceError = 'You were signed out here because your account was signed in on another device. Sign in again to use it on this one.';
+  }
   if (u && !u.d && /^[a-f0-9]{32}$/.test(d) && process.env.DEV_BYPASS !== '1') {
     const claim = await claimDevice(u.e, d, req);
     if (claim.ok) headers = { 'Set-Cookie': userCookie(u.e, d) };
