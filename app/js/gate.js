@@ -142,6 +142,14 @@
       try {
         await loadScript('https://checkout.razorpay.com/v1/checkout.js');
         const o = await api('/api/create-order', {});
+        if (o.amount !== price) {
+          // the price changed while this page was open (usually an offer ended): show the new price before charging it
+          const was = price;
+          try { S = await api('/api/session'); } catch (e) { /* keep what we have */ }
+          price = o.amount; window.PRICE_RS = Math.round(price / 100);
+          paywall(price > was ? `The offer has ended. The price is now ₹${window.PRICE_RS}. Tap Pay to continue.` : `The price is now ₹${window.PRICE_RS}. Tap Pay to continue.`);
+          return;
+        }
         const rzp = new window.Razorpay({
           key: o.keyId, order_id: o.orderId, amount: o.amount, currency: o.currency,
           name: 'BACHY105 Notes', description: 'Full access to the notes',
