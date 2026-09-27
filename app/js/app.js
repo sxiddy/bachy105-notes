@@ -260,6 +260,7 @@ window.__startApp = function () {
         <button data-act="keys">${icon('keys')}Shortcuts</button>
         <button data-act="backup">${icon('db')}Backup</button>
         <button data-act="theme" data-label>${themeLabel()}</button>
+        ${window.SIGNED_IN_AS ? `<button data-act="signout" title="Signed in as ${esc(window.SIGNED_IN_AS)}">${icon('x')}Sign out</button>` : ''}
       </div>`;
     sidebar.innerHTML = '';
     sidebar.appendChild(inner);
@@ -1590,6 +1591,7 @@ window.__startApp = function () {
         trackConfusing(tid, ti, on);
       }
       else if (k === 'share') shareProgress();
+      else if (k === 'signout') { if (confirm('Sign out of ' + (window.SIGNED_IN_AS || 'your account') + ' on this device?') && window.__signOut) window.__signOut(); }
       else if (k === 'report') openReport(act.dataset.t, +act.dataset.i);
       else if (k === 'tag') { e.preventDefault(); e.stopPropagation(); cycleTag(act.dataset.t); }
       else if (k === 'group') {

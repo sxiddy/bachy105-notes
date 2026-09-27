@@ -1,8 +1,10 @@
-// Shared helpers for the payment + content functions (files starting with _ are not deployed as endpoints).
+// Shared helpers for the sign-in, payment and content functions (files starting with _ are not deployed as endpoints).
 const crypto = require('crypto');
 
 const PRICE = parseInt(process.env.PRICE_PAISE || '5000', 10); // ₹50 default; the owner can change it on /stats.html
-const COOKIE = 'bn_access';
+const DOMAIN = (process.env.STUDENT_DOMAIN || 'vitstudent.ac.in').toLowerCase(); // only these Google accounts get in
+const USER_COOKIE = 'bn_user';   // signed-in student: { e: email, d: device id }
+const OWNER_COOKIE = 'bn_access'; // owner unlock from /stats.html: { p: 'owner' }
 const MAX_AGE = 400 * 24 * 3600; // browsers cap cookies at 400 days
 
 function env(name) {
@@ -28,6 +30,7 @@ async function body(req) {
 }
 
 const b64u = (buf) => Buffer.from(buf).toString('base64').replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+const unb64u = (s) => Buffer.from(String(s).replace(/-/g, '+').replace(/_/g, '/'), 'base64');
 const hmac = (key, msg) => crypto.createHmac('sha256', key).update(msg).digest();
 
 function safeEqual(a, b) {
@@ -35,44 +38,90 @@ function safeEqual(a, b) {
   return x.length === y.length && crypto.timingSafeEqual(x, y);
 }
 
-function makeToken(paymentId, deviceId) {
-  const payload = b64u(JSON.stringify({ p: paymentId, d: deviceId || null, t: Math.floor(Date.now() / 1000) }));
+// ---------------------------------------------------------------- signed cookies
+function sign(obj) {
+  const payload = b64u(JSON.stringify({ ...obj, t: Math.floor(Date.now() / 1000) }));
   return payload + '.' + b64u(hmac(env('SESSION_SECRET'), payload));
 }
-
-function readToken(req) {
-  if (process.env.DEV_BYPASS === '1') return { p: 'dev' };
-  const raw = (req.headers.cookie || '').split(/;\s*/).find((c) => c.startsWith(COOKIE + '='));
+function readSigned(req, name) {
+  const raw = (req.headers.cookie || '').split(/;\s*/).find((c) => c.startsWith(name + '='));
   if (!raw) return null;
-  const [payload, sig] = raw.slice(COOKIE.length + 1).split('.');
+  const [payload, sig] = raw.slice(name.length + 1).split('.');
   if (!payload || !sig) return null;
   let secret;
   try { secret = env('SESSION_SECRET'); } catch (e) { return null; }
   if (!safeEqual(sig, b64u(hmac(secret, payload)))) return null;
-  try { return JSON.parse(Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8')); } catch (e) { return null; }
+  try { return JSON.parse(unb64u(payload).toString('utf8')); } catch (e) { return null; }
+}
+function cookie(name, value, maxAge) {
+  const secure = process.env.VERCEL ? '; Secure' : '';
+  return `${name}=${value}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${secure}`;
+}
+const userCookie = (email, deviceId) => cookie(USER_COOKIE, sign({ e: email, d: deviceId }), MAX_AGE);
+const ownerCookie = () => cookie(OWNER_COOKIE, sign({ p: 'owner' }), MAX_AGE);
+const clearUserCookie = () => cookie(USER_COOKIE, '', 0);
+
+const normEmail = (s) => String(s || '').trim().toLowerCase();
+const isStudentEmail = (e) => new RegExp('^[a-z0-9._%+-]+@' + DOMAIN.replace(/\./g, '\\.') + '$').test(normEmail(e));
+
+// The signed-in student (or the owner, or everyone in local dev).
+function getUser(req) {
+  if (process.env.DEV_BYPASS === '1') return { e: 'dev@' + DOMAIN };
+  const u = readSigned(req, USER_COOKIE);
+  return u && isStudentEmail(u.e) ? u : null;
+}
+function isOwner(req) {
+  if (process.env.DEV_BYPASS === '1') return true;
+  const t = readSigned(req, OWNER_COOKIE);
+  return !!(t && t.p === 'owner');
 }
 
-// Who can see the paid modules: a paid token, the owner token, or a free-access token whose phone is still
-// on the owner's free list (so removing someone from the list locks them out straight away). A free grant can
-// be limited to some modules; then t.modules lists them (null = everything).
-const last10 = (s) => String(s || '').replace(/\D/g, '').slice(-10);
+// Who can see the paid modules: the owner, a student whose email paid (hash "paid"), or one on the owner's free
+// list (hash "free"; removing them locks them out straight away). A free grant can be limited to some modules;
+// then .modules lists them (null = everything).
 async function hasAccess(req) {
-  const t = readToken(req);
-  if (!t) return null;
-  if (!String(t.p).startsWith('free:')) return Object.assign(t, { modules: null });
+  if (isOwner(req)) return { owner: true, modules: null };
+  const u = getUser(req);
+  if (!u) return null;
   const store = require('./_store');
   if (!store.configured()) return null;
-  const [raw] = await store.pipeline([['HGET', 'free', String(t.p).slice(5)]]);
-  if (raw == null) return null;
-  let x = {}; try { x = JSON.parse(raw) || {}; } catch (e) {}
-  return Object.assign(t, { modules: Array.isArray(x.modules) && x.modules.length ? x.modules : null });
+  const [paid, free] = await store.pipeline([['HGET', 'paid', u.e], ['HGET', 'free', u.e]]);
+  if (paid != null) return { email: u.e, paid: true, modules: null };
+  if (free == null) return null;
+  let x = {}; try { x = JSON.parse(free) || {}; } catch (e) {}
+  return { email: u.e, free: true, modules: Array.isArray(x.modules) && x.modules.length ? x.modules : null };
 }
 
-function accessCookie(paymentId, deviceId) {
-  const secure = process.env.VERCEL ? '; Secure' : '';
-  return `${COOKIE}=${makeToken(paymentId, deviceId)}; Path=/; Max-Age=${MAX_AGE}; HttpOnly; SameSite=Lax${secure}`;
+// ---------------------------------------------------------------- Google sign-in
+// Verifies a "Sign in with Google" ID token (RS256 JWT) against Google's published keys.
+let JWKS = null, JWKS_AT = 0;
+async function googleKeys() {
+  if (JWKS && Date.now() - JWKS_AT < 3600e3) return JWKS;
+  const r = await fetch('https://www.googleapis.com/oauth2/v3/certs');
+  if (!r.ok) throw Object.assign(new Error('Could not reach Google to check the sign-in. Try again.'), { status: 502 });
+  JWKS = (await r.json()).keys || []; JWKS_AT = Date.now();
+  return JWKS;
+}
+async function verifyGoogle(token) {
+  const bad = (m) => Object.assign(new Error(m || 'Google sign-in could not be verified. Try again.'), { status: 401 });
+  const parts = String(token || '').split('.');
+  if (parts.length !== 3) throw bad();
+  let hdr, c;
+  try { hdr = JSON.parse(unb64u(parts[0])); c = JSON.parse(unb64u(parts[1])); } catch (e) { throw bad(); }
+  if (hdr.alg !== 'RS256') throw bad();
+  let jwk = (await googleKeys()).find((k) => k.kid === hdr.kid);
+  if (!jwk) { JWKS = null; jwk = (await googleKeys()).find((k) => k.kid === hdr.kid); } // keys rotate
+  if (!jwk) throw bad();
+  const ok = crypto.verify('RSA-SHA256', Buffer.from(parts[0] + '.' + parts[1]), crypto.createPublicKey({ key: jwk, format: 'jwk' }), unb64u(parts[2]));
+  if (!ok) throw bad();
+  if (!['accounts.google.com', 'https://accounts.google.com'].includes(c.iss)) throw bad();
+  if (c.aud !== env('GOOGLE_CLIENT_ID')) throw bad();
+  if (!(c.exp * 1000 > Date.now())) throw bad('That sign-in expired. Please sign in again.');
+  if (!c.email_verified) throw bad('Your Google email is not verified.');
+  return { email: normEmail(c.email), hd: c.hd ? String(c.hd).toLowerCase() : null, name: c.name || '' };
 }
 
+// ---------------------------------------------------------------- Razorpay
 async function razorpay(method, path, data) {
   const auth = Buffer.from(env('RAZORPAY_KEY_ID') + ':' + env('RAZORPAY_KEY_SECRET')).toString('base64');
   const r = await fetch('https://api.razorpay.com/v1' + path, {
@@ -85,7 +134,8 @@ async function razorpay(method, path, data) {
   return j;
 }
 
-// Confirms a payment is real, UPI, the right amount, and captured. Captures it if only authorized.
+// Confirms a payment is real, UPI, on one of our orders, and captured. Captures it if only authorized.
+// Returns the order too, whose notes carry the student's email (set server-side in create-order).
 async function checkPayment(paymentId, orderId) {
   if (!/^pay_[A-Za-z0-9]+$/.test(paymentId || '')) return { ok: false, why: 'That does not look like a Razorpay payment ID (it starts with pay_).' };
   let p = await razorpay('GET', '/payments/' + paymentId);
@@ -94,19 +144,23 @@ async function checkPayment(paymentId, orderId) {
   // orders are only ever created server-side at the current price, so any INR amount on one of our orders is valid
   // (older payments at an earlier price keep working after the owner changes it)
   if (p.currency !== 'INR' || !(p.amount >= 100)) return { ok: false, why: 'Payment amount does not match.' };
-  if ((p.notes || {}).product !== 'bachy105-notes') {
-    // payments made through our checkout carry the order's notes; fall back to the order
-    if (p.order_id) { const o = await razorpay('GET', '/orders/' + p.order_id); if ((o.notes || {}).product !== 'bachy105-notes') return { ok: false, why: 'Payment was not for these notes.' }; }
-    else return { ok: false, why: 'Payment was not for these notes.' };
-  }
+  const order = p.order_id ? await razorpay('GET', '/orders/' + p.order_id) : null;
+  if (!order || (order.notes || {}).product !== 'bachy105-notes') return { ok: false, why: 'Payment was not for these notes.' };
   if (p.status === 'authorized') p = await razorpay('POST', `/payments/${paymentId}/capture`, { amount: p.amount, currency: 'INR' });
   if (p.status !== 'captured') return { ok: false, why: `Payment is ${p.status}, not completed.` };
-  return { ok: true, payment: p };
+  return { ok: true, payment: p, order, email: normEmail((order.notes || {}).email) };
 }
 
 // A completed payment for these notes, as seen in Razorpay's payment list (any price the owner has used).
 const isOurs = (p) => p.status === 'captured' && p.method === 'upi' && p.currency === 'INR'
   && ((p.notes || {}).product === 'bachy105-notes' || p.amount === PRICE);
+
+// Records a verified payment against the student's email, so every device they sign in on has access.
+async function recordPaid(email, p) {
+  const store = require('./_store');
+  if (!store.configured()) throw Object.assign(new Error('Storage is not set up, so access cannot be saved.'), { status: 500 });
+  await store.pipeline([['HSET', 'paid', email, JSON.stringify({ id: p.id, at: new Date(p.created_at * 1000).toISOString(), amount: p.amount })]]);
+}
 
 // Owner settings kept in the store (hash "config"): price in paise and the announcement banner.
 async function settings() {
@@ -119,10 +173,10 @@ async function settings() {
   return out;
 }
 
-// Each payment unlocks one phone (or tablet) and one laptop/PC, unless the owner set a custom limit for that
-// phone number on /stats.html (hash "limits": phone -> {"phone":n,"pc":n}). The kind comes from the browser's
-// user agent; the browser keeps a random device id in localStorage, so clearing cookies reuses its slot.
-// Needs the store; without one the limit is not enforced.
+// ---------------------------------------------------------------- devices
+// Each student account signs in on one phone (or tablet) and one laptop/PC, unless the owner set a custom limit for
+// that email on /stats.html (hash "limits": email -> {"phone":n,"pc":n}). The kind comes from the browser's user agent;
+// the browser keeps a random device id in localStorage, so signing in again on the same device reuses its slot.
 const DEVICE_KINDS = ['phone', 'pc'];
 const MAX_DEVICES = DEVICE_KINDS.length;
 const KIND_NAME = { phone: 'phone', pc: 'laptop/PC' };
@@ -131,7 +185,7 @@ function deviceIdFrom(b) {
   return /^[a-f0-9]{32}$/.test(d) ? d : crypto.randomBytes(16).toString('hex');
 }
 const deviceKind = (req) => (/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test((req && req.headers['user-agent']) || '') ? 'phone' : 'pc');
-const deviceKeys = (paymentId) => DEVICE_KINDS.map((k) => `devices:${paymentId}:${k}`);
+const deviceKeys = (email) => DEVICE_KINDS.map((k) => `devices:${email}:${k}`);
 const DEFAULT_LIMITS = { phone: 1, pc: 1 };
 function parseLimits(raw) {
   let x = {}; try { x = JSON.parse(raw || '{}') || {}; } catch (e) {}
@@ -139,17 +193,17 @@ function parseLimits(raw) {
   return { phone: n(x.phone, DEFAULT_LIMITS.phone), pc: n(x.pc, DEFAULT_LIMITS.pc) };
 }
 const plural = (n, k) => `${n} ${n === 1 ? KIND_NAME[k] : k === 'pc' ? 'laptops/PCs' : 'phones'}`;
-async function claimDevice(paymentId, deviceId, req, phone) {
+async function claimDevice(email, deviceId, req) {
   const store = require('./_store');
   if (!store.configured()) return { ok: true, enforced: false };
-  const kind = deviceKind(req), key = `devices:${paymentId}:${kind}`;
-  const [isMember, count, raw] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key], ['HGET', 'limits', last10(phone)]]);
+  const kind = deviceKind(req), key = `devices:${email}:${kind}`;
+  const [isMember, count, raw] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key], ['HGET', 'limits', email]]);
   if (isMember) return { ok: true, enforced: true, kind };
   const lim = parseLimits(raw);
   if (count >= lim[kind]) {
     const why = lim[kind] === 0
-      ? `This number can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.`
-      : `This number has reached the device limit (${plural(lim[kind], kind)}). It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
+      ? `This account can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.`
+      : `This account has reached the device limit (${plural(lim[kind], kind)}). It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
     return { ok: false, why };
   }
   await store.pipeline([['SADD', key, deviceId]]);
@@ -163,4 +217,8 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, isOurs, settings, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle };
+module.exports = {
+  PRICE, DOMAIN, MAX_DEVICES, env, send, body, hmac, safeEqual,
+  getUser, isOwner, hasAccess, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
+  razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle,
+};

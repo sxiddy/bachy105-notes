@@ -2,16 +2,16 @@
 //   GET  /api/stats -> payments, visits, topic views, funnel, quiz + "Confusing?" insights, feedback, lists, settings
 //   POST /api/stats { action, ... }:
 //     unlock-me                          owner access cookie on this browser (no device limit)
-//     lookup { phone }                   everything about one number: payments, free access, limits, devices
-//     grant { phone, name?, modules? }   free access (modules: ['m3'] for one module, empty/absent = all)
-//     revoke { phone }                   remove free access
-//     set-limits { phone, phones, pcs }  custom device limits;  clear-limits { phone }  back to 1 + 1
-//     reset-devices { phone }            free the device slots of that number's payments / free access
+//     lookup { email }                   everything about one student: payments, free access, limits, devices
+//     grant { email, name?, modules? }   free access (modules: ['m3'] for one module, empty/absent = all)
+//     revoke { email }                   remove free access
+//     set-limits { email, phones, pcs }  custom device limits;  clear-limits { email }  back to 1 + 1
+//     reset-devices { email }            free that student's device slots
 //     set-price { rupees }               price for new payments
 //     set-banner { text, on }            announcement shown at the top of the site
 //     feedback-status { id, status }     mark a mistake report open / fixed / ignored
 const crypto = require('crypto');
-const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, last10, accessCookie, parseLimits, handle } = require('./_lib');
+const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, handle } = require('./_lib');
 const store = require('./_store');
 const { paidModules = [] } = require('./_access.json');
 
@@ -37,7 +37,7 @@ module.exports = handle(async (req, res) => {
   if (req.method === 'POST') {
     const b = await body(req);
     const a = b.action;
-    if (a === 'unlock-me') return send(res, 200, { ok: true }, { 'Set-Cookie': accessCookie('owner', null) });
+    if (a === 'unlock-me') return send(res, 200, { ok: true }, { 'Set-Cookie': ownerCookie() });
     if (!store.configured()) return send(res, 400, { error: 'Storage is not set up yet (Vercel → Storage → Upstash).' });
 
     if (a === 'set-price') {
@@ -62,54 +62,51 @@ module.exports = handle(async (req, res) => {
     }
 
     if (!['lookup', 'reset-devices', 'grant', 'revoke', 'set-limits', 'clear-limits'].includes(a)) return send(res, 400, { error: 'Unknown action.' });
-    const phone = last10(b.phone);
-    if (phone.length < 10) return send(res, 400, { error: 'Enter a 10-digit phone number.' });
+    const email = normEmail(b.email);
+    if (!isStudentEmail(email)) return send(res, 400, { error: `Enter a VIT student email (…@${DOMAIN}).` });
 
     if (a === 'grant') {
       const ids = paidModules.map((m) => m.id);
       const mods = Array.isArray(b.modules) ? b.modules.filter((m) => ids.includes(m)) : [];
       const item = { name: String(b.name || '').trim().slice(0, 60), at: new Date().toISOString(), modules: mods.length && mods.length < ids.length ? mods : null };
-      await store.pipeline([['HSET', 'free', phone, JSON.stringify(item)]]);
+      await store.pipeline([['HSET', 'free', email, JSON.stringify(item)]]);
       return send(res, 200, { ok: true });
     }
     if (a === 'revoke') {
-      await store.pipeline([['HDEL', 'free', phone], ['DEL', ...deviceKeys('free:' + phone)]]);
+      await store.pipeline([['HDEL', 'free', email]]);
       return send(res, 200, { ok: true });
     }
     if (a === 'set-limits') {
       const n = (v) => parseInt(v, 10);
       const lim = { phone: n(b.phones), pc: n(b.pcs) };
       if (![lim.phone, lim.pc].every((x) => Number.isInteger(x) && x >= 0 && x <= 20)) return send(res, 400, { error: 'Use whole numbers from 0 to 20.' });
-      await store.pipeline([['HSET', 'limits', phone, JSON.stringify(lim)]]);
+      await store.pipeline([['HSET', 'limits', email, JSON.stringify(lim)]]);
       return send(res, 200, { ok: true });
     }
     if (a === 'clear-limits') {
-      await store.pipeline([['HDEL', 'limits', phone]]);
+      await store.pipeline([['HDEL', 'limits', email]]);
+      return send(res, 200, { ok: true });
+    }
+    if (a === 'reset-devices') {
+      await store.pipeline([['DEL', ...deviceKeys(email)]]);
       return send(res, 200, { ok: true });
     }
 
-    const mine = (await paidPayments(20)).filter((p) => last10(p.contact) === phone);
-    const [freeRaw, limRaw] = await store.pipeline([['HGET', 'free', phone], ['HGET', 'limits', phone]]);
-    const ids = mine.map((p) => p.id).concat(freeRaw != null ? ['free:' + phone] : []);
-
-    if (a === 'reset-devices') {
-      if (!ids.length) return send(res, 404, { error: 'No payment or free access found for that number.' });
-      await store.pipeline(ids.map((id) => ['DEL', ...deviceKeys(id)]));
-      return send(res, 200, { ok: true, reset: ids.length });
-    }
-
     // lookup
-    const counts = ids.length ? await store.pipeline(ids.flatMap((id) => deviceKeys(id).map((k) => ['SCARD', k]))) : [];
-    const used = { phone: 0, pc: 0 };
-    ids.forEach((_, i) => { used.phone += counts[i * MAX_DEVICES] || 0; used.pc += counts[i * MAX_DEVICES + 1] || 0; });
+    const mine = (await paidPayments(20)).filter((p) => normEmail((p.notes || {}).email) === email);
+    const [paidRaw, freeRaw, limRaw, ...counts] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'free', email], ['HGET', 'limits', email], ...deviceKeys(email).map((k) => ['SCARD', k])]);
+    const pd = paidRaw != null ? parseJSON(paidRaw, {}) : null;
     const fr = freeRaw != null ? parseJSON(freeRaw, {}) : null;
     const lim = parseLimits(limRaw);
+    const payments = mine.map((p) => ({ id: p.id, at: iso(p.created_at), amount: p.amount / 100 }));
+    if (pd && pd.id && !payments.some((p) => p.id === pd.id)) payments.push({ id: pd.id, at: pd.at, amount: (pd.amount || 0) / 100 }); // e.g. an older payment claimed by ID
     return send(res, 200, {
-      phone,
-      payments: mine.map((p) => ({ id: p.id, at: iso(p.created_at), amount: p.amount / 100 })),
+      email,
+      paid: !!pd,
+      payments,
       free: fr ? { name: fr.name || '', at: fr.at || '', modules: fr.modules || null } : null,
       limits: { phones: lim.phone, pcs: lim.pc, custom: limRaw != null },
-      devices: { phones: used.phone, pcs: used.pc },
+      devices: { phones: counts[0] || 0, pcs: counts[1] || 0 },
     });
   }
 
@@ -124,8 +121,8 @@ module.exports = handle(async (req, res) => {
       ['HGETALL', 'feedbackStatus'], ['HGET', 'config', 'banner'],
     ]);
     visits = store.pairs(v); views = store.pairs(w);
-    for (let i = 0; lm && i < lm.length; i += 2) { const l = parseLimits(lm[i + 1]); limits.push({ number: lm[i], phones: l.phone, pcs: l.pc }); }
-    for (let i = 0; fr && i < fr.length; i += 2) { const x = parseJSON(fr[i + 1], {}) || {}; free.push({ phone: fr[i], name: x.name || '', at: x.at || '', modules: x.modules || null }); }
+    for (let i = 0; lm && i < lm.length; i += 2) { const l = parseLimits(lm[i + 1]); limits.push({ email: lm[i], phones: l.phone, pcs: l.pc }); }
+    for (let i = 0; fr && i < fr.length; i += 2) { const x = parseJSON(fr[i + 1], {}) || {}; free.push({ email: fr[i], name: x.name || '', at: x.at || '', modules: x.modules || null }); }
     free.sort((a, b) => (b.at > a.at ? 1 : -1));
     const status = store.pairs(fs);
     feedback = (f || []).map((x) => { const it = parseJSON(x, { text: String(x) }) || {}; const id = feedbackId(it); return { ...it, id, status: status[id] || 'open' }; });
@@ -157,7 +154,7 @@ module.exports = handle(async (req, res) => {
       revenue: pays.reduce((a, p) => a + p.amount, 0) / 100,
       fees: pays.reduce((a, p) => a + (p.fee || 0), 0) / 100,
       byDay,
-      recent: pays.slice(0, 15).map((p) => ({ at: iso(p.created_at), phone: '••••••' + last10(p.contact).slice(-4), id: p.id, amount: p.amount / 100 })),
+      recent: pays.slice(0, 15).map((p) => ({ at: iso(p.created_at), email: normEmail((p.notes || {}).email) || '(before sign-in)', id: p.id, amount: p.amount / 100 })),
     },
     visits, views, feedback, free, limits, quiz, confusing, funnel,
   });

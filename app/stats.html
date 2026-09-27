@@ -99,7 +99,7 @@
   function lookupHTML(s, r) {
     const d = r.devices, l = r.limits;
     return `<div class="look">
-      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${when(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this number</span>'}</div></div>
+      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${when(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
       <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${when(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
       <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit</span>' : '<span class="muted">(default)</span>'}</div></div>
       <div class="look-act">
@@ -122,7 +122,7 @@
       ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. Everything else starts working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
 
       <section class="sum-sec" style="margin-top:28px"><h2 class="h-sec">Look up a student</h2>
-        <form class="row" id="kf"><input id="kp" inputmode="numeric" placeholder="10-digit phone" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
+        <form class="row" id="kf"><input id="kp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
         <div id="kout"></div>
       </section>
 
@@ -166,26 +166,26 @@
 
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports</h2><div id="fbl">${feedbackHTML(s)}</div></section>` : ''}
 
-      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (UTC)', 'Phone', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.phone)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
+      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (UTC)', 'Student', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.email)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
 
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
-        <p class="muted">Add a phone number and that person gets the ticked modules free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
-        <form class="row" id="gf"><input id="gp" inputmode="numeric" placeholder="10-digit phone" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
-        ${(s.free || []).length ? tbl(['Phone', 'Name', 'Access', 'Added (UTC)', ''], s.free.map((f) => `<tr><td><code>${esc(f.phone)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.phone)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
+        <p class="muted">Add a VIT student email and that student gets the ticked modules free. Nothing for them to do: it unlocks as soon as they sign in with that account. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
+        <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (UTC)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>
-        <p class="muted">Everyone gets <b>1 phone + 1 laptop/PC</b> by default. Set a different number for a specific phone number here. It works for payers and free-access people alike. 0 means that kind of device is blocked.</p>
-        <form class="row" id="lf"><input id="lp" inputmode="numeric" placeholder="10-digit phone" required>
+        <p class="muted">Everyone gets <b>1 phone + 1 laptop/PC</b> by default. Set a different number for a specific student here. It works for payers and free-access people alike. 0 means that kind of device is blocked.</p>
+        <form class="row" id="lf"><input id="lp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required>
           <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
           <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
           <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
-        ${(s.limits || []).length ? tbl(['Phone', 'Phones', 'Laptops/PCs', ''], s.limits.map((l) => `<tr><td><code>${esc(l.number)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.number)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.number)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
+        ${(s.limits || []).length ? tbl(['Student email', 'Phones', 'Laptops/PCs', ''], s.limits.map((l) => `<tr><td><code>${esc(l.email)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.email)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.email)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
-        <p class="muted">If someone gets a new phone or PC, clear their devices here so they can unlock the new one. Works for payers and free-access numbers.</p>
-        <form class="row" id="rf"><input id="rp" inputmode="numeric" placeholder="Student's 10-digit phone" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
+        <p class="muted">If someone gets a new phone or PC, clear their devices here so they can unlock the new one. Works for payers and free-access students alike.</p>
+        <form class="row" id="rf"><input id="rp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
       </section>`;
 
     const post = (data) => call('POST', data);
@@ -197,10 +197,10 @@
 
     // look up a student
     let looked = '';
-    const lookup = async (phone) => {
+    const lookup = async (email) => {
       $('#km').textContent = 'Looking up…'; $('#kout').innerHTML = '';
       try {
-        const r = await post({ action: 'lookup', phone }); looked = r.phone;
+        const r = await post({ action: 'lookup', email }); looked = r.email;
         $('#km').textContent = ''; $('#kout').innerHTML = lookupHTML(s, r);
         $$('[data-look]', $('#kout')).forEach((b) => b.addEventListener('click', async () => {
           const k = b.dataset.look;
@@ -209,7 +209,7 @@
           if (k === 'revoke' && !confirm('Remove free access for ' + looked + '?')) return;
           if (k === 'reset' && !confirm('Clear all devices for ' + looked + '? They will need to unlock again.')) return;
           b.disabled = true;
-          try { await post({ action: k === 'reset' ? 'reset-devices' : 'revoke', phone: looked }); lookup(looked); }
+          try { await post({ action: k === 'reset' ? 'reset-devices' : 'revoke', email: looked }); lookup(looked); }
           catch (err) { b.disabled = false; $('#km').textContent = err.message; }
         }));
       } catch (err) { $('#km').textContent = err.message; }
@@ -245,20 +245,20 @@
       const mods = $$('.gmod').filter((c) => c.checked).map((c) => c.value);
       if (!mods.length) { $('#gm').textContent = 'Tick at least one module.'; return; }
       $('#gm').textContent = 'Saving…';
-      try { await post({ action: 'grant', phone: $('#gp').value, name: $('#gn').value, modules: mods }); $('#gm').textContent = 'Added. Next step: on the device to unlock, open the site, tap "Unlock here" and enter this number.'; setTimeout(load, 2500); }
+      try { await post({ action: 'grant', email: $('#gp').value, name: $('#gn').value, modules: mods }); $('#gm').textContent = 'Added. It unlocks as soon as they sign in with that account.'; setTimeout(load, 2500); }
       catch (err) { $('#gm').textContent = err.message; }
     });
     $$('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
       if (!confirm('Remove free access for ' + b.dataset.revoke + '?')) return;
       b.disabled = true;
-      try { await post({ action: 'revoke', phone: b.dataset.revoke }); load(); }
+      try { await post({ action: 'revoke', email: b.dataset.revoke }); load(); }
       catch (err) { b.disabled = false; alert(err.message); }
     }));
 
     // device limits
     $('#lf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#lmm').textContent = 'Saving…';
-      try { await post({ action: 'set-limits', phone: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
+      try { await post({ action: 'set-limits', email: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
       catch (err) { $('#lmm').textContent = err.message; }
     });
     $$('[data-edit-lim]').forEach((b) => b.addEventListener('click', () => {
@@ -268,13 +268,13 @@
     $$('[data-clear-lim]').forEach((b) => b.addEventListener('click', async () => {
       if (!confirm('Set ' + b.dataset.clearLim + ' back to 1 phone + 1 laptop/PC?')) return;
       b.disabled = true;
-      try { await post({ action: 'clear-limits', phone: b.dataset.clearLim }); load(); }
+      try { await post({ action: 'clear-limits', email: b.dataset.clearLim }); load(); }
       catch (err) { b.disabled = false; alert(err.message); }
     }));
 
     $('#rf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#rm').textContent = 'Resetting…';
-      try { const r = await post({ action: 'reset-devices', phone: $('#rp').value }); $('#rm').textContent = `Done. ${r.reset} payment(s) / free access reset; they can now unlock on new devices.`; }
+      try { await post({ action: 'reset-devices', email: $('#rp').value }); $('#rm').textContent = 'Done. They can now sign in on new devices.'; }
       catch (err) { $('#rm').textContent = err.message; }
     });
   }

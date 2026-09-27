@@ -1,17 +1,17 @@
-// POST /api/restore { phone, paymentId? } -> re-issues access on a new browser/device
-// Numbers on the owner's free list (set on /stats.html) unlock without a payment.
-// With only a phone number, looks through recent Razorpay payments for a completed ₹50 UPI payment from it.
-const { send, body, checkPayment, accessCookie, razorpay, isOurs, last10, deviceIdFrom, claimDevice, handle } = require('./_lib');
+// POST /api/restore { paymentId? } -> "Already paid? Restore access" for the signed-in student.
+//   Without a payment ID: looks through recent Razorpay payments for a completed one made from this student account.
+//   With a payment ID: also unlocks a payment made before sign-in existed (its order has no email). Each such
+//   payment can be claimed by one account only (hash "claimed": payment id -> email).
+const { send, body, razorpay, checkPayment, isOurs, recordPaid, normEmail, getUser, hasAccess, handle } = require('./_lib');
 const store = require('./_store');
-
 const PAGES = 20; // up to 2,000 recent payments scanned (100 per page)
 
-async function findByPhone(phone) {
+async function findByEmail(email) {
   const from = Math.floor(Date.now() / 1000) - 400 * 24 * 3600;
   for (let page = 0; page < PAGES; page++) {
     const list = await razorpay('GET', `/payments?from=${from}&count=100&skip=${page * 100}`);
     const items = list.items || [];
-    const hit = items.find((p) => isOurs(p) && last10(p.contact) === phone);
+    const hit = items.find((p) => isOurs(p) && normEmail((p.notes || {}).email) === email);
     if (hit) return hit.id;
     if (items.length < 100) break;
   }
@@ -20,26 +20,26 @@ async function findByPhone(phone) {
 
 module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
+  const u = getUser(req);
+  if (!u) return send(res, 401, { error: 'Please sign in with your VIT student account first.' });
+  if (await hasAccess(req)) return send(res, 200, { ok: true, already: true });
   const b = await body(req);
-  const phone = last10(b.phone);
-  if (phone.length < 10) return send(res, 400, { error: 'Enter your 10-digit phone number.' });
-  if (store.configured()) {
-    const [granted] = await store.pipeline([['HEXISTS', 'free', phone]]);
-    if (granted) {
-      const id = 'free:' + phone, dev = deviceIdFrom(b), claim = await claimDevice(id, dev, req, phone);
-      if (!claim.ok) return send(res, 403, { error: claim.why });
-      return send(res, 200, { ok: true, free: true, deviceId: dev }, { 'Set-Cookie': accessCookie(id, dev) });
-    }
-  }
-  let pid = String(b.paymentId || '').trim();
-  if (!pid) {
-    pid = await findByPhone(phone);
-    if (!pid) return send(res, 404, { error: 'No completed UPI payment found for that number. Check the number, or enter your payment ID too.' });
-  }
-  const chk = await checkPayment(pid); // confirms UPI, amount, product, captured
+  const given = String(b.paymentId || '').trim();
+
+  const pid = given || await findByEmail(u.e);
+  if (!pid) return send(res, 404, { error: `No completed payment found for ${u.e}. If you paid before sign-in was added, enter your payment ID (it starts with pay_).` });
+  let chk;
+  try { chk = await checkPayment(pid); } // confirms UPI, our order, captured; newer orders carry the email
+  catch (e) { if (given && e.status !== 401) return send(res, 404, { error: 'No payment found with that ID. Check it in your UPI app or Razorpay receipt (it starts with pay_).' }); throw e; }
   if (!chk.ok) return send(res, 402, { error: chk.why });
-  if (last10(chk.payment.contact) !== phone) return send(res, 403, { error: 'That phone number does not match this payment.' });
-  const dev = deviceIdFrom(b), claim = await claimDevice(pid, dev, req, phone);
-  if (!claim.ok) return send(res, 403, { error: claim.why });
-  send(res, 200, { ok: true, deviceId: dev }, { 'Set-Cookie': accessCookie(pid, dev) });
+
+  if (chk.email) {
+    if (chk.email !== u.e) return send(res, 403, { error: 'That payment belongs to a different student account.' });
+  } else {
+    // an older payment (made with a phone number): the first student account to claim it keeps it
+    const [, owner] = await store.pipeline([['HSETNX', 'claimed', pid, u.e], ['HGET', 'claimed', pid]]);
+    if (owner !== u.e) return send(res, 403, { error: 'That payment ID has already been used by another student account.' });
+  }
+  await recordPaid(u.e, chk.payment);
+  send(res, 200, { ok: true });
 });

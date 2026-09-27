@@ -825,3 +825,13 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .site-banner { display: flex; align-items: center; gap: 12px; margin: 12px 20px 0; padding: 10px 10px 10px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--white); border-radius: 10px; background: var(--surface); color: var(--text); font-size: 14.5px; line-height: 1.5; }
 .site-banner span { flex: 1; min-width: 0; }
 @media (max-width: 640px) { .site-banner { margin: 10px 12px 0; } }
+
+/* sign-in gate */
+.gate-gsi { min-height: 44px; margin: 4px 0 6px; }
+.gate-dev { display: grid; gap: 8px; margin: 12px 0 4px; padding: 12px; border: 1px dashed var(--line-2); border-radius: 10px; }
+.gate-dev label { display: grid; gap: 6px; font-size: 13px; color: var(--text-dim); }
+.gate-dev input { height: 38px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 10px; font-family: var(--mono); }
+.gate-signed { margin-top: 22px; font-size: 13.5px; color: var(--text-dim); }
+.linkish { border: 0; background: none; padding: 0; color: var(--text-2); text-decoration: underline; cursor: pointer; font: inherit; }
+.linkish:hover { color: var(--white); }
+.gate-restore input[readonly] { opacity: 0.85; cursor: default; }
