@@ -853,3 +853,4 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .gate-inapp p { margin: 0 0 10px; font-size: 14px; line-height: 1.55; color: var(--text-2); }
 .gate-was { font-family: var(--serif); font-size: 24px; color: var(--text-faint); }
 .gate-offer { font-family: var(--mono); font-size: 12px; color: var(--warn); border: 1px solid rgba(233, 196, 106, 0.45); border-radius: 99px; padding: 2px 9px; }
+.gate-offer-note { margin: 0 0 14px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(233, 196, 106, 0.45); background: rgba(233, 196, 106, 0.08); color: var(--white); font-size: 15.5px; line-height: 1.5; white-space: pre-wrap; }

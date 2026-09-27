@@ -173,7 +173,7 @@ async function settings() {
   try { const x = JSON.parse(b || 'null'); if (x && x.on && x.text) out.banner = { id: x.id, text: x.text }; } catch (e) {}
   try {
     const x = JSON.parse(sl || 'null');
-    if (x && Number.isInteger(x.price) && x.price >= 100 && x.until > Date.now()) { out.sale = { price: x.price, until: x.until }; out.price = x.price; }
+    if (x && Number.isInteger(x.price) && x.price >= 100 && x.until > Date.now()) { out.sale = { price: x.price, until: x.until, text: typeof x.text === 'string' ? x.text.slice(0, 140) : '' }; out.price = x.price; }
   } catch (e) {}
   return out;
 }

@@ -8,7 +8,7 @@
 //     set-limits { email, phones, pcs }  custom device limits;  clear-limits { email }  back to 1 + 1
 //     reset-devices { email }            free that student's device slots
 //     set-price { rupees }               normal price for new payments
-//     set-sale { rupees, hours } / end-sale   temporary price that ends by itself
+//     set-sale { rupees, hours, text? } / end-sale   temporary price that ends by itself, with an optional message
 //     set-banner { text, on }            announcement shown at the top of the site
 //     feedback-status { id, status }     mark a mistake report open / fixed / ignored
 const crypto = require('crypto');
@@ -54,7 +54,8 @@ module.exports = handle(async (req, res) => {
       if (!Number.isInteger(rs) || rs < 1 || rs > 5000) return send(res, 400, { error: 'Enter a whole number of rupees, from 1 to 5000.' });
       if (!(hours > 0 && hours <= 24 * 60)) return send(res, 400, { error: 'Pick how long the offer lasts (up to 60 days).' });
       const until = Date.now() + Math.round(hours * 3600e3);
-      await store.pipeline([['HSET', 'config', 'sale', JSON.stringify({ price: rs * 100, until })]]);
+      const text = String(b.text || '').split('').filter((ch) => ch.charCodeAt(0) >= 32).join('').trim().slice(0, 140);
+      await store.pipeline([['HSET', 'config', 'sale', JSON.stringify({ price: rs * 100, until, text })]]);
       return send(res, 200, { ok: true, until });
     }
     if (a === 'end-sale') {
@@ -183,7 +184,7 @@ module.exports = handle(async (req, res) => {
     maxDevices: MAX_DEVICES,
     paidModules,
     price: cfg.normalPrice / 100,
-    sale: cfg.sale ? { rupees: cfg.sale.price / 100, until: new Date(cfg.sale.until).toISOString() } : null,
+    sale: cfg.sale ? { rupees: cfg.sale.price / 100, until: new Date(cfg.sale.until).toISOString(), text: cfg.sale.text || '' } : null,
     banner,
     payments: {
       count: pays.length,

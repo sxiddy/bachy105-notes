@@ -111,6 +111,7 @@
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
           <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
+          ${S.sale && S.sale.text && S.normalPrice > price ? `<div class="gate-offer-note" role="note">${esc(S.sale.text)}</div>` : ''}
           <div class="gate-price"><span class="gate-rs">₹${rs}</span>${S.sale && S.normalPrice > price ? `<s class="gate-was">₹${(S.normalPrice / 100).toFixed(0)}</s><span class="gate-offer">Offer ends ${offerEnds(S.sale.until)}</span>` : ''}<span class="gate-muted">one-time · pay with any UPI app</span></div>
           <div class="gate-devices" role="note">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg>
