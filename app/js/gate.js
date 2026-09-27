@@ -37,12 +37,12 @@
           <div class="gate-price"><span class="gate-rs">₹${rs}</span><span class="gate-muted">one-time · pay with any UPI app</span></div>
           <button class="btn primary gate-pay" id="gate-pay">Pay ₹${rs} with UPI</button>
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
-          <p class="gate-muted gate-small">Google Pay, PhonePe, Paytm, BHIM or any UPI ID. After paying, access is saved in this browser. <b>Keep your payment ID</b> (from the receipt) to unlock another device.</p>
+          <p class="gate-muted gate-small">Google Pay, PhonePe, Paytm, BHIM or any UPI ID. After paying, access is saved in this browser. On a new device, or after clearing cookies, restore it with <b>the phone number you paid with</b>.</p>
           <details class="gate-restore">
             <summary>Already paid? Restore access</summary>
             <form id="gate-form">
-              <label>Payment ID<input id="gate-pid" placeholder="pay_XXXXXXXXXXXXXX" autocomplete="off" required></label>
-              <label>Phone number used to pay<input id="gate-phone" inputmode="numeric" placeholder="10-digit number" autocomplete="tel" required></label>
+              <label>Phone number you paid with<input id="gate-phone" inputmode="numeric" placeholder="10-digit number" autocomplete="tel" required></label>
+              <label>Payment ID <span class="gate-muted">(optional)</span><input id="gate-pid" placeholder="pay_XXXXXXXXXXXXXX" autocomplete="off"></label>
               <button class="btn" type="submit">Restore access</button>
             </form>
           </details>
