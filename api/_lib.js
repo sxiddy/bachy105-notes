@@ -129,7 +129,7 @@ async function claimDevice(paymentId, deviceId, req, phone) {
   if (count >= lim[kind]) {
     const why = lim[kind] === 0
       ? `This number can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.`
-      : `This number has reached its limit of ${plural(lim[kind], kind)}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
+      : `This number has reached the device limit (${plural(lim[kind], kind)}). It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
     return { ok: false, why };
   }
   await store.pipeline([['SADD', key, deviceId]]);
