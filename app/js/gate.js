@@ -47,7 +47,7 @@
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
-          <p class="gate-lead">Study notes for VIT students. Sign in with your <b>VIT student Google account</b> (…@${esc(domain)}) to continue. ${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free once you're in.</p>
+          <p class="gate-lead">Study notes for VIT students. Sign in with your <b>VIT student Google account</b> (…@${esc(domain)}) to continue.</p>
           <div id="gsi" class="gate-gsi"></div>
           ${S.devLogin ? `<form id="dev-login" class="gate-dev"><label>Local test only: sign in as<input id="dev-email" value="test@${esc(domain)}"></label><button class="btn" type="submit">Sign in (dev)</button></form>` : ''}
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
