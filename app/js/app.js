@@ -249,6 +249,7 @@ window.__startApp = function () {
       <div class="sb-foot">
         <button data-act="keys">${icon('keys')}Shortcuts</button>
         <button data-act="backup">${icon('db')}Backup</button>
+        <button data-act="theme" data-label>${themeLabel()}</button>
       </div>`;
     sidebar.innerHTML = '';
     sidebar.appendChild(inner);
@@ -287,6 +288,8 @@ window.__startApp = function () {
     const v = S.tags[id];
     b.innerHTML = `<span class="tag-dot" ${v ? `data-tag="${v}"` : ''} style="${v ? '' : 'box-shadow: inset 0 0 0 1.5px var(--line-2)'}"></span>${v ? 'Tagged' : 'Tag'}`;
   }
+
+  const themeLabel = () => (S.ui.theme === 'light' ? `${icon('moon')}Dark mode` : `${icon('sun')}Light mode`);
 
   // ---------------------------------------------------------------- top bar
   let timerState = { left: 25 * 60, running: false, iv: 0 };
@@ -1557,7 +1560,7 @@ window.__startApp = function () {
       else if (k === 'focus') { if (document.body.classList.contains('focus') && e.target.closest('.timer')) { startTimer(!timerState.running); paintTimer(); } else toggleFocus(); }
       else if (k === 'keys') openKeys();
       else if (k === 'backup') openBackup();
-      else if (k === 'theme') { S.ui.theme = S.ui.theme === 'light' ? 'dark' : 'light'; save(); document.documentElement.dataset.mode = S.ui.theme; act.innerHTML = icon(S.ui.theme === 'light' ? 'moon' : 'sun'); }
+      else if (k === 'theme') { S.ui.theme = S.ui.theme === 'light' ? 'dark' : 'light'; save(); document.documentElement.dataset.mode = S.ui.theme; $$('[data-act="theme"]').forEach((b) => { b.innerHTML = b.hasAttribute('data-label') ? themeLabel() : icon(S.ui.theme === 'light' ? 'moon' : 'sun'); }); }
       else if (k === 'confusing') {
         const tid = act.dataset.t, ti = +act.dataset.i, list = S.confusing[tid] || (S.confusing[tid] = []);
         const on = !list.includes(ti); if (on) list.push(ti); else list.splice(list.indexOf(ti), 1); if (!list.length) delete S.confusing[tid]; save();

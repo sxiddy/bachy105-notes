@@ -810,6 +810,8 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
   .view { padding-bottom: 150px; }
   .toasts { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
   .conf-btn .lbl { display: none; }
+  .sidebar { bottom: calc(66px + env(safe-area-inset-bottom, 0px)); } /* keep the menu footer above the tab bar */
+  .sb-foot { flex-wrap: wrap; }
 }
 
 /* report-a-mistake dialog */
