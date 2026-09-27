@@ -146,8 +146,8 @@ module.exports = handle(async (req, res) => {
     banner = parseJSON(bn, null);
 
     // every student who has signed in (plus anyone paid or on the free list), newest activity first
-    const [uf, ul, us, un, pd, dk] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'devices:*@*']]);
-    const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd);
+    const [uf, ul, us, un, pd, dk, uv] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'devices:*@*'], ['HGETALL', 'userVisits']]);
+    const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd), visitsBy = store.pairs(uv);
     const freeBy = Object.fromEntries(free.map((f) => [f.email, f]));
     // students who signed in before this list existed only left a device record ("devices:<email>:<kind>")
     const early = (dk || []).map((k) => k.slice(8, k.lastIndexOf(':'))).filter(isStudentEmail);
@@ -160,7 +160,7 @@ module.exports = handle(async (req, res) => {
         paid: p ? { amount: (p.amount || 0) / 100, at: p.at || '', id: p.id || '' } : null,
         free: freeBy[e] ? { modules: freeBy[e].modules || null } : null,
         first: first[e] || '', lastLogin: login[e] || '', lastSeen: seen[e] || login[e] || first[e] || '',
-        logins: +logins[e] || 0, phones: dc[i * MAX_DEVICES] || 0, pcs: dc[i * MAX_DEVICES + 1] || 0,
+        logins: +logins[e] || 0, visits: +visitsBy[e] || 0, phones: dc[i * MAX_DEVICES] || 0, pcs: dc[i * MAX_DEVICES + 1] || 0,
         early: !first[e] && early.includes(e), // signed in before tracking started
       };
     }).sort((a, b) => (b.lastSeen > a.lastSeen ? 1 : b.lastSeen < a.lastSeen ? -1 : 0));

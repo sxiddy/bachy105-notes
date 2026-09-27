@@ -40,6 +40,9 @@
   .pill-tag { font: 11px var(--mono); border: 1px solid var(--line-2); border-radius: 99px; padding: 2px 8px; margin-left: 6px; color: var(--white); }
   .fb-act { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
   textarea.ann { display: block; width: 100%; min-height: 70px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font: 15px/1.5 var(--sans); resize: vertical; box-sizing: border-box; }
+  .dt { display: inline-flex; flex-direction: column; line-height: 1.3; white-space: nowrap; }
+  .dt b { font-weight: 500; color: var(--white); }
+  .dt small { font-size: 12px; color: var(--text-dim); }
   .srow { display: flex; gap: 8px; flex-wrap: wrap; }
   .srow input { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 12px; font-family: var(--mono); }
   label.lim { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); }
@@ -84,8 +87,15 @@
   let fbFilter = 'open';
   // all times in Indian time (IST, UTC+5:30)
   const IST = 5.5 * 3600e3;
-  const ist = (s) => { const t = Date.parse(s); return isNaN(t) ? '' : new Date(t + IST).toISOString().replace('T', ' ').slice(0, 16); };
-  const when = (s) => esc(ist(s));
+  const istParts = (s) => {
+    const t = Date.parse(s); if (isNaN(t)) return null;
+    const d = new Date(t + IST), h = d.getUTCHours(), m = String(d.getUTCMinutes()).padStart(2, '0');
+    return { time: String(h % 12 || 12).padStart(2, '0') + ':' + m + (h < 12 ? ' AM' : ' PM'), date: String(d.getUTCDate()).padStart(2, '0') + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + d.getUTCFullYear() };
+  };
+  const ist = (s) => { const p = istParts(s); return p ? p.date + ' ' + p.time : ''; }; // for CSV
+  const whenInline = (s) => { const p = istParts(s); return p ? esc(p.date + ' ' + p.time) : ''; }; // one-line spots only (lookup summary, report headers)
+  // default for every time on this page, including any added later: IST date above the 12-hour time (28-09-2026 / 03:11 AM)
+  const when = (s) => { const p = istParts(s); return p ? '<span class="dt"><b>' + esc(p.date) + '</b><small>' + esc(p.time) + '</small></span>' : ''; };
   const pct = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '—');
   const modName = (s, id) => { const m = (s.paidModules || []).find((x) => x.id === id); return m ? 'Module ' + (+m.num) : id; };
   const modsLabel = (s, mods) => (mods && mods.length ? mods.map((id) => modName(s, id)).join(', ') + ' only' : 'All modules');
@@ -96,7 +106,7 @@
     const n = (st) => all.filter((f) => f.status === st).length;
     const list = all.filter((f) => f.status === fbFilter);
     const tabs = [['open', 'Open'], ['fixed', 'Fixed'], ['ignored', 'Ignored']].map(([k, l]) => `<button class="btn small${fbFilter === k ? ' primary' : ' ghost'}" data-fbf="${k}">${l} ${n(k)}</button>`).join(' ');
-    const item = (f) => `<div class="fb"><small>${when(f.at)} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p>
+    const item = (f) => `<div class="fb"><small>${whenInline(f.at)} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p>
       <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">Mark fixed</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">Ignore</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}</div></div>`;
     return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${fbFilter === 'open' ? 'open. All caught up' : 'here'}.</p>`}`;
   }
@@ -105,21 +115,21 @@
   function studentsHTML(s, q) {
     const list = (s.students || []).filter((x) => !q || x.email.includes(q.toLowerCase()));
     if (!list.length) return `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
-    const rows = list.slice(0, 300).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
-    return tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
+    const rows = list.slice(0, 300).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.visits}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
+    return tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Visits', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
   }
   function studentsCSV(s) {
     const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
-    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at_ist', 'free_modules', 'first_sign_in_ist', 'last_used_ist', 'sign_ins', 'phones', 'pcs'];
-    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? ist(x.paid.at) : '', x.free ? (x.free.modules || ['all']).join(' ') : '', ist(x.first), ist(x.lastSeen), x.logins, x.phones, x.pcs].map(q).join(','));
+    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at_ist', 'free_modules', 'first_sign_in_ist', 'last_used_ist', 'visits', 'sign_ins', 'phones', 'pcs'];
+    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? ist(x.paid.at) : '', x.free ? (x.free.modules || ['all']).join(' ') : '', ist(x.first), ist(x.lastSeen), x.visits, x.logins, x.phones, x.pcs].map(q).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bachy105-students-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
   function lookupHTML(s, r) {
     const d = r.devices, l = r.limits;
     return `<div class="look">
-      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${when(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
-      <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${when(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
+      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${whenInline(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
+      <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${whenInline(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
       <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit</span>' : '<span class="muted">(default)</span>'}</div></div>
       <div class="look-act">
         ${r.free ? `<button class="btn small ghost" data-look="revoke">Remove free access</button>` : `<button class="btn small" data-look="grant">Give free access…</button>`}
