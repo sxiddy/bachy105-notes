@@ -122,7 +122,7 @@
       ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. Everything else starts working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
 
       <section class="sum-sec" style="margin-top:28px"><h2 class="h-sec">Look up a student</h2>
-        <form class="row" id="kf"><input id="kp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
+        <form class="row" id="kf"><input id="kp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
         <div id="kout"></div>
       </section>
 
@@ -170,13 +170,13 @@
 
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
         <p class="muted">Add a VIT student email and that student gets the ticked modules free. Nothing for them to do: it unlocks as soon as they sign in with that account. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
-        <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
         ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (UTC)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>
         <p class="muted">Everyone gets <b>1 phone + 1 laptop/PC</b> by default. Set a different number for a specific student here. It works for payers and free-access people alike. 0 means that kind of device is blocked.</p>
-        <form class="row" id="lf"><input id="lp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required>
+        <form class="row" id="lf"><input id="lp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required>
           <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
           <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
           <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
@@ -185,7 +185,7 @@
 
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
         <p class="muted">If someone gets a new phone or PC, clear their devices here so they can unlock the new one. Works for payers and free-access students alike.</p>
-        <form class="row" id="rf"><input id="rp" type="email" inputmode="email" autocomplete="off" placeholder="name.2024@vitstudent.ac.in" style="min-width:280px" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
+        <form class="row" id="rf"><input id="rp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
       </section>`;
 
     const post = (data) => call('POST', data);

@@ -63,10 +63,19 @@
     };
     if (S.devLogin) document.getElementById('dev-login').addEventListener('submit', (e) => { e.preventDefault(); login({ devEmail: document.getElementById('dev-email').value }); });
     if (!S.googleClientId) { if (!S.devLogin) say('Sign-in is not set up yet. Please check back soon.'); return; }
+    // Google refuses to sign in inside apps' built-in browsers (WhatsApp, Instagram, …), so say so up front.
+    if (/FBAN|FBAV|FB_IAB|Instagram|WhatsApp|Snapchat|Line\/|LinkedInApp|Telegram|; wv\)/i.test(navigator.userAgent)) {
+      document.getElementById('gsi').innerHTML = `<div class="gate-inapp"><p><b>Open this page in Chrome or Safari.</b> Google doesn't allow signing in inside ${/WhatsApp/i.test(navigator.userAgent) ? 'WhatsApp' : "this app"}'s built-in browser. Tap ⋮ or ⋯ and choose <b>Open in browser</b>, or copy the link:</p><button class="btn" id="gate-copy">Copy link</button></div>`;
+      document.getElementById('gate-copy').addEventListener('click', () => { try { navigator.clipboard.writeText(location.origin + '/').then(() => say('Link copied. Paste it in Chrome or Safari.')); } catch (e) { say(location.origin + '/'); } });
+      return;
+    }
+    // Full-page sign-in (no pop-up, so pop-up blockers can't stop it): Google sends the student back to /api/login,
+    // which reads the device id from this cookie (SameSite=None so it survives Google's cross-site POST).
+    try { document.cookie = 'bn_dev=' + deviceId() + '; Path=/; Max-Age=600; SameSite=None' + (location.protocol === 'https:' ? '; Secure' : ''); } catch (e) { /* ignore */ }
     loadScript('https://accounts.google.com/gsi/client').then(() => {
       const g = window.google && window.google.accounts && window.google.accounts.id;
       if (!g) { say('Google sign-in could not load. Check your connection and reload.'); return; }
-      g.initialize({ client_id: S.googleClientId, hd: domain, ux_mode: 'popup', auto_select: false, callback: (r) => login({ credential: r.credential }) });
+      g.initialize({ client_id: S.googleClientId, hd: domain, ux_mode: 'redirect', login_uri: location.origin + '/api/login', auto_select: false });
       g.renderButton(document.getElementById('gsi'), { theme: 'filled_black', size: 'large', shape: 'pill', text: 'signin_with', logo_alignment: 'left', width: 300 });
     }).catch(() => say('Google sign-in could not load. Check your connection (or an ad blocker) and reload.'));
   }
@@ -168,7 +177,11 @@
       window.PRICE_RS = Math.round(price / 100);
       window.SITE_BANNER = S.banner || null;
       window.SIGNED_IN_AS = S.user || null;
-      if (!S.user && !S.owner) return signIn();
+      if (!S.user && !S.owner) {
+        const err = new URLSearchParams(location.search).get('login_error');
+        if (err) history.replaceState(null, '', location.pathname + location.hash);
+        return signIn(err || '');
+      }
       start(!!S.paid, Array.isArray(S.modules) ? S.modules : null);
     } catch (e) {
       root.innerHTML = `<div class="gate"><div class="gate-card"><h1 class="gate-title">Could not reach the site</h1><p class="gate-muted">${esc(e.message)}. Check your connection and reload.</p></div></div>`;

@@ -1,21 +1,55 @@
-// POST /api/login { credential, deviceId } -> signs a student in with their Google account.
-// Only @<STUDENT_DOMAIN> (default vitstudent.ac.in) accounts are accepted, so staff and personal accounts are refused.
-// The device limit (1 phone + 1 laptop/PC unless the owner changed it) is applied here.
-// Local testing only: with DEV_LOGIN=1 (never on Vercel) { devEmail } signs in without Google.
-const { send, body, handle, verifyGoogle, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, DOMAIN } = require('./_lib');
+// Signs a student in with their Google account. Only @<STUDENT_DOMAIN> (default vitstudent.ac.in) accounts are
+// accepted, so staff and personal accounts are refused. The device limit (1 phone + 1 laptop/PC unless the owner
+// changed it) is applied here.
+//   Full-page flow (default): Google POSTs a form { credential, g_csrf_token } here; we answer with a redirect to
+//   the site (or back to the sign-in screen with ?login_error=...). The device id comes from the bn_dev cookie.
+//   JSON flow: POST { credential | devEmail, deviceId } -> { ok, email } (devEmail only with DEV_LOGIN=1, never on Vercel).
+const { send, handle, verifyGoogle, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, safeEqual, DOMAIN } = require('./_lib');
 
-module.exports = handle(async (req, res) => {
-  if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
-  const b = await body(req);
+const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(/;\s*/).filter(Boolean).map((c) => { const i = c.indexOf('='); return [c.slice(0, i), decodeURIComponent(c.slice(i + 1))]; }));
+
+async function readBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body;
+  let raw = typeof req.body === 'string' ? req.body : '';
+  if (!raw) { const chunks = []; for await (const c of req) chunks.push(c); raw = Buffer.concat(chunks).toString('utf8'); }
+  if (/application\/x-www-form-urlencoded/.test(req.headers['content-type'] || '')) return Object.fromEntries(new URLSearchParams(raw));
+  try { return JSON.parse(raw || '{}'); } catch (e) { return {}; }
+}
+
+async function signIn(req, b, deviceId) {
   let email;
   if (process.env.DEV_LOGIN === '1' && !process.env.VERCEL && b.devEmail) email = normEmail(b.devEmail);
   else {
     const g = await verifyGoogle(b.credential);
-    if (g.hd && g.hd !== DOMAIN) return send(res, 403, { error: `Please use your VIT student account (…@${DOMAIN}).` });
+    if (g.hd && g.hd !== DOMAIN) throw Object.assign(new Error(`Please use your VIT student account (…@${DOMAIN}).`), { status: 403 });
     email = g.email;
   }
-  if (!isStudentEmail(email)) return send(res, 403, { error: `Only VIT student accounts (…@${DOMAIN}) can use this site. You signed in as ${email}.` });
-  const dev = deviceIdFrom(b), claim = await claimDevice(email, dev, req);
-  if (!claim.ok) return send(res, 403, { error: claim.why });
-  send(res, 200, { ok: true, email }, { 'Set-Cookie': userCookie(email, dev) });
+  if (!isStudentEmail(email)) throw Object.assign(new Error(`Only VIT student accounts (…@${DOMAIN}) can use this site. You signed in as ${email}.`), { status: 403 });
+  const dev = deviceIdFrom({ deviceId }), claim = await claimDevice(email, dev, req);
+  if (!claim.ok) throw Object.assign(new Error(claim.why), { status: 403 });
+  return { email, cookie: userCookie(email, dev) };
+}
+
+module.exports = handle(async (req, res) => {
+  if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
+  const b = await readBody(req);
+  const c = cookies(req);
+
+  if (b.g_csrf_token !== undefined) { // Google's full-page redirect
+    const back = (err, cookie) => {
+      res.statusCode = 303;
+      res.setHeader('Location', err ? '/?login_error=' + encodeURIComponent(err) : '/');
+      res.setHeader('Cache-Control', 'no-store');
+      if (cookie) res.setHeader('Set-Cookie', cookie);
+      res.end();
+    };
+    // Google's double-submit check. Some browsers don't send the cookie on Google's cross-site POST, so only a
+    // mismatch is refused; the ID token itself is still verified against Google's keys and our client ID.
+    if (c.g_csrf_token && !safeEqual(c.g_csrf_token, b.g_csrf_token)) return back('Sign-in could not be checked. Please try again.');
+    try { const r = await signIn(req, b, c.bn_dev); return back(null, r.cookie); }
+    catch (e) { return back(e.message || 'Sign-in failed. Please try again.'); }
+  }
+
+  try { const r = await signIn(req, b, b.deviceId); send(res, 200, { ok: true, email: r.email }, { 'Set-Cookie': r.cookie }); }
+  catch (e) { send(res, e.status || 500, { error: e.message }); }
 });
