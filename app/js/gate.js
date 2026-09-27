@@ -4,6 +4,20 @@
   const root = document.getElementById('app');
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   let price = 5000;
+  function deviceId() {
+    let d = null;
+    try { d = localStorage.getItem('bn_device'); } catch (e) { /* storage blocked */ }
+    if (!/^[a-f0-9]{32}$/.test(d || '')) {
+      const a = new Uint8Array(16); crypto.getRandomValues(a); d = Array.from(a, (x) => x.toString(16).padStart(2, '0')).join('');
+      try { localStorage.setItem('bn_device', d); } catch (e) { /* ignore */ }
+    }
+    return d;
+  }
+  const CFG = window.MODULES_CONFIG || [];
+  const list = (arr) => (arr.length > 1 ? arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1] : arr[0] || '');
+  const freeCount = () => CFG.filter((m) => m.free).length;
+  const freeNames = () => list(CFG.filter((m) => m.free).map((m) => 'Module ' + (+m.num)));
+  const paidNames = () => list(CFG.filter((m) => !m.free).map((m) => `<b>Module ${+m.num} (${esc(m.title)})</b>`));
 
   function loadScript(src) {
     return new Promise((ok, bad) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => bad(new Error('Could not load ' + src)); document.body.appendChild(s); });
@@ -37,7 +51,7 @@
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
-          <p class="gate-lead">Module 2 is free. Unlock <b>Module 3 (Functional Materials)</b> and <b>Module 4 (Spectroscopy &amp; XRD)</b>: their notes, slide diagrams, 22 interactive models, questions, quiz, flashcards and summaries.</p>
+          <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
           <div class="gate-price"><span class="gate-rs">₹${rs}</span><span class="gate-muted">one-time · pay with any UPI app</span></div>
           <button class="btn primary gate-pay" id="gate-pay">Pay ₹${rs} with UPI</button>
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
@@ -72,7 +86,7 @@
           } },
           handler: async (resp) => {
             say('Payment received. Confirming…');
-            try { await api('/api/verify-payment', resp); say('Unlocked. Loading Modules 3 and 4…'); history.replaceState(null, '', location.pathname); location.reload(); }
+            try { await api('/api/verify-payment', Object.assign({ deviceId: deviceId() }, resp)); say('Unlocked. Loading everything…'); history.replaceState(null, '', location.pathname); location.reload(); }
             catch (e) { say(e.message + ' If money was taken, use "Restore access" with your payment ID: ' + resp.razorpay_payment_id); payBtn.disabled = false; }
           },
           modal: { ondismiss: () => { say('Payment cancelled.'); payBtn.disabled = false; } },
@@ -84,7 +98,7 @@
     document.getElementById('gate-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       say('Checking your payment…');
-      try { await api('/api/restore', { paymentId: document.getElementById('gate-pid').value.trim(), phone: document.getElementById('gate-phone').value }); say('Access restored.'); history.replaceState(null, '', location.pathname); location.reload(); }
+      try { await api('/api/restore', { deviceId: deviceId(), paymentId: document.getElementById('gate-pid').value.trim(), phone: document.getElementById('gate-phone').value }); say('Access restored.'); history.replaceState(null, '', location.pathname); location.reload(); }
       catch (err) { say(err.message); }
     });
   }

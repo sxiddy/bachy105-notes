@@ -31,15 +31,20 @@ fs.writeFileSync(path.join(PDATA, 'figs.js'), `FIGDIMS(${JSON.stringify(dims)});
 const paidViz = fs.readdirSync(path.join(ROOT, 'viz-paid')).filter((f) => /\.js$/.test(f)).sort();
 for (const f of paidViz) fs.copyFileSync(path.join(ROOT, 'viz-paid', f), path.join(PDATA, f));
 
-// file lists the gate loads (names only, no content). Module 2 is free; the rest needs payment.
-const FREE = ['chunk-A.js', 'chunk-B.js', 'chunk-C.js', 'q-M2.js', 'summary-m2.js'];
+// Modules (names, chunks, free or paid) come from content/modules.json — the one place to add a module.
+const MODULES = JSON.parse(fs.readFileSync(path.join(CONTENT, 'modules.json'), 'utf8'));
+const filesOf = (m) => [...m.chunks.map((c) => `chunk-${c}.js`), m.questions, `summary-${m.id}.js`].filter(Boolean);
+const FREE = MODULES.filter((m) => m.free).flatMap(filesOf);
+fs.writeFileSync(path.join(APP, 'js', 'modules.js'), `window.MODULES_CONFIG = ${JSON.stringify(MODULES.map(({ id, num, title, free, chunks, syllabus }) => ({ id, num, title, free, chunks, syllabus })))};\n`);
+fs.writeFileSync(path.join(ROOT, 'api', '_access.json'), JSON.stringify({ freeFiles: [...FREE, 'figs.js'], freeModules: MODULES.filter((m) => m.free).map((m) => m.id) }, null, 1) + '\n');
+// file lists the gate loads (names only, no content): free modules for everyone, the rest after payment.
 const freeFiles = [...contentFiles.filter((f) => FREE.includes(f)), 'figs.js'];
 const paidFiles = [...paidViz, ...contentFiles.filter((f) => !FREE.includes(f))];
 const dataFiles = [...freeFiles, ...paidFiles];
 fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.FREE_FILES = ${JSON.stringify(freeFiles)};\nwindow.PAID_FILES = ${JSON.stringify(paidFiles)};\n`);
 
 const vizFiles = fs.readdirSync(path.join(APP, 'js', 'viz')).filter((f) => /\.js$/.test(f)).sort();
-const scripts = ['js/boot.js', 'js/viz-core.js', ...vizFiles.map((f) => 'js/viz/' + f), 'js/app.js', 'js/data-files.js', 'js/gate.js'];
+const scripts = ['js/boot.js', 'js/modules.js', 'js/viz-core.js', ...vizFiles.map((f) => 'js/viz/' + f), 'js/app.js', 'js/data-files.js', 'js/gate.js'];
 
 const html = `<!doctype html>
 <html lang="en">

@@ -35,8 +35,8 @@ function safeEqual(a, b) {
   return x.length === y.length && crypto.timingSafeEqual(x, y);
 }
 
-function makeToken(paymentId) {
-  const payload = b64u(JSON.stringify({ p: paymentId, t: Math.floor(Date.now() / 1000) }));
+function makeToken(paymentId, deviceId) {
+  const payload = b64u(JSON.stringify({ p: paymentId, d: deviceId || null, t: Math.floor(Date.now() / 1000) }));
   return payload + '.' + b64u(hmac(env('SESSION_SECRET'), payload));
 }
 
@@ -52,9 +52,9 @@ function readToken(req) {
   try { return JSON.parse(Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8')); } catch (e) { return null; }
 }
 
-function accessCookie(paymentId) {
+function accessCookie(paymentId, deviceId) {
   const secure = process.env.VERCEL ? '; Secure' : '';
-  return `${COOKIE}=${makeToken(paymentId)}; Path=/; Max-Age=${MAX_AGE}; HttpOnly; SameSite=Lax${secure}`;
+  return `${COOKIE}=${makeToken(paymentId, deviceId)}; Path=/; Max-Age=${MAX_AGE}; HttpOnly; SameSite=Lax${secure}`;
 }
 
 async function razorpay(method, path, data) {
@@ -86,6 +86,24 @@ async function checkPayment(paymentId, orderId) {
   return { ok: true, payment: p };
 }
 
+// Each payment may unlock at most MAX_DEVICES browsers. The browser keeps a random device id in localStorage,
+// so clearing cookies on the same device reuses its slot. Needs the store; without one the limit is not enforced.
+const MAX_DEVICES = parseInt(process.env.MAX_DEVICES || '2', 10);
+function deviceIdFrom(b) {
+  const d = String((b && b.deviceId) || '');
+  return /^[a-f0-9]{32}$/.test(d) ? d : crypto.randomBytes(16).toString('hex');
+}
+async function claimDevice(paymentId, deviceId) {
+  const store = require('./_store');
+  if (!store.configured()) return { ok: true, enforced: false };
+  const key = 'devices:' + paymentId;
+  const [isMember, count] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key]]);
+  if (isMember) return { ok: true, enforced: true };
+  if (count >= MAX_DEVICES) return { ok: false, why: `This payment is already active on ${MAX_DEVICES} devices. Use it on one of those, or ask the site owner to reset your devices.` };
+  await store.pipeline([['SADD', key, deviceId]]);
+  return { ok: true, enforced: true };
+}
+
 function handle(fn) {
   return async (req, res) => {
     try { await fn(req, res); }
@@ -93,4 +111,4 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, env, send, body, hmac, safeEqual, readToken, accessCookie, razorpay, checkPayment, handle };
+module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, accessCookie, razorpay, checkPayment, deviceIdFrom, claimDevice, handle };

@@ -8,6 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
+const MODULE_IDS = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'content', 'modules.json'), 'utf8')).map((m) => m.id));
 
 const VIZ_IDS = new Set([
   'cell-galvanic', 'nernst', 'bands', 'doping', 'zone-refining', 'czochralski',
@@ -89,13 +90,14 @@ function checkHtml(where, html, ctx) {
 function checkChunk(file, d, globalCtx) {
   const where0 = path.basename(file);
   if (!d.chunk || !d.module) err(where0, 'chunk and module required');
-  if (!/^m[234]$/.test(d.module || '')) err(where0, 'module must be m2, m3 or m4');
+  if (!/^m[0-9]+$/.test(d.module || '')) err(where0, 'module must look like m2, m5 …');
+  if (!MODULE_IDS.has(d.module)) err(where0, `module ${d.module} is not listed in content/modules.json`);
   const ctx = { figRefs: [], vizRefs: [] };
   const topicIds = new Set();
   if (!Array.isArray(d.topics) || !d.topics.length) err(where0, 'topics[] required');
   for (const t of d.topics || []) {
     const w = `${where0} › ${t.id}`;
-    if (!/^m[234]-[a-z0-9-]+$/.test(t.id || '') || !t.id.startsWith(d.module + '-')) err(w, 'topic id must be kebab-case and start with module id');
+    if (!/^m[0-9]+-[a-z0-9-]+$/.test(t.id || '') || !t.id.startsWith(d.module + '-')) err(w, 'topic id must be kebab-case and start with module id');
     if (topicIds.has(t.id) || globalCtx.topicIds.has(t.id)) err(w, 'duplicate topic id');
     topicIds.add(t.id); globalCtx.topicIds.add(t.id);
     for (const k of ['title', 'short', 'blurb', 'source']) if (!t[k] || typeof t[k] !== 'string') err(w, `${k} required`);
@@ -118,7 +120,7 @@ function checkChunk(file, d, globalCtx) {
   const figIds = new Set();
   for (const f of d.figures || []) {
     const w = `${where0} › figure ${f.id}`;
-    if (!/^m[234]-[a-z0-9-]+$/.test(f.id || '')) err(w, 'bad id');
+    if (!/^m[0-9]+-[a-z0-9-]+$/.test(f.id || '')) err(w, 'bad id');
     if (figIds.has(f.id) || globalCtx.figIds.has(f.id)) err(w, 'duplicate figure id');
     figIds.add(f.id); globalCtx.figIds.add(f.id);
     if (!f.src || !fs.existsSync(path.join(ROOT, 'src', f.src))) err(w, `src not found: ${f.src}`);
@@ -147,7 +149,7 @@ function checkQuestion(where, q, topicIds, seen) {
   const w = `${where} › ${q.id}`;
   if (!q.id) err(where, 'question without id');
   if (seen.has(q.id)) err(w, 'duplicate question id'); seen.add(q.id);
-  if (!/^m[234]$/.test(q.module || '')) err(w, 'module must be m2/m3/m4');
+  if (!/^m[0-9]+$/.test(q.module || '')) err(w, 'module must look like m2, m5 …');
   if (q.topic !== 'summary' && q.topic !== 'mixed' && topicIds && !topicIds.has(q.topic)) err(w, `unknown topic "${q.topic}"`);
   if (!QTYPES.has(q.type)) err(w, `type "${q.type}" not in ${[...QTYPES].join('/')}`);
   if (![1, 2, 3].includes(q.level)) err(w, 'level must be 1, 2 or 3');
@@ -165,7 +167,7 @@ function checkQuestion(where, q, topicIds, seen) {
 
 function checkSummary(file, s, topicIds, seenQ) {
   const w = path.basename(file);
-  if (!/^m[234]$/.test(s.module || '')) err(w, 'module required');
+  if (!/^m[0-9]+$/.test(s.module || '')) err(w, 'module required');
   const ctx = { figRefs: [], vizRefs: [] };
   if (!s.tldr) err(w, 'tldr required'); else checkHtml(`${w} tldr`, s.tldr, ctx);
   if (!Array.isArray(s.bigIdeas) || s.bigIdeas.length < 4) err(w, 'bigIdeas[] needs 4+ items');

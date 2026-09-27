@@ -1,6 +1,6 @@
 // POST /api/restore { phone, paymentId? } -> re-issues access on a new browser/device
 // With only a phone number, looks through recent Razorpay payments for a completed ₹50 UPI payment from it.
-const { send, body, checkPayment, accessCookie, razorpay, PRICE, handle } = require('./_lib');
+const { send, body, checkPayment, accessCookie, razorpay, PRICE, deviceIdFrom, claimDevice, handle } = require('./_lib');
 
 const last10 = (s) => String(s || '').replace(/\D/g, '').slice(-10);
 const PAGES = 20; // up to 2,000 recent payments scanned (100 per page)
@@ -30,5 +30,7 @@ module.exports = handle(async (req, res) => {
   const chk = await checkPayment(pid); // confirms UPI, amount, product, captured
   if (!chk.ok) return send(res, 402, { error: chk.why });
   if (last10(chk.payment.contact) !== phone) return send(res, 403, { error: 'That phone number does not match this payment.' });
-  send(res, 200, { ok: true }, { 'Set-Cookie': accessCookie(pid) });
+  const dev = deviceIdFrom(b), claim = await claimDevice(pid, dev);
+  if (!claim.ok) return send(res, 403, { error: claim.why });
+  send(res, 200, { ok: true, deviceId: dev }, { 'Set-Cookie': accessCookie(pid, dev) });
 });

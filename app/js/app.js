@@ -91,14 +91,8 @@ window.__startApp = function () {
   function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }, 120); }
 
   // ================================================================ model
-  const MODULES = [
-    { id: 'm2', num: '02', title: 'Energy Devices', chunks: ['A', 'B', 'C'],
-      syllabus: 'Electrochemical and electrolytic cells, semiconductor electrode materials, classes of batteries, Li-ion chemistry, H₂–O₂ and solid oxide fuel cells, silicon photovoltaics, photoelectrochemical and dye-sensitized cells.' },
-    { id: 'm3', num: '03', title: 'Functional Materials', chunks: ['D', 'E'],
-      syllabus: 'Nanomaterials: what they are, top-down and bottom-up synthesis, bulk vs nano gold, quantum dots. Liquid coolants: requirements, types and uses.' },
-    { id: 'm4', num: '04', title: 'Spectroscopy & Diffraction', chunks: ['F', 'G'],
-      syllabus: 'Principle, instrumentation and applications of UV-Visible spectroscopy and powder XRD, crystallite size from XRD, numericals.' },
-  ];
+  // Modules come from content/modules.json (built into js/modules.js). Add a module there, not here.
+  const MODULES = (window.MODULES_CONFIG || []).map((m) => Object.assign({}, m));
   const MOD = {};
   MODULES.forEach((m) => { MOD[m.id] = m; m.topics = []; });
   const TOPICS = [], TOPIC = {}, FIGS = {};
@@ -121,7 +115,7 @@ window.__startApp = function () {
   });
   const SUM = D.summaries || {};
   // Free users only have Module 2 loaded; Modules 3–4 show as locked with an unlock button.
-  MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && m.id !== 'm2' && !m.topics.length; });
+  MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && !m.free && !m.topics.length; });
 
   // reading order: m2 topics, m2 summary, m3 topics, ...
   const ORDER = [];
@@ -152,13 +146,10 @@ window.__startApp = function () {
   // where each interactive diagram lives
   const VIZ_AT = {};
   TOPICS.forEach((t) => t.tabs.forEach((tb, i) => { (tb.html || '').replace(/data-viz="([a-z0-9-]+)"/g, (_, id) => { if (!VIZ_AT[id]) VIZ_AT[id] = { topic: t.id, tab: i }; return _; }); }));
-  const VIZ_MOD = {
-    m2: ['cell-galvanic', 'nernst', 'bands', 'doping', 'zone-refining', 'czochralski', 'cell-types', 'liion', 'fuelcell', 'pn-junction', 'dssc', 'solar-routes'],
-    m3: ['nano-scale', 'nano-dims', 'sa-volume', 'gold-color', 'topdown-bottomup', 'ball-mill', 'sol-gel', 'confinement', 'qd-size', 'coolant-picker'],
-    m4: ['em-spectrum', 'wave-calc', 'transitions', 'color-wheel', 'beer-lambert', 'spectrophotometer', 'xray-tube', 'interference', 'bragg', 'xrd-pattern', 'xrd-calc', 'size-hierarchy'],
-  };
+  const vizModule = (id) => (VIZ_AT[id] && TOPIC[VIZ_AT[id].topic] ? TOPIC[VIZ_AT[id].topic].module : null);
+  const vizOrder = (id) => (VIZ_AT[id] ? TOPIC[VIZ_AT[id].topic].idx * 100 + VIZ_AT[id].tab : 1e9);
   const hasViz = (id) => !!(window.VIZ && window.VIZ.has(id));
-  const allViz = () => [].concat(VIZ_MOD.m2, VIZ_MOD.m3, VIZ_MOD.m4).filter(hasViz);
+  const allViz = () => (window.VIZ ? window.VIZ.list() : []).filter((id) => vizModule(id)).sort((a, b) => vizOrder(a) - vizOrder(b));
 
   // progress helpers
   const visited = (id) => S.visited[id] || [];
@@ -275,7 +266,7 @@ window.__startApp = function () {
     const lc = $('[data-labcount]', sidebar); if (lc) lc.textContent = allViz().length || '';
   }
   function setActive(key) {
-    $$('a', bnav).forEach((a) => a.classList.toggle('on', a.dataset.key === key || (key && a.dataset.key === 'home' && (TOPIC[key] || /summary|^m[234]$/.test(key)))));
+    $$('a', bnav).forEach((a) => a.classList.toggle('on', a.dataset.key === key || (key && a.dataset.key === 'home' && (TOPIC[key] || /summary|^m[0-9]+$/.test(key)))));
     $$('.sb-link, .sb-topic', sidebar).forEach((a) => a.classList.toggle('active', a.dataset.key === key));
     const act = $(`[data-key="${key}"]`, sidebar);
     if (act) {
@@ -376,7 +367,7 @@ window.__startApp = function () {
     if (raw === 'unlock') return { view: 'unlock' };
     if (MOD[raw] && MOD[raw].locked) return { view: 'unlock' };
     if (MOD[raw]) return { view: 'module', mod: raw };
-    let m = raw.match(/^(m[234])-summary$/);
+    let m = raw.match(/^(m[0-9]+)-summary$/);
     if (m && MOD[m[1]] && MOD[m[1]].locked) return { view: 'unlock' };
     if (m && MOD[m[1]]) return { view: 'summary', mod: m[1] };
     m = raw.match(/^(questions|cards|quiz|formulas|lab|mine)(?:\.([a-z0-9-]+))?$/);
@@ -597,6 +588,10 @@ window.__startApp = function () {
   document.addEventListener('keyup', (e) => { if (e.shiftKey) onSelectionEnd(e); });
 
   // ================================================================ views
+  function lockedNames() {
+    const l = MODULES.filter((m) => m.locked).map((m) => 'Module ' + (+m.num));
+    return l.length > 1 ? l.slice(0, -1).join(', ') + ' and ' + l[l.length - 1] : l[0] || 'everything';
+  }
   function topicRow(t) {
     const f = frac(t);
     return `<a class="trow" href="#${t.id}">
@@ -644,7 +639,7 @@ window.__startApp = function () {
         <section class="mod-sec">
           <div class="mod-head"><span class="mod-num">Module ${m.num}</span><h2 class="h-sec">${esc(m.title)}</h2><span class="count">${icon('lock')} locked</span></div>
           <p class="mod-syl">${esc(m.syllabus)}</p>
-          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock Modules 3 and 4 for ₹50</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
+          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock ${lockedNames()} for ₹50</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
         </section>`).join('')}
       <section class="mod-sec">
         <div class="mod-head"><h2 class="h-sec">Practice</h2></div>
@@ -701,6 +696,7 @@ window.__startApp = function () {
     const n = t.tabs.length;
     let i = r.tab != null && r.tab < n ? r.tab : (S.ui.lastTab[t.id] != null && S.ui.lastTab[t.id] < n ? S.ui.lastTab[t.id] : 0);
     setActive(t.id);
+    trackTopic(t.id);
     document.title = `${plain(t.title)} · BACHY105 Notes`;
     const oi = orderIdx(t.id);
     const nx = ORDER[oi + 1];
@@ -765,7 +761,7 @@ window.__startApp = function () {
       const prev = t.tabs[i - 1], next = t.tabs[i + 1];
       nav.innerHTML = `
         ${prev ? `<button class="btn" data-go="${i - 1}">${icon('left')}<span class="lbl">${rt(prev.title)}</span></button>` : '<span></span>'}
-        <span class="pos">${i + 1} / ${n} <button class="btn small ghost conf-btn${(S.confusing[t.id] || []).includes(i) ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${(S.confusing[t.id] || []).includes(i) ? 'Marked confusing' : 'Confusing?'}</span></button></span>
+        <span class="pos">${i + 1} / ${n} <button class="btn small ghost conf-btn${(S.confusing[t.id] || []).includes(i) ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${(S.confusing[t.id] || []).includes(i) ? 'Marked confusing' : 'Confusing?'}</span></button><button class="btn small ghost conf-btn" data-act="report" data-t="${t.id}" data-i="${i}" title="Found a mistake? Tell us">${icon('warn')}<span class="lbl">Report mistake</span></button></span>
         ${next ? `<button class="btn primary" data-go="${i + 1}"><span class="lbl">Next: ${rt(next.title)}</span>${icon('right')}</button>`
           : (nx ? `<a class="btn primary" href="#${nx.key}"><span class="lbl">Next: ${rt(nx.title)}</span>${icon('right')}</a>` : '<span></span>')}`;
     }
@@ -938,7 +934,7 @@ window.__startApp = function () {
       if (MOD[r.arg]) { bankUI.mod = r.arg; bankUI.topic = 'all'; }
       else if (TOPIC[r.arg]) { bankUI.mod = TOPIC[r.arg].module; bankUI.topic = r.arg; }
       else if (r.arg === 'mixed') { bankUI.mod = 'mixed'; bankUI.topic = 'all'; }
-      else { const mm = r.arg.match(/^(m[234])-summary$/); if (mm) { bankUI.mod = mm[1]; bankUI.topic = 'summary'; } }
+      else { const mm = r.arg.match(/^(m[0-9]+)-summary$/); if (mm) { bankUI.mod = mm[1]; bankUI.topic = 'summary'; } }
     } else { bankUI.mod = 'all'; bankUI.topic = 'all'; }
     setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question bank' }]);
     setActive(r.arg ? 'questions.' + r.arg : 'questions'); document.title = 'Question bank · BACHY105 Notes';
@@ -1268,7 +1264,7 @@ window.__startApp = function () {
       <p class="blurb">Every animation, model and calculator from the notes, in one place. Open one, play with it, then jump to the tab where it's explained.</p>
       ${ids.length ? '' : '<div class="empty">Interactive models are still loading.</div>'}
       ${MODULES.map((m) => {
-        const mine = VIZ_MOD[m.id].filter(hasViz);
+        const mine = allViz().filter((id) => vizModule(id) === m.id);
         if (!mine.length) return '';
         return `<section class="sum-sec" style="margin-top:40px"><h2 class="h-sec">Module ${+m.num} <small>${esc(m.title)}</small></h2><div class="lab-grid">${mine.map((id) => {
           const d = window.VIZ.def(id) || {};
@@ -1489,6 +1485,46 @@ window.__startApp = function () {
   }
   function refreshAll() { buildSidebar(); updateOverall(); if (current) render(parse(hashOf(current))); }
 
+  function openReport(tid, ti) {
+    const t = TOPIC[tid], tabTitle = t && t.tabs[ti] ? t.tabs[ti].title : '';
+    overlay((close) => {
+      const m = h('div', { class: 'modal' });
+      m.innerHTML = `<div class="modal-head"><h2>Report a mistake</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
+        <form class="modal-body report-form">
+          <p class="muted" style="margin-top:0;font-size:14px">About: <b style="color:var(--white)">${t ? rt(t.title) : ''}${tabTitle ? ' › ' + rt(tabTitle) : ''}</b></p>
+          <label>What's wrong?<textarea id="rep-text" required minlength="5" maxlength="1500" placeholder="e.g. The SOFC temperature says 80 °C but the slide says 800–1000 °C"></textarea></label>
+          <label>Your email or phone <span class="muted">(optional, only if you want a reply)</span><input id="rep-contact" maxlength="120" autocomplete="email"></label>
+          <input id="rep-web" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <div class="btn-row"><button class="btn primary" type="submit">Send report</button></div>
+          <p class="gate-msg" data-msg role="alert"></p>
+        </form>`;
+      $('[data-x]', m).addEventListener('click', close);
+      $('form', m).addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = $('[data-msg]', m), btn = $('button[type=submit]', m);
+        btn.disabled = true; msg.textContent = 'Sending…';
+        try {
+          const r = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic: tid, tab: tabTitle, text: $('#rep-text', m).value, contact: $('#rep-contact', m).value, website: $('#rep-web', m).value }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.error || 'Could not send. Try again in a moment.');
+          close(); toast('Thanks. Report sent', 'check');
+        } catch (err) { msg.textContent = err.message; btn.disabled = false; }
+      });
+      setTimeout(() => $('#rep-text', m).focus(), 30);
+      return m;
+    });
+  }
+
+  // anonymous counters: one "visit" per browser per day, one "open" per topic per session
+  function beacon(data) {
+    try { const b = new Blob([JSON.stringify(data)], { type: 'application/json' }); if (!(navigator.sendBeacon && navigator.sendBeacon('/api/track', b))) fetch('/api/track', { method: 'POST', body: b, keepalive: true }).catch(() => {}); } catch (e) { /* ignore */ }
+  }
+  function trackTopic(id) {
+    try { const k = 'bn_seen_' + id; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
+    beacon({ topic: id });
+  }
+  try { const d = new Date().toISOString().slice(0, 10); if (localStorage.getItem('bn_visit') !== d) { localStorage.setItem('bn_visit', d); beacon({ visit: true }); } } catch (e) { /* ignore */ }
+
   function shareProgress() {
     const d = doneIn(TOPICS), n = TOPICS.length, url = location.origin + location.pathname;
     const text = d ? `I've finished ${d} of ${n} topics on BACHY105 Notes. Module 2 is free, try it: ${url}` : `Studying Applied Chemistry (BACHY105)? Module 2 notes, diagrams and quizzes are free here: ${url}`;
@@ -1529,6 +1565,7 @@ window.__startApp = function () {
         toast(on ? 'Added to My weak spots' : 'Removed from weak spots', 'flag');
       }
       else if (k === 'share') shareProgress();
+      else if (k === 'report') openReport(act.dataset.t, +act.dataset.i);
       else if (k === 'tag') { e.preventDefault(); e.stopPropagation(); cycleTag(act.dataset.t); }
       else if (k === 'group') {
         const g = act.closest('.sb-group'); const id = act.dataset.g;

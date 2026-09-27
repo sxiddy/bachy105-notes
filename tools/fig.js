@@ -34,7 +34,7 @@ function resolveSrc(src) {
 }
 
 async function build(fig) {
-  if (!fig.id || !/^m[234]-[a-z0-9-]+$/.test(fig.id)) throw new Error(`bad figure id "${fig.id}"`);
+  if (!fig.id || !/^m[0-9]+-[a-z0-9-]+$/.test(fig.id)) throw new Error(`bad figure id "${fig.id}"`);
   const file = resolveSrc(fig.src || '');
   if (!fs.existsSync(file)) throw new Error(`${fig.id}: source not found: ${fig.src}`);
   if (/\.(wmf|emf)$/i.test(file)) throw new Error(`${fig.id}: ${fig.src} is a WMF/EMF equation image — crop the slide render instead or transcribe it as text`);

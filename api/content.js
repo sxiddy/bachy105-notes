@@ -1,8 +1,8 @@
 // GET /data/<file>.js (rewritten to /api/content?f=<file>) -> notes, questions, summaries and paid diagram code.
-// Module 2 is free for everyone; everything else needs payment.
+// Free modules (content/modules.json) are open to everyone; everything else needs payment.
 const fs = require('fs'), path = require('path');
 const { readToken, handle } = require('./_lib');
-const FREE = new Set(['chunk-A.js', 'chunk-B.js', 'chunk-C.js', 'q-M2.js', 'summary-m2.js', 'figs.js']);
+const FREE = new Set(require('./_access.json').freeFiles);
 module.exports = handle(async (req, res) => {
   const f = new URL(req.url, 'http://x').searchParams.get('f') || '';
   if (!/^((chunk|q|summary|viz)-[A-Za-z0-9]+|figs)\.js$/.test(f)) { res.statusCode = 404; return res.end('not found'); }

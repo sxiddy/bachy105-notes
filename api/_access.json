@@ -1,0 +1,13 @@
+{
+ "freeFiles": [
+  "chunk-A.js",
+  "chunk-B.js",
+  "chunk-C.js",
+  "q-M2.js",
+  "summary-m2.js",
+  "figs.js"
+ ],
+ "freeModules": [
+  "m2"
+ ]
+}

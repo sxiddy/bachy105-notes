@@ -807,3 +807,10 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
   .toasts { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
   .conf-btn .lbl { display: none; }
 }
+
+/* report-a-mistake dialog */
+.report-form { display: grid; gap: 12px; }
+.report-form label { display: grid; gap: 6px; font-size: 13.5px; color: var(--text-dim); }
+.report-form textarea, .report-form input:not([name="website"]) { border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font-size: 15px; }
+.report-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+.report-form textarea:focus, .report-form input:focus { outline: none; border-color: #55555e; }
