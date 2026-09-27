@@ -40,6 +40,8 @@
   .pill-tag { font: 11px var(--mono); border: 1px solid var(--line-2); border-radius: 99px; padding: 2px 8px; margin-left: 6px; color: var(--white); }
   .fb-act { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
   textarea.ann { display: block; width: 100%; min-height: 70px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font: 15px/1.5 var(--sans); resize: vertical; box-sizing: border-box; }
+  .srow { display: flex; gap: 8px; flex-wrap: wrap; }
+  .srow input { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 12px; font-family: var(--mono); }
   label.lim { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); }
   form.row label.lim input { min-width: 0; width: 70px; }
   form.row label.lim input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0; accent-color: #f4f4f6; }
@@ -96,6 +98,20 @@
     return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${fbFilter === 'open' ? 'open. All caught up' : 'here'}.</p>`}`;
   }
 
+  const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : 'Module 2 only');
+  function studentsHTML(s, q) {
+    const list = (s.students || []).filter((x) => !q || x.email.includes(q.toLowerCase()));
+    if (!list.length) return `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
+    const rows = list.slice(0, 300).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
+    return tbl(['Student email', 'Access', 'First sign-in (UTC)', 'Last used (UTC)', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
+  }
+  function studentsCSV(s) {
+    const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at', 'free_modules', 'first_sign_in', 'last_seen', 'sign_ins', 'phones', 'pcs'];
+    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? x.paid.at : '', x.free ? (x.free.modules || ['all']).join(' ') : '', x.first, x.lastSeen, x.logins, x.phones, x.pcs].map(q).join(','));
+    const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bachy105-students-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
   function lookupHTML(s, r) {
     const d = r.devices, l = r.limits;
     return `<div class="look">
@@ -125,6 +141,11 @@
         <form class="row" id="kf"><input id="kp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
         <div id="kout"></div>
       </section>
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Students <small>${(s.students || []).length} students · ${(s.students || []).filter((x) => x.logins || x.lastSeen || x.early).length} signed in · ${(s.students || []).filter((x) => x.paid).length} paid · ${(s.students || []).filter((x) => x.free).length} free access</small></h2>
+        <p class="row srow" style="margin:0 0 12px"><input id="sq" type="search" placeholder="Search by email" style="min-width:260px"><button class="btn" id="scsv">Download CSV</button></p>
+        <div id="slist">${studentsHTML(s, '')}</div>
+      </section>` : ''}
 
       <div class="kpis">
         <div><div class="v">${s.payments.count}</div><div class="l">paid users</div></div>
@@ -215,6 +236,14 @@
       } catch (err) { $('#km').textContent = err.message; }
     };
     $('#kf').addEventListener('submit', (e) => { e.preventDefault(); lookup($('#kp').value); });
+
+    // students list: search, CSV, click an email to look it up
+    const wireStudents = () => $$('[data-look-email]').forEach((b) => b.addEventListener('click', () => { $('#kp').value = b.dataset.lookEmail; $('#kf').scrollIntoView({ block: 'center' }); lookup(b.dataset.lookEmail); }));
+    if ($('#slist')) {
+      wireStudents();
+      $('#sq').addEventListener('input', () => { $('#slist').innerHTML = studentsHTML(s, $('#sq').value.trim()); wireStudents(); });
+      $('#scsv').addEventListener('click', () => studentsCSV(s));
+    }
 
     // settings
     if ($('#pf')) $('#pf').addEventListener('submit', async (e) => {

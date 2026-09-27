@@ -27,6 +27,9 @@ async function signIn(req, b, deviceId) {
   if (!isStudentEmail(email)) throw Object.assign(new Error(`Only VIT student accounts (…@${DOMAIN}) can use this site. You signed in as ${email}.`), { status: 403 });
   const dev = deviceIdFrom({ deviceId }), claim = await claimDevice(email, dev, req);
   if (!claim.ok) throw Object.assign(new Error(claim.why), { status: 403 });
+  // the owner's student list on /stats.html: first and latest sign-in, and how many sign-ins
+  const store = require('./_store'), now = new Date().toISOString();
+  if (store.configured()) await store.pipeline([['HSETNX', 'userFirst', email, now], ['HSET', 'userLogin', email, now], ['HSET', 'userSeen', email, now], ['HINCRBY', 'userLogins', email, 1]]).catch(() => {});
   return { email, cookie: userCookie(email, dev) };
 }
 

@@ -113,7 +113,7 @@ module.exports = handle(async (req, res) => {
   const [pays, cfg] = await Promise.all([paidPayments(10), settings()]);
   const byDay = {};
   pays.forEach((p) => { const d = iso(p.created_at).slice(0, 10); byDay[d] = (byDay[d] || 0) + 1; });
-  let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null;
+  let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [];
   if (store.configured()) {
     const [v, w, f, fr, lm, qz, ql, cf, cl, fn, fs, bn] = await store.pipeline([
       ['HGETALL', 'visits'], ['HGETALL', 'views'], ['LRANGE', 'feedback', 0, 199], ['HGETALL', 'free'], ['HGETALL', 'limits'],
@@ -142,6 +142,26 @@ module.exports = handle(async (req, res) => {
     funnel = { visitors: 0, paywall: 0, start: 0, paid: 0 };
     days.forEach((d) => { funnel.visitors += +(visits[d] || 0); ['paywall', 'start', 'paid'].forEach((s) => { funnel[s] += +(fnl[d + ':' + s] || 0); }); });
     banner = parseJSON(bn, null);
+
+    // every student who has signed in (plus anyone paid or on the free list), newest activity first
+    const [uf, ul, us, un, pd, dk] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'devices:*@*']]);
+    const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd);
+    const freeBy = Object.fromEntries(free.map((f) => [f.email, f]));
+    // students who signed in before this list existed only left a device record ("devices:<email>:<kind>")
+    const early = (dk || []).map((k) => k.slice(8, k.lastIndexOf(':'))).filter(isStudentEmail);
+    const emails = [...new Set([...Object.keys(first), ...Object.keys(paidBy), ...Object.keys(freeBy), ...early])].slice(0, 2000);
+    const dc = emails.length ? await store.pipeline(emails.flatMap((e) => deviceKeys(e).map((k) => ['SCARD', k]))) : [];
+    students = emails.map((e, i) => {
+      const p = paidBy[e] != null ? parseJSON(paidBy[e], {}) : null;
+      return {
+        email: e,
+        paid: p ? { amount: (p.amount || 0) / 100, at: p.at || '', id: p.id || '' } : null,
+        free: freeBy[e] ? { modules: freeBy[e].modules || null } : null,
+        first: first[e] || '', lastLogin: login[e] || '', lastSeen: seen[e] || login[e] || first[e] || '',
+        logins: +logins[e] || 0, phones: dc[i * MAX_DEVICES] || 0, pcs: dc[i * MAX_DEVICES + 1] || 0,
+        early: !first[e] && early.includes(e), // signed in before tracking started
+      };
+    }).sort((a, b) => (b.lastSeen > a.lastSeen ? 1 : b.lastSeen < a.lastSeen ? -1 : 0));
   }
   send(res, 200, {
     storage: store.configured(),
@@ -156,6 +176,6 @@ module.exports = handle(async (req, res) => {
       byDay,
       recent: pays.slice(0, 15).map((p) => ({ at: iso(p.created_at), email: normEmail((p.notes || {}).email) || '(before sign-in)', id: p.id, amount: p.amount / 100 })),
     },
-    visits, views, feedback, free, limits, quiz, confusing, funnel,
+    visits, views, feedback, free, limits, quiz, confusing, funnel, students,
   });
 });
