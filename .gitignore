@@ -2,3 +2,5 @@ node_modules/
 tmp/
 src/
 publish/
+.env
+.env.*

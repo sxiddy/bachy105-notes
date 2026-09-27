@@ -1,9 +1,16 @@
 // Local preview: static app/ plus the api/ functions and the same rewrites as vercel.json.
-//   node tools/serve.js            -> DEV_BYPASS (no payment needed) unless RAZORPAY_KEY_ID is set
-//   PAYWALL=1 node tools/serve.js  -> show the paywall locally
+//   node tools/serve.js            -> uses .env keys if present, otherwise DEV_BYPASS (no payment needed)
+//   PAYWALL=1 node tools/serve.js  -> force the paywall even without keys
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 process.chdir(ROOT);
+// load .env (local only; on Vercel these come from Project Settings → Environment Variables)
+if (fs.existsSync(path.join(ROOT, '.env'))) {
+  for (const line of fs.readFileSync(path.join(ROOT, '.env'), 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+    if (m && !(m[1] in process.env)) process.env[m[1]] = m[2];
+  }
+}
 const dir = path.join(ROOT, process.argv[2] || 'app');
 const port = +(process.argv[3] || 4173);
 if (!process.env.RAZORPAY_KEY_ID && !process.env.PAYWALL) process.env.DEV_BYPASS = '1';
@@ -26,4 +33,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': types[path.extname(f)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
     res.end(buf);
   });
-}).listen(port, () => console.log(`serving ${dir} on http://localhost:${port}${process.env.DEV_BYPASS ? ' (DEV_BYPASS: paywall off)' : ''}`));
+}).listen(port, () => console.log(`serving ${dir} on http://localhost:${port}${process.env.DEV_BYPASS ? ' (DEV_BYPASS: paywall off)' : process.env.RAZORPAY_KEY_ID ? ' (Razorpay ' + (process.env.RAZORPAY_KEY_ID.startsWith('rzp_test_') ? 'TEST' : 'LIVE') + ' keys)' : ''}`));

@@ -65,7 +65,7 @@ async function razorpay(method, path, data) {
     body: data ? JSON.stringify(data) : undefined,
   });
   const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw Object.assign(new Error((j.error && j.error.description) || 'Razorpay request failed'), { status: 502 });
+  if (!r.ok) throw Object.assign(new Error((j.error && j.error.description) || 'Razorpay request failed'), { status: r.status === 401 ? 401 : 500 });
   return j;
 }
 

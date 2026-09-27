@@ -67,7 +67,7 @@
           } },
           handler: async (resp) => {
             say('Payment received. Confirming…');
-            try { await api('/api/verify', resp); say('Unlocked.'); unlock(); }
+            try { await api('/api/verify-payment', resp); say('Unlocked.'); unlock(); }
             catch (e) { say(e.message + ' If money was taken, use "Restore access" with your payment ID: ' + resp.razorpay_payment_id); payBtn.disabled = false; }
           },
           modal: { ondismiss: () => { say('Payment cancelled.'); payBtn.disabled = false; } },
