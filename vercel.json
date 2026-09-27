@@ -1,5 +1,13 @@
 {
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": "app"
+  "outputDirectory": "app",
+  "functions": {
+    "api/content.js": { "includeFiles": "protected/data/**" },
+    "api/img.js": { "includeFiles": "protected/img/**" }
+  },
+  "rewrites": [
+    { "source": "/data/:f", "destination": "/api/content?f=:f" },
+    { "source": "/img/:f", "destination": "/api/img?f=:f" }
+  ]
 }

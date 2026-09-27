@@ -9,7 +9,7 @@ const sharp = require('./node_modules/sharp');
 
 const ROOT = path.resolve(__dirname, '..');
 const SRC = path.join(ROOT, 'src');
-const OUT = path.join(ROOT, 'app', 'img');
+const OUT = path.join(ROOT, 'protected', 'img');
 const PREV = path.join(ROOT, 'tmp', 'preview');
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(PREV, { recursive: true });

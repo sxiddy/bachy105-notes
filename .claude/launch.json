@@ -2,6 +2,6 @@
   "version": "0.0.1",
   "configurations": [
     { "name": "notes-app", "runtimeExecutable": "node", "runtimeArgs": ["tools/serve.js", "app", "4173"], "port": 4173 },
-    { "name": "notes-publish", "runtimeExecutable": "node", "runtimeArgs": ["tools/serve.js", "publish", "4174"], "port": 4174 }
+    { "name": "notes-paywall", "runtimeExecutable": "node", "runtimeArgs": ["tools/serve.js", "app", "4175"], "port": 4175, "env": { "PAYWALL": "1" } }
   ]
 }

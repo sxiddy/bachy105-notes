@@ -1,5 +1,5 @@
-/* BACHY105 Notes — app shell. Vanilla JS, no build step. */
-(function () {
+/* BACHY105 Notes — app shell. Vanilla JS, no build step. Started by gate.js once the notes are unlocked. */
+window.__startApp = function () {
   'use strict';
   const D = window.DATA || { chunks: [], questions: [], summaries: {}, figs: {} };
   const reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -1542,4 +1542,4 @@
   if (!startHash || startHash === '#') startHash = '#home';
   render(parse(startHash));
   window.__notes = { TOPICS, QS, CARDS, FIGS, S: () => S };
-})();
+};

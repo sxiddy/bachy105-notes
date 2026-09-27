@@ -14,7 +14,8 @@ vc.on('error', (...a) => errors.push('console.error: ' + a.map((x) => (x && x.st
 vc.on('jsdomError', (e) => { const m = String(e && (e.stack || e.message)); if (!/Could not parse CSS|Not implemented: (window.scrollTo|HTMLElement.prototype.scrollIntoView|Element.prototype.scrollTo)/.test(m)) errors.push('jsdomError: ' + m.split('\n').slice(0, 3).join(' | ')); });
 
 const html = fs.readFileSync(path.join(APP, 'index.html'), 'utf8');
-const scripts = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
+const scripts = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]).filter((s) => !/gate\.js|data-files/.test(s));
+const dataFiles = fs.readdirSync(path.join(ROOT, 'protected', 'data')).sort((a, b) => (a === 'figs.js') - (b === 'figs.js'));
 const dom = new JSDOM('<!doctype html><html><head></head><body><div id="app"></div></body></html>', { url: 'http://localhost/#home', pretendToBeVisual: true, runScripts: 'outside-only', virtualConsole: vc });
 const w = dom.window;
 w.matchMedia = () => ({ matches: false, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} });
@@ -28,6 +29,8 @@ for (const s of scripts) {
   try { w.eval(fs.readFileSync(path.join(APP, s), 'utf8') + '\n//# sourceURL=' + s); }
   catch (e) { errors.push(`${s}: ${e.stack || e.message}`); }
 }
+for (const f of dataFiles) { try { w.eval(fs.readFileSync(path.join(ROOT, 'protected', 'data', f), 'utf8')); } catch (e) { errors.push(f + ': ' + e.message); } }
+try { w.__startApp(); } catch (e) { errors.push('start: ' + (e.stack || e.message)); }
 const N = w.__notes;
 if (!N) { console.log('app did not boot'); errors.forEach((e) => console.log('  ' + e)); process.exit(1); }
 
@@ -49,7 +52,7 @@ const report = { routes: 0, tabs: 0, figs: 0, figMissing: [], vizMounted: 0, viz
       doc.querySelectorAll('.panel figure[data-fig]').forEach((f) => {
         report.figs++;
         const id = f.getAttribute('data-fig');
-        if (f.classList.contains('missing') || !fs.existsSync(path.join(APP, 'img', id + '.webp'))) report.figMissing.push(`${t.id}.${i} ${id}`);
+        if (f.classList.contains('missing') || !fs.existsSync(path.join(ROOT, 'protected', 'img', id + '.webp'))) report.figMissing.push(`${t.id}.${i} ${id}`);
       });
       (t.tabs[i].html.match(/data-viz="([a-z0-9-]+)"/g) || []).forEach((m) => {
         const id = m.slice(10, -1);
