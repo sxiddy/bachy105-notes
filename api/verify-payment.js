@@ -9,7 +9,7 @@ module.exports = handle(async (req, res) => {
   if (!safeEqual(expected, sig)) return send(res, 400, { error: 'Payment signature did not match.' });
   const chk = await checkPayment(p, o);
   if (!chk.ok) return send(res, 402, { error: chk.why });
-  const dev = deviceIdFrom(b), claim = await claimDevice(p, dev, req);
+  const dev = deviceIdFrom(b), claim = await claimDevice(p, dev, req, chk.payment.contact);
   if (!claim.ok) return send(res, 403, { error: claim.why });
   send(res, 200, { ok: true, paymentId: p, deviceId: dev }, { 'Set-Cookie': accessCookie(p, dev) });
 });

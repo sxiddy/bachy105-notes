@@ -99,8 +99,9 @@ async function checkPayment(paymentId, orderId) {
   return { ok: true, payment: p };
 }
 
-// Each payment unlocks one phone (or tablet) and one laptop/PC. The kind comes from the browser's user agent;
-// the browser keeps a random device id in localStorage, so clearing cookies on the same device reuses its slot.
+// Each payment unlocks one phone (or tablet) and one laptop/PC, unless the owner set a custom limit for that
+// phone number on /stats.html (hash "limits": phone -> {"phone":n,"pc":n}). The kind comes from the browser's
+// user agent; the browser keeps a random device id in localStorage, so clearing cookies reuses its slot.
 // Needs the store; without one the limit is not enforced.
 const DEVICE_KINDS = ['phone', 'pc'];
 const MAX_DEVICES = DEVICE_KINDS.length;
@@ -111,13 +112,26 @@ function deviceIdFrom(b) {
 }
 const deviceKind = (req) => (/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test((req && req.headers['user-agent']) || '') ? 'phone' : 'pc');
 const deviceKeys = (paymentId) => DEVICE_KINDS.map((k) => `devices:${paymentId}:${k}`);
-async function claimDevice(paymentId, deviceId, req) {
+const DEFAULT_LIMITS = { phone: 1, pc: 1 };
+function parseLimits(raw) {
+  let x = {}; try { x = JSON.parse(raw || '{}') || {}; } catch (e) {}
+  const n = (v, d) => (Number.isInteger(v) && v >= 0 && v <= 20 ? v : d);
+  return { phone: n(x.phone, DEFAULT_LIMITS.phone), pc: n(x.pc, DEFAULT_LIMITS.pc) };
+}
+const plural = (n, k) => `${n} ${n === 1 ? KIND_NAME[k] : k === 'pc' ? 'laptops/PCs' : 'phones'}`;
+async function claimDevice(paymentId, deviceId, req, phone) {
   const store = require('./_store');
   if (!store.configured()) return { ok: true, enforced: false };
   const kind = deviceKind(req), key = `devices:${paymentId}:${kind}`;
-  const [isMember, count] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key]]);
+  const [isMember, count, raw] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key], ['HGET', 'limits', last10(phone)]]);
   if (isMember) return { ok: true, enforced: true, kind };
-  if (count >= 1) return { ok: false, why: `This payment is already active on another ${KIND_NAME[kind]}. Each payment works on 1 phone and 1 laptop/PC. Use your first ${KIND_NAME[kind]}, or ask the site owner to reset your devices.` };
+  const lim = parseLimits(raw);
+  if (count >= lim[kind]) {
+    const why = lim[kind] === 0
+      ? `This number can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.`
+      : `This number has reached its limit of ${plural(lim[kind], kind)}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}. Use one of those, or ask the site owner to reset your devices.`;
+    return { ok: false, why };
+  }
   await store.pipeline([['SADD', key, deviceId]]);
   return { ok: true, enforced: true, kind };
 }
@@ -129,4 +143,4 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, handle };
+module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle };

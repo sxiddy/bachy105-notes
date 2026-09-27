@@ -25,6 +25,8 @@
   .note { margin-top: 14px; }
   form.row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   form.row input { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 12px; font-family: var(--mono); min-width: 220px; }
+  label.lim { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); }
+  form.row label.lim input { min-width: 0; width: 70px; }
   .msg { font-size: 14px; color: var(--warn); min-height: 1.4em; margin-top: 8px; }
 </style>
 </head>
@@ -78,12 +80,20 @@
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports <small>${(s.feedback || []).length}</small></h2>${(s.feedback || []).length ? s.feedback.map((f) => `<div class="fb"><small>${esc((f.at || '').replace('T', ' ').slice(0, 16))} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p></div>`).join('') : '<p class="muted">No reports yet.</p>'}</section>` : ''}
       <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>When (UTC)</th><th>Phone</th><th>Payment ID</th></tr></thead><tbody>${s.payments.recent.map((p) => `<tr><td>${esc(p.at.replace('T', ' ').slice(0, 16))}</td><td>${esc(p.phone)}</td><td><code>${esc(p.id)}</code></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No payments yet.</p>'}</section>
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
-        <p class="muted">Add a phone number and that person gets everything free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same limit as payers: 1 phone + 1 laptop/PC. Remove them and access stops right away.</p>
+        <p class="muted">Add a phone number and that person gets everything free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
         <form class="row" id="gf"><input id="gp" inputmode="numeric" placeholder="10-digit phone" required><input id="gn" placeholder="Name (optional)" style="min-width:160px"><button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
         ${(s.free || []).length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Phone</th><th>Name</th><th>Added (UTC)</th><th></th></tr></thead><tbody>${s.free.map((f) => `<tr><td><code>${esc(f.phone)}</code></td><td>${esc(f.name)}</td><td>${esc((f.at || '').replace('T', ' ').slice(0, 16))}</td><td><button class="btn ghost" data-revoke="${esc(f.phone)}">Remove</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">Nobody yet.</p>'}
       </section>
+      <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>
+        <p class="muted">Everyone gets <b>1 phone + 1 laptop/PC</b> by default. Set a different number for a specific phone number here. It works for payers and free-access people alike. 0 means that kind of device is blocked.</p>
+        <form class="row" id="lf"><input id="lp" inputmode="numeric" placeholder="10-digit phone" required>
+          <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
+          <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
+          <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
+        ${(s.limits || []).length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Phone</th><th>Phones</th><th>Laptops/PCs</th><th></th></tr></thead><tbody>${s.limits.map((l) => `<tr><td><code>${esc(l.number)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.number)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.number)}">Back to 1 + 1</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No custom limits yet.</p>'}
+      </section>
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
-        <p class="muted">Each payment works on 1 phone and 1 laptop/PC${s.storage ? `. Payments using both their phone and PC slots: <b>${s.fullDeviceSlots}</b>` : ' (active once storage is set up)'}. If a student gets a new phone, free their slots here.</p>
+        <p class="muted">If someone gets a new phone or PC, clear their devices here so they can unlock the new one. Works for payers and free-access numbers.</p>
         <form class="row" id="rf"><input id="rp" inputmode="numeric" placeholder="Student's 10-digit phone" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
       </section>`;
     $('#me').addEventListener('click', async () => {
@@ -93,13 +103,28 @@
     });
     $('#gf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#gm').textContent = 'Saving…';
-      try { await call('POST', { action: 'grant', phone: $('#gp').value, name: $('#gn').value }); $('#gm').textContent = 'Added. Refreshing the list…'; load(); }
+      try { await call('POST', { action: 'grant', phone: $('#gp').value, name: $('#gn').value }); $('#gm').textContent = 'Added. Next step: on the device to unlock, open the site, tap "Unlock here" and enter this number.'; setTimeout(load, 2500); }
       catch (err) { $('#gm').textContent = err.message; }
     });
     document.querySelectorAll('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
       if (!confirm('Remove free access for ' + b.dataset.revoke + '?')) return;
       b.disabled = true;
       try { await call('POST', { action: 'revoke', phone: b.dataset.revoke }); load(); }
+      catch (err) { b.disabled = false; alert(err.message); }
+    }));
+    $('#lf').addEventListener('submit', async (e) => {
+      e.preventDefault(); $('#lmm').textContent = 'Saving…';
+      try { await call('POST', { action: 'set-limits', phone: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
+      catch (err) { $('#lmm').textContent = err.message; }
+    });
+    document.querySelectorAll('[data-edit-lim]').forEach((b) => b.addEventListener('click', () => {
+      $('#lp').value = b.dataset.editLim; $('#lph').value = b.dataset.ph; $('#lpc').value = b.dataset.pc;
+      $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus();
+    }));
+    document.querySelectorAll('[data-clear-lim]').forEach((b) => b.addEventListener('click', async () => {
+      if (!confirm('Set ' + b.dataset.clearLim + ' back to 1 phone + 1 laptop/PC?')) return;
+      b.disabled = true;
+      try { await call('POST', { action: 'clear-limits', phone: b.dataset.clearLim }); load(); }
       catch (err) { b.disabled = false; alert(err.message); }
     }));
     $('#rf').addEventListener('submit', async (e) => {

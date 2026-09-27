@@ -26,7 +26,7 @@ module.exports = handle(async (req, res) => {
   if (store.configured()) {
     const [granted] = await store.pipeline([['HEXISTS', 'free', phone]]);
     if (granted) {
-      const id = 'free:' + phone, dev = deviceIdFrom(b), claim = await claimDevice(id, dev, req);
+      const id = 'free:' + phone, dev = deviceIdFrom(b), claim = await claimDevice(id, dev, req, phone);
       if (!claim.ok) return send(res, 403, { error: claim.why });
       return send(res, 200, { ok: true, free: true, deviceId: dev }, { 'Set-Cookie': accessCookie(id, dev) });
     }
@@ -39,7 +39,7 @@ module.exports = handle(async (req, res) => {
   const chk = await checkPayment(pid); // confirms UPI, amount, product, captured
   if (!chk.ok) return send(res, 402, { error: chk.why });
   if (last10(chk.payment.contact) !== phone) return send(res, 403, { error: 'That phone number does not match this payment.' });
-  const dev = deviceIdFrom(b), claim = await claimDevice(pid, dev, req);
+  const dev = deviceIdFrom(b), claim = await claimDevice(pid, dev, req, phone);
   if (!claim.ok) return send(res, 403, { error: claim.why });
   send(res, 200, { ok: true, deviceId: dev }, { 'Set-Cookie': accessCookie(pid, dev) });
 });
