@@ -1,7 +1,7 @@
 // Owner-only stats. Send the ADMIN_KEY (Vercel env var) in the "x-admin-key" header.
 //   GET  /api/stats                                 -> payments, visits, topic views, feedback
-//   POST /api/stats { action: 'reset-devices', phone } -> frees the 2 device slots for that phone's payments
-const { send, body, env, safeEqual, razorpay, PRICE, MAX_DEVICES, handle } = require('./_lib');
+//   POST /api/stats { action: 'reset-devices', phone } -> frees the phone + PC device slots for that phone's payments
+const { send, body, env, safeEqual, razorpay, PRICE, MAX_DEVICES, deviceKeys, handle } = require('./_lib');
 const store = require('./_store');
 
 const last10 = (s) => String(s || '').replace(/\D/g, '').slice(-10);
@@ -29,7 +29,7 @@ module.exports = handle(async (req, res) => {
     if (!store.configured()) return send(res, 400, { error: 'Storage is not set up, so device limits are not active yet.' });
     const mine = (await paidPayments(20)).filter((p) => last10(p.contact) === phone);
     if (!mine.length) return send(res, 404, { error: 'No paid payment found for that number.' });
-    await store.pipeline(mine.map((p) => ['DEL', 'devices:' + p.id]));
+    await store.pipeline(mine.map((p) => ['DEL', ...deviceKeys(p.id)]));
     return send(res, 200, { ok: true, reset: mine.length });
   }
 
@@ -41,8 +41,9 @@ module.exports = handle(async (req, res) => {
     const [v, w, f] = await store.pipeline([['HGETALL', 'visits'], ['HGETALL', 'views'], ['LRANGE', 'feedback', 0, 99]]);
     visits = store.pairs(v); views = store.pairs(w);
     feedback = (f || []).map((x) => { try { return JSON.parse(x); } catch (e) { return { text: String(x) }; } });
-    const counts = pays.length ? await store.pipeline(pays.slice(0, 50).map((p) => ['SCARD', 'devices:' + p.id])) : [];
-    devices = counts.filter((c) => c >= MAX_DEVICES).length;
+    const recent = pays.slice(0, 50), keys = recent.flatMap((p) => deviceKeys(p.id));
+    const counts = keys.length ? await store.pipeline(keys.map((k) => ['SCARD', k])) : [];
+    devices = recent.filter((p, i) => counts.slice(i * MAX_DEVICES, (i + 1) * MAX_DEVICES).every((c) => c >= 1)).length;
   }
   send(res, 200, {
     storage: store.configured(),

@@ -53,9 +53,14 @@
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
           <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
           <div class="gate-price"><span class="gate-rs">₹${rs}</span><span class="gate-muted">one-time · pay with any UPI app</span></div>
+          <div class="gate-devices" role="note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.6"/><path d="M1.5 20h21"/></svg>
+            <p><b>Works on 1 phone + 1 laptop/PC only.</b> One payment unlocks one phone and one computer. A second phone or a second PC won't open with the same payment.</p>
+          </div>
           <button class="btn primary gate-pay" id="gate-pay">Pay ₹${rs} with UPI</button>
           <p class="gate-msg" id="gate-msg" role="alert">${msg ? esc(msg) : ''}</p>
-          <p class="gate-muted gate-small">Google Pay, PhonePe, Paytm, BHIM or any UPI ID. After paying, access is saved in this browser. On a new device, or after clearing cookies, restore it with <b>the phone number you paid with</b>.</p>
+          <p class="gate-muted gate-small">Google Pay, PhonePe, Paytm, BHIM or any UPI ID. After paying, access is saved in this browser. To open it on your other device (your phone or your PC), or after clearing cookies, use <b>the phone number you paid with</b>.</p>
           <details class="gate-restore">
             <summary>Already paid? Restore access</summary>
             <form id="gate-form">

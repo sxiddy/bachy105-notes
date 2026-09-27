@@ -86,22 +86,27 @@ async function checkPayment(paymentId, orderId) {
   return { ok: true, payment: p };
 }
 
-// Each payment may unlock at most MAX_DEVICES browsers. The browser keeps a random device id in localStorage,
-// so clearing cookies on the same device reuses its slot. Needs the store; without one the limit is not enforced.
-const MAX_DEVICES = parseInt(process.env.MAX_DEVICES || '2', 10);
+// Each payment unlocks one phone (or tablet) and one laptop/PC. The kind comes from the browser's user agent;
+// the browser keeps a random device id in localStorage, so clearing cookies on the same device reuses its slot.
+// Needs the store; without one the limit is not enforced.
+const DEVICE_KINDS = ['phone', 'pc'];
+const MAX_DEVICES = DEVICE_KINDS.length;
+const KIND_NAME = { phone: 'phone', pc: 'laptop/PC' };
 function deviceIdFrom(b) {
   const d = String((b && b.deviceId) || '');
   return /^[a-f0-9]{32}$/.test(d) ? d : crypto.randomBytes(16).toString('hex');
 }
-async function claimDevice(paymentId, deviceId) {
+const deviceKind = (req) => (/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test((req && req.headers['user-agent']) || '') ? 'phone' : 'pc');
+const deviceKeys = (paymentId) => DEVICE_KINDS.map((k) => `devices:${paymentId}:${k}`);
+async function claimDevice(paymentId, deviceId, req) {
   const store = require('./_store');
   if (!store.configured()) return { ok: true, enforced: false };
-  const key = 'devices:' + paymentId;
+  const kind = deviceKind(req), key = `devices:${paymentId}:${kind}`;
   const [isMember, count] = await store.pipeline([['SISMEMBER', key, deviceId], ['SCARD', key]]);
-  if (isMember) return { ok: true, enforced: true };
-  if (count >= MAX_DEVICES) return { ok: false, why: `This payment is already active on ${MAX_DEVICES} devices. Use it on one of those, or ask the site owner to reset your devices.` };
+  if (isMember) return { ok: true, enforced: true, kind };
+  if (count >= 1) return { ok: false, why: `This payment is already active on another ${KIND_NAME[kind]}. Each payment works on 1 phone and 1 laptop/PC. Use your first ${KIND_NAME[kind]}, or ask the site owner to reset your devices.` };
   await store.pipeline([['SADD', key, deviceId]]);
-  return { ok: true, enforced: true };
+  return { ok: true, enforced: true, kind };
 }
 
 function handle(fn) {
@@ -111,4 +116,4 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, accessCookie, razorpay, checkPayment, deviceIdFrom, claimDevice, handle };
+module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, handle };

@@ -744,6 +744,10 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .gate-muted { color: var(--text-dim); }
 .gate-small { font-size: 13.5px; line-height: 1.6; }
 .gate-small b { color: var(--text-2); }
+.gate-devices { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line-2); border-left: 3px solid var(--white); background: var(--surface); border-radius: 10px; padding: 12px 14px; margin: 0 0 16px; }
+.gate-devices svg { width: 22px; height: 22px; flex: none; fill: none; stroke: var(--white); stroke-width: 1.6; stroke-linecap: round; }
+.gate-devices p { margin: 0 0 0 6px; font-size: 14px; line-height: 1.55; color: var(--text-2); }
+.gate-devices b { color: var(--white); }
 .gate-pay { height: 48px; font-size: 16px; padding: 0 22px; width: 100%; justify-content: center; }
 .gate-msg { min-height: 1.5em; font-size: 14px; color: var(--warn); margin: 12px 0 8px; }
 .gate-restore { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; }
