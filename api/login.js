@@ -25,8 +25,10 @@ async function signIn(req, b, deviceId) {
     email = g.email;
   }
   if (!isStudentEmail(email)) throw Object.assign(new Error(`Only VIT student accounts (…@${DOMAIN}) can use this site. You signed in as ${email}.`), { status: 403 });
-  const dev = deviceIdFrom({ deviceId }), claim = await claimDevice(email, dev, req);
-  if (!claim.ok) throw Object.assign(new Error(claim.why), { status: 403 });
+  // Only a real device id counts toward the device limit. If the browser didn't pass one (it can drop the cookie on
+  // Google's redirect), the slot is claimed on the first page load instead (api/session.js), so one browser = one device.
+  const dev = /^[a-f0-9]{32}$/.test(String(deviceId || '')) ? deviceId : null;
+  if (dev) { const claim = await claimDevice(email, dev, req); if (!claim.ok) throw Object.assign(new Error(claim.why), { status: 403 }); }
   // the owner's student list on /stats.html: first and latest sign-in, and how many sign-ins
   const store = require('./_store'), now = new Date().toISOString();
   if (store.configured()) await store.pipeline([['HSETNX', 'userFirst', email, now], ['HSET', 'userLogin', email, now], ['HSET', 'userSeen', email, now], ['HINCRBY', 'userLogins', email, 1]]).catch(() => {});

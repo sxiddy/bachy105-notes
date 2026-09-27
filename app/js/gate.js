@@ -73,7 +73,7 @@
     }
     // Full-page sign-in (no pop-up, so pop-up blockers can't stop it): Google sends the student back to /api/login,
     // which reads the device id from this cookie (SameSite=None so it survives Google's cross-site POST).
-    try { document.cookie = 'bn_dev=' + deviceId() + '; Path=/; Max-Age=600; SameSite=None' + (location.protocol === 'https:' ? '; Secure' : ''); } catch (e) { /* ignore */ }
+    try { document.cookie = 'bn_dev=' + deviceId() + '; Path=/; Max-Age=86400; SameSite=None' + (location.protocol === 'https:' ? '; Secure' : ''); } catch (e) { /* ignore */ }
     loadScript('https://accounts.google.com/gsi/client').then(() => {
       const g = window.google && window.google.accounts && window.google.accounts.id;
       if (!g) { say('Google sign-in could not load. Check your connection and reload.'); return; }
@@ -146,7 +146,7 @@
         if (o.amount !== price) {
           // the price changed while this page was open (usually an offer ended): show the new price before charging it
           const was = price;
-          try { S = await api('/api/session'); } catch (e) { /* keep what we have */ }
+          try { S = await api('/api/session?d=' + deviceId()); } catch (e) { /* keep what we have */ }
           price = o.amount; window.PRICE_RS = Math.round(price / 100);
           paywall(price > was ? `The offer has ended. The price is now ₹${window.PRICE_RS}. Tap Pay to continue.` : `The price is now ₹${window.PRICE_RS}. Tap Pay to continue.`);
           return;
@@ -183,7 +183,7 @@
 
   (async () => {
     try {
-      S = await api('/api/session');
+      S = await api('/api/session?d=' + deviceId());
       price = S.price || price;
       window.PRICE_RS = Math.round(price / 100);
       window.SITE_BANNER = S.banner || null;
@@ -191,7 +191,7 @@
       if (!S.user && !S.owner) {
         const err = new URLSearchParams(location.search).get('login_error');
         if (err) history.replaceState(null, '', location.pathname + location.hash);
-        return signIn(err || '');
+        return signIn(err || S.deviceError || '');
       }
       start(!!S.paid, Array.isArray(S.modules) ? S.modules : null);
     } catch (e) {
