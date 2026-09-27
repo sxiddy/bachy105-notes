@@ -1,6 +1,7 @@
 // POST /api/feedback { topic, tab, text, contact?, website? } -> stores a "found a mistake" report
 const { send, body, handle } = require('./_lib');
 const store = require('./_store');
+const crypto = require('crypto');
 
 module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
@@ -9,6 +10,7 @@ module.exports = handle(async (req, res) => {
   const text = String(b.text || '').trim().slice(0, 1500);
   if (text.length < 5) return send(res, 400, { error: 'Please describe the problem in a few words.' });
   const item = {
+    id: crypto.randomBytes(6).toString('hex'),
     at: new Date().toISOString(),
     topic: String(b.topic || '').slice(0, 60),
     tab: String(b.tab || '').slice(0, 120),

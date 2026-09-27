@@ -820,3 +820,8 @@ body.focus .t-actions:hover, body.focus .mynotes:hover, body.focus .next-topic:h
 .report-form textarea, .report-form input:not([name="website"]) { border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font-size: 15px; }
 .report-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
 .report-form textarea:focus, .report-form input:focus { outline: none; border-color: #55555e; }
+
+/* owner announcement banner */
+.site-banner { display: flex; align-items: center; gap: 12px; margin: 12px 20px 0; padding: 10px 10px 10px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--white); border-radius: 10px; background: var(--surface); color: var(--text); font-size: 14.5px; line-height: 1.5; }
+.site-banner span { flex: 1; min-width: 0; }
+@media (max-width: 640px) { .site-banner { margin: 10px 12px 0; } }

@@ -2,11 +2,14 @@
 // Free modules (content/modules.json) are open to everyone; everything else needs payment.
 const fs = require('fs'), path = require('path');
 const { hasAccess, handle } = require('./_lib');
-const FREE = new Set(require('./_access.json').freeFiles);
+const ACCESS = require('./_access.json');
+const FREE = new Set(ACCESS.freeFiles);
 module.exports = handle(async (req, res) => {
   const f = new URL(req.url, 'http://x').searchParams.get('f') || '';
   if (!/^((chunk|q|summary|viz)-[A-Za-z0-9]+|figs)\.js$/.test(f)) { res.statusCode = 404; return res.end('not found'); }
-  if (!FREE.has(f) && !(await hasAccess(req))) { res.statusCode = 402; res.setHeader('Cache-Control', 'no-store'); return res.end('/* payment required */'); }
+  const t = FREE.has(f) ? null : await hasAccess(req);
+  const mod = (ACCESS.fileModule || {})[f];
+  if (!FREE.has(f) && (!t || (t.modules && mod && !t.modules.includes(mod)))) { res.statusCode = 402; res.setHeader('Cache-Control', 'no-store'); return res.end('/* payment required */'); }
   const p = path.join(process.cwd(), 'protected', 'data', f);
   if (!fs.existsSync(p)) { res.statusCode = 404; return res.end('not found'); }
   res.statusCode = 200;

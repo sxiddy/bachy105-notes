@@ -1,7 +1,7 @@
 // POST /api/restore { phone, paymentId? } -> re-issues access on a new browser/device
 // Numbers on the owner's free list (set on /stats.html) unlock without a payment.
 // With only a phone number, looks through recent Razorpay payments for a completed ₹50 UPI payment from it.
-const { send, body, checkPayment, accessCookie, razorpay, PRICE, last10, deviceIdFrom, claimDevice, handle } = require('./_lib');
+const { send, body, checkPayment, accessCookie, razorpay, isOurs, last10, deviceIdFrom, claimDevice, handle } = require('./_lib');
 const store = require('./_store');
 
 const PAGES = 20; // up to 2,000 recent payments scanned (100 per page)
@@ -11,7 +11,7 @@ async function findByPhone(phone) {
   for (let page = 0; page < PAGES; page++) {
     const list = await razorpay('GET', `/payments?from=${from}&count=100&skip=${page * 100}`);
     const items = list.items || [];
-    const hit = items.find((p) => p.status === 'captured' && p.method === 'upi' && p.amount === PRICE && p.currency === 'INR' && last10(p.contact) === phone);
+    const hit = items.find((p) => isOurs(p) && last10(p.contact) === phone);
     if (hit) return hit.id;
     if (items.length < 100) break;
   }
@@ -34,7 +34,7 @@ module.exports = handle(async (req, res) => {
   let pid = String(b.paymentId || '').trim();
   if (!pid) {
     pid = await findByPhone(phone);
-    if (!pid) return send(res, 404, { error: 'No completed ₹50 UPI payment found for that number. Check the number, or enter your payment ID too.' });
+    if (!pid) return send(res, 404, { error: 'No completed UPI payment found for that number. Check the number, or enter your payment ID too.' });
   }
   const chk = await checkPayment(pid); // confirms UPI, amount, product, captured
   if (!chk.ok) return send(res, 402, { error: chk.why });

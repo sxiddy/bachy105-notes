@@ -25,8 +25,25 @@
   .note { margin-top: 14px; }
   form.row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   form.row input { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 12px; font-family: var(--mono); min-width: 220px; }
+  .funnel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 10px; }
+  .funnel > div { border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); padding: 14px 16px; display: grid; gap: 2px; }
+  .funnel b { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--white); line-height: 1.1; }
+  .funnel span { font-size: 13.5px; color: var(--text-2); }
+  .funnel em { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+  @media (max-width: 700px) { .funnel { grid-template-columns: repeat(2, 1fr); } }
+  .look { border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); padding: 6px 16px 14px; margin-top: 12px; }
+  .look-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .look-row > span { color: var(--text-dim); font-size: 13.5px; }
+  .look-row code { font-size: 12px; }
+  .look-act { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 12px; }
+  @media (max-width: 560px) { .look-row { grid-template-columns: 1fr; gap: 2px; } }
+  .pill-tag { font: 11px var(--mono); border: 1px solid var(--line-2); border-radius: 99px; padding: 2px 8px; margin-left: 6px; color: var(--white); }
+  .fb-act { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  textarea.ann { display: block; width: 100%; min-height: 70px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font: 15px/1.5 var(--sans); resize: vertical; box-sizing: border-box; }
   label.lim { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); }
   form.row label.lim input { min-width: 0; width: 70px; }
+  form.row label.lim input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0; accent-color: #f4f4f6; }
+  form.row label.lim:has(input[type="checkbox"]) { height: 38px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 10px; color: var(--text-2); cursor: pointer; }
   .msg { font-size: 14px; color: var(--warn); min-height: 1.4em; margin-top: 8px; }
 </style>
 </head>
@@ -44,6 +61,7 @@
 <script>
 (function () {
   const $ = (s) => document.querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   let key = ''; try { key = sessionStorage.getItem('bn_admin') || ''; } catch (e) {}
   async function call(method, data) {
@@ -61,75 +79,202 @@
     const max = Math.max(1, ...series.map((s) => s[1]));
     return `<div class="bars">${series.map(([k, v]) => `<div style="height:${Math.max(2, (v / max) * 100)}%" data-tip="${k}: ${v}"></div>`).join('')}</div><div class="axis"><span>${series[0][0]}</span><span>${series[series.length - 1][0]}</span></div>`;
   }
+  let fbFilter = 'open';
+  const when = (s) => esc(String(s || '').replace('T', ' ').slice(0, 16));
+  const pct = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '—');
+  const modName = (s, id) => { const m = (s.paidModules || []).find((x) => x.id === id); return m ? 'Module ' + (+m.num) : id; };
+  const modsLabel = (s, mods) => (mods && mods.length ? mods.map((id) => modName(s, id)).join(', ') + ' only' : 'All modules');
+  const tbl = (head, rows) => `<div class="tbl-wrap"><table class="tbl"><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+
+  function feedbackHTML(s) {
+    const all = s.feedback || [];
+    const n = (st) => all.filter((f) => f.status === st).length;
+    const list = all.filter((f) => f.status === fbFilter);
+    const tabs = [['open', 'Open'], ['fixed', 'Fixed'], ['ignored', 'Ignored']].map(([k, l]) => `<button class="btn small${fbFilter === k ? ' primary' : ' ghost'}" data-fbf="${k}">${l} ${n(k)}</button>`).join(' ');
+    const item = (f) => `<div class="fb"><small>${when(f.at)} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p>
+      <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">Mark fixed</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">Ignore</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}</div></div>`;
+    return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${fbFilter === 'open' ? 'open. All caught up' : 'here'}.</p>`}`;
+  }
+
+  function lookupHTML(s, r) {
+    const d = r.devices, l = r.limits;
+    return `<div class="look">
+      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${when(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this number</span>'}</div></div>
+      <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${when(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
+      <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit</span>' : '<span class="muted">(default)</span>'}</div></div>
+      <div class="look-act">
+        ${r.free ? `<button class="btn small ghost" data-look="revoke">Remove free access</button>` : `<button class="btn small" data-look="grant">Give free access…</button>`}
+        <button class="btn small ghost" data-look="limits">Change device limits…</button>
+        <button class="btn small ghost" data-look="reset">Reset devices</button>
+      </div></div>`;
+  }
+
   function render(s) {
     const v30 = days(s.visits, 30), p30 = days(s.payments.byDay, 30);
     const visitors = v30.reduce((a, x) => a + x[1], 0);
     const views = Object.entries(s.views || {}).sort((a, b) => b[1] - a[1]).slice(0, 15);
+    const F = s.funnel || { visitors: 0, paywall: 0, start: 0, paid: 0 };
+    const Q = s.quiz || { top: [], answered: 0, questions: 0 };
+    const B = s.banner || {};
+    const modChecks = (s.paidModules || []).map((m) => `<label class="lim"><input type="checkbox" class="gmod" value="${esc(m.id)}" checked> Module ${+m.num}</label>`).join('');
     $('#out').innerHTML = `
       <div class="note"><div class="note-label">Your own access</div><p>Unlock every module on this device, free, with no device limit. Do it once on each phone or PC you use.</p><p style="margin-top:10px"><button class="btn primary" id="me">Unlock the full site on this device</button> <span class="msg" id="mm" style="display:inline-block;margin-left:10px"></span></p></div>
-      ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. <b>Visitors, topic views, feedback and the 2-device limit</b> start working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
+      ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. Everything else starts working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
+
+      <section class="sum-sec" style="margin-top:28px"><h2 class="h-sec">Look up a student</h2>
+        <form class="row" id="kf"><input id="kp" inputmode="numeric" placeholder="10-digit phone" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
+        <div id="kout"></div>
+      </section>
+
       <div class="kpis">
         <div><div class="v">${s.payments.count}</div><div class="l">paid users</div></div>
         <div><div class="v">₹${s.payments.revenue.toLocaleString('en-IN')}</div><div class="l">collected</div></div>
         <div><div class="v">₹${s.payments.fees.toLocaleString('en-IN')}</div><div class="l">Razorpay fees</div></div>
         <div><div class="v">${s.storage ? visitors : '—'}</div><div class="l">visitors, last 30 days</div></div>
       </div>
-      <section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Payments per day <small>last 30 days</small></h2>${bars(p30)}</section>
+
+      ${s.storage ? `<section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Conversion <small>last 30 days</small></h2>
+        <div class="funnel">
+          <div><b>${F.visitors}</b><span>visited the site</span></div>
+          <div><b>${F.paywall}</b><span>saw the payment page</span><em>${pct(F.paywall, F.visitors)} of visitors</em></div>
+          <div><b>${F.start}</b><span>tapped Pay</span><em>${pct(F.start, F.paywall)} of those</em></div>
+          <div><b>${F.paid}</b><span>paid</span><em>${pct(F.paid, F.start)} of those</em></div>
+        </div>
+        <p class="muted" style="font-size:13.5px">Counts started when this was added, so older days show 0. Each browser counts once per visit.</p></section>` : ''}
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Settings</h2>
+        <form class="row" id="pf"><label class="lim">Price ₹ <input id="pr" type="number" min="1" max="5000" value="${esc(s.price)}" required style="width:90px"></label><button class="btn">Save price</button></form>
+        <p class="muted" style="font-size:13.5px;margin-top:6px">For new payments only. Everyone who already paid keeps access. The site shows the new price straight away.</p><p class="msg" id="pm"></p>
+        <form id="bf" style="margin-top:18px"><label class="muted" for="bt" style="font-size:13.5px">Announcement at the top of the site</label>
+          <textarea id="bt" maxlength="240" placeholder="e.g. CAT-2 revision notes for Module 4 are up!" class="ann">${esc(B.text || '')}</textarea>
+          <p class="row" style="margin-top:8px"><button class="btn primary" data-ban="1">${B.on ? 'Update announcement' : 'Show announcement'}</button>${B.on ? '<button class="btn ghost" data-ban="0">Hide it</button>' : ''} <span class="muted" style="font-size:13.5px;align-self:center">${B.on ? 'Showing now' : 'Not showing'}</span></p>
+          <p class="msg" id="bm"></p></form>
+      </section>` : ''}
+
+      <section class="sum-sec"><h2 class="h-sec">Payments per day <small>last 30 days</small></h2>${bars(p30)}</section>
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Visitors per day <small>last 30 days</small></h2>${bars(v30)}</section>` : ''}
-      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Most opened topics</h2>${views.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Topic</th><th>Opens</th></tr></thead><tbody>${views.map(([t, n]) => `<tr><td>${esc(t)}</td><td>${n}</td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No data yet.</p>'}</section>` : ''}
-      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports <small>${(s.feedback || []).length}</small></h2>${(s.feedback || []).length ? s.feedback.map((f) => `<div class="fb"><small>${esc((f.at || '').replace('T', ' ').slice(0, 16))} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p></div>`).join('') : '<p class="muted">No reports yet.</p>'}</section>` : ''}
-      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>When (UTC)</th><th>Phone</th><th>Payment ID</th></tr></thead><tbody>${s.payments.recent.map((p) => `<tr><td>${esc(p.at.replace('T', ' ').slice(0, 16))}</td><td>${esc(p.phone)}</td><td><code>${esc(p.id)}</code></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No payments yet.</p>'}</section>
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Quiz insights <small>${Q.answered} answers · ${Q.questions} questions</small></h2>
+        <p class="muted">The questions people get wrong most often (at least 3 answers). A high miss rate usually means the topic needs a clearer explanation.</p>
+        ${Q.top.length ? tbl(['Question', 'Wrong', 'Answers'], Q.top.map((q) => `<tr><td>${esc(q.label)}<br><small class="muted"><code>${esc(q.id)}</code></small></td><td><b>${pct(q.wrong, q.total)}</b></td><td>${q.total}</td></tr>`)) : '<p class="muted">Not enough answers yet.</p>'}</section>` : ''}
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Marked "Confusing?"</h2>
+        <p class="muted">Topic tabs students flagged as confusing, most first. Good candidates to rewrite.</p>
+        ${(s.confusing || []).length ? tbl(['Topic › tab', 'Students'], s.confusing.map((c) => `<tr><td>${esc(c.label)}</td><td><b>${c.count}</b></td></tr>`)) : '<p class="muted">No flags yet.</p>'}</section>` : ''}
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Most opened topics</h2>${views.length ? tbl(['Topic', 'Opens'], views.map(([t, n]) => `<tr><td>${esc(t)}</td><td>${n}</td></tr>`)) : '<p class="muted">No data yet.</p>'}</section>` : ''}
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports</h2><div id="fbl">${feedbackHTML(s)}</div></section>` : ''}
+
+      <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (UTC)', 'Phone', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.phone)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
+
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
-        <p class="muted">Add a phone number and that person gets everything free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
-        <form class="row" id="gf"><input id="gp" inputmode="numeric" placeholder="10-digit phone" required><input id="gn" placeholder="Name (optional)" style="min-width:160px"><button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
-        ${(s.free || []).length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Phone</th><th>Name</th><th>Added (UTC)</th><th></th></tr></thead><tbody>${s.free.map((f) => `<tr><td><code>${esc(f.phone)}</code></td><td>${esc(f.name)}</td><td>${esc((f.at || '').replace('T', ' ').slice(0, 16))}</td><td><button class="btn ghost" data-revoke="${esc(f.phone)}">Remove</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">Nobody yet.</p>'}
+        <p class="muted">Add a phone number and that person gets the ticked modules free. They open the site, tap <b>Already paid, or given free access? Unlock here</b> and enter this number. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
+        <form class="row" id="gf"><input id="gp" inputmode="numeric" placeholder="10-digit phone" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        ${(s.free || []).length ? tbl(['Phone', 'Name', 'Access', 'Added (UTC)', ''], s.free.map((f) => `<tr><td><code>${esc(f.phone)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.phone)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
+
       <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>
         <p class="muted">Everyone gets <b>1 phone + 1 laptop/PC</b> by default. Set a different number for a specific phone number here. It works for payers and free-access people alike. 0 means that kind of device is blocked.</p>
         <form class="row" id="lf"><input id="lp" inputmode="numeric" placeholder="10-digit phone" required>
           <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
           <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
           <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
-        ${(s.limits || []).length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Phone</th><th>Phones</th><th>Laptops/PCs</th><th></th></tr></thead><tbody>${s.limits.map((l) => `<tr><td><code>${esc(l.number)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.number)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.number)}">Back to 1 + 1</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="muted">No custom limits yet.</p>'}
+        ${(s.limits || []).length ? tbl(['Phone', 'Phones', 'Laptops/PCs', ''], s.limits.map((l) => `<tr><td><code>${esc(l.number)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.number)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.number)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
       </section>
+
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
         <p class="muted">If someone gets a new phone or PC, clear their devices here so they can unlock the new one. Works for payers and free-access numbers.</p>
         <form class="row" id="rf"><input id="rp" inputmode="numeric" placeholder="Student's 10-digit phone" required><button class="btn">Reset devices</button></form><p class="msg" id="rm"></p>
       </section>`;
+
+    const post = (data) => call('POST', data);
     $('#me').addEventListener('click', async () => {
       $('#mm').textContent = 'Unlocking…';
-      try { await call('POST', { action: 'unlock-me' }); $('#mm').innerHTML = 'Done. <a href="./" style="color:inherit">Open the site →</a>'; }
+      try { await post({ action: 'unlock-me' }); $('#mm').innerHTML = 'Done. <a href="./" style="color:inherit">Open the site →</a>'; }
       catch (err) { $('#mm').textContent = err.message; }
     });
+
+    // look up a student
+    let looked = '';
+    const lookup = async (phone) => {
+      $('#km').textContent = 'Looking up…'; $('#kout').innerHTML = '';
+      try {
+        const r = await post({ action: 'lookup', phone }); looked = r.phone;
+        $('#km').textContent = ''; $('#kout').innerHTML = lookupHTML(s, r);
+        $$('[data-look]', $('#kout')).forEach((b) => b.addEventListener('click', async () => {
+          const k = b.dataset.look;
+          if (k === 'grant') { $('#gp').value = looked; $('#gf').scrollIntoView({ block: 'center' }); $('#gn').focus(); return; }
+          if (k === 'limits') { $('#lp').value = looked; $('#lph').value = r.limits.phones; $('#lpc').value = r.limits.pcs; $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus(); return; }
+          if (k === 'revoke' && !confirm('Remove free access for ' + looked + '?')) return;
+          if (k === 'reset' && !confirm('Clear all devices for ' + looked + '? They will need to unlock again.')) return;
+          b.disabled = true;
+          try { await post({ action: k === 'reset' ? 'reset-devices' : 'revoke', phone: looked }); lookup(looked); }
+          catch (err) { b.disabled = false; $('#km').textContent = err.message; }
+        }));
+      } catch (err) { $('#km').textContent = err.message; }
+    };
+    $('#kf').addEventListener('submit', (e) => { e.preventDefault(); lookup($('#kp').value); });
+
+    // settings
+    if ($('#pf')) $('#pf').addEventListener('submit', async (e) => {
+      e.preventDefault(); $('#pm').textContent = 'Saving…';
+      try { await post({ action: 'set-price', rupees: +$('#pr').value }); $('#pm').textContent = 'Saved. New payments are now ₹' + (+$('#pr').value) + '.'; }
+      catch (err) { $('#pm').textContent = err.message; }
+    });
+    $$('[data-ban]').forEach((b) => b.addEventListener('click', async (e) => {
+      e.preventDefault(); $('#bm').textContent = 'Saving…';
+      try { await post({ action: 'set-banner', text: $('#bt').value, on: b.dataset.ban === '1' }); $('#bm').textContent = b.dataset.ban === '1' ? 'Showing on the site now.' : 'Hidden.'; setTimeout(load, 1200); }
+      catch (err) { $('#bm').textContent = err.message; }
+    }));
+
+    // mistake reports
+    const wireFeedback = () => {
+      $$('[data-fbf]').forEach((b) => b.addEventListener('click', () => { fbFilter = b.dataset.fbf; $('#fbl').innerHTML = feedbackHTML(s); wireFeedback(); }));
+      $$('[data-fb]').forEach((b) => b.addEventListener('click', async () => {
+        b.disabled = true;
+        try { await post({ action: 'feedback-status', id: b.dataset.fb, status: b.dataset.st }); const f = s.feedback.find((x) => x.id === b.dataset.fb); if (f) f.status = b.dataset.st; $('#fbl').innerHTML = feedbackHTML(s); wireFeedback(); }
+        catch (err) { b.disabled = false; alert(err.message); }
+      }));
+    };
+    if ($('#fbl')) wireFeedback();
+
+    // free access
     $('#gf').addEventListener('submit', async (e) => {
-      e.preventDefault(); $('#gm').textContent = 'Saving…';
-      try { await call('POST', { action: 'grant', phone: $('#gp').value, name: $('#gn').value }); $('#gm').textContent = 'Added. Next step: on the device to unlock, open the site, tap "Unlock here" and enter this number.'; setTimeout(load, 2500); }
+      e.preventDefault();
+      const mods = $$('.gmod').filter((c) => c.checked).map((c) => c.value);
+      if (!mods.length) { $('#gm').textContent = 'Tick at least one module.'; return; }
+      $('#gm').textContent = 'Saving…';
+      try { await post({ action: 'grant', phone: $('#gp').value, name: $('#gn').value, modules: mods }); $('#gm').textContent = 'Added. Next step: on the device to unlock, open the site, tap "Unlock here" and enter this number.'; setTimeout(load, 2500); }
       catch (err) { $('#gm').textContent = err.message; }
     });
-    document.querySelectorAll('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
+    $$('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
       if (!confirm('Remove free access for ' + b.dataset.revoke + '?')) return;
       b.disabled = true;
-      try { await call('POST', { action: 'revoke', phone: b.dataset.revoke }); load(); }
+      try { await post({ action: 'revoke', phone: b.dataset.revoke }); load(); }
       catch (err) { b.disabled = false; alert(err.message); }
     }));
+
+    // device limits
     $('#lf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#lmm').textContent = 'Saving…';
-      try { await call('POST', { action: 'set-limits', phone: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
+      try { await post({ action: 'set-limits', phone: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
       catch (err) { $('#lmm').textContent = err.message; }
     });
-    document.querySelectorAll('[data-edit-lim]').forEach((b) => b.addEventListener('click', () => {
+    $$('[data-edit-lim]').forEach((b) => b.addEventListener('click', () => {
       $('#lp').value = b.dataset.editLim; $('#lph').value = b.dataset.ph; $('#lpc').value = b.dataset.pc;
       $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus();
     }));
-    document.querySelectorAll('[data-clear-lim]').forEach((b) => b.addEventListener('click', async () => {
+    $$('[data-clear-lim]').forEach((b) => b.addEventListener('click', async () => {
       if (!confirm('Set ' + b.dataset.clearLim + ' back to 1 phone + 1 laptop/PC?')) return;
       b.disabled = true;
-      try { await call('POST', { action: 'clear-limits', phone: b.dataset.clearLim }); load(); }
+      try { await post({ action: 'clear-limits', phone: b.dataset.clearLim }); load(); }
       catch (err) { b.disabled = false; alert(err.message); }
     }));
+
     $('#rf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#rm').textContent = 'Resetting…';
-      try { const r = await call('POST', { action: 'reset-devices', phone: $('#rp').value }); $('#rm').textContent = `Done. ${r.reset} payment(s) reset; they can now unlock on new devices.`; }
+      try { const r = await post({ action: 'reset-devices', phone: $('#rp').value }); $('#rm').textContent = `Done. ${r.reset} payment(s) / free access reset; they can now unlock on new devices.`; }
       catch (err) { $('#rm').textContent = err.message; }
     });
   }

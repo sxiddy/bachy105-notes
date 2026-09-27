@@ -36,12 +36,16 @@ const MODULES = JSON.parse(fs.readFileSync(path.join(CONTENT, 'modules.json'), '
 const filesOf = (m) => [...m.chunks.map((c) => `chunk-${c}.js`), m.questions, `summary-${m.id}.js`].filter(Boolean);
 const FREE = MODULES.filter((m) => m.free).flatMap(filesOf);
 fs.writeFileSync(path.join(APP, 'js', 'modules.js'), `window.MODULES_CONFIG = ${JSON.stringify(MODULES.map(({ id, num, title, free, chunks, syllabus }) => ({ id, num, title, free, chunks, syllabus })))};\n`);
-fs.writeFileSync(path.join(ROOT, 'api', '_access.json'), JSON.stringify({ freeFiles: [...FREE, 'figs.js'], freeModules: MODULES.filter((m) => m.free).map((m) => m.id) }, null, 1) + '\n');
+// which module each paid file belongs to, so the owner can unlock a single module for someone
+const fileModule = {};
+for (const m of MODULES) for (const f of filesOf(m)) fileModule[f] = m.id;
+for (const f of paidViz) { const id = (f.match(/^viz-(m[0-9]+)/) || [])[1]; if (id) fileModule[f] = id; }
+fs.writeFileSync(path.join(ROOT, 'api', '_access.json'), JSON.stringify({ freeFiles: [...FREE, 'figs.js'], freeModules: MODULES.filter((m) => m.free).map((m) => m.id), paidModules: MODULES.filter((m) => !m.free).map(({ id, num, title }) => ({ id, num, title })), fileModule }, null, 1) + '\n');
 // file lists the gate loads (names only, no content): free modules for everyone, the rest after payment.
 const freeFiles = [...contentFiles.filter((f) => FREE.includes(f)), 'figs.js'];
 const paidFiles = [...paidViz, ...contentFiles.filter((f) => !FREE.includes(f))];
 const dataFiles = [...freeFiles, ...paidFiles];
-fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.FREE_FILES = ${JSON.stringify(freeFiles)};\nwindow.PAID_FILES = ${JSON.stringify(paidFiles)};\n`);
+fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.FREE_FILES = ${JSON.stringify(freeFiles)};\nwindow.PAID_FILES = ${JSON.stringify(paidFiles)};\nwindow.FILE_MODULE = ${JSON.stringify(fileModule)};\n`);
 
 const vizFiles = fs.readdirSync(path.join(APP, 'js', 'viz')).filter((f) => /\.js$/.test(f)).sort();
 const scripts = ['js/boot.js', 'js/modules.js', 'js/viz-core.js', ...vizFiles.map((f) => 'js/viz/' + f), 'js/app.js', 'js/data-files.js', 'js/gate.js'];

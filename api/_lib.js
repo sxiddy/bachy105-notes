@@ -1,7 +1,7 @@
 // Shared helpers for the payment + content functions (files starting with _ are not deployed as endpoints).
 const crypto = require('crypto');
 
-const PRICE = parseInt(process.env.PRICE_PAISE || '5000', 10); // ₹50
+const PRICE = parseInt(process.env.PRICE_PAISE || '5000', 10); // ₹50 default; the owner can change it on /stats.html
 const COOKIE = 'bn_access';
 const MAX_AGE = 400 * 24 * 3600; // browsers cap cookies at 400 days
 
@@ -53,16 +53,19 @@ function readToken(req) {
 }
 
 // Who can see the paid modules: a paid token, the owner token, or a free-access token whose phone is still
-// on the owner's free list (so removing someone from the list locks them out straight away).
+// on the owner's free list (so removing someone from the list locks them out straight away). A free grant can
+// be limited to some modules; then t.modules lists them (null = everything).
 const last10 = (s) => String(s || '').replace(/\D/g, '').slice(-10);
 async function hasAccess(req) {
   const t = readToken(req);
   if (!t) return null;
-  if (!String(t.p).startsWith('free:')) return t;
+  if (!String(t.p).startsWith('free:')) return Object.assign(t, { modules: null });
   const store = require('./_store');
   if (!store.configured()) return null;
-  const [on] = await store.pipeline([['HEXISTS', 'free', String(t.p).slice(5)]]);
-  return on ? t : null;
+  const [raw] = await store.pipeline([['HGET', 'free', String(t.p).slice(5)]]);
+  if (raw == null) return null;
+  let x = {}; try { x = JSON.parse(raw) || {}; } catch (e) {}
+  return Object.assign(t, { modules: Array.isArray(x.modules) && x.modules.length ? x.modules : null });
 }
 
 function accessCookie(paymentId, deviceId) {
@@ -88,15 +91,32 @@ async function checkPayment(paymentId, orderId) {
   let p = await razorpay('GET', '/payments/' + paymentId);
   if (orderId && p.order_id !== orderId) return { ok: false, why: 'Payment does not belong to this order.' };
   if (p.method !== 'upi') return { ok: false, why: 'Only UPI payments unlock the notes.' };
-  if (p.currency !== 'INR' || p.amount !== PRICE) return { ok: false, why: 'Payment amount does not match.' };
+  // orders are only ever created server-side at the current price, so any INR amount on one of our orders is valid
+  // (older payments at an earlier price keep working after the owner changes it)
+  if (p.currency !== 'INR' || !(p.amount >= 100)) return { ok: false, why: 'Payment amount does not match.' };
   if ((p.notes || {}).product !== 'bachy105-notes') {
     // payments made through our checkout carry the order's notes; fall back to the order
     if (p.order_id) { const o = await razorpay('GET', '/orders/' + p.order_id); if ((o.notes || {}).product !== 'bachy105-notes') return { ok: false, why: 'Payment was not for these notes.' }; }
     else return { ok: false, why: 'Payment was not for these notes.' };
   }
-  if (p.status === 'authorized') p = await razorpay('POST', `/payments/${paymentId}/capture`, { amount: PRICE, currency: 'INR' });
+  if (p.status === 'authorized') p = await razorpay('POST', `/payments/${paymentId}/capture`, { amount: p.amount, currency: 'INR' });
   if (p.status !== 'captured') return { ok: false, why: `Payment is ${p.status}, not completed.` };
   return { ok: true, payment: p };
+}
+
+// A completed payment for these notes, as seen in Razorpay's payment list (any price the owner has used).
+const isOurs = (p) => p.status === 'captured' && p.method === 'upi' && p.currency === 'INR'
+  && ((p.notes || {}).product === 'bachy105-notes' || p.amount === PRICE);
+
+// Owner settings kept in the store (hash "config"): price in paise and the announcement banner.
+async function settings() {
+  const store = require('./_store');
+  const out = { price: PRICE, banner: null };
+  if (!store.configured()) return out;
+  const [[p, b]] = await store.pipeline([['HMGET', 'config', 'price', 'banner']]);
+  const n = parseInt(p, 10); if (Number.isInteger(n) && n >= 100) out.price = n;
+  try { const x = JSON.parse(b || 'null'); if (x && x.on && x.text) out.banner = { id: x.id, text: x.text }; } catch (e) {}
+  return out;
 }
 
 // Each payment unlocks one phone (or tablet) and one laptop/PC, unless the owner set a custom limit for that
@@ -143,4 +163,4 @@ function handle(fn) {
   };
 }
 
-module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle };
+module.exports = { PRICE, MAX_DEVICES, env, send, body, hmac, safeEqual, readToken, hasAccess, last10, accessCookie, razorpay, checkPayment, isOurs, settings, deviceIdFrom, deviceKeys, claimDevice, parseLimits, handle };

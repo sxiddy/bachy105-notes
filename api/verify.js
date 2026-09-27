@@ -1,5 +1,6 @@
 // POST /api/verify { razorpay_order_id, razorpay_payment_id, razorpay_signature } -> sets the access cookie
 const { send, body, hmac, safeEqual, env, checkPayment, accessCookie, deviceIdFrom, claimDevice, handle } = require('./_lib');
+const store = require('./_store');
 module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
   const b = await body(req);
@@ -11,5 +12,6 @@ module.exports = handle(async (req, res) => {
   if (!chk.ok) return send(res, 402, { error: chk.why });
   const dev = deviceIdFrom(b), claim = await claimDevice(p, dev, req, chk.payment.contact);
   if (!claim.ok) return send(res, 403, { error: claim.why });
+  if (store.configured()) await store.pipeline([['HINCRBY', 'funnel', store.today() + ':paid', 1]]).catch(() => {});
   send(res, 200, { ok: true, paymentId: p, deviceId: dev }, { 'Set-Cookie': accessCookie(p, dev) });
 });

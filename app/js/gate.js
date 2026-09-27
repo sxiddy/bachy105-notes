@@ -29,13 +29,23 @@
     return j;
   }
 
-  // Paid users get everything; everyone else gets Module 2 and sees Modules 3–4 as locked.
-  async function start(paid) {
+  // anonymous funnel counts for the owner: saw the paywall, opened checkout (once per browser session each)
+  function funnel(step) {
+    try { const k = 'bn_f_' + step; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
+    try { const b = new Blob([JSON.stringify({ funnel: step })], { type: 'application/json' }); if (!(navigator.sendBeacon && navigator.sendBeacon('/api/track', b))) fetch('/api/track', { method: 'POST', body: b, keepalive: true }).catch(() => {}); } catch (e) { /* ignore */ }
+  }
+
+  // Paid users get everything; a single-module grant loads just those modules; everyone else gets the free
+  // modules and sees the rest as locked.
+  async function start(paid, modules) {
     root.innerHTML = '<div class="gate"><div class="gate-card"><p class="gate-muted">Loading your notes…</p></div></div>';
     try {
-      const files = (window.FREE_FILES || []).concat(paid ? window.PAID_FILES || [] : []);
+      const FM = window.FILE_MODULE || {};
+      const paidFiles = !paid ? [] : (window.PAID_FILES || []).filter((f) => !modules || modules.includes(FM[f]));
+      const files = (window.FREE_FILES || []).concat(paidFiles);
       for (const f of files) await loadScript('data/' + f);
-      window.APP_LOCKED = !paid;
+      const allPaid = CFG.filter((m) => !m.free).every((m) => !modules || modules.includes(m.id));
+      window.APP_LOCKED = !paid || !allPaid;
       window.__showPaywall = paywall;
       root.innerHTML = '';
       window.__startApp();
@@ -74,8 +84,10 @@
       </div>`;
     const payBtn = document.getElementById('gate-pay'), out = document.getElementById('gate-msg');
     const say = (t) => { out.textContent = t; };
+    funnel('paywall');
     payBtn.addEventListener('click', async () => {
       payBtn.disabled = true; say('Opening UPI checkout…');
+      funnel('start');
       try {
         await loadScript('https://checkout.razorpay.com/v1/checkout.js');
         const o = await api('/api/create-order', {});
@@ -112,7 +124,9 @@
     try {
       const s = await api('/api/session');
       price = s.price || price;
-      start(!!s.paid);
+      window.PRICE_RS = Math.round(price / 100);
+      window.SITE_BANNER = s.banner || null;
+      start(!!s.paid, Array.isArray(s.modules) ? s.modules : null);
     } catch (e) { start(false); }
   })();
 })();

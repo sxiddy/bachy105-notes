@@ -114,7 +114,7 @@ window.__startApp = function () {
     (ch.figures || []).forEach((f) => { FIGS[f.id] = f; });
   });
   const SUM = D.summaries || {};
-  // Free users only have Module 2 loaded; Modules 3–4 show as locked with an unlock button.
+  // Modules whose files were not loaded (not paid, or not in a single-module grant) show as locked.
   MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && !m.free && !m.topics.length; });
 
   // reading order: m2 topics, m2 summary, m3 topics, ...
@@ -174,6 +174,16 @@ window.__startApp = function () {
   const topbar = h('header', { class: 'topbar' });
   const host = h('div', { class: 'view-host' });
   main.append(topbar, host);
+  // owner's announcement (set on /stats.html, delivered with /api/session); each message can be closed once
+  const B = window.SITE_BANNER;
+  let bannerClosed = ''; try { bannerClosed = localStorage.getItem('bn_banner_x') || ''; } catch (e) { /* ignore */ }
+  if (B && B.text && B.id !== bannerClosed) {
+    const bar = h('div', { class: 'site-banner', role: 'status' });
+    bar.innerHTML = `<span>${esc(B.text)}</span><button class="icon-btn" aria-label="Close announcement">${icon('x')}</button>`;
+    bar.querySelector('button').addEventListener('click', () => { bar.remove(); try { localStorage.setItem('bn_banner_x', B.id); } catch (e) { /* ignore */ } });
+    main.insertBefore(bar, host);
+  }
+  const PRICE_RS = window.PRICE_RS || 50;
   app.append(sidebar, scrim, main);
   const toasts = h('div', { class: 'toasts', 'aria-live': 'polite' });
   const mountPoint = document.getElementById('app') || document.body;
@@ -221,7 +231,7 @@ window.__startApp = function () {
             </div></div>
           </div>`).join('')}
         ${MODULES.filter((m) => m.locked).map((m) => `
-          <div class="sb-group locked"><a class="sb-group-head" href="#unlock" title="Unlock for ₹50">
+          <div class="sb-group locked"><a class="sb-group-head" href="#unlock" title="Unlock for ₹${PRICE_RS}">
             <span class="sb-num">${m.num}</span><span class="sb-gtitle">${esc(m.title)}</span><span class="sb-gcount">${icon('lock')}</span>
           </a></div>`).join('')}
         <div class="sb-label">Practice</div>
@@ -443,7 +453,7 @@ window.__startApp = function () {
       onScroll();
     };
     if (document.startViewTransition && !reduced && current) {
-      try { document.startViewTransition(run); return; } catch (e) { /* fall through */ }
+      try { const vt = document.startViewTransition(run); vt.ready.catch(() => {}); vt.finished.catch(() => {}); return; } catch (e) { /* fall through */ } // a quick second click skips the animation; not an error
     }
     run();
   }
@@ -642,7 +652,7 @@ window.__startApp = function () {
         <section class="mod-sec">
           <div class="mod-head"><span class="mod-num">Module ${m.num}</span><h2 class="h-sec">${esc(m.title)}</h2><span class="count">${icon('lock')} locked</span></div>
           <p class="mod-syl">${esc(m.syllabus)}</p>
-          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock ${lockedNames()} for ₹50</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
+          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock ${lockedNames()} for ₹${PRICE_RS}</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
         </section>`).join('')}
       <section class="mod-sec">
         <div class="mod-head"><h2 class="h-sec">Practice</h2></div>
@@ -925,6 +935,7 @@ window.__startApp = function () {
       const st = qState(q.id); st.seen++; if (right) st.right++; else { st.wrong++; st.status = 'revisit'; } save();
       $('[data-st]', card).innerHTML = statusTag(q.id);
       ans.classList.add('open'); paintRev();
+      trackAnswer(q, right);
       if (opts.onAnswer) opts.onAnswer(right);
     });
     return card;
@@ -1526,6 +1537,16 @@ window.__startApp = function () {
     try { const k = 'bn_seen_' + id; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
     beacon({ topic: id });
   }
+  // first answer to each question per session, so the owner can see which questions trip people up
+  const short = (s) => plain(s).slice(0, 140);
+  function trackAnswer(q, right) {
+    try { const k = 'bn_ans_' + q.id; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
+    beacon({ quiz: q.id, ok: !!right, label: short(q.q) });
+  }
+  function trackConfusing(tid, ti, on) {
+    const t = TOPIC[tid], tb = t && t.tabs[ti];
+    beacon({ confusing: tid, tab: ti, on: !!on, label: short((t ? t.short || t.title : tid) + ' › ' + (tb ? tb.title : 'tab ' + (ti + 1))) });
+  }
   try { const d = new Date().toISOString().slice(0, 10); if (localStorage.getItem('bn_visit') !== d) { localStorage.setItem('bn_visit', d); beacon({ visit: true }); } } catch (e) { /* ignore */ }
 
   function shareProgress() {
@@ -1566,6 +1587,7 @@ window.__startApp = function () {
         const on = !list.includes(ti); if (on) list.push(ti); else list.splice(list.indexOf(ti), 1); if (!list.length) delete S.confusing[tid]; save();
         act.classList.toggle('on', on); act.querySelector('.lbl').textContent = on ? 'Marked confusing' : 'Confusing?';
         toast(on ? 'Added to My weak spots' : 'Removed from weak spots', 'flag');
+        trackConfusing(tid, ti, on);
       }
       else if (k === 'share') shareProgress();
       else if (k === 'report') openReport(act.dataset.t, +act.dataset.i);
