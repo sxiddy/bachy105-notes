@@ -162,14 +162,19 @@ async function recordPaid(email, p) {
   await store.pipeline([['HSET', 'paid', email, JSON.stringify({ id: p.id, at: new Date(p.created_at * 1000).toISOString(), amount: p.amount })]]);
 }
 
-// Owner settings kept in the store (hash "config"): price in paise and the announcement banner.
+// Owner settings kept in the store (hash "config"): price in paise, a temporary sale price, and the announcement banner.
+// While a sale is running (until its end time) it replaces the normal price everywhere, then the normal price returns by itself.
 async function settings() {
   const store = require('./_store');
-  const out = { price: PRICE, banner: null };
+  const out = { price: PRICE, normalPrice: PRICE, sale: null, banner: null };
   if (!store.configured()) return out;
-  const [[p, b]] = await store.pipeline([['HMGET', 'config', 'price', 'banner']]);
-  const n = parseInt(p, 10); if (Number.isInteger(n) && n >= 100) out.price = n;
+  const [[p, b, sl]] = await store.pipeline([['HMGET', 'config', 'price', 'banner', 'sale']]);
+  const n = parseInt(p, 10); if (Number.isInteger(n) && n >= 100) out.price = out.normalPrice = n;
   try { const x = JSON.parse(b || 'null'); if (x && x.on && x.text) out.banner = { id: x.id, text: x.text }; } catch (e) {}
+  try {
+    const x = JSON.parse(sl || 'null');
+    if (x && Number.isInteger(x.price) && x.price >= 100 && x.until > Date.now()) { out.sale = { price: x.price, until: x.until }; out.price = x.price; }
+  } catch (e) {}
   return out;
 }
 

@@ -29,6 +29,8 @@
     if (!r.ok) throw new Error(j.error || 'Request failed (' + r.status + ')');
     return j;
   }
+  // e.g. 28-09-2026 11:30 PM, in Indian time
+  const offerEnds = (ms) => { const d = new Date(ms + 5.5 * 3600e3), h = d.getUTCHours(); return String(d.getUTCDate()).padStart(2, '0') + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + d.getUTCFullYear() + ' ' + String(h % 12 || 12).padStart(2, '0') + ':' + String(d.getUTCMinutes()).padStart(2, '0') + (h < 12 ? ' AM' : ' PM'); };
   const reload = () => { history.replaceState(null, '', location.pathname); location.reload(); };
   async function signOut() { try { await api('/api/logout', {}); } catch (e) { /* ignore */ } reload(); }
   window.__signOut = signOut;
@@ -109,7 +111,7 @@
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
           <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
-          <div class="gate-price"><span class="gate-rs">₹${rs}</span><span class="gate-muted">one-time · pay with any UPI app</span></div>
+          <div class="gate-price"><span class="gate-rs">₹${rs}</span>${S.sale && S.normalPrice > price ? `<s class="gate-was">₹${(S.normalPrice / 100).toFixed(0)}</s><span class="gate-offer">Offer ends ${offerEnds(S.sale.until)}</span>` : ''}<span class="gate-muted">one-time · pay with any UPI app</span></div>
           <div class="gate-devices" role="note">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg>
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.6"/><path d="M1.5 20h21"/></svg>

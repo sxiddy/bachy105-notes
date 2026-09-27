@@ -7,7 +7,8 @@
 //     revoke { email }                   remove free access
 //     set-limits { email, phones, pcs }  custom device limits;  clear-limits { email }  back to 1 + 1
 //     reset-devices { email }            free that student's device slots
-//     set-price { rupees }               price for new payments
+//     set-price { rupees }               normal price for new payments
+//     set-sale { rupees, hours } / end-sale   temporary price that ends by itself
 //     set-banner { text, on }            announcement shown at the top of the site
 //     feedback-status { id, status }     mark a mistake report open / fixed / ignored
 const crypto = require('crypto');
@@ -46,6 +47,18 @@ module.exports = handle(async (req, res) => {
       const rs = Number(b.rupees);
       if (!Number.isInteger(rs) || rs < 1 || rs > 5000) return send(res, 400, { error: 'Enter a whole number of rupees, from 1 to 5000.' });
       await store.pipeline([['HSET', 'config', 'price', String(rs * 100)]]);
+      return send(res, 200, { ok: true });
+    }
+    if (a === 'set-sale') {
+      const rs = Number(b.rupees), hours = Number(b.hours);
+      if (!Number.isInteger(rs) || rs < 1 || rs > 5000) return send(res, 400, { error: 'Enter a whole number of rupees, from 1 to 5000.' });
+      if (!(hours > 0 && hours <= 24 * 60)) return send(res, 400, { error: 'Pick how long the offer lasts (up to 60 days).' });
+      const until = Date.now() + Math.round(hours * 3600e3);
+      await store.pipeline([['HSET', 'config', 'sale', JSON.stringify({ price: rs * 100, until })]]);
+      return send(res, 200, { ok: true, until });
+    }
+    if (a === 'end-sale') {
+      await store.pipeline([['HDEL', 'config', 'sale']]);
       return send(res, 200, { ok: true });
     }
     if (a === 'set-banner') {
@@ -169,7 +182,8 @@ module.exports = handle(async (req, res) => {
     storage: store.configured(),
     maxDevices: MAX_DEVICES,
     paidModules,
-    price: cfg.price / 100,
+    price: cfg.normalPrice / 100,
+    sale: cfg.sale ? { rupees: cfg.sale.price / 100, until: new Date(cfg.sale.until).toISOString() } : null,
     banner,
     payments: {
       count: pays.length,

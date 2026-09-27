@@ -31,7 +31,8 @@
   .funnel span { font-size: 13.5px; color: var(--text-2); }
   .funnel em { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
   @media (max-width: 700px) { .funnel { grid-template-columns: repeat(2, 1fr); } }
-  .look { border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); padding: 6px 16px 14px; margin-top: 12px; }
+  .look { border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); padding: 6px 16px 14px; margin: 4px 0 8px; }
+  tr.sdetail > td { background: var(--surface); padding: 6px 12px 10px; }
   .look-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
   .look-row > span { color: var(--text-dim); font-size: 13.5px; }
   .look-row code { font-size: 12px; }
@@ -43,6 +44,10 @@
   .dt { display: inline-flex; flex-direction: column; line-height: 1.3; white-space: nowrap; }
   .dt b { font-weight: 500; color: var(--white); }
   .dt small { font-size: 12px; color: var(--text-dim); }
+  .sale { margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); padding: 12px 16px; }
+  .sale p { margin: 6px 0 10px; font-size: 14px; }
+  select.sel { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 10px; }
+  .srow-more { display: flex; align-items: center; gap: 10px; margin: 10px 0 0; font-size: 13.5px; }
   .srow { display: flex; gap: 8px; flex-wrap: wrap; }
   .srow input { height: 38px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 0 12px; font-family: var(--mono); }
   label.lim { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); }
@@ -112,11 +117,15 @@
   }
 
   const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : 'Module 2 only');
+  let shown = 5; // students list starts with 5 rows; "Show more" adds 10 at a time
   function studentsHTML(s, q) {
     const list = (s.students || []).filter((x) => !q || x.email.includes(q.toLowerCase()));
-    if (!list.length) return `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
-    const rows = list.slice(0, 300).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.visits}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
-    return tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Visits', 'Sign-ins', 'Devices'], rows) + (list.length > 300 ? `<p class="muted">Showing 300 of ${list.length}. Search to narrow it down, or download the CSV for all.</p>` : '');
+    if (!list.length) {
+      const e = q.trim().toLowerCase();
+      return /^[a-z0-9._%+-]+@vitstudent.ac.in$/.test(e) ? `<p class="muted">${esc(e)} isn't in the list (never signed in, paid or given free access). <button class="btn small" data-look-email="${esc(e)}">Look up anyway</button></p>` : `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
+    }
+    const rows = list.slice(0, shown).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.visits}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
+    return '<p class="muted" style="margin:-4px 0 10px;font-size:13.5px">Click a student to see their payments and devices, and to change their access.</p>' + tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Visits', 'Sign-ins', 'Devices'], rows) + `<p class="srow-more">${list.length > shown ? `<button class="btn small" data-more>Show more</button>` : ''}${shown > 5 ? `<button class="btn small ghost" data-less>Show less</button>` : ''}<span class="muted">Showing ${Math.min(shown, list.length)} of ${list.length}</span></p>`;
   }
   function studentsCSV(s) {
     const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
@@ -150,15 +159,6 @@
       <div class="note"><div class="note-label">Your own access</div><p>Unlock every module on this device, free, with no device limit. Do it once on each phone or PC you use.</p><p style="margin-top:10px"><button class="btn primary" id="me">Unlock the full site on this device</button> <span class="msg" id="mm" style="display:inline-block;margin-left:10px"></span></p></div>
       ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. Everything else starts working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
 
-      <section class="sum-sec" style="margin-top:28px"><h2 class="h-sec">Look up a student</h2>
-        <form class="row" id="kf"><input id="kp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><button class="btn primary">Look up</button></form><p class="msg" id="km"></p>
-        <div id="kout"></div>
-      </section>
-
-      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Students <small>${(s.students || []).length} students · ${(s.students || []).filter((x) => x.logins || x.lastSeen || x.early).length} signed in · ${(s.students || []).filter((x) => x.paid).length} paid · ${(s.students || []).filter((x) => x.free).length} free access</small></h2>
-        <p class="row srow" style="margin:0 0 12px"><input id="sq" type="search" placeholder="Search by email" style="min-width:260px"><button class="btn" id="scsv">Download CSV</button></p>
-        <div id="slist">${studentsHTML(s, '')}</div>
-      </section>` : ''}
 
       <div class="kpis">
         <div><div class="v">${s.payments.count}</div><div class="l">paid users</div></div>
@@ -166,6 +166,12 @@
         <div><div class="v">₹${s.payments.fees.toLocaleString('en-IN')}</div><div class="l">Razorpay fees</div></div>
         <div><div class="v">${s.storage ? visitors : '—'}</div><div class="l">visitors, last 30 days</div></div>
       </div>
+
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Students <small>${(s.students || []).length} students · ${(s.students || []).filter((x) => x.logins || x.lastSeen || x.early).length} signed in · ${(s.students || []).filter((x) => x.paid).length} paid · ${(s.students || []).filter((x) => x.free).length} free access</small></h2>
+        <p class="row srow" style="margin:0 0 12px"><input id="sq" type="search" placeholder="Search by email" style="min-width:260px"><button class="btn" id="scsv">Download CSV</button></p>
+        <div id="slist">${studentsHTML(s, '')}</div>
+      </section>` : ''}
+
 
       ${s.storage ? `<section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Conversion <small>last 30 days</small></h2>
         <div class="funnel">
@@ -179,6 +185,11 @@
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Settings</h2>
         <form class="row" id="pf"><label class="lim">Price ₹ <input id="pr" type="number" min="1" max="5000" value="${esc(s.price)}" required style="width:90px"></label><button class="btn">Save price</button></form>
         <p class="muted" style="font-size:13.5px;margin-top:6px">For new payments only. Everyone who already paid keeps access. The site shows the new price straight away.</p><p class="msg" id="pm"></p>
+        <div class="sale"><div class="note-label">Temporary offer</div>
+          ${s.sale ? `<p><b>Running now: ₹${esc(s.sale.rupees)}</b> instead of ₹${esc(s.price)}, until ${whenInline(s.sale.until)} IST. After that the price goes back to ₹${esc(s.price)} by itself. <button class="btn small ghost" id="se">End offer now</button></p>` : `<p class="muted">Set a lower price for a while, e.g. ₹30 until midnight tonight. Students see it as an offer, still pay once, and the normal price comes back automatically when it ends.</p>`}
+          <form class="row" id="sf"><label class="lim">₹ <input id="sp" type="number" min="1" max="5000" value="${esc(s.sale ? s.sale.rupees : 30)}" required style="width:80px"></label>
+            <label class="lim">for <select id="sh" class="sel"><option value="midnight" selected>Until midnight tonight</option><option value="1">1 hour</option><option value="3">3 hours</option><option value="6">6 hours</option><option value="12">12 hours</option><option value="24">24 hours</option><option value="48">2 days</option><option value="72">3 days</option><option value="168">7 days</option></select></label>
+            <button class="btn primary">${s.sale ? 'Restart offer' : 'Start offer'}</button></form><p class="msg" id="sm"></p></div>
         <form id="bf" style="margin-top:18px"><label class="muted" for="bt" style="font-size:13.5px">Announcement at the top of the site</label>
           <textarea id="bt" maxlength="240" placeholder="e.g. CAT-2 revision notes for Module 4 are up!" class="ann">${esc(B.text || '')}</textarea>
           <p class="row" style="margin-top:8px"><button class="btn primary" data-ban="1">${B.on ? 'Update announcement' : 'Show announcement'}</button>${B.on ? '<button class="btn ghost" data-ban="0">Hide it</button>' : ''} <span class="muted" style="font-size:13.5px;align-self:center">${B.on ? 'Showing now' : 'Not showing'}</span></p>
@@ -229,36 +240,58 @@
       catch (err) { $('#mm').textContent = err.message; }
     });
 
-    // look up a student
-    let looked = '';
-    const lookup = async (email) => {
-      $('#km').textContent = 'Looking up…'; $('#kout').innerHTML = '';
+    // students list: click a student to open their details (payments, free access, devices) and actions in place
+    const openStudent = async (email, btn, keepOpen) => {
+      const tr = btn.closest('tr');
+      let box;
+      if (tr) {
+        const nx = tr.nextElementSibling;
+        if (nx && nx.classList.contains('sdetail')) { if (!keepOpen) { nx.remove(); return; } box = nx.firstElementChild; }
+        else { const row = document.createElement('tr'); row.className = 'sdetail'; row.innerHTML = `<td colspan="${tr.children.length}"></td>`; tr.after(row); box = row.firstElementChild; }
+      } else {
+        box = btn.parentElement.nextElementSibling && btn.parentElement.nextElementSibling.classList.contains('sfree') ? btn.parentElement.nextElementSibling : Object.assign(document.createElement('div'), { className: 'sfree' });
+        if (!box.isConnected) btn.parentElement.after(box);
+      }
+      box.innerHTML = '<p class="muted" style="margin:10px 0">Loading…</p>';
       try {
-        const r = await post({ action: 'lookup', email }); looked = r.email;
-        $('#km').textContent = ''; $('#kout').innerHTML = lookupHTML(s, r);
-        $$('[data-look]', $('#kout')).forEach((b) => b.addEventListener('click', async () => {
+        const r = await post({ action: 'lookup', email });
+        box.innerHTML = lookupHTML(s, r) + '<p class="msg" data-smsg></p>';
+        const say = (t) => { box.querySelector('[data-smsg]').textContent = t; };
+        $$('[data-look]', box).forEach((b) => b.addEventListener('click', async () => {
           const k = b.dataset.look;
-          if (k === 'grant') { $('#gp').value = looked; $('#gf').scrollIntoView({ block: 'center' }); $('#gn').focus(); return; }
-          if (k === 'limits') { $('#lp').value = looked; $('#lph').value = r.limits.phones; $('#lpc').value = r.limits.pcs; $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus(); return; }
-          if (k === 'revoke' && !confirm('Remove free access for ' + looked + '?')) return;
-          if (k === 'reset' && !confirm('Clear all devices for ' + looked + '? They will need to unlock again.')) return;
+          if (k === 'grant') { $('#gp').value = r.email; $('#gf').scrollIntoView({ block: 'center' }); $('#gn').focus(); return; }
+          if (k === 'limits') { $('#lp').value = r.email; $('#lph').value = r.limits.phones; $('#lpc').value = r.limits.pcs; $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus(); return; }
+          if (k === 'revoke' && !confirm('Remove free access for ' + r.email + '?')) return;
+          if (k === 'reset' && !confirm('Clear all devices for ' + r.email + '? They will need to sign in again on each device.')) return;
           b.disabled = true;
-          try { await post({ action: k === 'reset' ? 'reset-devices' : 'revoke', email: looked }); lookup(looked); }
-          catch (err) { b.disabled = false; $('#km').textContent = err.message; }
+          try { await post({ action: k === 'reset' ? 'reset-devices' : 'revoke', email: r.email }); openStudent(email, btn, true); }
+          catch (err) { b.disabled = false; say(err.message); }
         }));
-      } catch (err) { $('#km').textContent = err.message; }
+      } catch (err) { box.innerHTML = `<p class="msg">${esc(err.message)}</p>`; }
     };
-    $('#kf').addEventListener('submit', (e) => { e.preventDefault(); lookup($('#kp').value); });
-
-    // students list: search, CSV, click an email to look it up
-    const wireStudents = () => $$('[data-look-email]').forEach((b) => b.addEventListener('click', () => { $('#kp').value = b.dataset.lookEmail; $('#kf').scrollIntoView({ block: 'center' }); lookup(b.dataset.lookEmail); }));
+    const redrawStudents = () => { $('#slist').innerHTML = studentsHTML(s, $('#sq').value.trim()); wireStudents(); };
+    const wireStudents = () => {
+      $$('[data-look-email]').forEach((b) => b.addEventListener('click', () => openStudent(b.dataset.lookEmail, b)));
+      $$('[data-more]').forEach((b) => b.addEventListener('click', () => { shown += 10; redrawStudents(); }));
+      $$('[data-less]').forEach((b) => b.addEventListener('click', () => { shown = 5; redrawStudents(); }));
+    };
     if ($('#slist')) {
       wireStudents();
-      $('#sq').addEventListener('input', () => { $('#slist').innerHTML = studentsHTML(s, $('#sq').value.trim()); wireStudents(); });
+      $('#sq').addEventListener('input', () => { shown = 5; redrawStudents(); });
       $('#scsv').addEventListener('click', () => studentsCSV(s));
     }
 
     // settings
+    if ($('#sf')) $('#sf').addEventListener('submit', async (e) => {
+      e.preventDefault(); $('#sm').textContent = 'Saving…';
+      try { const v = $('#sh').value; const hours = v === 'midnight' ? ((864e5 - ((Date.now() + IST) % 864e5)) / 3600e3) : +v; // midnight = 12:00 AM IST tonight
+      const r = await post({ action: 'set-sale', rupees: +$('#sp').value, hours }); $('#sm').textContent = 'Offer on: ₹' + (+$('#sp').value) + ' until ' + whenInline(new Date(r.until).toISOString()) + ' IST.'; setTimeout(load, 1500); }
+      catch (err) { $('#sm').textContent = err.message; }
+    });
+    if ($('#se')) $('#se').addEventListener('click', async () => {
+      if (!confirm('End the offer now and go back to ₹' + s.price + '?')) return;
+      try { await post({ action: 'end-sale' }); load(); } catch (err) { $('#sm').textContent = err.message; }
+    });
     if ($('#pf')) $('#pf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#pm').textContent = 'Saving…';
       try { await post({ action: 'set-price', rupees: +$('#pr').value }); $('#pm').textContent = 'Saved. New payments are now ₹' + (+$('#pr').value) + '.'; }
