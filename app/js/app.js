@@ -73,12 +73,19 @@ window.__startApp = function () {
     flag: '<path d="M5 21V4h11l-1.5 4L16 12H5"/>',
     menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
     lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    fire: '<path d="M12 3c.5 3.2 4.5 5.2 4.5 10a4.5 4.5 0 0 1-9 0c0-2 .9-3.3 1.8-4.3.2 1.5 1 2.4 1.9 2.8C10.6 9 11.2 5.6 12 3z"/>',
+    swords: '<path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="m5 14 4 4M7 17l-3 3M3 19l2 2"/>',
+    help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><path d="M12 17.2v.1"/>',
+    list: '<path d="M9 6h11M9 12h11M9 18h11"/><rect x="3.5" y="4.5" width="3" height="3" rx=".6"/><rect x="3.5" y="10.5" width="3" height="3" rx=".6"/><rect x="3.5" y="16.5" width="3" height="3" rx=".6"/>',
+    guide: '<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>',
+    phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/>',
+    trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/>',
   };
   const icon = (n, cls) => `<svg class="i${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ''}</svg>`;
 
   // ================================================================ store
   const KEY = 'bachy105-notes:v1';
-  function blank() { return { visited: {}, done: {}, tags: {}, notes: {}, hl: {}, q: {}, cards: {}, confusing: {}, last: null, ui: { closed: {}, lastTab: {} } }; }
+  function blank() { return { visited: {}, done: {}, tags: {}, notes: {}, hl: {}, q: {}, cards: {}, confusing: {}, study: {}, syl: {}, last: null, ui: { closed: {}, lastTab: {} } }; }
   function normalize(s) {
     const b = blank();
     if (!s || typeof s !== 'object') return b;
@@ -218,6 +225,7 @@ window.__startApp = function () {
       </div>
       <button class="sb-search" data-act="search">${icon('search')}<span>Search notes</span><kbd>${isMac ? '⌘' : 'Ctrl'} K</kbd></button>
       <nav class="sb-nav">
+        <a class="sb-link sb-guide" href="#guide" data-key="guide">${icon('guide')}<span>HOW TO USE</span></a>
         <a class="sb-link" href="#home" data-key="home">${icon('home')}<span>Home</span></a>
         ${MODULES.filter((m) => m.topics.length).map((m) => `
           <div class="sb-group${S.ui.closed[m.id] ? ' closed' : ''}" data-group="${m.id}">
@@ -255,12 +263,19 @@ window.__startApp = function () {
         <a class="sb-link" href="#formulas" data-key="formulas">${icon('sigma')}<span>Formula sheet</span></a>
         <a class="sb-link" href="#lab" data-key="lab">${icon('flask')}<span>Lab bench</span><span class="count" data-labcount></span></a>
         <a class="sb-link" href="#mine" data-key="mine">${icon('pen')}<span>Highlights & notes</span></a>
+        <a class="sb-link" href="#battle" data-key="battle">${icon('swords')}<span>1v1 Quiz battle</span></a>
+        <div class="sb-label">Exams</div>
+        <a class="sb-link" href="#syllabus.cat1" data-key="syllabus.cat1">${icon('list')}<span>CAT-1 syllabus</span></a>
+        <a class="sb-link" href="#syllabus.cat2" data-key="syllabus.cat2">${icon('list')}<span>CAT-2 syllabus</span><span class="count" data-sylcount></span></a>
+        <div class="sb-label">Talk to us</div>
+        <button class="sb-link" data-act="ideas">${icon('bulb')}<span>Any ideas?</span></button>
+        <button class="sb-link" data-act="help">${icon('help')}<span>Help?</span></button>
       </nav>
       <div class="sb-foot">
         <button data-act="keys">${icon('keys')}Shortcuts</button>
         <button data-act="backup">${icon('db')}Backup</button>
         <button data-act="theme" data-label>${themeLabel()}</button>
-        ${window.SIGNED_IN_AS ? `<button data-act="signout" title="Signed in as ${esc(window.SIGNED_IN_AS)}">${icon('x')}Sign out</button>` : ''}
+        ${window.SIGNED_IN_AS ? `<button data-act="devices" title="Request a device reset">${icon('phone')}Devices</button><button data-act="signout" title="Signed in as ${esc(window.SIGNED_IN_AS)}">${icon('x')}Sign out</button>` : ''}
       </div>`;
     sidebar.innerHTML = '';
     sidebar.appendChild(inner);
@@ -276,6 +291,7 @@ window.__startApp = function () {
     MODULES.forEach((m) => { const c = $(`[data-count="${m.id}"]`, sidebar); if (c) c.textContent = `${doneIn(m.topics)}/${m.topics.length}`; });
     $$('.tag-dot', sidebar).forEach((b) => { const v = S.tags[b.dataset.t]; if (v) b.dataset.tag = v; else b.removeAttribute('data-tag'); });
     const lc = $('[data-labcount]', sidebar); if (lc) lc.textContent = allViz().length || '';
+    const sc = $('[data-sylcount]', sidebar); if (sc) { const it = sylItems('cat2'); sc.textContent = it.length ? `${it.filter((x) => S.syl['cat2:' + x.id]).length}/${it.length}` : ''; }
   }
   function setActive(key) {
     $$('a', bnav).forEach((a) => a.classList.toggle('on', a.dataset.key === key || (key && a.dataset.key === 'home' && (TOPIC[key] || /summary|^m[0-9]+$/.test(key)))));
@@ -309,11 +325,12 @@ window.__startApp = function () {
       <button class="icon-btn" data-act="sidebar" title="Toggle sidebar ( [ )" aria-label="Toggle sidebar">${icon('side')}</button>
       <nav class="crumbs" aria-label="Breadcrumb"></nav>
       <div class="top-progress"><span class="lbl" data-overall></span><div class="bar"><i data-overall-bar></i></div></div>
+      <a class="streak-chip" href="#home" data-streak title="Days in a row you've studied" hidden></a>
       <button class="pill" data-act="focus" title="Focus mode (F)">${icon('timer')}<span class="lbl">Focus</span><span class="timer" hidden></span></button>
       <button class="icon-btn" data-act="theme" title="Light / dark mode" aria-label="Toggle light or dark mode">${icon(S.ui.theme === 'light' ? 'moon' : 'sun')}</button>
       <button class="pill${S.ui.recall ? ' on' : ''}" data-act="recall" title="Recall mode (R): blanks every key term">${icon('eye')}<span class="lbl">Recall</span><span class="switch"></span></button>
       <div class="read-bar"></div>`;
-    updateOverall();
+    updateOverall(); paintStreak();
   }
   function updateOverall() {
     const d = doneIn(TOPICS), n = TOPICS.length;
@@ -348,10 +365,15 @@ window.__startApp = function () {
       if (!narrow()) app.classList.add('sb-collapsed');
       closeDrawer();
       tEl.hidden = false; timerState.left = 25 * 60; startTimer(true);
-      toast('Focus: 25 minutes. Esc to leave', 'timer');
+      // phones have no Esc key: a bar with Pause and Exit stays on screen during focus mode
+      const fb = h('div', { class: 'focus-bar', role: 'group', 'aria-label': 'Focus timer' });
+      fb.innerHTML = `${icon('timer')}<span class="timer" data-ftime></span><button class="btn small" data-act="focuspause">${icon('pause')}Pause</button><button class="btn small primary" data-act="focusexit">${icon('x')}Exit focus</button>`;
+      document.body.appendChild(fb);
+      toast(touchUI() ? 'Focus: 25 minutes. Tap Exit focus to leave' : 'Focus: 25 minutes. Esc or Exit focus to leave', 'timer');
     } else {
       if (!narrow() && focusPrevCollapsed === false) app.classList.remove('sb-collapsed');
       tEl.hidden = true; startTimer(false);
+      $$('.focus-bar').forEach((x) => x.remove());
     }
     paintTimer();
   }
@@ -363,10 +385,11 @@ window.__startApp = function () {
     }, 1000);
   }
   function paintTimer() {
-    const tEl = $('.timer', topbar); if (!tEl) return;
     const m = Math.floor(timerState.left / 60), s = timerState.left % 60;
-    tEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+    $$('.topbar .timer, [data-ftime]').forEach((tEl) => { tEl.textContent = `${m}:${String(s).padStart(2, '0')}`; });
+    const pb = $('[data-act="focuspause"]'); if (pb) pb.innerHTML = timerState.running ? `${icon('pause')}Pause` : `${icon('play')}Resume`;
   }
+  const touchUI = () => !!(window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches);
 
   // ================================================================ router
   let current = null;       // {view, ...route, api}
@@ -384,7 +407,7 @@ window.__startApp = function () {
     let m = raw.match(/^(m[0-9]+)-summary$/);
     if (m && MOD[m[1]] && MOD[m[1]].locked) return { view: 'unlock' };
     if (m && MOD[m[1]]) return { view: 'summary', mod: m[1] };
-    m = raw.match(/^(questions|cards|quiz|formulas|lab|mine)(?:\.([a-z0-9-]+))?$/);
+    m = raw.match(/^(questions|cards|quiz|formulas|lab|mine|guide|syllabus|battle)(?:\.([a-z0-9-]+))?$/);
     if (m) return { view: m[1], arg: m[2] || null };
     m = raw.match(/^([a-z0-9-]+?)(?:\.(\d+))?$/);
     if (m && TOPIC[m[1]]) return { view: 'topic', id: m[1], tab: m[2] != null ? +m[2] : null };
@@ -441,6 +464,9 @@ window.__startApp = function () {
         case 'formulas': view = viewFormulas(r); break;
         case 'lab': view = viewLab(r); break;
         case 'mine': view = viewMine(r); break;
+        case 'guide': view = viewGuide(r); break;
+        case 'syllabus': view = viewSyllabus(r); break;
+        case 'battle': view = viewBattle(r); break;
         default: view = viewHome(r);
       }
       host.innerHTML = '';
@@ -629,14 +655,15 @@ window.__startApp = function () {
     const nViz = allViz().length;
     const el = h('div', { class: 'view' });
     const last = S.last && S.last.hash ? S.last : null;
-    const words = ['Applied', 'Chemistry,', 'distilled.'];
+    const words = ['Applied', 'Chemistry'];
     el.innerHTML = `
       <section class="hero">
         <div class="eyebrow"><span class="code">BACHY105</span><span>Applied Chemistry</span><span class="dot">·</span><span>Fall semester 2026–27</span></div>
-        <h1 class="h-display">${words.map((w, i) => `<span class="w${i === 2 ? ' w-u' : ''}" style="--i:${i}">${w}</span>`).join(' ')}</h1>
+        <h1 class="h-display">${words.map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(' ')}</h1>
         <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the slides${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
         <p class="credit">Based on the BACHY105 Applied Chemistry course material taught at VIT. Slide diagrams are reproduced from the course slides and credited to their authors; the notes, questions and interactive models are written for this site. <a href="privacy.html">Privacy</a></p>
         <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div><button class="btn small" data-act="share">${icon('share')}Share progress</button></div>
+        <div class="study-line">${icon('fire')}<span><b>${streakDays()}</b> day${streakDays() === 1 ? '' : 's'} in a row</span><span class="dot">·</span><span><b>${fmtDur(todaySecs())}</b> today</span><span class="dot">·</span><span><b>${fmtDur(totalSecs())}</b> in total</span></div>
         ${last ? `<div class="continue"><a class="btn primary" href="${last.hash}">Continue: ${rt(last.title)} ${icon('right')}</a></div>` : (TOPICS[0] ? `<div class="continue"><a class="btn primary" href="#${TOPICS[0].id}">Start with ${rt(TOPICS[0].title)} ${icon('right')}</a></div>` : '')}
       </section>
       <div class="how">
@@ -666,6 +693,8 @@ window.__startApp = function () {
           <a class="tile" href="#formulas"><span class="tt">${icon('sigma')}Formula sheet</span><p>Every equation, the numbers worth memorising and the classic traps, per module.</p></a>
           <a class="tile" href="#lab"><span class="tt">${icon('flask')}Lab bench</span>${nViz ? `<span class="big">${nViz}</span>` : ''}<p>All the interactive models and calculators in one place: Nernst, Beer–Lambert, Bragg, Scherrer and more.</p></a>
           <a class="tile" href="#mine"><span class="tt">${icon('pen')}Highlights & notes</span><p>Your highlighted lines, personal notes, tagged topics and questions to revisit.</p></a>
+          <a class="tile" href="#battle"><span class="tt">${icon('swords')}1v1 Quiz battle</span><p>Challenge a friend with a link: 10 questions, 10 seconds each, live scores.</p></a>
+          <a class="tile" href="#syllabus.cat2"><span class="tt">${icon('list')}CAT syllabus</span><p>The CAT-2 syllabus as a checklist, each line linked to its notes.</p></a>
         </div>
       </section>
       <section class="data-box">
@@ -784,7 +813,7 @@ window.__startApp = function () {
         </div>
         <div class="tn-tools">
           <button class="btn small ghost conf-btn${conf ? ' on' : ''}" data-act="confusing" data-t="${t.id}" data-i="${i}" title="Add this tab to My weak spots">${icon('flag')}<span class="lbl">${conf ? 'Marked confusing' : 'Confusing?'}</span></button>
-          <button class="btn small ghost conf-btn" data-act="report" data-t="${t.id}" data-i="${i}" title="Found a mistake? Tell us">${icon('warn')}<span class="lbl">Report mistake</span></button>
+          <button class="btn small ghost conf-btn" data-act="help" data-t="${t.id}" data-i="${i}" title="A mistake, a suggestion or a problem? Tell us">${icon('help')}<span class="lbl">Help?</span></button>
         </div>`;
     }
     const checkEl = $('[data-check]', el);
@@ -872,8 +901,9 @@ window.__startApp = function () {
     setCrumbs([{ t: 'Home', href: '#home' }, { t: `Module ${+m.num}`, href: '#' + m.id }, { t: 'Summary' }]);
     setActive(m.id + '-summary'); document.title = `Module ${+m.num} summary · BACHY105 Notes`;
     S.last = { hash: `#${m.id}-summary`, title: `Module ${+m.num} summary` }; save();
-    const el = h('div', { class: 'view' });
+    const el = h('div', { class: 'view sumpage' });
     const mqs = QS.filter((q) => q.module === m.id && q.topic === 'summary');
+    const figs = m.topics.flatMap((t) => t.tabs.flatMap((tb, k) => Array.from((tb.html || '').matchAll(/data-fig="([a-z0-9-]+)"/g), (x) => ({ id: x[1], t, k })))).filter((f, i, a) => FIGS[f.id] && a.findIndex((y) => y.id === f.id) === i);
     const forms = s && s.formulas && s.formulas.length ? s.formulas : [].concat(...m.topics.map((t) => t.formulas || []));
     const nx = ORDER[orderIdx(m.id + '-summary') + 1];
     el.innerHTML = `
@@ -889,13 +919,16 @@ window.__startApp = function () {
       <section class="sum-sec"><h2 class="h-sec">Big ideas <small>${m.topics.length} topics</small></h2>
         <div class="ideas">${(s && s.bigIdeas && s.bigIdeas.length ? s.bigIdeas : m.topics.map((t) => ({ title: t.title, topic: t.id, html: `<ul>${(t.oneLiners || []).map((x) => `<li>${x}</li>`).join('')}</ul>` }))).map((b) => `
           <div class="idea"><h3>${rt(b.title)}</h3><div class="prose">${b.html}</div>${b.topic && TOPIC[b.topic] ? `<a href="#${b.topic}">Open the notes ${icon('right')}</a>` : ''}</div>`).join('')}</div></section>
+      <section class="sum-sec"><h2 class="h-sec">Key points, topic by topic <small>${m.topics.reduce((a, t) => a + (t.oneLiners || []).length, 0)}</small></h2>
+        <div class="kps">${m.topics.filter((t) => (t.oneLiners || []).length).map((t) => `<div class="kp"><h3><a href="#${t.id}">${rt(t.title)}</a></h3><ul class="prose recallable">${t.oneLiners.map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join('')}</div></section>
+      ${figs.length ? `<section class="sum-sec"><h2 class="h-sec">Diagrams <small>${figs.length}</small></h2><div class="sum-figs">${figs.map((f) => `<div class="sum-fig"><figure data-fig="${f.id}"></figure><a href="#${f.t.id}.${f.k}">${rt(f.t.short || f.t.title)} › ${rt(f.t.tabs[f.k].title)} ${icon('right')}</a></div>`).join('')}</div></section>` : ''}
       ${s && s.compare && s.compare.length ? `<section class="sum-sec"><h2 class="h-sec">Side by side</h2>${s.compare.map((c) => `<div class="cmp prose"><h3>${rt(c.title)}</h3>${c.html}</div>`).join('')}</section>` : ''}
       ${forms.length ? `<section class="sum-sec"><h2 class="h-sec">Equations to write from memory <small>${forms.length}</small></h2><div class="forms">${forms.map((f) => `<div class="form"><div class="fname">${rt(f.name)}</div><div class="fbody">${f.html}</div>${f.note ? `<div class="fnote">${f.note}</div>` : ''}</div>`).join('')}</div></section>` : ''}
       ${s && s.numbers && s.numbers.length ? `<section class="sum-sec"><h2 class="h-sec">Numbers to remember <small>${s.numbers.length}</small></h2><div class="nums">${s.numbers.map((x) => `<div><div class="nv">${x.value}</div><div class="nw">${x.what}</div></div>`).join('')}</div></section>` : ''}
       ${s && s.traps && s.traps.length ? `<section class="sum-sec"><h2 class="h-sec">Traps <small>${s.traps.length}</small></h2><ul class="traps prose">${s.traps.map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
       ${mqs.length ? `<section class="sum-sec"><h2 class="h-sec">Put it together <small>${mqs.length} questions</small></h2><div data-qs></div></section>` : ''}
       ${nx ? `<a class="next-topic" style="margin-top:56px" href="#${nx.key}"><div><small>Up next</small><strong>${rt(nx.title)}</strong></div><span class="arrow">${icon('right')}</span></a>` : ''}`;
-    $$('.tbl', el).forEach((t) => { const w = h('div', { class: 'tbl-wrap' }); t.parentNode.insertBefore(w, t); w.appendChild(t); });
+    hydrate(el);
     const qh = $('[data-qs]', el);
     if (qh) mqs.forEach((q) => qh.appendChild(qCard(q)));
     return { el };
@@ -1063,6 +1096,12 @@ window.__startApp = function () {
       } else p = shuffle(p);
       return quizUI.count ? p.slice(0, quizUI.count) : p;
     }
+    function quizLabel(list) {
+      const tops = [...new Set(list.map((q) => q.topic))], mods = [...new Set(list.map((q) => q.module))];
+      if (tops.length === 1 && TOPIC[tops[0]]) return TOPIC[tops[0]].title;
+      if (mods.length === 1 && MOD[mods[0]]) return `Module ${+MOD[mods[0]].num}: ${MOD[mods[0]].title}`;
+      return 'Modules ' + mods.filter((x) => MOD[x]).map((x) => +MOD[x].num).join(', ');
+    }
     function setup() {
       el.innerHTML = `
         <div class="eyebrow"><span class="code">Practice</span><span>Quiz</span></div>
@@ -1094,8 +1133,11 @@ window.__startApp = function () {
       };
       paint();
     }
-    function start(list) {
-      quizUI.run = { list, i: 0, right: 0, wrong: 0, open: 0, missed: [] };
+    function start(list, mastery) {
+      // mastery carries over from round to round while the student keeps focusing on the questions they missed
+      mastery = mastery || { start: Date.now(), rounds: 0, label: quizLabel(list), total: list.length };
+      mastery.rounds++;
+      quizUI.run = { list, i: 0, right: 0, wrong: 0, open: 0, missed: [], mastery };
       el.onclick = null;
       step();
     }
@@ -1147,17 +1189,33 @@ window.__startApp = function () {
       const run = quizUI.run; quizUI.run = null;
       const total = run.right + run.wrong;
       const pct = total ? Math.round((run.right / total) * 100) : 0;
+      const M = run.mastery;
+      if (total && !run.wrong && total === run.list.length) { // every question right: the topic is mastered
+        const secs = Math.max(1, Math.round((Date.now() - M.start) / 1000));
+        el.innerHTML = `
+        <div class="eyebrow"><span class="code">Quiz</span><span>Mastered</span></div>
+        <div class="mastered">${icon('trophy')}<h1 class="h-display">${M.rounds === 1 ? 'Perfect score!' : 'You mastered it!'}</h1>
+          <p class="blurb">${M.rounds === 1 ? `All ${total} right on the first try` : `Every question right after ${M.rounds} rounds`} on <b style="color:var(--white)">${rt(M.label)}</b>. It took you <b style="color:var(--white)">${fmtDur(secs, true)}</b> to master ${M.total} question${M.total === 1 ? '' : 's'}.</p></div>
+        <div class="btn-row"><button class="btn primary" data-sharem>${icon('share')}Share this</button><button class="btn" data-new>${icon('quiz')}New quiz</button><a class="btn" href="#battle">${icon('swords')}Battle a friend</a></div>`;
+        el.onclick = (e) => {
+          if (e.target.closest('[data-sharem]')) openShareCard({ kind: 'mastery', label: plain(M.label), secs, rounds: M.rounds, total: M.total });
+          if (e.target.closest('[data-new]')) setup();
+        };
+        stagger(el);
+        return;
+      }
       el.innerHTML = `
         <div class="eyebrow"><span class="code">Quiz</span><span>Results</span></div>
         <h1 class="h-display">${pct >= 80 ? 'Strong work.' : pct >= 50 ? 'Getting there.' : 'Worth another pass.'}</h1>
         <div class="score"><div class="ring" style="--p:${pct}"><span>${pct}%</span></div>
           <div><p class="blurb" style="margin:0">${run.right} right, ${run.wrong} to review${total < run.list.length ? `, ${run.list.length - total} skipped` : ''}.</p><p class="muted" style="margin:6px 0 0;font-size:14px">Missed questions are saved to Revisit in the question bank.</p></div></div>
-        <div class="btn-row">${run.missed.length ? `<button class="btn primary" data-retry>${icon('rotate')}Retry the ${run.missed.length} missed</button>` : ''}<button class="btn" data-new>${icon('quiz')}New quiz</button><a class="btn" href="#questions">${icon('q')}Question bank</a></div>
+        ${run.missed.length ? `<p class="muted" style="font-size:14.5px;margin:0 0 12px">Focus on your weak spots: a quick round of just the ${run.missed.length} you missed. Keep going until you get them all right${M.rounds > 1 ? ` (round ${M.rounds + 1})` : ''}.</p>` : ''}
+        <div class="btn-row">${run.missed.length ? `<button class="btn primary" data-retry>${icon('flag')}Focus on weak spots (${run.missed.length})</button>` : ''}<button class="btn" data-new>${icon('quiz')}New quiz</button><a class="btn" href="#questions">${icon('q')}Question bank</a></div>
         ${run.missed.length ? `<section class="sum-sec"><h2 class="h-sec">Review these</h2><div data-missed></div></section>` : ''}`;
       const mh = $('[data-missed]', el);
       if (mh) run.missed.forEach((id) => mh.appendChild(qCard(QID[id], { open: true })));
       el.onclick = (e) => {
-        if (e.target.closest('[data-retry]')) start(run.missed.map((id) => QID[id]));
+        if (e.target.closest('[data-retry]')) start(shuffle(run.missed.map((id) => QID[id])), M);
         if (e.target.closest('[data-new]')) setup();
       };
       stagger(el);
@@ -1508,17 +1566,52 @@ window.__startApp = function () {
   }
   function refreshAll() { buildSidebar(); updateOverall(); if (current) render(parse(hashOf(current))); }
 
-  function openReport(tid, ti) {
+  // "Help?": a mistake in the notes, a suggestion, something not working, or anything else. Goes to the owner's page.
+  function openHelp(tid, ti, idea) {
     const t = TOPIC[tid], tabTitle = t && t.tabs[ti] ? t.tabs[ti].title : '';
+    const kinds = [['mistake', 'Mistake in the notes'], ['suggestion', 'Suggestion'], ['bug', "Something isn't working"], ['other', 'Other']];
+    let kind = t ? 'mistake' : 'suggestion';
     overlay((close) => {
       const m = h('div', { class: 'modal' });
-      m.innerHTML = `<div class="modal-head"><h2>Report a mistake</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
+      m.innerHTML = `<div class="modal-head"><h2>${idea ? 'Any ideas?' : 'Help?'}</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
         <form class="modal-body report-form">
-          <p class="muted" style="margin-top:0;font-size:14px">About: <b style="color:var(--white)">${t ? rt(t.title) : ''}${tabTitle ? ' › ' + rt(tabTitle) : ''}</b></p>
-          <label>What's wrong?<textarea id="rep-text" required minlength="5" maxlength="1500" placeholder="e.g. The SOFC temperature says 80 °C but the slide says 800–1000 °C"></textarea></label>
-          <label>Your email or phone <span class="muted">(optional, only if you want a reply)</span><input id="rep-contact" maxlength="120" autocomplete="email"></label>
+          ${idea ? `<p class="muted" style="margin-top:0;font-size:14.5px">A feature you want, a topic that needs more, a better way to explain something: anything that would make this site better for you. The owner reads every one.</p>`
+            : `<div class="kind-row" role="radiogroup" aria-label="What is it about?">${kinds.map(([k, l]) => `<button type="button" class="fchip${k === kind ? ' on' : ''}" data-kind="${k}" role="radio" aria-checked="${k === kind}">${l}</button>`).join('')}</div>
+          ${t ? `<p class="muted" style="margin:0;font-size:14px">About: <b style="color:var(--white)">${rt(t.title)}${tabTitle ? ' › ' + rt(tabTitle) : ''}</b></p>` : ''}`}
+          <label>${idea ? 'Your idea' : 'Tell us more'}<textarea id="rep-text" required minlength="5" maxlength="1500" placeholder="${idea ? 'e.g. A timer that shows how long I spend on each module' : 'e.g. The SOFC temperature says 80 °C but the slide says 800–1000 °C'}"></textarea></label>
           <input id="rep-web" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <div class="btn-row"><button class="btn primary" type="submit">Send report</button></div>
+          <p class="muted" style="margin:0;font-size:13px">Sent with your student email${window.SIGNED_IN_AS ? ` (${esc(window.SIGNED_IN_AS)})` : ''} so the owner can reply.</p>
+          <div class="btn-row"><button class="btn primary" type="submit">${idea ? 'Send idea' : 'Send'}</button></div>
+          <p class="gate-msg" data-msg role="alert"></p>
+        </form>`;
+      $('[data-x]', m).addEventListener('click', close);
+      $$('[data-kind]', m).forEach((b) => b.addEventListener('click', () => { kind = b.dataset.kind; $$('[data-kind]', m).forEach((x) => { x.classList.toggle('on', x === b); x.setAttribute('aria-checked', x === b); }); }));
+      $('form', m).addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = $('[data-msg]', m), btn = $('button[type=submit]', m);
+        btn.disabled = true; msg.textContent = 'Sending…';
+        try {
+          const r = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind: idea ? 'idea' : kind, topic: tid || '', tab: tabTitle, text: $('#rep-text', m).value, website: $('#rep-web', m).value }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.error || 'Could not send. Try again in a moment.');
+          close(); toast(idea ? 'Thanks! Idea sent' : 'Thanks! Sent to the owner', 'check');
+        } catch (err) { msg.textContent = err.message; btn.disabled = false; }
+      });
+      setTimeout(() => $('#rep-text', m).focus(), 30);
+      return m;
+    });
+  }
+  // Signed out on a phone you use, or someone else has your account? Ask the owner to clear your devices (once a week).
+  function openDevices() {
+    overlay((close) => {
+      const m = h('div', { class: 'modal' });
+      m.innerHTML = `<div class="modal-head"><h2>Your devices</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
+        <form class="modal-body report-form">
+          <p style="margin:0;font-size:14.5px">Your account works on <b style="color:var(--white)">1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind.</p>
+          <p class="muted" style="margin:0;font-size:14px">If something looks wrong, ask the owner to reset your devices. After it's approved, every device is signed out and you sign in again on the ones you use now.</p>
+          <label>Why do you need a reset? <span class="muted">(optional)</span><textarea id="dev-why" maxlength="300" placeholder="e.g. I got a new phone and my old one still shows my account"></textarea></label>
+          <div class="btn-row"><button class="btn primary" type="submit">${icon('rotate')}Request a device reset</button></div>
+          <p class="muted" style="margin:0;font-size:13px">You can only request a device reset once every week, and it's done only when the owner approves it.</p>
           <p class="gate-msg" data-msg role="alert"></p>
         </form>`;
       $('[data-x]', m).addEventListener('click', close);
@@ -1527,13 +1620,12 @@ window.__startApp = function () {
         const msg = $('[data-msg]', m), btn = $('button[type=submit]', m);
         btn.disabled = true; msg.textContent = 'Sending…';
         try {
-          const r = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic: tid, tab: tabTitle, text: $('#rep-text', m).value, contact: $('#rep-contact', m).value, website: $('#rep-web', m).value }) });
+          const r = await fetch('/api/restore', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'reset-devices', reason: $('#dev-why', m).value }) });
           const j = await r.json().catch(() => ({}));
           if (!r.ok) throw new Error(j.error || 'Could not send. Try again in a moment.');
-          close(); toast('Thanks. Report sent', 'check');
+          msg.textContent = 'Request sent. The owner will approve it soon.'; btn.hidden = true;
         } catch (err) { msg.textContent = err.message; btn.disabled = false; }
       });
-      setTimeout(() => $('#rep-text', m).focus(), 30);
       return m;
     });
   }
@@ -1558,11 +1650,450 @@ window.__startApp = function () {
   }
   try { const d = new Date().toISOString().slice(0, 10); if (localStorage.getItem('bn_visit') !== d) { localStorage.setItem('bn_visit', d); beacon({ visit: true }); } } catch (e) { /* ignore */ }
 
-  function shareProgress() {
-    const d = doneIn(TOPICS), n = TOPICS.length, url = location.origin + location.pathname;
-    const text = d ? `I've finished ${d} of ${n} topics on BACHY105 Notes. Module 2 is free, try it: ${url}` : `Studying Applied Chemistry (BACHY105)? Module 2 notes, diagrams and quizzes are free here: ${url}`;
-    const copy = () => { try { navigator.clipboard.writeText(text).then(() => toast('Copied. Paste it in your group chat', 'copy'), () => toast(text)); } catch (e) { toast(text); } };
-    if (navigator.share) navigator.share({ title: 'BACHY105 Notes', text, url }).catch(() => {}); else copy();
+  // ================================================================ study time and streaks
+  // Active study time is counted in this browser: 15 s at a time while the page is open, visible and used in the last
+  // 3 minutes. A day counts toward the streak once it has at least a minute. Days are Indian time.
+  const DAYMS = 864e5, ISTMS = 5.5 * 3600e3;
+  const dayKey = (ms) => new Date(ms + ISTMS).toISOString().slice(0, 10);
+  const todaySecs = () => +S.study[dayKey(Date.now())] || 0;
+  const totalSecs = () => Object.values(S.study).reduce((a, v) => a + (+v || 0), 0);
+  function streakDays() {
+    let n = 0, t = Date.now();
+    if ((+S.study[dayKey(t)] || 0) < 60) t -= DAYMS; // today not started yet: the streak so far still counts
+    while ((+S.study[dayKey(t)] || 0) >= 60) { n++; t -= DAYMS; }
+    return n;
+  }
+  function fmtDur(sec, exact) {
+    sec = Math.round(sec || 0);
+    if (exact && sec < 3600) { const mm = Math.floor(sec / 60), ss = sec % 60; return mm ? `${mm} min ${ss} s` : `${ss} s`; }
+    const mm = Math.floor(sec / 60);
+    return mm < 60 ? mm + ' min' : Math.floor(mm / 60) + ' h ' + (mm % 60) + ' min';
+  }
+  function paintStreak() {
+    const c = $('[data-streak]', topbar); if (!c) return;
+    const n = streakDays();
+    c.hidden = !n; c.innerHTML = icon('fire') + '<b>' + n + '</b>';
+    c.title = `${n} day${n === 1 ? '' : 's'} in a row · ${fmtDur(todaySecs())} today`;
+  }
+  let lastAct = Date.now();
+  ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll', 'mousemove'].forEach((ev) => document.addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true }));
+  setInterval(() => {
+    if (document.visibilityState !== 'visible' || Date.now() - lastAct > 180000) return;
+    const d = dayKey(Date.now()), before = +S.study[d] || 0;
+    S.study[d] = before + 15;
+    if (before < 60 && S.study[d] >= 60) { const n = streakDays(); if (n >= 2) toast(`You've studied ${n} days in a row. Keep it going!`, 'fire'); }
+    const keys = Object.keys(S.study); if (keys.length > 400) keys.sort().slice(0, keys.length - 400).forEach((k) => delete S.study[k]);
+    save(); paintStreak();
+  }, 15000);
+
+  // ================================================================ share cards (a picture, like a run summary)
+  // First name = the part of the student email before the first "." (siddharth.duddu2026@… -> Siddharth)
+  function firstName() {
+    const w = String(window.SIGNED_IN_AS || '').split('@')[0].split('.')[0].replace(/[^a-z]/gi, '');
+    return w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '';
+  }
+  const SITE_URL = /bachy105\.vercel\.app/.test(location.host) ? 'https://bachy105.vercel.app' : location.origin;
+  const modsDone = () => MODULES.filter((m) => m.topics.length && doneIn(m.topics) === m.topics.length).length;
+  async function drawCard(o) {
+    const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    try { await Promise.all(['700 120px "Hanken Grotesk"', '500 40px "Hanken Grotesk"', '500 30px "JetBrains Mono"'].map((f) => document.fonts.load(f))); } catch (e) { /* system font */ }
+    const F = (w, px, mono) => `${w} ${px}px ${mono ? '"JetBrains Mono", Consolas, monospace' : '"Hanken Grotesk", "Segoe UI", Roboto, sans-serif'}`;
+    const fit = (text, w, px, maxW, mono) => { let n = px; g.font = F(w, n, mono); while (n > 20 && g.measureText(text).width > maxW) { n -= 2; g.font = F(w, n, mono); } };
+    const bg = g.createLinearGradient(0, 0, W, H); bg.addColorStop(0, '#202026'); bg.addColorStop(1, '#0e0e10');
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    const glow = g.createRadialGradient(W - 120, 90, 10, W - 120, 90, 620); glow.addColorStop(0, 'rgba(255,181,107,0.30)'); glow.addColorStop(1, 'rgba(255,181,107,0)');
+    g.fillStyle = glow; g.fillRect(0, 0, W, H);
+    g.fillStyle = '#8a8a94'; g.font = F(500, 28, true); g.fillText('BACHY105 · APPLIED CHEMISTRY', 80, 118);
+    g.textAlign = 'right'; g.fillText(o.date, W - 80, 118); g.textAlign = 'left';
+    g.fillStyle = '#f4f4f6'; fit(o.name, 700, 132, W - 160); g.fillText(o.name, 80, 290);
+    g.fillStyle = '#ffb56b'; fit(o.subtitle, 600, 44, W - 160); g.fillText(o.subtitle, 80, 368);
+    o.stats.forEach(([label, value], i) => {
+      const x = 80 + (i % 2) * 480, y = 500 + Math.floor(i / 2) * 215;
+      g.fillStyle = '#8a8a94'; g.font = F(500, 27, true); g.fillText(label.toUpperCase(), x, y);
+      g.fillStyle = '#f4f4f6'; fit(value, 700, 86, 440); g.fillText(value, x, y + 96);
+    });
+    if (o.week) { // minutes studied on each of the last 7 days
+      const top = 960, hgt = 150, bw = 92, gap = (W - 160 - bw * 7) / 6, max = Math.max(1, ...o.week.map((d) => d.v));
+      g.fillStyle = '#8a8a94'; g.font = F(500, 27, true); g.fillText('LAST 7 DAYS', 80, top - 26);
+      o.week.forEach((d, i) => {
+        const x = 80 + i * (bw + gap), bh = d.v ? Math.max(10, (d.v / max) * hgt) : 4;
+        g.fillStyle = i === 6 ? '#ffb56b' : d.v ? '#cfcfd6' : '#3a3a41';
+        g.beginPath(); if (g.roundRect) g.roundRect(x, top + hgt - bh, bw, bh, 10); else g.rect(x, top + hgt - bh, bw, bh); g.fill();
+        g.fillStyle = '#8a8a94'; g.font = F(500, 26, true); g.textAlign = 'center'; g.fillText(d.l, x + bw / 2, top + hgt + 42); g.textAlign = 'left';
+      });
+    } else if (o.line) { g.fillStyle = '#cfcfd6'; fit(o.line, 500, 40, W - 160); g.fillText(o.line, 80, 1010); }
+    g.fillStyle = '#ffb56b'; g.fillRect(80, H - 178, 64, 6);
+    g.fillStyle = '#f4f4f6'; g.font = F(700, 46); g.fillText(SITE_URL.replace(/^https?:\/\//, ''), 80, H - 104);
+    g.fillStyle = '#8a8a94'; g.font = F(500, 30); g.fillText('Applied Chemistry study notes for VIT students', 80, H - 58);
+    return c;
+  }
+  async function openShareCard(o) {
+    const name = firstName();
+    const now = new Date(Date.now() + ISTMS);
+    const date = now.getUTCDate() + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.getUTCMonth()] + ' ' + now.getUTCFullYear();
+    const streak = streakDays();
+    let spec, text;
+    if (o.kind === 'mastery') {
+      spec = { name: name || 'Mastered', date, subtitle: 'Mastered ' + o.label, line: o.rounds === 1 ? 'Every question right on the first try.' : `Every question right after ${o.rounds} rounds of weak-spot practice.`,
+        stats: [['Time to master', fmtDur(o.secs, true)], ['Rounds', String(o.rounds)], ['Questions', String(o.total)], ['Streak', `${streak} day${streak === 1 ? '' : 's'}`]] };
+      text = `I mastered ${o.label} on BACHY105 Notes in ${fmtDur(o.secs, true)}. ${SITE_URL}`;
+    } else {
+      const week = Array.from({ length: 7 }, (_, i) => { const t = Date.now() - (6 - i) * DAYMS; return { v: Math.round((+S.study[dayKey(t)] || 0) / 60), l: 'SMTWTFS'[new Date(t + ISTMS).getUTCDay()] }; });
+      spec = { name: name || 'My study day', date, subtitle: `${doneIn(TOPICS)} of ${TOPICS.length} topics done`, week,
+        stats: [['Today', fmtDur(todaySecs())], ['Total study', fmtDur(totalSecs())], ['Streak', `${streak} day${streak === 1 ? '' : 's'}`], ['Modules done', `${modsDone()}/${MODULES.length}`]] };
+      text = `${fmtDur(todaySecs())} of Applied Chemistry today on BACHY105 Notes. ${streak} day${streak === 1 ? '' : 's'} in a row, ${fmtDur(totalSecs())} in total, ${modsDone()}/${MODULES.length} modules done. ${SITE_URL}`;
+    }
+    const canvas = await drawCard(spec);
+    const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/png'));
+    const file = new File([blob], `bachy105-${o.kind}.png`, { type: 'image/png' });
+    const src = URL.createObjectURL(blob);
+    overlay((close) => {
+      const m = h('div', { class: 'modal share-modal' });
+      m.innerHTML = `<div class="modal-head"><h2>Share</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
+        <div class="modal-body"><img class="share-img" src="${src}" alt="Your share card">
+          <p class="muted share-text">${esc(text)}</p>
+          <div class="btn-row"><button class="btn primary" data-sh>${icon('share')}Share</button><a class="btn" href="${src}" download="${file.name}">${icon('db')}Save picture</a><button class="btn" data-cp>${icon('copy')}Copy text</button></div>
+          <p class="muted" data-msg style="font-size:13px;min-height:1.4em;margin:10px 0 0"></p></div>`;
+      const msg = $('[data-msg]', m);
+      $('[data-x]', m).addEventListener('click', close);
+      const copy = () => { try { navigator.clipboard.writeText(text).then(() => { msg.textContent = 'Text copied with the link.'; }, () => { msg.textContent = text; }); } catch (e) { msg.textContent = text; } };
+      $('[data-cp]', m).addEventListener('click', copy);
+      $('[data-sh]', m).addEventListener('click', async () => {
+        try {
+          if (navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text, title: 'BACHY105 Notes' });
+          else if (navigator.share) await navigator.share({ text, url: SITE_URL, title: 'BACHY105 Notes' });
+          else { copy(); msg.textContent = 'Text copied. Save the picture to post it too.'; }
+        } catch (e) { /* closed the share sheet */ }
+      });
+      return m;
+    }, { onClose: () => setTimeout(() => URL.revokeObjectURL(src), 1000) });
+  }
+
+  // ================================================================ CAT syllabus checklists
+  // Each syllabus line links to the topics that cover it. Titles are kept here too, so locked modules still list them.
+  const SYL = {
+    cat1: null, // not given yet
+    cat2: [
+      { mod: 'm2', title: 'Energy devices', lines: [
+        ['Electrochemical and electrolytic cells', [['m2-electrochemical-cells', 'Electrochemical cells']]],
+        ['Electrode materials, including semiconductors', [['m2-semiconductors', 'Semiconductors as electrode materials'], ['m2-semiconductor-purification', 'Making ultra-pure Si & Ge']]],
+        ['Classification of batteries', [['m2-batteries', 'Batteries: parts & classification']]],
+        ['Lithium-ion battery chemistry', [['m2-li-ion', 'Lithium-ion batteries']]],
+        ['H₂–O₂ fuel cell and solid oxide fuel cell', [['m2-fuel-cells', 'Fuel cells: principle & types'], ['m2-pemfc', 'PEM fuel cell'], ['m2-sofc', 'Solid oxide fuel cell']]],
+        ['Silicon photovoltaic cells', [['m2-solar-energy', 'Solar energy & conversion routes'], ['m2-photovoltaics', 'Photovoltaic cells']]],
+        ['Photoelectrochemical cells', [['m2-pec-cells', 'Photoelectrochemical cells']]],
+        ['Dye-sensitized solar cells', [['m2-dssc', 'Dye-sensitized solar cells']]],
+      ] },
+      { mod: 'm3', title: 'Nanomaterials', lines: [
+        ['Introduction to nanomaterials', [['m3-nanomaterials', 'What nanomaterials are'], ['m3-nano-classes', 'Classifying nanomaterials'], ['m3-why-nano', 'Why nano is different']]],
+        ['Top-down and bottom-up approaches for synthesis', [['m3-synthesis', 'Top-down vs bottom-up'], ['m3-milling', 'Mechanical milling'], ['m3-sol-gel', 'Sol–gel method']]],
+        ['Bulk vs nano: gold', [['m3-nano-gold', 'Bulk gold vs nano gold']]],
+        ['Quantum dots', [['m3-quantum-dots', 'Quantum dots'], ['m3-qd-uses', 'QD synthesis & applications']]],
+      ] },
+      { mod: 'm4', title: 'Spectroscopic and diffraction techniques', lines: [
+        ['Fundamental concepts of spectroscopy', [['m4-spectroscopy', 'Spectroscopy & EMR'], ['m4-emr-regions', 'EMR regions & energy']]],
+        ['UV-Visible: principle, instrumentation and applications', [['m4-uv-vis', 'UV-Vis: absorption & transitions'], ['m4-beer-lambert', 'Beer–Lambert law'], ['m4-uv-vis-instrument', 'UV-Vis instruments & uses']]],
+        ['Powder XRD: principle, instrumentation and applications', [['m4-xrays', 'X-rays: nature & production'], ['m4-bragg', "Diffraction & Bragg's law"], ['m4-xrd-patterns', 'Diffractometer & patterns']]],
+        ['Powder XRD: determination of crystallite size', [['m4-scherrer', 'Crystallite size & Scherrer']]],
+      ] },
+    ],
+  };
+  const sylItems = (cat) => (SYL[cat] || []).flatMap((g) => g.lines.flatMap(([, tl]) => tl.map(([id]) => ({ id, mod: g.mod }))));
+  function viewSyllabus(r) {
+    const cat = r.arg === 'cat1' ? 'cat1' : 'cat2', label = cat === 'cat1' ? 'CAT-1' : 'CAT-2';
+    setCrumbs([{ t: 'Home', href: '#home' }, { t: label + ' syllabus' }]); setActive('syllabus.' + cat); document.title = `${label} syllabus · BACHY105 Notes`;
+    const el = h('div', { class: 'view syl' });
+    const groups = SYL[cat];
+    if (!groups) {
+      el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>${label}</span></div><h1 class="h-display">${label} syllabus</h1>
+        <div class="empty">The ${label} syllabus hasn't been added yet. It will show up here as a checklist, linked to the notes, as soon as it's in.</div>
+        <p style="margin-top:18px"><a class="btn" href="#syllabus.cat2">${icon('list')}Open the CAT-2 syllabus</a></p>`;
+      return { el };
+    }
+    function paint() {
+      const items = sylItems(cat), ticked = items.filter((x) => S.syl[cat + ':' + x.id]).length;
+      const pct = items.length ? Math.round((ticked / items.length) * 100) : 0;
+      el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>${label}</span><span class="dot">·</span><span>${items.length} topics</span></div>
+        <h1 class="h-display">${label} syllabus</h1>
+        <p class="blurb">Every line of the ${label} syllabus, linked to the notes that cover it. Tick a topic when you can explain it without looking. Topics you've finished reading are marked <span class="syl-read">read</span>.</p>
+        <div class="syl-top"><div class="ring" style="--p:${pct}"><span>${pct}%</span></div><div><b>${ticked} of ${items.length}</b> ticked<br><span class="muted" style="font-size:14px">Saved in this browser.</span></div>${ticked ? `<button class="btn small ghost" data-clear>${icon('rotate')}Clear ticks</button>` : ''}</div>
+        ${groups.map((g) => { const M = MOD[g.mod] || { num: g.mod.slice(1) }; const locked = !!M.locked; const gi = sylItems(cat).filter((x) => x.mod === g.mod);
+          return `<section class="syl-mod"><div class="mod-head"><span class="mod-num">Module ${+M.num}</span><h2 class="h-sec">${esc(g.title)}</h2><span class="count">${gi.filter((x) => S.syl[cat + ':' + x.id]).length}/${gi.length}${locked ? ` · ${icon('lock')} locked` : ''}</span></div>
+            ${g.lines.map(([line, tl]) => `<div class="syl-line"><div class="syl-lt">${esc(line)}</div>${tl.map(([id, name]) => { const on = !!S.syl[cat + ':' + id], t = TOPIC[id];
+              return locked || !t ? `<a class="syl-item locked" href="#unlock"><span class="syl-box">${icon('lock')}</span><span class="syl-name">${esc(name)}</span><span class="syl-tag">Unlock</span></a>`
+                : `<div class="syl-item${on ? ' on' : ''}"><button class="syl-box" role="checkbox" aria-checked="${on}" aria-label="Tick ${esc(name)}" data-tick="${id}">${on ? icon('check') : ''}</button><a class="syl-name" href="#${id}">${rt(t.title)}</a>${isDone(id) ? '<span class="syl-read">read</span>' : `<span class="syl-tag">${Math.round(frac(t) * 100)}%</span>`}</div>`; }).join('')}</div>`).join('')}
+          </section>`; }).join('')}`;
+    }
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-tick]');
+      if (b) { const k = cat + ':' + b.dataset.tick; if (S.syl[k]) delete S.syl[k]; else S.syl[k] = 1; save(); paint(); updateSidebar(); return; }
+      if (e.target.closest('[data-clear]') && confirm(`Clear all ${label} ticks?`)) { sylItems(cat).forEach((x) => delete S.syl[cat + ':' + x.id]); save(); paint(); updateSidebar(); }
+    });
+    paint();
+    return { el };
+  }
+
+  // ================================================================ how to use
+  function viewGuide() {
+    setCrumbs([{ t: 'Home', href: '#home' }, { t: 'How to use' }]); setActive('guide'); document.title = 'How to use · BACHY105 Notes';
+    const el = h('div', { class: 'view guide' });
+    const ex = (id, tab, text) => (TOPIC[id] ? `<a href="#${id}${tab != null ? '.' + tab : ''}">${text}</a>` : `<b>${text}</b>`);
+    const sec = (ic, title, body) => `<section class="g-sec"><h2>${icon(ic)}${title}</h2>${body}</section>`;
+    el.innerHTML = `
+      <div class="eyebrow"><span class="code">Guide</span><span>Every feature, with examples from the notes</span></div>
+      <h1 class="h-display">How to use this site</h1>
+      <p class="blurb">A quick tour. Every example below is a real link: tap it to try the feature, then come back here from the sidebar.</p>
+      ${sec('book', 'Read a topic tab by tab', `<p>Each topic is split into short tabs. Read one, then tap <b>Next</b> (or press <kbd>→</kbd>). A topic ticks itself in the sidebar once every tab is opened. You can also tap <b>Mark as done</b>.</p><p class="g-ex">Try it: ${ex('m2-electrochemical-cells', 2, 'Electrochemical cells › Daniell cell')}, then the next tab, EMF &amp; Nernst.</p>`)}
+      ${sec('eye', 'Recall mode: test yourself while you read', `<p>Turn on <b>Recall</b> in the top bar (or press <kbd>R</kbd>). Every white key term turns into a blank. Say the word in your head, then tap the blank to check.</p><p class="g-ex">Try it: open ${ex('m2-sofc', 2, 'Solid oxide fuel cell › Reactions')} with Recall on and fill in the half-reactions.</p>`)}
+      ${sec('pen', 'Highlights, notes and colour tags', `<p><b>Select any line</b> in a topic and pick a colour to highlight it. Each topic has a <b>My notes</b> box at the bottom, saved as you type. The dot next to each topic in the sidebar sets a colour tag (tap again to change it). Everything you mark is collected in ${'<a href="#mine">Highlights &amp; notes</a>'}.</p>`)}
+      ${sec('flag', '"Confusing?" and your weak spots', `<p>At the bottom of every tab there is a <b>Confusing?</b> button. Tap it on anything that didn't click. Those tabs are listed under <b>My weak spots</b> in ${'<a href="#mine">Highlights &amp; notes</a>'}, and the quiz asks about them first.</p>`)}
+      ${sec('search', 'Search everything', `<p>Tap <b>Search</b> (or press <kbd>Ctrl</kbd> <kbd>K</kbd>). It looks through every tab, question, flashcard, formula and summary.</p><p class="g-ex">Try searching <b>Nafion</b>, <b>zone refining</b> or <b>Bragg</b>.</p>`)}
+      ${sec('q', 'Question bank', `<p>Scenario questions with full model answers and the points an examiner looks for. Filter by module, topic, type and level. Mark each one <b>Got it</b> or <b>Revisit</b>.</p><p class="g-ex">Try it: <a href="#questions.m2">Module 2 questions</a>.</p>`)}
+      ${sec('quiz', 'Quiz, then focus on your weak spots', `<p>Pick modules and a length and go. At the end, tap <b>Focus on weak spots</b> for a quick round of only the questions you missed. Keep going until you get every one right: you'll see how long it took you to master it, and you can share that as a picture.</p><p class="g-ex">Try it: <a href="#quiz.m2">a Module 2 quiz</a>.</p>`)}
+      ${sec('swords', '1v1 Quiz battle', `<p>Pick one or more topics and tap <b>Create battle link</b>. Send the link to one friend: when they join, you both see the rules and tap <b>Understood</b> (tick <b>Never ask again</b> to skip them next time), then you get the same 10 questions at the same time, 10 seconds each. Faster right answers score more. Switching tabs or apps during a question counts as wrong. Full access gets unlimited battles; free accounts get one preview battle on one Module 2 topic.</p><p class="g-ex">Try it: <a href="#battle">start a battle</a>.</p>`)}
+      ${sec('cards', 'Flashcards', `<p>Say the answer out loud, then flip. Sort each card into <b>Know it</b> or <b>Still learning</b>; the deck remembers, and "Still learning only" gives you just the hard ones.</p><p class="g-ex">Try it: ${TOPIC['m2-li-ion'] ? '<a href="#cards.m2-li-ion">Lithium-ion flashcards</a>' : '<a href="#cards">flashcards</a>'}.</p>`)}
+      ${sec('sigma', 'Formula sheet and Lab bench', `<p>The <a href="#formulas">Formula sheet</a> has every equation, the numbers worth memorising and the classic traps, per module. The <a href="#lab">Lab bench</a> collects every interactive model and calculator (Nernst, Beer–Lambert, Bragg, Scherrer and more), each linked to the tab that explains it.</p>`)}
+      ${sec('book', 'Module summaries', `<p>Every module ends with a one-page summary: how it fits together, the key points of every topic, all its diagrams, side-by-side comparisons, equations, numbers and traps. Best the night before an exam.</p><p class="g-ex">Try it: <a href="#m2-summary">Module 2 summary</a>.</p>`)}
+      ${sec('list', 'CAT syllabus checklists', `<p>The <a href="#syllabus.cat2">CAT-2 syllabus</a> lists every syllabus line with links to the topics that cover it. Tick a topic when you can explain it without looking, and watch the percentage climb.</p>`)}
+      ${sec('timer', 'Focus mode', `<p>Tap <b>Focus</b> in the top bar (or press <kbd>F</kbd>) for a 25-minute timer with fewer distractions. A bar at the bottom lets you <b>Pause</b> or <b>Exit focus</b> at any time (on a computer, <kbd>Esc</kbd> works too).</p>`)}
+      ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day. Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
+      ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner.</p>`)}
+      ${sec('phone', 'Your account and devices', `<p>Your student account works on <b>1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind. If something looks wrong, tap <b>Devices</b> at the bottom of the sidebar to request a device reset (once a week; the owner approves it).</p>`)}
+      ${sec('db', 'Your data', `<p>Progress, highlights, notes, ticks and study time are saved in this browser. Use <b>Backup</b> at the bottom of the sidebar to copy them to another device. Switch between light and dark mode with the sun/moon button.</p>`)}`;
+    return { el };
+  }
+
+  // ================================================================ 1v1 quiz battle
+  function viewBattle(r) {
+    setCrumbs([{ t: 'Home', href: '#home' }, { t: '1v1 Quiz battle' }]); setActive('battle'); document.title = '1v1 Quiz battle · BACHY105 Notes';
+    const el = h('div', { class: 'view battle' });
+    const id = r.arg && /^[a-f0-9]{10}$/.test(r.arg) ? r.arg : null;
+    let alive = true, tmr = 0, raf = 0, off = 0, st = null, shown = '', picked = {}, switchedAt = -1, wall = null;
+    const now = () => Date.now() + off;
+    const opp = () => (st && st.role === 'host' ? 'guest' : 'host');
+    async function call(data) {
+      const t0 = Date.now();
+      const res = await fetch('/api/battle' + (id && !data ? '?id=' + id : ''), data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : { cache: 'no-store' });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) throw Object.assign(new Error(j.error || 'Something went wrong. Try again.'), { status: res.status });
+      if (j.now) off = j.now - (t0 + Date.now()) / 2; // the server keeps the clock for both players
+      return j;
+    }
+    const rules = `<ul class="bt-rules"><li>${icon('timer')}10 questions, 10 seconds each</li><li>${icon('swords')}1v1: one friend joins your link</li><li>${icon('warn')}Switching tabs or apps during a question counts as wrong</li></ul>`;
+    const head = (sub) => `<div class="eyebrow"><span class="code">Practice</span><span>1v1 Quiz battle</span>${sub ? `<span class="dot">·</span><span>${sub}</span>` : ''}</div>`;
+
+    // ---- choose topics and create the link
+    async function setup() {
+      el.innerHTML = `${head()}<h1 class="h-display">Quiz battle</h1><p class="blurb">Challenge one friend. Pick the topics, send the link, and you both get the same questions at the same time. Right answers score 100, plus up to 50 for speed.</p>${rules}<div data-pick><p class="muted">Loading…</p></div>`;
+      const pick = $('[data-pick]', el);
+      let acc;
+      try { acc = await call(); } catch (e) { pick.innerHTML = `<div class="empty">${esc(e.message)}</div>`; return; }
+      if (!alive) return;
+      if (acc.access === 'used') {
+        pick.innerHTML = `<a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>You've used your free preview battle</strong><p>Unlock full access for ₹${PRICE_RS} to battle on any topics, as often as you like.</p></div><span class="arrow">${icon('right')}</span></a>`;
+        return;
+      }
+      const preview = acc.access !== 'full';
+      const mods = MODULES.filter((m) => m.topics.length && (!preview || m.free));
+      const chosen = new Set();
+      pick.innerHTML = `${preview ? `<div class="bt-note">${icon('info')}<p><b>Free preview:</b> one battle on a single Module 2 topic. <a href="#unlock">Unlock full access</a> for unlimited battles on every topic.</p></div>` : ''}
+        ${mods.map((m) => `<div class="bt-mod"><div class="bt-mhead"><b>Module ${+m.num} · ${esc(m.title)}</b>${preview ? '' : `<button class="btn small ghost" data-all="${m.id}">Select all</button>`}</div>
+          <div class="bt-topics">${m.topics.filter((t) => (t.flashcards || []).length >= 4).map((t) => `<button class="fchip" data-t="${t.id}" aria-pressed="false">${rt(t.short || t.title)}</button>`).join('')}</div></div>`).join('')}
+        <div class="bt-go"><button class="btn primary" data-create disabled>${icon('swords')}Create battle link</button><span class="muted" data-info>Pick ${preview ? 'one topic' : 'one or more topics'}</span></div><p class="gate-msg" data-msg role="alert"></p>`;
+      const paint = () => {
+        $$('[data-t]', pick).forEach((b) => { const on = chosen.has(b.dataset.t); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+        $('[data-create]', pick).disabled = !chosen.size;
+        $('[data-info]', pick).textContent = chosen.size ? `${chosen.size} topic${chosen.size === 1 ? '' : 's'} selected` : `Pick ${preview ? 'one topic' : 'one or more topics'}`;
+      };
+      pick.addEventListener('click', async (e) => {
+        const t = e.target.closest('[data-t]'), all = e.target.closest('[data-all]');
+        if (t) { const k = t.dataset.t; if (chosen.has(k)) chosen.delete(k); else { if (preview) chosen.clear(); chosen.add(k); } paint(); }
+        if (all) { const ts = $$(`.bt-mod [data-t]`, all.closest('.bt-mod')).map((b) => b.dataset.t); const every = ts.every((x) => chosen.has(x)); ts.forEach((x) => (every ? chosen.delete(x) : chosen.add(x))); paint(); }
+        const cb = e.target.closest('[data-create]');
+        if (cb && chosen.size) {
+          cb.disabled = true; $('[data-msg]', pick).textContent = 'Creating…';
+          try { const j = await call({ action: 'create', topics: [...chosen] }); navigate('#battle.' + j.id); }
+          catch (err) { $('[data-msg]', pick).textContent = err.message; cb.disabled = false; }
+        }
+      });
+    }
+
+    // ---- a battle in progress: the server decides what is on screen, we fetch at the right moments
+    async function poll() {
+      clearTimeout(tmr);
+      if (!alive) return;
+      try { st = await call(); }
+      catch (e) { if (!st) { el.innerHTML = `${head()}<h1 class="h-display">Quiz battle</h1><div class="empty">${esc(e.message)}</div><p style="margin-top:16px"><a class="btn" href="#battle">${icon('swords')}Start a new battle</a></p>`; return; } tmr = setTimeout(poll, 1500); return; }
+      if (!alive) return;
+      paint(); plan();
+    }
+    function plan() {
+      const s = st; let wait = 2000;
+      if (!s.role) { if (s.guest) return; wait = 3000; }
+      else if (!s.guest) wait = 2000;
+      else if (!s.start) wait = 1500; // waiting for both players to accept the rules
+      else if (s.done) return;
+      else {
+        const t = now(), slot = s.qt + s.gap;
+        if (t < s.start) wait = s.start - t + 60;
+        else {
+          const i = Math.floor((t - s.start) / slot), qs0 = s.start + i * slot, qEnd = qs0 + s.qt + 1600;
+          if (i >= s.n) wait = 400;
+          else if (t < qEnd) wait = s.current && s.current.i === i ? qEnd - t + 60 : 300;
+          else wait = s.results.length > i ? qs0 + slot - t + 60 : 400;
+        }
+      }
+      tmr = setTimeout(poll, Math.max(150, wait));
+    }
+    const board = () => { const s = st, me = s.role, o = opp(); return `<div class="bt-board"><div><small>You</small><b>${s.scores[me]}</b></div><span class="vs">vs</span><div><small>${esc(s[o] ? s[o].name : '…')}</small><b>${s.scores[o]}</b></div></div>`; };
+    function loop(fn) { cancelAnimationFrame(raf); const f = () => { if (!alive) return; if (fn() !== false) raf = requestAnimationFrame(f); }; raf = requestAnimationFrame(f); }
+    function paint() {
+      const s = st, t = now();
+      const screen = !s.role ? (s.guest ? 'full' : 'join') : !s.guest ? 'lobby' : !s.start ? 'rules' + (s.ready[s.role] ? 1 : 0) : s.done ? 'done' : t < s.start ? 'count' : s.current ? 'q' + s.current.i : 'r' + (s.results.length - 1);
+      if (screen === shown) return;
+      shown = screen;
+      if (screen[0] !== 'q') hideWall();
+      if (!screen.startsWith('rules')) hideRules();
+      const topics = s.topics.map((x) => esc(plain(x))).join(', ');
+      if (screen.startsWith('rules')) {
+        const ready = s.ready[s.role];
+        el.innerHTML = `${head(topics)}<div class="bt-count"><p>${esc(s.host.name)} <span class="vs">vs</span> ${esc(s.guest.name)}</p><p class="bt-wait" style="justify-content:center"><span class="bt-dot"></span>${ready ? `Waiting for ${esc(s[opp()].name)} to read the rules…` : 'Read the rules to start the battle'}</p>${ready ? '' : `<button class="btn" data-rules>${icon('info')}Show the rules</button>`}</div>`;
+        if (!ready) {
+          $('[data-rules]', el).addEventListener('click', showRules);
+          if (S.ui.battleRulesOk) sendReady(); else showRules();
+        }
+        return;
+      }
+      if (screen === 'full') { el.innerHTML = `${head()}<h1 class="h-display">This battle is full</h1><p class="blurb">${esc(s.host.name)} and ${esc(s.guest.name)} are already playing. Battles are 1v1.</p><a class="btn primary" href="#battle">${icon('swords')}Start your own battle</a>`; return; }
+      if (screen === 'join') {
+        el.innerHTML = `${head()}<h1 class="h-display">${esc(s.host.name)} challenges you</h1><p class="blurb">A 1v1 quiz battle on <b style="color:var(--white)">${topics}</b>.</p>${rules}<div class="bt-go"><button class="btn primary" data-join>${icon('swords')}Join the battle</button></div><p class="gate-msg" data-msg role="alert"></p>`;
+        $('[data-join]', el).addEventListener('click', async (e) => {
+          e.currentTarget.disabled = true; $('[data-msg]', el).textContent = 'Joining…';
+          try { await call({ action: 'join', id }); shown = ''; poll(); }
+          catch (err) { $('[data-msg]', el).innerHTML = esc(err.message) + (err.status === 402 ? ` <a href="#unlock">Unlock full access</a>` : ''); $('[data-join]', el).disabled = false; }
+        });
+        return;
+      }
+      if (screen === 'lobby') {
+        const link = location.origin + '/#battle.' + id;
+        el.innerHTML = `${head(topics)}<h1 class="h-display">Send this link to one friend</h1><p class="blurb">When they join, you both see the rules, and the battle starts once you both tap Understood. Topics: <b style="color:var(--white)">${topics}</b>.</p>
+          <div class="bt-link"><code>${esc(link)}</code><div class="btn-row"><button class="btn primary" data-share>${icon('share')}Share link</button><button class="btn" data-copy>${icon('copy')}Copy</button></div></div>
+          <p class="bt-wait"><span class="bt-dot"></span>Waiting for your opponent…</p>${rules}`;
+        const text = `${firstName() || 'I'} challenged you to a 1v1 Applied Chemistry quiz battle on BACHY105 Notes (${plain(s.topics.join(', '))}). Join here: ${link}`;
+        const copy = () => { try { navigator.clipboard.writeText(link).then(() => toast('Link copied', 'copy'), () => toast(link)); } catch (e) { toast(link); } };
+        $('[data-copy]', el).addEventListener('click', copy);
+        $('[data-share]', el).addEventListener('click', () => { if (navigator.share) navigator.share({ title: 'Quiz battle', text, url: link }).catch(() => {}); else copy(); });
+        return;
+      }
+      if (screen === 'count') {
+        el.innerHTML = `${head(topics)}<div class="bt-count"><p>${esc(s.host.name)} <span class="vs">vs</span> ${esc(s.guest.name)}</p><div class="bt-big" data-n></div><p class="muted">Get ready. Stay on this tab until the end.</p></div>`;
+        loop(() => { const left = Math.ceil((s.start - now()) / 1000); $('[data-n]', el).textContent = left > 0 ? left : 'Go!'; return left > -1; });
+        return;
+      }
+      if (screen[0] === 'q') {
+        const c = s.current, mine = picked[c.i];
+        el.innerHTML = `${head(`Question ${c.i + 1} of ${s.n}`)}${board()}
+          <div class="bt-timer"><i data-bar></i></div><div class="bt-secs" data-secs></div>
+          <div class="bt-q"><small>${rt(c.topic)}</small><div class="prose">${c.front}</div></div>
+          <ol class="qopts bt-opts">${c.options.map((o, k) => `<li><button class="qopt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${o}</span></button></li>`).join('')}</ol>
+          <p class="bt-state muted" data-state></p>`;
+        const lock = (k, textMsg) => { $$('.qopt', el).forEach((b) => { b.disabled = true; if (+b.dataset.k === k) b.classList.add('picked'); else b.classList.add('dim'); }); $('[data-state]', el).textContent = textMsg; };
+        if (mine != null || c.answered) lock(mine, 'Answer locked in. Waiting for the timer…');
+        if (c.switched || switchedAt === c.i) { $('[data-state]', el).textContent = 'You switched tabs, so this one counts as wrong.'; }
+        $('.bt-opts', el).addEventListener('click', async (e) => {
+          const b = e.target.closest('.qopt'); if (!b || b.disabled || picked[c.i] != null) return;
+          const k = +b.dataset.k; picked[c.i] = k; lock(k, 'Answer locked in. Waiting for the timer…');
+          try { await call({ action: 'answer', id, i: c.i, k }); } catch (err) { $('[data-state]', el).textContent = err.message; }
+        });
+        loop(() => {
+          const left = c.startsAt + s.qt - now();
+          const bar = $('[data-bar]', el); if (!bar) return false;
+          bar.style.width = Math.max(0, Math.min(100, (left / s.qt) * 100)) + '%';
+          bar.classList.toggle('low', left < 3000);
+          $('[data-secs]', el).textContent = left > 0 ? Math.ceil(left / 1000) + ' s' : "Time's up";
+          if (left <= 0) { if (picked[c.i] == null && !c.answered) lock(-1, "Time's up. Waiting for the result…"); return false; }
+        });
+        return;
+      }
+      if (screen[0] === 'r') {
+        const x = s.results[s.results.length - 1]; if (!x) return;
+        const me = x[s.role], o = x[opp()];
+        const line = (p, who) => (p.switched ? `${who}: tab switch, counts as wrong` : p.ok ? `${who}: right, +${p.pts}` : p.k == null ? `${who}: no answer` : `${who}: wrong`);
+        el.innerHTML = `${head(`Question ${x.i + 1} of ${s.n}`)}${board()}
+          <div class="bt-q"><div class="prose">${x.front}</div></div>
+          <ol class="qopts bt-opts">${x.options.map((op, k) => `<li><button class="qopt ${k === x.c ? 'right' : k === me.k ? 'wrong' : 'dim'}" disabled><span class="k">${'ABCD'[k]}</span><span>${op}</span></button></li>`).join('')}</ol>
+          <div class="bt-res"><p class="${me.ok ? 'ok' : 'bad'}">${me.ok ? icon('check') : icon('x')}${esc(line(me, 'You'))}</p><p class="${o.ok ? 'ok' : 'bad'}">${o.ok ? icon('check') : icon('x')}${esc(line(o, s[opp()].name))}</p></div>
+          <p class="muted" data-next></p>`;
+        const next = s.start + (x.i + 1) * (s.qt + s.gap);
+        loop(() => { const n = Math.ceil((next - now()) / 1000); const e = $('[data-next]', el); if (!e) return false; e.textContent = x.i + 1 < s.n ? (n > 0 ? `Next question in ${n}…` : 'Here it comes…') : 'Final scores…'; return n > 0; });
+        return;
+      }
+      // done
+      const me = s.role, o = opp(), a = s.scores[me], b = s.scores[o], on = s[o].name;
+      const rights = (who) => s.results.filter((x) => x[who].ok).length;
+      el.innerHTML = `${head('Final')}<div class="bt-final-top">${icon('trophy')}<h1 class="h-display">${a > b ? 'You win!' : a < b ? esc(on) + ' wins' : "It's a draw!"}</h1></div>
+        <div class="bt-board big"><div><small>You</small><b>${a}</b><em>${rights(me)}/${s.n} right</em></div><span class="vs">vs</span><div><small>${esc(on)}</small><b>${b}</b><em>${rights(o)}/${s.n} right</em></div></div>
+        <div class="btn-row" style="margin:18px 0 8px"><a class="btn primary" href="#battle">${icon('swords')}New battle</a><button class="btn" data-sharer>${icon('share')}Share result</button></div>
+        ${s.preview ? `<a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>That was your free preview battle</strong><p>Unlock full access for unlimited battles on every topic, plus Modules 3 and 4.</p></div><span class="arrow">${icon('right')}</span></a>` : ''}
+        <section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Answers</h2>${s.results.map((x) => `<div class="bt-rev"><div class="prose">${x.front}</div><p class="bt-ans">${x.answer}</p><p class="bt-who"><span class="${x[me].ok ? 'ok' : 'bad'}">You ${x[me].ok ? '✓ +' + x[me].pts : x[me].switched ? '✗ tab switch' : '✗'}</span><span class="${x[o].ok ? 'ok' : 'bad'}">${esc(on)} ${x[o].ok ? '✓ +' + x[o].pts : x[o].switched ? '✗ tab switch' : '✗'}</span></p></div>`).join('')}</section>`;
+      $('[data-sharer]', el).addEventListener('click', () => {
+        const text = `${a > b ? 'I beat ' + on : a < b ? on + ' beat me' : 'I drew with ' + on} ${Math.max(a, b)}–${Math.min(a, b)} in a 1v1 Applied Chemistry quiz battle on BACHY105 Notes. ${SITE_URL}`;
+        if (navigator.share) navigator.share({ text, title: 'Quiz battle' }).catch(() => {}); else { try { navigator.clipboard.writeText(text).then(() => toast('Copied', 'copy')); } catch (e) { toast(text); } }
+      });
+      stagger(el);
+    }
+
+    // ---- the rules, before every battle: it starts only when both players tap Understood ("Never ask again" skips this)
+    let rulesOv = null, sentReady = false;
+    function hideRules() { if (rulesOv) { rulesOv.remove(); rulesOv = null; } }
+    function showRules() {
+      if (rulesOv || sentReady) return;
+      rulesOv = h('div', { class: 'overlay bt-rules-ov', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'bt-rules-t' });
+      rulesOv.innerHTML = `<div class="modal"><div class="modal-head">${icon('swords')}<h2 id="bt-rules-t">Battle rules</h2></div><div class="modal-body">
+        <ol class="bt-rule-list">
+          <li><b>10 questions, 10 seconds each.</b> You both get the same question at the same moment.</li>
+          <li><b>A right answer scores 100</b>, plus up to 50 more the faster you tap. Wrong or no answer scores 0.</li>
+          <li><b>Your first tap is final.</b> You can't change an answer.</li>
+          <li><b>Stay on this tab.</b> Switching tabs or apps during a question counts as a wrong answer, even if you already answered it.</li>
+          <li>The battle starts once you both tap <b>Understood</b>.</li>
+        </ol>
+        <label class="bt-never"><input type="checkbox" data-never> Never ask again</label>
+        <div class="btn-row" style="margin-top:16px"><button class="btn primary" data-ok>${icon('check')}Understood</button></div></div></div>`;
+      document.body.appendChild(rulesOv);
+      const ok = $('[data-ok]', rulesOv);
+      ok.addEventListener('click', () => { if ($('[data-never]', rulesOv).checked) { S.ui.battleRulesOk = true; save(); } hideRules(); sendReady(); });
+      setTimeout(() => { if (ok.isConnected) ok.focus({ preventScroll: true }); }, 60);
+    }
+    async function sendReady() {
+      if (sentReady) return;
+      sentReady = true;
+      try { await call({ action: 'ready', id }); } catch (e) { sentReady = false; toast(e.message, 'warn'); return; }
+      shown = ''; poll();
+    }
+
+    // ---- leaving the tab during a question: it counts as wrong, and a full-screen notice waits for the timer
+    function hideWall() { if (wall) { wall.remove(); wall = null; } }
+    function onLeave() {
+      const s = st; if (!s || !s.role || !s.current) return;
+      const c = s.current, t = now();
+      if (t < c.startsAt || t > c.startsAt + s.qt || switchedAt === c.i) return;
+      switchedAt = c.i;
+      call({ action: 'switch', id, i: c.i }).catch(() => {});
+      hideWall();
+      wall = h('div', { class: 'bt-wall', role: 'alertdialog', 'aria-live': 'assertive' });
+      wall.innerHTML = `<div>${icon('warn')}<h2>You switched tabs</h2><p>Leaving the battle during a question counts as a wrong answer, so this one is marked wrong. Wait for the timer to finish and the next question will start.</p><div class="bt-big" data-w></div></div>`;
+      document.body.appendChild(wall);
+      const until = c.startsAt + s.qt;
+      const tick = () => { if (!wall) return; const left = Math.ceil((until - now()) / 1000); if (left <= 0) { hideWall(); return; } $('[data-w]', wall).textContent = left + ' s'; setTimeout(tick, 250); };
+      tick();
+    }
+    const onVis = () => { if (document.visibilityState === 'hidden') onLeave(); };
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('blur', onLeave);
+
+    if (id) { el.innerHTML = `${head()}<p class="muted">Loading the battle…</p>`; poll(); } else setup();
+    return { el, cleanup() { alive = false; clearTimeout(tmr); cancelAnimationFrame(raf); hideWall(); hideRules(); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('blur', onLeave); } };
   }
 
   // bottom tab bar (phones)
@@ -1598,9 +2129,13 @@ window.__startApp = function () {
         toast(on ? 'Added to My weak spots' : 'Removed from weak spots', 'flag');
         trackConfusing(tid, ti, on);
       }
-      else if (k === 'share') shareProgress();
+      else if (k === 'share') openShareCard({ kind: 'progress' });
+      else if (k === 'focusexit') toggleFocus(false);
+      else if (k === 'focuspause') { startTimer(!timerState.running); paintTimer(); }
+      else if (k === 'ideas') openHelp(null, 0, true);
+      else if (k === 'devices') openDevices();
       else if (k === 'signout') { if (confirm('Sign out of ' + (window.SIGNED_IN_AS || 'your account') + ' on this device?') && window.__signOut) window.__signOut(); }
-      else if (k === 'report') openReport(act.dataset.t, +act.dataset.i);
+      else if (k === 'help') openHelp(act.dataset.t || (current && current.view === 'topic' ? current.id : null), act.dataset.i != null ? +act.dataset.i : (current && current.api && current.api.tab ? current.api.tab() : 0));
       else if (k === 'tag') { e.preventDefault(); e.stopPropagation(); cycleTag(act.dataset.t); }
       else if (k === 'group') {
         const g = act.closest('.sb-group'); const id = act.dataset.g;

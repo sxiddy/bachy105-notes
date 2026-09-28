@@ -57,6 +57,9 @@
   form.row label.lim input { min-width: 0; width: 70px; }
   form.row label.lim input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0; accent-color: #f4f4f6; }
   form.row label.lim:has(input[type="checkbox"]) { height: 38px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 10px; color: var(--text-2); cursor: pointer; }
+  details.bulk { margin: 12px 0 8px; border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; }
+  details.bulk summary { cursor: pointer; color: var(--text-2); font-size: 14.5px; }
+  details.bulk input[type="file"] { min-width: 0; max-width: 100%; height: auto; border: 0; background: none; padding: 0; font-family: var(--sans); font-size: 13.5px; }
   .msg { font-size: 14px; color: var(--warn); min-height: 1.4em; margin-top: 8px; }
 </style>
 </head>
@@ -92,7 +95,7 @@
     const max = Math.max(1, ...series.map((s) => s[1]));
     return `<div class="bars">${series.map(([k, v]) => `<div style="height:${Math.max(2, (v / max) * 100)}%" data-tip="${k}: ${v}"></div>`).join('')}</div><div class="axis"><span>${series[0][0]}</span><span>${series[series.length - 1][0]}</span></div>`;
   }
-  let fbFilter = 'open';
+  const fbFilter = { help: 'open', idea: 'open' };
   // all times in Indian time (IST, UTC+5:30)
   const IST = 5.5 * 3600e3;
   const istParts = (s) => {
@@ -109,14 +112,27 @@
   const modsLabel = (s, mods) => (mods && mods.length ? mods.map((id) => modName(s, id)).join(', ') + ' only' : 'All modules');
   const tbl = (head, rows) => `<div class="tbl-wrap"><table class="tbl"><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
 
-  function feedbackHTML(s) {
-    const all = s.feedback || [];
+  const KIND = { mistake: 'Mistake in the notes', suggestion: 'Suggestion', bug: "Something isn't working", other: 'Other', idea: 'Idea' };
+  // box: 'help' (Help? requests) or 'idea' (Any ideas?)
+  function feedbackHTML(s, box) {
+    const all = (s.feedback || []).filter((f) => (box === 'idea') === (f.kind === 'idea'));
     const n = (st) => all.filter((f) => f.status === st).length;
-    const list = all.filter((f) => f.status === fbFilter);
-    const tabs = [['open', 'Open'], ['fixed', 'Fixed'], ['ignored', 'Ignored']].map(([k, l]) => `<button class="btn small${fbFilter === k ? ' primary' : ' ghost'}" data-fbf="${k}">${l} ${n(k)}</button>`).join(' ');
-    const item = (f) => `<div class="fb"><small>${whenInline(f.at)} · ${esc(f.topic)}${f.tab ? ' › ' + esc(f.tab) : ''}${f.contact ? ' · ' + esc(f.contact) : ''}</small><p>${esc(f.text)}</p>
-      <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">Mark fixed</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">Ignore</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}</div></div>`;
-    return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${fbFilter === 'open' ? 'open. All caught up' : 'here'}.</p>`}`;
+    const cur = fbFilter[box], list = all.filter((f) => f.status === cur);
+    const names = box === 'idea' ? [['open', 'New'], ['fixed', 'Done'], ['ignored', 'Dismissed']] : [['open', 'Open'], ['fixed', 'Fixed'], ['ignored', 'Ignored']];
+    const tabs = names.map(([k, l]) => `<button class="btn small${cur === k ? ' primary' : ' ghost'}" data-fbf="${k}" data-box="${box}">${l} ${n(k)}</button>`).join(' ');
+    const where = (f) => (f.topic ? ' · ' + esc(f.topic) + (f.tab ? ' › ' + esc(f.tab) : '') : '');
+    const item = (f) => `<div class="fb"><small>${whenInline(f.at)}${box === 'help' ? ' · <b>' + esc(KIND[f.kind] || f.kind) + '</b>' : ''}${where(f)}</small>${f.email || f.contact ? `<small style="display:block">${esc(f.email || '')}${f.contact ? (f.email ? ' · ' : '') + esc(f.contact) : ''}</small>` : ''}<p>${esc(f.text)}</p>
+      <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">${box === 'idea' ? 'Mark done' : 'Mark fixed'}</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">${box === 'idea' ? 'Dismiss' : 'Ignore'}</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}${f.email ? `<a class="btn small ghost" href="mailto:${esc(f.email)}">Reply by email</a>` : ''}</div></div>`;
+    return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${cur === 'open' ? (box === 'idea' ? 'new yet' : 'open. All caught up') : 'here'}.</p>`}`;
+  }
+  // emails pasted or read from a .txt/.csv file: anything separated by spaces, commas, semicolons or new lines
+  const emailsIn = (text) => [...new Set((String(text).toLowerCase().match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/g) || []))];
+  function bulkHTML(id, what) {
+    return `<details class="bulk"><summary>Add many students at once</summary>
+      <p class="muted" style="font-size:13.5px;margin:8px 0">Paste emails separated by spaces, commas or new lines, or pick a .txt or .csv file (any column with emails works).</p>
+      <textarea class="ann" id="${id}t" placeholder="a.2026@vitstudent.ac.in, b.2026@vitstudent.ac.in&#10;c.2026@vitstudent.ac.in"></textarea>
+      <p class="row" style="margin-top:8px;align-items:center"><input type="file" id="${id}f" accept=".txt,.csv,text/plain,text/csv"><span class="muted" id="${id}c" style="font-size:13.5px">0 emails</span></p>
+      ${what}<p class="msg" id="${id}m"></p></details>`;
   }
 
   const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : 'Module 2 only');
@@ -176,6 +192,10 @@
       </section>` : ''}
 
 
+      ${s.storage ? `<section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Device reset requests <small>${(s.resetRequests || []).length} waiting</small></h2>
+        <p class="muted" style="font-size:13.5px">Students can ask once a week. Approving clears all their phones and PCs, so they sign in again on the devices they use now.</p>
+        ${(s.resetRequests || []).length ? tbl(['Student email', 'Asked (IST)', 'From', 'Reason', ''], s.resetRequests.map((r) => `<tr><td><code>${esc(r.email)}</code></td><td>${when(r.at)}</td><td>${r.kind === 'phone' ? 'phone' : 'laptop/PC'}</td><td>${esc(r.reason) || '<span class="muted">—</span>'}</td><td style="white-space:nowrap"><button class="btn small primary" data-rr="approve-reset" data-email="${esc(r.email)}">Approve</button> <button class="btn small ghost" data-rr="decline-reset" data-email="${esc(r.email)}">Decline</button></td></tr>`)) : '<p class="muted">No requests right now.</p>'}</section>` : ''}
+
       ${s.storage ? `<section class="sum-sec" style="margin-top:36px"><h2 class="h-sec">Conversion <small>last 30 days</small></h2>
         <div class="funnel">
           <div><b>${F.visitors}</b><span>visited the site</span></div>
@@ -183,7 +203,8 @@
           <div><b>${F.start}</b><span>tapped Pay</span><em>${pct(F.start, F.paywall)} of those</em></div>
           <div><b>${F.paid}</b><span>paid</span><em>${pct(F.paid, F.start)} of those</em></div>
         </div>
-        <p class="muted" style="font-size:13.5px">Counts started when this was added, so older days show 0. Each browser counts once per visit.</p></section>` : ''}
+        <p class="muted" style="font-size:13.5px">Counts started when this was added, so older days show 0. Each browser counts once per visit.</p>
+        <p style="font-size:14.5px;margin-top:10px"><b>${days(s.battles, 30).reduce((a, x) => a + x[1], 0)}</b> 1v1 quiz battles started in the last 30 days.</p></section>` : ''}
 
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Settings</h2>
         <form class="row" id="pf"><label class="lim">Price ₹ <input id="pr" type="number" min="1" max="5000" value="${esc(s.price)}" required style="width:90px"></label><button class="btn">Save price</button></form>
@@ -213,13 +234,15 @@
 
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Most opened topics</h2>${views.length ? tbl(['Topic', 'Opens'], views.map(([t, n]) => `<tr><td>${esc(t)}</td><td>${n}</td></tr>`)) : '<p class="muted">No data yet.</p>'}</section>` : ''}
 
-      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Mistake reports</h2><div id="fbl">${feedbackHTML(s)}</div></section>` : ''}
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Help? requests <small>mistakes, suggestions, problems</small></h2><div id="fbl-help">${feedbackHTML(s, 'help')}</div></section>` : ''}
+      ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Ideas from students</h2><div id="fbl-idea">${feedbackHTML(s, 'idea')}</div></section>` : ''}
 
       <section class="sum-sec"><h2 class="h-sec">Recent payments</h2>${s.payments.recent.length ? tbl(['When (IST)', 'Student', 'Amount', 'Payment ID'], s.payments.recent.map((p) => `<tr><td>${when(p.at)}</td><td>${esc(p.email)}</td><td>₹${esc(p.amount)}</td><td><code>${esc(p.id)}</code></td></tr>`)) : '<p class="muted">No payments yet.</p>'}</section>
 
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
         <p class="muted">Add a VIT student email and that student gets the ticked modules free. Nothing for them to do: it unlocks as soon as they sign in with that account. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
         <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        ${bulkHTML('bg', `<p class="row" style="margin-top:6px">${modChecks.split('gmod').join('bgmod')}<input id="bgn" placeholder="Name or note (optional)" style="min-width:180px"><button class="btn primary" id="bgb">Give free access to all</button></p>`)}
         ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (IST)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
 
@@ -229,6 +252,7 @@
           <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
           <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
           <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
+        ${bulkHTML('bl', `<p class="row" style="margin-top:6px"><label class="lim">Phones <input id="blph" type="number" min="0" max="20" value="1"></label><label class="lim">Laptops/PCs <input id="blpc" type="number" min="0" max="20" value="1"></label><button class="btn primary" id="blb">Set this limit for all</button></p>`)}
         ${(s.limits || []).length ? tbl(['Student email', 'Phones', 'Laptops/PCs', ''], s.limits.map((l) => `<tr><td><code>${esc(l.email)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.email)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.email)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
       </section>
 
@@ -313,15 +337,42 @@
     }));
 
     // mistake reports
+    const repaintFeedback = () => { ['help', 'idea'].forEach((x) => { if ($('#fbl-' + x)) $('#fbl-' + x).innerHTML = feedbackHTML(s, x); }); wireFeedback(); };
     const wireFeedback = () => {
-      $$('[data-fbf]').forEach((b) => b.addEventListener('click', () => { fbFilter = b.dataset.fbf; $('#fbl').innerHTML = feedbackHTML(s); wireFeedback(); }));
+      $$('[data-fbf]').forEach((b) => b.addEventListener('click', () => { fbFilter[b.dataset.box] = b.dataset.fbf; repaintFeedback(); }));
       $$('[data-fb]').forEach((b) => b.addEventListener('click', async () => {
         b.disabled = true;
-        try { await post({ action: 'feedback-status', id: b.dataset.fb, status: b.dataset.st }); const f = s.feedback.find((x) => x.id === b.dataset.fb); if (f) f.status = b.dataset.st; $('#fbl').innerHTML = feedbackHTML(s); wireFeedback(); }
+        try { await post({ action: 'feedback-status', id: b.dataset.fb, status: b.dataset.st }); const f = s.feedback.find((x) => x.id === b.dataset.fb); if (f) f.status = b.dataset.st; repaintFeedback(); }
         catch (err) { b.disabled = false; alert(err.message); }
       }));
     };
-    if ($('#fbl')) wireFeedback();
+    if ($('#fbl-help')) wireFeedback();
+
+    // device reset requests
+    $$('[data-rr]').forEach((b) => b.addEventListener('click', async () => {
+      const ok = b.dataset.rr === 'approve-reset';
+      if (ok && !confirm('Clear all devices for ' + b.dataset.email + '? They sign in again on the devices they use now.')) return;
+      b.disabled = true;
+      try { await post({ action: b.dataset.rr, email: b.dataset.email }); load(); }
+      catch (err) { b.disabled = false; alert(err.message); }
+    }));
+
+    // many students at once: paste or a .txt/.csv file
+    const wireBulk = (id, send) => {
+      const ta = $('#' + id + 't'), count = () => { const n = emailsIn(ta.value).length; $('#' + id + 'c').textContent = n + ' email' + (n === 1 ? '' : 's'); };
+      ta.addEventListener('input', count);
+      $('#' + id + 'f').addEventListener('change', async (e) => { const f = e.target.files[0]; if (!f) return; if (f.size > 2e6) { $('#' + id + 'm').textContent = 'That file is too big (2 MB max).'; return; } ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + await f.text(); count(); });
+      $('#' + id + 'b').addEventListener('click', async () => {
+        const emails = emailsIn(ta.value), m = $('#' + id + 'm');
+        if (!emails.length) { m.textContent = 'Paste some emails or pick a file first.'; return; }
+        if (!confirm('Apply this to ' + emails.length + ' student' + (emails.length === 1 ? '' : 's') + '?')) return;
+        m.textContent = 'Saving…';
+        try { const r = await send(emails); m.textContent = 'Done for ' + r.done + ' student' + (r.done === 1 ? '' : 's') + '.' + (r.invalid.length ? ' Skipped (not VIT student emails): ' + r.invalid.join(', ') : ''); setTimeout(load, 2500); }
+        catch (err) { m.textContent = err.message; }
+      });
+    };
+    if ($('#bgt')) wireBulk('bg', (emails) => { const mods = $$('.bgmod').filter((c) => c.checked).map((c) => c.value); if (!mods.length) throw new Error('Tick at least one module.'); return post({ action: 'bulk-grant', emails, modules: mods, name: $('#bgn').value }); });
+    if ($('#blt')) wireBulk('bl', (emails) => post({ action: 'bulk-limits', emails, phones: $('#blph').value, pcs: $('#blpc').value }));
 
     // free access
     $('#gf').addEventListener('submit', async (e) => {

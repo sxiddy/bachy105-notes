@@ -47,6 +47,19 @@ const paidFiles = [...paidViz, ...contentFiles.filter((f) => !FREE.includes(f))]
 const dataFiles = [...freeFiles, ...paidFiles];
 fs.writeFileSync(path.join(APP, 'js', 'data-files.js'), `window.FREE_FILES = ${JSON.stringify(freeFiles)};\nwindow.PAID_FILES = ${JSON.stringify(paidFiles)};\nwindow.FILE_MODULE = ${JSON.stringify(fileModule)};\n`);
 
+// 1v1 battle questions, built from the flashcards (api/battle.js sends each one only when it starts and marks
+// answers on the server, so nobody can read the answers ahead). topics: id -> [module, title]; cards: topic -> [[front, back]]
+const battle = { topics: {}, cards: {} };
+global.CHUNK = (c) => (c.topics || []).forEach((t) => {
+  const m = MODULES.find((x) => x.chunks.includes(c.chunk)) || {};
+  if (!m.id || battle.topics[t.id]) return;
+  battle.topics[t.id] = [m.id, t.short || t.title];
+  battle.cards[t.id] = (t.flashcards || []).map((f) => [f.front, f.back]);
+});
+for (const m of MODULES) for (const ch of m.chunks) { const p = path.join(CONTENT, `chunk-${ch}.js`); delete require.cache[p]; require(p); }
+delete global.CHUNK;
+fs.writeFileSync(path.join(ROOT, 'api', '_battle.json'), JSON.stringify(battle) + '\n');
+
 const vizFiles = fs.readdirSync(path.join(APP, 'js', 'viz')).filter((f) => /\.js$/.test(f)).sort();
 const scripts = ['js/boot.js', 'js/modules.js', 'js/viz-core.js', ...vizFiles.map((f) => 'js/viz/' + f), 'js/app.js', 'js/data-files.js', 'js/gate.js'];
 

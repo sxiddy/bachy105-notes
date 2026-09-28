@@ -4,7 +4,8 @@
 //   Full-page flow (default): Google POSTs a form { credential, g_csrf_token } here; we answer with a redirect to
 //   the site (or back to the sign-in screen with ?login_error=...). The device id comes from the bn_dev cookie.
 //   JSON flow: POST { credential | devEmail, deviceId } -> { ok, email } (devEmail only with DEV_LOGIN=1, never on Vercel).
-const { send, handle, verifyGoogle, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, safeEqual, DOMAIN } = require('./_lib');
+//   Sign out: POST { logout: true } (also /api/logout) -> clears this browser's sign-in (their device slot stays theirs).
+const { send, handle, verifyGoogle, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, clearUserCookie, safeEqual, DOMAIN } = require('./_lib');
 
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(/;\s*/).filter(Boolean).map((c) => { const i = c.indexOf('='); return [c.slice(0, i), decodeURIComponent(c.slice(i + 1))]; }));
 
@@ -39,6 +40,7 @@ module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
   const b = await readBody(req);
   const c = cookies(req);
+  if (b.logout || /[?&]out=1/.test(req.url || '')) return send(res, 200, { ok: true }, { 'Set-Cookie': clearUserCookie() });
 
   if (b.g_csrf_token !== undefined) { // Google's full-page redirect
     const back = (err, cookie) => {

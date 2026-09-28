@@ -1,4 +1,4 @@
-// POST /api/restore { paymentId? } -> "Already paid? Restore access" for the signed-in student.
+// POST /api/restore { paymentId? } (or { action: 'reset-devices' }: a device reset request, below) -> "Already paid? Restore access" for the signed-in student.
 //   Without a payment ID: looks through recent Razorpay payments for a completed one made from this student account.
 //   With a payment ID: also unlocks a payment made before sign-in existed (its order has no email). Each such
 //   payment can be claimed by one account only (hash "claimed": payment id -> email).
@@ -18,12 +18,31 @@ async function findByEmail(email) {
   return null;
 }
 
+// { action: 'reset-devices', reason? }: the student asks the owner to clear their devices. The request waits in hash
+// "devreq" (email -> {at, reason, kind}) until the owner approves or declines it on /stats.html. One request a week
+// (key "devreset:<email>").
+const WEEK = 7 * 24 * 3600;
+async function requestReset(req, res, u, b) {
+  if (!store.configured()) return send(res, 400, { error: 'Device reset requests are not available right now.' });
+  const key = 'devreset:' + u.e;
+  const [ok, ttl] = await store.pipeline([['SET', key, new Date().toISOString(), 'EX', WEEK, 'NX'], ['TTL', key]]);
+  if (ok == null) {
+    const next = Number.isInteger(ttl) && ttl > 0 ? new Date(Date.now() + ttl * 1000).toISOString() : null;
+    return send(res, 429, { error: 'You can only request a device reset once every week. Anything more needs the owner\'s permission (use Help?).', next });
+  }
+  const reason = String(b.reason || '').split('').filter((ch) => ch.charCodeAt(0) >= 32).join('').trim().slice(0, 300);
+  const kind = /Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(req.headers['user-agent'] || '') ? 'phone' : 'pc';
+  await store.pipeline([['HSET', 'devreq', u.e, JSON.stringify({ at: new Date().toISOString(), reason, kind })]]);
+  send(res, 200, { ok: true });
+}
+
 module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
   const u = getUser(req);
   if (!u) return send(res, 401, { error: 'Please sign in with your VIT student account first.' });
-  if (await hasAccess(req)) return send(res, 200, { ok: true, already: true });
   const b = await body(req);
+  if (b.action === 'reset-devices') return requestReset(req, res, u, b);
+  if (await hasAccess(req)) return send(res, 200, { ok: true, already: true });
   const given = String(b.paymentId || '').trim();
 
   const pid = given || await findByEmail(u.e);

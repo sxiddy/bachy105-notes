@@ -32,7 +32,7 @@
   // e.g. 28-09-2026 11:30 PM, in Indian time
   const offerEnds = (ms) => { const d = new Date(ms + 5.5 * 3600e3), h = d.getUTCHours(); return String(d.getUTCDate()).padStart(2, '0') + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + d.getUTCFullYear() + ' ' + String(h % 12 || 12).padStart(2, '0') + ':' + String(d.getUTCMinutes()).padStart(2, '0') + (h < 12 ? ' AM' : ' PM'); };
   const reload = () => { history.replaceState(null, '', location.pathname); location.reload(); };
-  async function signOut() { try { await api('/api/logout', {}); } catch (e) { /* ignore */ } reload(); }
+  async function signOut() { try { await api('/api/login', { logout: true }); } catch (e) { /* ignore */ } reload(); }
   window.__signOut = signOut;
 
   // anonymous funnel counts for the owner: saw the paywall, opened checkout (once per browser session each)
@@ -44,11 +44,13 @@
   // ---------------------------------------------------------------- sign in
   function signIn(msg) {
     const domain = S.domain || 'vitstudent.ac.in';
+    const keep = () => { try { if (location.hash && location.hash !== '#home') localStorage.setItem('bn_after', JSON.stringify({ h: location.hash, t: Date.now() })); } catch (e) { /* ignore */ } };
+    keep(); window.addEventListener('hashchange', keep); // a new link pasted into this same tab
     root.innerHTML = `
       <div class="gate">
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
-          <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
+          <h1 class="gate-title">Applied Chemistry</h1>
           <p class="gate-lead">Study notes for VIT students. Sign in with your <b>VIT student Google account</b> (…@${esc(domain)}) to continue.</p>
           <div id="gsi" class="gate-gsi"></div>
           ${S.devLogin ? `<form id="dev-login" class="gate-dev"><label>Local test only: sign in as<input id="dev-email" value="test@${esc(domain)}"></label><button class="btn" type="submit">Sign in (dev)</button></form>` : ''}
@@ -96,6 +98,10 @@
       const allPaid = CFG.filter((m) => !m.free).every((m) => !modules || modules.includes(m.id));
       window.APP_LOCKED = !paid || !allPaid;
       window.__showPaywall = paywall;
+      try {
+        const a = JSON.parse(localStorage.getItem('bn_after') || 'null'); localStorage.removeItem('bn_after');
+        if (a && Date.now() - a.t < 15 * 60e3 && /^#[a-z0-9.-]+$/.test(a.h) && (!location.hash || location.hash === '#home')) history.replaceState(null, '', location.pathname + a.h);
+      } catch (e) { /* ignore */ }
       root.innerHTML = '';
       window.__startApp();
     } catch (e) {
@@ -110,7 +116,7 @@
       <div class="gate">
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
-          <h1 class="gate-title">Applied Chemistry, <span class="gate-u">distilled.</span></h1>
+          <h1 class="gate-title">Applied Chemistry</h1>
           <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
           ${S.sale && S.sale.text && S.normalPrice > price ? `<div class="gate-offer-note" role="note">${esc(S.sale.text)}</div>` : ''}
           <div class="gate-price"><span class="gate-rs">₹${rs}</span>${S.sale && S.normalPrice > price ? `<s class="gate-was">₹${(S.normalPrice / 100).toFixed(0)}</s><span class="gate-offer">Offer ends ${offerEnds(S.sale.until)}</span>` : ''}<span class="gate-muted">one-time · pay with any UPI app</span></div>
@@ -128,6 +134,14 @@
               <label>Your student email<input id="gate-email" value="${esc(S.user || '')}" readonly aria-readonly="true"></label>
               <label>Payment ID <span class="gate-muted">(only for payments made before sign-in was added)</span><input id="gate-pid" placeholder="pay_XXXXXXXXXXXXXX" autocomplete="off"></label>
               <button class="btn" type="submit">Restore access</button>
+            </form>
+          </details>
+          <details class="gate-restore">
+            <summary>Signed out on your devices? Request a device reset</summary>
+            <form id="gate-reset">
+              <label>Why do you need a reset? <span class="gate-muted">(optional)</span><input id="gate-why" maxlength="300" placeholder="e.g. I got a new phone"></label>
+              <button class="btn" type="submit">Request a device reset</button>
+              <p class="gate-muted gate-small" style="margin:0">You can only request a device reset once every week, and it's done only when the owner approves it.</p>
             </form>
           </details>
           <p class="gate-signed">Signed in as ${esc(S.user || '')} · <button type="button" class="linkish" id="gate-out">Sign out</button></p>
@@ -165,7 +179,7 @@
           } },
           handler: async (resp) => {
             say('Payment received. Confirming…');
-            try { await api('/api/verify-payment', resp); say('Unlocked. Loading everything…'); reload(); }
+            try { await api('/api/verify', resp); say('Unlocked. Loading everything…'); reload(); }
             catch (e) { say(e.message + ' If money was taken, use "Restore access" (payment ID: ' + resp.razorpay_payment_id + ').'); payBtn.disabled = false; }
           },
           modal: { ondismiss: () => { say('Payment cancelled.'); payBtn.disabled = false; } },
@@ -173,6 +187,12 @@
         rzp.on('payment.failed', (r) => { say('Payment failed: ' + ((r.error && r.error.description) || 'try again')); payBtn.disabled = false; });
         rzp.open();
       } catch (e) { say(e.message); payBtn.disabled = false; }
+    });
+    document.getElementById('gate-reset').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      say('Sending your request…');
+      try { await api('/api/restore', { action: 'reset-devices', reason: document.getElementById('gate-why').value }); say('Request sent. The owner will approve it soon.'); }
+      catch (err) { say(err.message); }
     });
     document.getElementById('gate-form').addEventListener('submit', async (e) => {
       e.preventDefault();

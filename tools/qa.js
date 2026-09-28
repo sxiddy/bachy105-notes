@@ -39,7 +39,7 @@ const go = async (hash) => { const e0 = errors.length; w.history.pushState(null,
 const report = { routes: 0, tabs: 0, figs: 0, figMissing: [], vizMounted: 0, vizMissing: [], vizFailed: [], emptyPanels: [] };
 
 (async () => {
-  const base = ['#home', '#m2', '#m3', '#m4', '#m2-summary', '#m3-summary', '#m4-summary', '#questions', '#questions.m2', '#questions.m3', '#questions.m4', '#questions.mixed', '#quiz', '#cards', '#formulas', '#lab', '#mine'];
+  const base = ['#home', '#m2', '#m3', '#m4', '#m2-summary', '#m3-summary', '#m4-summary', '#questions', '#questions.m2', '#questions.m3', '#questions.m4', '#questions.mixed', '#quiz', '#cards', '#formulas', '#lab', '#mine', '#guide', '#syllabus.cat1', '#syllabus.cat2', '#battle'];
   for (const r of base) { const n = await go(r); report.routes++; if (n) console.log(`errors on ${r}`); }
   const doc = w.document;
   for (const t of N.TOPICS) {

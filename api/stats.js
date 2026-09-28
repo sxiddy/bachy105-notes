@@ -10,7 +10,10 @@
 //     set-price { rupees }               normal price for new payments
 //     set-sale { rupees, hours, text? } / end-sale   temporary price that ends by itself, with an optional message
 //     set-banner { text, on }            announcement shown at the top of the site
-//     feedback-status { id, status }     mark a mistake report open / fixed / ignored
+//     feedback-status { id, status }     mark a Help? request or an idea open / fixed / ignored
+//     bulk-grant { emails: [...], name?, modules? }       free access for many students at once
+//     bulk-limits { emails: [...], phones, pcs }          the same device limit for many students
+//     approve-reset { email } / decline-reset { email }   a student's device reset request (hash "devreq")
 const crypto = require('crypto');
 const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, handle } = require('./_lib');
 const store = require('./_store');
@@ -77,7 +80,27 @@ module.exports = handle(async (req, res) => {
       return send(res, 200, { ok: true });
     }
 
-    if (!['lookup', 'reset-devices', 'grant', 'revoke', 'set-limits', 'clear-limits'].includes(a)) return send(res, 400, { error: 'Unknown action.' });
+    if (a === 'bulk-grant' || a === 'bulk-limits') {
+      const list = [...new Set((Array.isArray(b.emails) ? b.emails : []).map(normEmail))].slice(0, 2000);
+      const good = list.filter(isStudentEmail), bad = list.filter((e) => !isStudentEmail(e));
+      if (!good.length) return send(res, 400, { error: `No VIT student emails (…@${DOMAIN}) found.` });
+      let cmds;
+      if (a === 'bulk-grant') {
+        const ids = paidModules.map((m) => m.id);
+        const mods = Array.isArray(b.modules) ? b.modules.filter((m) => ids.includes(m)) : [];
+        const item = JSON.stringify({ name: String(b.name || '').trim().slice(0, 60), at: new Date().toISOString(), modules: mods.length && mods.length < ids.length ? mods : null });
+        cmds = good.map((e) => ['HSET', 'free', e, item]);
+      } else {
+        const n = (v) => parseInt(v, 10);
+        const lim = { phone: n(b.phones), pc: n(b.pcs) };
+        if (![lim.phone, lim.pc].every((x) => Number.isInteger(x) && x >= 0 && x <= 20)) return send(res, 400, { error: 'Use whole numbers from 0 to 20.' });
+        cmds = good.map((e) => ['HSET', 'limits', e, JSON.stringify(lim)]);
+      }
+      for (let i = 0; i < cmds.length; i += 200) await store.pipeline(cmds.slice(i, i + 200));
+      return send(res, 200, { ok: true, done: good.length, invalid: bad.slice(0, 50) });
+    }
+
+    if (!['lookup', 'reset-devices', 'approve-reset', 'decline-reset', 'grant', 'revoke', 'set-limits', 'clear-limits'].includes(a)) return send(res, 400, { error: 'Unknown action.' });
     const email = normEmail(b.email);
     if (!isStudentEmail(email)) return send(res, 400, { error: `Enter a VIT student email (…@${DOMAIN}).` });
 
@@ -103,8 +126,12 @@ module.exports = handle(async (req, res) => {
       await store.pipeline([['HDEL', 'limits', email]]);
       return send(res, 200, { ok: true });
     }
-    if (a === 'reset-devices') {
-      await store.pipeline([['DEL', ...deviceKeys(email), `devices:${email}:phone`, `devices:${email}:pc`]]);
+    if (a === 'reset-devices' || a === 'approve-reset') {
+      await store.pipeline([['DEL', ...deviceKeys(email), `devices:${email}:phone`, `devices:${email}:pc`], ['HDEL', 'devreq', email]]);
+      return send(res, 200, { ok: true });
+    }
+    if (a === 'decline-reset') {
+      await store.pipeline([['HDEL', 'devreq', email]]);
       return send(res, 200, { ok: true });
     }
 
@@ -129,19 +156,22 @@ module.exports = handle(async (req, res) => {
   const [pays, cfg] = await Promise.all([paidPayments(10), settings()]);
   const byDay = {};
   pays.forEach((p) => { const d = istDay(p.created_at * 1000); byDay[d] = (byDay[d] || 0) + 1; });
-  let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [];
+  let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [], resetRequests = [], battles = null;
   if (store.configured()) {
-    const [v, w, f, fr, lm, qz, ql, cf, cl, fn, fs, bn] = await store.pipeline([
-      ['HGETALL', 'visits'], ['HGETALL', 'views'], ['LRANGE', 'feedback', 0, 199], ['HGETALL', 'free'], ['HGETALL', 'limits'],
+    const [v, w, f, fr, lm, qz, ql, cf, cl, fn, fs, bn, dr, bt] = await store.pipeline([
+      ['HGETALL', 'visits'], ['HGETALL', 'views'], ['LRANGE', 'feedback', 0, 399], ['HGETALL', 'free'], ['HGETALL', 'limits'],
       ['HGETALL', 'quiz'], ['HGETALL', 'quizLabel'], ['HGETALL', 'confusing'], ['HGETALL', 'confusingLabel'], ['HGETALL', 'funnel'],
-      ['HGETALL', 'feedbackStatus'], ['HGET', 'config', 'banner'],
+      ['HGETALL', 'feedbackStatus'], ['HGET', 'config', 'banner'], ['HGETALL', 'devreq'], ['HGETALL', 'battles'],
     ]);
+    for (let i = 0; dr && i < dr.length; i += 2) { const x = parseJSON(dr[i + 1], {}) || {}; resetRequests.push({ email: dr[i], at: x.at || '', reason: x.reason || '', kind: x.kind || '' }); }
+    resetRequests.sort((a, b) => (b.at > a.at ? 1 : -1));
+    battles = store.pairs(bt);
     visits = store.pairs(v); views = store.pairs(w);
     for (let i = 0; lm && i < lm.length; i += 2) { const l = parseLimits(lm[i + 1]); limits.push({ email: lm[i], phones: l.phone, pcs: l.pc }); }
     for (let i = 0; fr && i < fr.length; i += 2) { const x = parseJSON(fr[i + 1], {}) || {}; free.push({ email: fr[i], name: x.name || '', at: x.at || '', modules: x.modules || null }); }
     free.sort((a, b) => (b.at > a.at ? 1 : -1));
     const status = store.pairs(fs);
-    feedback = (f || []).map((x) => { const it = parseJSON(x, { text: String(x) }) || {}; const id = feedbackId(it); return { ...it, id, status: status[id] || 'open' }; });
+    feedback = (f || []).map((x) => { const it = parseJSON(x, { text: String(x) }) || {}; const id = feedbackId(it); return { ...it, kind: it.kind || 'mistake', id, status: status[id] || 'open' }; });
 
     // quiz: most-missed questions (at least 3 answers)
     const qc = store.pairs(qz), qlab = store.pairs(ql), qs = {};
@@ -193,6 +223,6 @@ module.exports = handle(async (req, res) => {
       byDay,
       recent: pays.slice(0, 15).map((p) => ({ at: iso(p.created_at), email: normEmail((p.notes || {}).email) || '(before sign-in)', id: p.id, amount: p.amount / 100 })),
     },
-    visits, views, feedback, free, limits, quiz, confusing, funnel, students,
+    visits, views, feedback, free, limits, quiz, confusing, funnel, students, resetRequests, battles,
   });
 });

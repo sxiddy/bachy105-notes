@@ -12,6 +12,14 @@
   },
   "rewrites": [
     {
+      "source": "/api/logout",
+      "destination": "/api/login?out=1"
+    },
+    {
+      "source": "/api/verify-payment",
+      "destination": "/api/verify"
+    },
+    {
       "source": "/data/:f",
       "destination": "/api/content?f=:f"
     },

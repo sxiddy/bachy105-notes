@@ -1,4 +1,4 @@
-// POST /api/verify (same as /api/verify-payment) { razorpay_order_id, razorpay_payment_id, razorpay_signature }
+// POST /api/verify (old clients call /api/verify-payment, rewritten here in vercel.json) { razorpay_order_id, razorpay_payment_id, razorpay_signature }
 // Checks Razorpay's signature and the payment itself, then records it against the signed-in student's email.
 const { send, body, hmac, safeEqual, env, checkPayment, recordPaid, getUser, handle } = require('./_lib');
 const store = require('./_store');
