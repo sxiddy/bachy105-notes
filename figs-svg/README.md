@@ -34,8 +34,12 @@ slides, VIT · Slide N".
 
 ## Tools
 
-- : the phone preview described above (slide picture, dark, light, each 375 px wide).
-- : generator for the three silicon-lattice figures (a pattern for other repetitive figures).
+- `node tools/figs/phone-preview.js <repo folder> <out.html> <id> <id> ...` builds the phone preview described
+  above (slide picture, dark, light, each 375 px wide). Screenshot it with headless Chrome:
+  `chrome --headless=new --allow-file-access-from-files --window-size=1210,<height> --force-device-scale-factor=1
+  --screenshot=<png> file:///<out.html>` and look at it with the Read tool.
+- `node tools/figs/lattice.js figs-svg` regenerates the three silicon-lattice figures (a pattern for other
+  repetitive figures: write a small generator instead of hand-placing dozens of shapes).
 
 ## Progress
 
