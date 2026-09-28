@@ -77,7 +77,7 @@ function isOwner(req) {
 }
 
 // Who can see the paid modules: the owner, a student whose email paid (hash "paid"), or one on the owner's free
-// list (hash "free"; removing them locks them out straight away). A free grant can be limited to some modules;
+// list (hash "free"; removing them locks them out straight away, and a temporary grant has an "until" time). A free grant can be limited to some modules;
 // then .modules lists them (null = everything).
 async function hasAccess(req) {
   if (isOwner(req)) return { owner: true, modules: null };
@@ -90,6 +90,7 @@ async function hasAccess(req) {
   if (paid != null) return { email: u.e, paid: true, modules: null };
   if (free == null) return null;
   let x = {}; try { x = JSON.parse(free) || {}; } catch (e) {}
+  if (x.until && x.until <= Date.now()) { await store.pipeline([['HDEL', 'free', u.e]]); return null; } // temporary grant ended
   return { email: u.e, free: true, modules: Array.isArray(x.modules) && x.modules.length ? x.modules : null };
 }
 
@@ -193,10 +194,21 @@ function deviceIdFrom(b) {
 const deviceKind = (req) => (/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test((req && req.headers['user-agent']) || '') ? 'phone' : 'pc');
 const deviceKeys = (email) => DEVICE_KINDS.map((k) => `devz:${email}:${k}`); // sorted sets: device id -> last use
 const DEFAULT_LIMITS = { phone: 1, pc: 1 };
+// A limit can be temporary: {"phone":n,"pc":n,"until":ms}. Once "until" has passed it counts as the default 1 + 1
+// (.expired tells the caller to HDEL it); without "until" it is permanent.
 function parseLimits(raw) {
   let x = {}; try { x = JSON.parse(raw || '{}') || {}; } catch (e) {}
+  const until = Number.isFinite(x.until) ? x.until : null;
+  if (until && until <= Date.now()) return { phone: DEFAULT_LIMITS.phone, pc: DEFAULT_LIMITS.pc, until: null, expired: true };
   const n = (v, d) => (Number.isInteger(v) && v >= 0 && v <= 20 ? v : d);
-  return { phone: n(x.phone, DEFAULT_LIMITS.phone), pc: n(x.pc, DEFAULT_LIMITS.pc) };
+  return { phone: n(x.phone, DEFAULT_LIMITS.phone), pc: n(x.pc, DEFAULT_LIMITS.pc), until };
+}
+// "until" from the admin page: null = permanent; otherwise a time between a minute and two years from now
+function limitUntil(v) {
+  if (v == null || v === '' || v === 0) return { until: null };
+  const t = Number(v);
+  if (!(t > Date.now() + 60e3 && t < Date.now() + 2 * 365 * 864e5)) return { error: 'Pick an end date and time in the future (within two years).' };
+  return { until: Math.round(t) };
 }
 const plural = (n, k) => `${n} ${n === 1 ? KIND_NAME[k] : k === 'pc' ? 'laptops/PCs' : 'phones'}`;
 async function claimDevice(email, deviceId, req) {
@@ -207,6 +219,7 @@ async function claimDevice(email, deviceId, req) {
   // passed, the least recently used device of that kind is signed out. Scores are last-use times.
   const [raw] = await store.pipeline([['HGET', 'limits', email]]);
   const lim = parseLimits(raw);
+  if (lim.expired) await store.pipeline([['HDEL', 'limits', email]]);
   if (lim[kind] === 0) return { ok: false, why: `This account can't be used on a ${KIND_NAME[kind]}. It works on ${plural(lim.phone, 'phone')} and ${plural(lim.pc, 'pc')}.` };
   const [, count] = await store.pipeline([['ZADD', key, Date.now(), deviceId], ['ZCARD', key]]);
   if (count > lim[kind]) await store.pipeline([['ZREMRANGEBYRANK', key, 0, count - lim[kind] - 1]]);
@@ -232,5 +245,5 @@ function handle(fn) {
 module.exports = {
   PRICE, DOMAIN, MAX_DEVICES, env, send, body, hmac, safeEqual,
   getUser, isOwner, hasAccess, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
-  razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, deviceActive, parseLimits, handle,
+  razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, deviceActive, parseLimits, limitUntil, handle,
 };

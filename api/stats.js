@@ -3,9 +3,9 @@
 //   POST /api/stats { action, ... }:
 //     unlock-me                          owner access cookie on this browser (no device limit)
 //     lookup { email }                   everything about one student: payments, free access, limits, devices
-//     grant { email, name?, modules? }   free access (modules: ['m3'] for one module, empty/absent = all)
+//     grant { email, name?, modules?, until? }   free access (until = ms: temporary) (modules: ['m3'] for one module, empty/absent = all)
 //     revoke { email }                   remove free access
-//     set-limits { email, phones, pcs }  custom device limits;  clear-limits { email }  back to 1 + 1
+//     set-limits { email, phones, pcs, until? }  custom device limits (until = ms: temporary, then 1 + 1 again);  clear-limits { email }  back to 1 + 1
 //     reset-devices { email }            free that student's device slots
 //     set-price { rupees }               normal price for new payments
 //     set-sale { rupees, hours, text? } / end-sale   temporary price that ends by itself, with an optional message
@@ -14,10 +14,10 @@
 //     reply { id, text }                 answer a Help? request or an idea: saved in hash replies and sent to the
 //                                        student's inbox (list inbox:<email>, read with GET /api/feedback)
 //     bulk-grant { emails: [...], name?, modules? }       free access for many students at once
-//     bulk-limits { emails: [...], phones, pcs }          the same device limit for many students
+//     bulk-limits { emails: [...], phones, pcs, until? }        the same device limit for many students
 //     approve-reset { email } / decline-reset { email }   a student's device reset request (hash "devreq")
 const crypto = require('crypto');
-const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, handle } = require('./_lib');
+const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, limitUntil, handle } = require('./_lib');
 const store = require('./_store');
 const { paidModules = [] } = require('./_access.json');
 
@@ -115,12 +115,15 @@ module.exports = handle(async (req, res) => {
       if (a === 'bulk-grant') {
         const ids = paidModules.map((m) => m.id);
         const mods = Array.isArray(b.modules) ? b.modules.filter((m) => ids.includes(m)) : [];
-        const item = JSON.stringify({ name: String(b.name || '').trim().slice(0, 60), at: new Date().toISOString(), modules: mods.length && mods.length < ids.length ? mods : null });
+        const u = limitUntil(b.until); if (u.error) return send(res, 400, { error: u.error });
+        const item = JSON.stringify({ name: String(b.name || '').trim().slice(0, 60), at: new Date().toISOString(), modules: mods.length && mods.length < ids.length ? mods : null, ...(u.until ? { until: u.until } : {}) });
         cmds = good.map((e) => ['HSET', 'free', e, item]);
       } else {
         const n = (v) => parseInt(v, 10);
-        const lim = { phone: n(b.phones), pc: n(b.pcs) };
+        const lim = { phone: n(b.phones), pc: n(b.pcs) }, u = limitUntil(b.until);
         if (![lim.phone, lim.pc].every((x) => Number.isInteger(x) && x >= 0 && x <= 20)) return send(res, 400, { error: 'Use whole numbers from 0 to 20.' });
+        if (u.error) return send(res, 400, { error: u.error });
+        if (u.until) lim.until = u.until;
         cmds = good.map((e) => ['HSET', 'limits', e, JSON.stringify(lim)]);
       }
       for (let i = 0; i < cmds.length; i += 200) await store.pipeline(cmds.slice(i, i + 200));
@@ -134,7 +137,9 @@ module.exports = handle(async (req, res) => {
     if (a === 'grant') {
       const ids = paidModules.map((m) => m.id);
       const mods = Array.isArray(b.modules) ? b.modules.filter((m) => ids.includes(m)) : [];
+      const u = limitUntil(b.until); if (u.error) return send(res, 400, { error: u.error });
       const item = { name: String(b.name || '').trim().slice(0, 60), at: new Date().toISOString(), modules: mods.length && mods.length < ids.length ? mods : null };
+      if (u.until) item.until = u.until; // temporary: access ends by itself (checked in hasAccess)
       await store.pipeline([['HSET', 'free', email, JSON.stringify(item)]]);
       return send(res, 200, { ok: true });
     }
@@ -144,8 +149,10 @@ module.exports = handle(async (req, res) => {
     }
     if (a === 'set-limits') {
       const n = (v) => parseInt(v, 10);
-      const lim = { phone: n(b.phones), pc: n(b.pcs) };
+      const lim = { phone: n(b.phones), pc: n(b.pcs) }, u = limitUntil(b.until);
       if (![lim.phone, lim.pc].every((x) => Number.isInteger(x) && x >= 0 && x <= 20)) return send(res, 400, { error: 'Use whole numbers from 0 to 20.' });
+      if (u.error) return send(res, 400, { error: u.error });
+      if (u.until) lim.until = u.until;
       await store.pipeline([['HSET', 'limits', email, JSON.stringify(lim)]]);
       return send(res, 200, { ok: true });
     }
@@ -166,7 +173,8 @@ module.exports = handle(async (req, res) => {
     const mine = (await paidPayments(20)).filter((p) => normEmail((p.notes || {}).email) === email);
     const [paidRaw, freeRaw, limRaw, ...counts] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'free', email], ['HGET', 'limits', email], ...deviceKeys(email).map((k) => ['ZCARD', k])]);
     const pd = paidRaw != null ? parseJSON(paidRaw, {}) : null;
-    const fr = freeRaw != null ? parseJSON(freeRaw, {}) : null;
+    let fr = freeRaw != null ? parseJSON(freeRaw, {}) : null;
+    if (fr && fr.until && fr.until <= Date.now()) fr = null; // a temporary grant that has ended
     const lim = parseLimits(limRaw);
     const payments = mine.map((p) => ({ id: p.id, at: iso(p.created_at), amount: p.amount / 100 }));
     if (pd && pd.id && !payments.some((p) => p.id === pd.id)) payments.push({ id: pd.id, at: pd.at, amount: (pd.amount || 0) / 100 }); // e.g. an older payment claimed by ID
@@ -174,8 +182,8 @@ module.exports = handle(async (req, res) => {
       email,
       paid: !!pd,
       payments,
-      free: fr ? { name: fr.name || '', at: fr.at || '', modules: fr.modules || null } : null,
-      limits: { phones: lim.phone, pcs: lim.pc, custom: limRaw != null },
+      free: fr ? { name: fr.name || '', at: fr.at || '', modules: fr.modules || null, until: fr.until ? new Date(fr.until).toISOString() : null } : null,
+      limits: { phones: lim.phone, pcs: lim.pc, custom: limRaw != null && !lim.expired, until: lim.until ? new Date(lim.until).toISOString() : null },
       devices: { phones: counts[0] || 0, pcs: counts[1] || 0 },
     });
   }
@@ -194,8 +202,16 @@ module.exports = handle(async (req, res) => {
     resetRequests.sort((a, b) => (b.at > a.at ? 1 : -1));
     battles = store.pairs(bt);
     visits = store.pairs(v); views = store.pairs(w);
-    for (let i = 0; lm && i < lm.length; i += 2) { const l = parseLimits(lm[i + 1]); limits.push({ email: lm[i], phones: l.phone, pcs: l.pc }); }
-    for (let i = 0; fr && i < fr.length; i += 2) { const x = parseJSON(fr[i + 1], {}) || {}; free.push({ email: fr[i], name: x.name || '', at: x.at || '', modules: x.modules || null }); }
+    const gone = [];
+    for (let i = 0; lm && i < lm.length; i += 2) { const l = parseLimits(lm[i + 1]); if (l.expired) gone.push(lm[i]); else limits.push({ email: lm[i], phones: l.phone, pcs: l.pc, until: l.until ? new Date(l.until).toISOString() : null }); }
+    if (gone.length) await store.pipeline([['HDEL', 'limits', ...gone]]); // temporary limits that have ended
+    const ended = [];
+    for (let i = 0; fr && i < fr.length; i += 2) {
+      const x = parseJSON(fr[i + 1], {}) || {};
+      if (x.until && x.until <= Date.now()) { ended.push(fr[i]); continue; }
+      free.push({ email: fr[i], name: x.name || '', at: x.at || '', modules: x.modules || null, until: x.until ? new Date(x.until).toISOString() : null });
+    }
+    if (ended.length) await store.pipeline([['HDEL', 'free', ...ended]]); // temporary free access that has ended
     free.sort((a, b) => (b.at > a.at ? 1 : -1));
     const status = store.pairs(fs), replies = {};
     for (let i = 0; rp && i < rp.length; i += 2) replies[rp[i]] = parseJSON(rp[i + 1], null);

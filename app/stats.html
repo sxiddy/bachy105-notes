@@ -140,6 +140,9 @@
       ${what}<p class="msg" id="${id}m"></p></details>`;
   }
 
+  // Permanent / Temporary switch for device limits and free access: Temporary shows an end date-time (this computer's time, IST in India)
+  const whenPick = (id) => `<label class="lim">For <select id="${id}m" class="sel"><option value="p">Permanent</option><option value="t">Temporary</option></select></label><label class="lim" id="${id}w" style="display:none">until <input id="${id}u" type="datetime-local" class="sel dtp"></label>`;
+  const limUntil = (l) => (l.until ? 'until ' + whenInline(l.until) : 'permanent');
   const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : 'Module 2 only');
   // study numbers from the student's synced progress (api/sync.js); null = never synced (older app or never studied)
   const dur = (sec) => { const m = Math.floor((+sec || 0) / 60); return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + (m % 60) + ' min'; };
@@ -165,9 +168,9 @@
     const d = r.devices, l = r.limits, st = (s.students || []).find((x) => x.email === r.email), p = st && st.progress;
     return `<div class="look">
       <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${whenInline(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
-      <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${whenInline(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
+      <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${whenInline(r.free.at)} · ${limUntil(r.free)}` : '<span class="muted">No</span>'}</div></div>
       <div class="look-row"><span>Study</span><div>${p ? `${esc(dur(p.total))} in total · ${esc(dur(p.today))} today · ${p.streak} day${p.streak === 1 ? '' : 's'} in a row · ${p.topics} topic${p.topics === 1 ? '' : 's'} and ${p.mods} module${p.mods === 1 ? '' : 's'} done <span class="muted">(synced ${whenInline(p.at)})</span>` : '<span class="muted">Not synced yet</span>'}</div></div>
-      <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit</span>' : '<span class="muted">(default)</span>'}</div></div>
+      <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit, ' + limUntil(l) + '</span>' : '<span class="muted">(default)</span>'}</div></div>
       <div class="look-act">
         ${r.free ? `<button class="btn small ghost" data-look="revoke">Remove free access</button>` : `<button class="btn small" data-look="grant">Give free access…</button>`}
         <button class="btn small ghost" data-look="limits">Change device limits…</button>
@@ -250,9 +253,9 @@
 
       <section class="sum-sec"><h2 class="h-sec">Free access <small>${(s.free || []).length}</small></h2>
         <p class="muted">Add a VIT student email and that student gets the ticked modules free. Nothing for them to do: it unlocks as soon as they sign in with that account. Same device limit as payers (1 phone + 1 laptop/PC unless you change it below). Remove them and access stops right away.</p>
-        <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
-        ${bulkHTML('bg', `<p class="row" style="margin-top:6px">${modChecks.split('gmod').join('bgmod')}<input id="bgn" placeholder="Name or note (optional)" style="min-width:180px"><button class="btn primary" id="bgb">Give free access to all</button></p>`)}
-        ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (IST)', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
+        <form class="row" id="gf"><input id="gp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required><input id="gn" placeholder="Name (optional)" style="min-width:160px">${modChecks}${whenPick('gw')}<button class="btn primary">Give free access</button></form><p class="msg" id="gm"></p>
+        ${bulkHTML('bg', `<p class="row" style="margin-top:6px">${modChecks.split('gmod').join('bgmod')}<input id="bgn" placeholder="Name or note (optional)" style="min-width:180px">${whenPick('bgw')}<button class="btn primary" id="bgb">Give free access to all</button></p>`)}
+        ${(s.free || []).length ? tbl(['Student email', 'Name', 'Access', 'Added (IST)', 'How long', ''], s.free.map((f) => `<tr><td><code>${esc(f.email)}</code></td><td>${esc(f.name)}</td><td>${esc(modsLabel(s, f.modules))}</td><td>${when(f.at)}</td><td style="white-space:nowrap">${limUntil(f)}</td><td><button class="btn ghost" data-revoke="${esc(f.email)}">Remove</button></td></tr>`)) : '<p class="muted">Nobody yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Device limits <small>${(s.limits || []).length} custom</small></h2>
@@ -260,9 +263,10 @@
         <form class="row" id="lf"><input id="lp" type="email" inputmode="email" autocomplete="off" placeholder="name.2026@vitstudent.ac.in" style="min-width:280px" required>
           <label class="lim">Phones <input id="lph" type="number" min="0" max="20" value="2" required></label>
           <label class="lim">Laptops/PCs <input id="lpc" type="number" min="0" max="20" value="3" required></label>
+          ${whenPick('lw')}
           <button class="btn primary">Save limit</button></form><p class="msg" id="lmm"></p>
-        ${bulkHTML('bl', `<p class="row" style="margin-top:6px"><label class="lim">Phones <input id="blph" type="number" min="0" max="20" value="1"></label><label class="lim">Laptops/PCs <input id="blpc" type="number" min="0" max="20" value="1"></label><button class="btn primary" id="blb">Set this limit for all</button></p>`)}
-        ${(s.limits || []).length ? tbl(['Student email', 'Phones', 'Laptops/PCs', ''], s.limits.map((l) => `<tr><td><code>${esc(l.email)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.email)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.email)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
+        ${bulkHTML('bl', `<p class="row" style="margin-top:6px"><label class="lim">Phones <input id="blph" type="number" min="0" max="20" value="1"></label><label class="lim">Laptops/PCs <input id="blpc" type="number" min="0" max="20" value="1"></label>${whenPick('blw')}<button class="btn primary" id="blb">Set this limit for all</button></p>`)}
+        ${(s.limits || []).length ? tbl(['Student email', 'Phones', 'Laptops/PCs', 'How long', ''], s.limits.map((l) => `<tr><td><code>${esc(l.email)}</code></td><td>${esc(l.phones)}</td><td>${esc(l.pcs)}</td><td style="white-space:nowrap">${limUntil(l)}</td><td><button class="btn ghost" data-edit-lim="${esc(l.email)}" data-ph="${esc(l.phones)}" data-pc="${esc(l.pcs)}" data-until="${esc(l.until || '')}">Edit</button> <button class="btn ghost" data-clear-lim="${esc(l.email)}">Back to 1 + 1</button></td></tr>`)) : '<p class="muted">No custom limits yet.</p>'}
       </section>
 
       <section class="sum-sec"><h2 class="h-sec">Reset a student's devices</h2>
@@ -297,7 +301,7 @@
         $$('[data-look]', box).forEach((b) => b.addEventListener('click', async () => {
           const k = b.dataset.look;
           if (k === 'grant') { $('#gp').value = r.email; $('#gf').scrollIntoView({ block: 'center' }); $('#gn').focus(); return; }
-          if (k === 'limits') { $('#lp').value = r.email; $('#lph').value = r.limits.phones; $('#lpc').value = r.limits.pcs; $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus(); return; }
+          if (k === 'limits') { $('#lp').value = r.email; $('#lph').value = r.limits.phones; $('#lpc').value = r.limits.pcs; setWhen('lw', r.limits.until); $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus(); return; }
           if (k === 'revoke' && !confirm('Remove free access for ' + r.email + '?')) return;
           if (k === 'reset' && !confirm('Clear all devices for ' + r.email + '? They will need to sign in again on each device.')) return;
           b.disabled = true;
@@ -317,6 +321,23 @@
       $('#sq').addEventListener('input', () => { shown = 5; redrawStudents(); });
       $('#scsv').addEventListener('click', () => studentsCSV(s));
     }
+
+    // Permanent / Temporary pickers (device limits and free access)
+    const pad2 = (n) => String(n).padStart(2, '0'), locDT = (d) => d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + 'T' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+    const setWhen = (id, until) => {
+      if (!$('#' + id + 'm')) return;
+      const tonight = new Date(); tonight.setHours(23, 59, 0, 0);
+      $('#' + id + 'm').value = until ? 't' : 'p'; $('#' + id + 'u').value = locDT(until ? new Date(until) : tonight); $('#' + id + 'u').min = locDT(new Date());
+      $('#' + id + 'w').style.display = until ? '' : 'none';
+    };
+    // null = permanent; otherwise the end time in ms (throws if it isn't in the future)
+    const getWhen = (id) => {
+      if ($('#' + id + 'm').value !== 't') return null;
+      const end = new Date($('#' + id + 'u').value).getTime();
+      if (!(end > Date.now() + 60e3)) throw new Error('Pick an end date and time in the future for a temporary limit.');
+      return end;
+    };
+    ['lw', 'blw', 'gw', 'bgw'].forEach((id) => { if (!$('#' + id + 'm')) return; setWhen(id, null); $('#' + id + 'm').addEventListener('change', () => { $('#' + id + 'w').style.display = $('#' + id + 'm').value === 't' ? '' : 'none'; }); });
 
     // settings
     if ($('#sh')) { // offer end picker, in this computer's local time (IST in India)
@@ -387,8 +408,8 @@
         catch (err) { m.textContent = err.message; }
       });
     };
-    if ($('#bgt')) wireBulk('bg', (emails) => { const mods = $$('.bgmod').filter((c) => c.checked).map((c) => c.value); if (!mods.length) throw new Error('Tick at least one module.'); return post({ action: 'bulk-grant', emails, modules: mods, name: $('#bgn').value }); });
-    if ($('#blt')) wireBulk('bl', (emails) => post({ action: 'bulk-limits', emails, phones: $('#blph').value, pcs: $('#blpc').value }));
+    if ($('#bgt')) wireBulk('bg', (emails) => { const mods = $$('.bgmod').filter((c) => c.checked).map((c) => c.value); if (!mods.length) throw new Error('Tick at least one module.'); return post({ action: 'bulk-grant', emails, modules: mods, name: $('#bgn').value, until: getWhen('bgw') }); });
+    if ($('#blt')) wireBulk('bl', (emails) => post({ action: 'bulk-limits', emails, phones: $('#blph').value, pcs: $('#blpc').value, until: getWhen('blw') }));
 
     // free access
     $('#gf').addEventListener('submit', async (e) => {
@@ -396,7 +417,7 @@
       const mods = $$('.gmod').filter((c) => c.checked).map((c) => c.value);
       if (!mods.length) { $('#gm').textContent = 'Tick at least one module.'; return; }
       $('#gm').textContent = 'Saving…';
-      try { await post({ action: 'grant', email: $('#gp').value, name: $('#gn').value, modules: mods }); $('#gm').textContent = 'Added. It unlocks as soon as they sign in with that account.'; setTimeout(load, 2500); }
+      try { await post({ action: 'grant', email: $('#gp').value, name: $('#gn').value, modules: mods, until: getWhen('gw') }); $('#gm').textContent = 'Added. It unlocks as soon as they sign in with that account.'; setTimeout(load, 2500); }
       catch (err) { $('#gm').textContent = err.message; }
     });
     $$('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
@@ -409,11 +430,11 @@
     // device limits
     $('#lf').addEventListener('submit', async (e) => {
       e.preventDefault(); $('#lmm').textContent = 'Saving…';
-      try { await post({ action: 'set-limits', email: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
+      try { await post({ action: 'set-limits', email: $('#lp').value, phones: $('#lph').value, pcs: $('#lpc').value, until: getWhen('lw') }); $('#lmm').textContent = 'Saved. Refreshing the list…'; load(); }
       catch (err) { $('#lmm').textContent = err.message; }
     });
     $$('[data-edit-lim]').forEach((b) => b.addEventListener('click', () => {
-      $('#lp').value = b.dataset.editLim; $('#lph').value = b.dataset.ph; $('#lpc').value = b.dataset.pc;
+      $('#lp').value = b.dataset.editLim; $('#lph').value = b.dataset.ph; $('#lpc').value = b.dataset.pc; setWhen('lw', b.dataset.until || null);
       $('#lf').scrollIntoView({ block: 'center' }); $('#lph').focus();
     }));
     $$('[data-clear-lim]').forEach((b) => b.addEventListener('click', async () => {
