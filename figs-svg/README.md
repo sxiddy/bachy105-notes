@@ -51,3 +51,6 @@ intrinsic-lattice, n-type-doping, p-type-doping.
 Module 2 batch 2 done (8): zone-refining-fig, czochralski-steps, czochralski-puller, si-boule-photo,
 cell-differences-table (generated: `node tools/figs/table.js figs-svg`, specs in `tools/figs/tables/`; fuel-cell
 "reaction is reversible" corrected), nobel-2019 (text card, no portraits), liion-devices, liion-cutaway.
+
+Module 2 batch 3 done (6): liion-charge-discharge (charging panel's swapped +/− fixed: graphite always −),
+liion-variants-table (generated), fuel-cell-stack, fcv-layout (numbered key), nafion-structure, pemfc-diagram.
