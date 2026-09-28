@@ -79,6 +79,7 @@ window.__startApp = function () {
     list: '<path d="M9 6h11M9 12h11M9 18h11"/><rect x="3.5" y="4.5" width="3" height="3" rx=".6"/><rect x="3.5" y="10.5" width="3" height="3" rx=".6"/><rect x="3.5" y="16.5" width="3" height="3" rx=".6"/>',
     guide: '<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>',
     phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
     trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/>',
   };
   const icon = (n, cls) => `<svg class="i${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true">${P[n] || ''}</svg>`;
@@ -95,6 +96,7 @@ window.__startApp = function () {
   }
   let S = (function () { try { const raw = localStorage.getItem(KEY); if (raw) return normalize(JSON.parse(raw)); } catch (e) { /* storage blocked */ } return blank(); })();
   let saveTimer = 0;
+  const inbox = { messages: [], unread: 0 }; // the owner's replies (Messages in the sidebar), filled by loadInbox()
   function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } syncSoon(); }, 120); }
 
   // ================================================================ model
@@ -199,10 +201,10 @@ window.__startApp = function () {
   if (S.ui.recall) document.body.classList.add('recall');
   document.documentElement.dataset.mode = S.ui.theme === 'light' ? 'light' : 'dark';
 
-  function toast(msg, ico) {
+  function toast(msg, ico, ms) {
     const t = h('div', { class: 'toast', html: (ico ? icon(ico) : '') + esc(msg) });
     toasts.appendChild(t);
-    setTimeout(() => t.remove(), 2700);
+    setTimeout(() => t.remove(), ms || 2700);
   }
 
   // ---------------------------------------------------------------- sidebar
@@ -270,6 +272,7 @@ window.__startApp = function () {
         <div class="sb-label">Talk to us</div>
         <button class="sb-link" data-act="ideas">${icon('bulb')}<span>Any ideas?</span></button>
         <button class="sb-link" data-act="help">${icon('help')}<span>Help?</span></button>
+        ${window.SIGNED_IN_AS ? `<button class="sb-link" data-act="messages">${icon('mail')}<span>Messages</span><span class="badge-new" data-unread${inbox.unread ? '' : ' hidden'}>${inbox.unread || ''}</span></button>` : ''}
       </nav>
       <div class="sb-foot">
         <button data-act="keys">${icon('keys')}Shortcuts</button>
@@ -1654,6 +1657,38 @@ window.__startApp = function () {
     });
   }
 
+  // Messages: the owner's replies to your Help? requests and ideas (sent from /stats.html). Opening the list marks them read.
+  const KIND_LABEL = { mistake: 'Mistake in the notes', suggestion: 'Suggestion', bug: "Something isn't working", other: 'Other', idea: 'Idea' };
+  function paintUnread() {
+    const b = $('[data-unread]', sidebar); if (!b) return;
+    b.hidden = !inbox.unread; b.textContent = inbox.unread || '';
+  }
+  async function loadInbox(greet) {
+    try {
+      const r = await fetch('/api/feedback', { cache: 'no-store' });
+      if (!r.ok) return;
+      const j = await r.json();
+      inbox.messages = Array.isArray(j.messages) ? j.messages : []; inbox.unread = +j.unread || 0;
+      paintUnread();
+      if (greet && inbox.unread) toast(inbox.unread === 1 ? 'The owner replied to your message. Open Messages in the sidebar.' : `The owner replied to ${inbox.unread} of your messages. Open Messages in the sidebar.`, 'mail', 6000);
+    } catch (e) { /* offline: try again next time */ }
+  }
+  function openMessages() {
+    const unread = inbox.unread;
+    overlay((close) => {
+      const m = h('div', { class: 'modal' });
+      const list = inbox.messages.map((x, i) => `<div class="inbox-item${i < unread ? ' new' : ''}">
+          <small>You wrote${x.kind ? ' · ' + esc(KIND_LABEL[x.kind] || x.kind) : ''}</small><p class="you">${esc(x.msg)}</p>
+          <small>Owner's reply · ${esc(new Date(x.at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: 'numeric', minute: '2-digit' }))}</small><p class="owner">${esc(x.reply)}</p></div>`).join('');
+      m.innerHTML = `<div class="modal-head"><h2>Messages</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
+        <div class="modal-body">${list || `<p class="muted" style="margin:0">No replies yet. When the owner answers something you sent with <b>Help?</b> or <b>Any ideas?</b>, it shows up here.</p>`}</div>`;
+      $('[data-x]', m).addEventListener('click', close);
+      return m;
+    });
+    if (unread) { inbox.unread = 0; paintUnread(); fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'read' }) }).catch(() => {}); }
+  }
+  if (window.SIGNED_IN_AS) setTimeout(() => loadInbox(true), 1500);
+
   // anonymous counters: one "visit" per browser per day, one "open" per topic per session
   function beacon(data) {
     try { const b = new Blob([JSON.stringify(data)], { type: 'application/json' }); if (!(navigator.sendBeacon && navigator.sendBeacon('/api/track', b))) fetch('/api/track', { method: 'POST', body: b, keepalive: true }).catch(() => {}); } catch (e) { /* ignore */ }
@@ -1950,7 +1985,7 @@ window.__startApp = function () {
       ${sec('list', 'CAT syllabus checklists', `<p>The <a href="#syllabus.cat2">CAT-2 syllabus</a> lists every syllabus line with links to the topics that cover it. Tick a topic when you can explain it without looking, and watch the percentage climb.</p>`)}
       ${sec('timer', 'Focus mode', `<p>Tap <b>Focus</b> in the top bar (or press <kbd>F</kbd>) for a 25-minute timer with fewer distractions. A bar at the bottom lets you <b>Pause</b> or <b>Exit focus</b> at any time (on a computer, <kbd>Esc</kbd> works too).</p>`)}
       ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day. Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
-      ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner.</p>`)}
+      ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner. When the owner replies, you get a note when you open the site and the reply appears under <b>Messages</b> in the sidebar.</p>`)}
       ${sec('phone', 'Your account and devices', `<p>Your student account works on <b>1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind. If something looks wrong, tap <b>Devices</b> at the bottom of the sidebar to request a device reset (once a week; the owner approves it).</p>`)}
       ${sec('db', 'Your data', `<p>Your progress follows your account: topics done, quiz scores, flashcards, highlights, notes, syllabus ticks and study time are saved to your student account and appear on your phone and your laptop once you sign in on both (give it a minute, or reopen the tab). <b>Backup</b> at the bottom of the sidebar still makes a copy you can keep. Switch between light and dark mode with the sun/moon button.</p>`)}`;
     return { el };
@@ -2225,6 +2260,7 @@ window.__startApp = function () {
       else if (k === 'focusexit') toggleFocus(false);
       else if (k === 'focuspause') { startTimer(!timerState.running); paintTimer(); }
       else if (k === 'ideas') openHelp(null, 0, true);
+      else if (k === 'messages') openMessages();
       else if (k === 'devices') openDevices();
       else if (k === 'signout') { if (confirm('Sign out of ' + (window.SIGNED_IN_AS || 'your account') + ' on this device?') && window.__signOut) window.__signOut(); }
       else if (k === 'help') openHelp(act.dataset.t || (current && current.view === 'topic' ? current.id : null), act.dataset.i != null ? +act.dataset.i : (current && current.api && current.api.tab ? current.api.tab() : 0));

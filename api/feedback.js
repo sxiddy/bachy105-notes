@@ -1,6 +1,9 @@
 // POST /api/feedback { kind, topic?, tab?, text, contact?, website? } -> stores a "Help?" request or an "Any ideas?" idea
 //   kind: 'mistake' (wrong in the notes) | 'suggestion' | 'bug' (something isn't working) | 'other' | 'idea'
 // Both show up on the owner's page (/stats.html) with the student's email, so the owner can reply.
+// GET  /api/feedback                  -> { messages, unread } the signed-in student's inbox: the owner's replies
+//                                        (list inbox:<email>, written by /api/stats "reply"), newest first
+// POST /api/feedback { action: 'read' } -> marks them all read (inboxRead:<email> = the time)
 const { send, body, getUser, handle } = require('./_lib');
 const store = require('./_store');
 const crypto = require('crypto');
@@ -9,8 +12,22 @@ const KINDS = ['mistake', 'suggestion', 'bug', 'other', 'idea'];
 const clean = (s, n) => String(s || '').split('').filter((ch) => ch.charCodeAt(0) >= 32 || ch === '\n').join('').trim().slice(0, n);
 
 module.exports = handle(async (req, res) => {
-  if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
+  if (req.method === 'GET') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Sign in to see your messages.' });
+    if (!store.configured()) return send(res, 200, { messages: [], unread: 0 });
+    const [list, last] = await store.pipeline([['LRANGE', 'inbox:' + u.e, 0, 49], ['GET', 'inboxRead:' + u.e]]);
+    const messages = (list || []).map((x) => { try { return JSON.parse(x); } catch (e) { return null; } }).filter((x) => x && x.reply);
+    return send(res, 200, { messages, unread: messages.filter((m) => !last || m.at > last).length });
+  }
+  if (req.method !== 'POST') return send(res, 405, { error: 'GET or POST only' });
   const b = await body(req);
+  if (b.action === 'read') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Sign in first.' });
+    if (store.configured()) await store.pipeline([['SET', 'inboxRead:' + u.e, new Date().toISOString()]]);
+    return send(res, 200, { ok: true });
+  }
   if (b.website) return send(res, 200, { ok: true }); // honeypot: bots fill hidden fields
   const text = clean(b.text, 1500);
   if (text.length < 5) return send(res, 400, { error: 'Please write a few words first.' });

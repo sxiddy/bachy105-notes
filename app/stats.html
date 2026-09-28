@@ -40,6 +40,9 @@
   @media (max-width: 560px) { .look-row { grid-template-columns: 1fr; gap: 2px; } }
   .pill-tag { font: 11px var(--mono); border: 1px solid var(--line-2); border-radius: 99px; padding: 2px 8px; margin-left: 6px; color: var(--white); }
   .fb-act { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .fb-reply { margin-top: 10px; border-left: 3px solid var(--line-2); padding: 2px 0 2px 12px; }
+  .fb-rbox { margin-top: 10px; }
+  .fb-rbox summary { cursor: pointer; color: var(--text-2); font-size: 14px; }
   textarea.ann { display: block; width: 100%; min-height: 70px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface); color: var(--white); padding: 10px 12px; font: 15px/1.5 var(--sans); resize: vertical; box-sizing: border-box; }
   .dt { display: inline-flex; flex-direction: column; line-height: 1.3; white-space: nowrap; }
   .dt b { font-weight: 500; color: var(--white); }
@@ -122,7 +125,9 @@
     const tabs = names.map(([k, l]) => `<button class="btn small${cur === k ? ' primary' : ' ghost'}" data-fbf="${k}" data-box="${box}">${l} ${n(k)}</button>`).join(' ');
     const where = (f) => (f.topic ? ' · ' + esc(f.topic) + (f.tab ? ' › ' + esc(f.tab) : '') : '');
     const item = (f) => `<div class="fb"><small>${whenInline(f.at)}${box === 'help' ? ' · <b>' + esc(KIND[f.kind] || f.kind) + '</b>' : ''}${where(f)}</small>${f.email || f.contact ? `<small style="display:block">${esc(f.email || '')}${f.contact ? (f.email ? ' · ' : '') + esc(f.contact) : ''}</small>` : ''}<p>${esc(f.text)}</p>
-      <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">${box === 'idea' ? 'Mark done' : 'Mark fixed'}</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">${box === 'idea' ? 'Dismiss' : 'Ignore'}</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}${f.email ? `<a class="btn small ghost" href="mailto:${esc(f.email)}">Reply by email</a>` : ''}</div></div>`;
+      <div class="fb-act">${f.status !== 'fixed' ? `<button class="btn small" data-fb="${esc(f.id)}" data-st="fixed">${box === 'idea' ? 'Mark done' : 'Mark fixed'}</button>` : ''}${f.status !== 'ignored' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="ignored">${box === 'idea' ? 'Dismiss' : 'Ignore'}</button>` : ''}${f.status !== 'open' ? `<button class="btn small ghost" data-fb="${esc(f.id)}" data-st="open">Reopen</button>` : ''}${f.email ? `<a class="btn small ghost" href="mailto:${esc(f.email)}">Reply by email</a>` : ''}</div>
+      ${f.reply ? `<div class="fb-reply"><small>Your reply · ${whenInline(f.reply.at)}</small><p>${esc(f.reply.text)}</p></div>` : ''}
+      ${f.email ? `<details class="fb-rbox"><summary>${f.reply ? 'Reply again' : 'Reply on the site'}</summary><textarea class="ann" maxlength="1500" data-rt="${esc(f.id)}" placeholder="The student sees this under Messages in the sidebar"></textarea><p class="row" style="margin-top:8px;align-items:center"><button class="btn small primary" data-reply="${esc(f.id)}">Send reply</button><span class="msg" data-rm="${esc(f.id)}" style="margin:0"></span></p></details>` : ''}</div>`;
     return `<p style="margin:4px 0 14px">${tabs}</p>${list.length ? list.map(item).join('') : `<p class="muted">Nothing ${cur === 'open' ? (box === 'idea' ? 'new yet' : 'open. All caught up') : 'here'}.</p>`}`;
   }
   // emails pasted or read from a .txt/.csv file: anything separated by spaces, commas, semicolons or new lines
@@ -348,6 +353,13 @@
         b.disabled = true;
         try { await post({ action: 'feedback-status', id: b.dataset.fb, status: b.dataset.st }); const f = s.feedback.find((x) => x.id === b.dataset.fb); if (f) f.status = b.dataset.st; repaintFeedback(); }
         catch (err) { b.disabled = false; alert(err.message); }
+      }));
+      $$('[data-reply]').forEach((b) => b.addEventListener('click', async () => {
+        const id = b.dataset.reply, ta = $(`[data-rt="${id}"]`), msg = $(`[data-rm="${id}"]`), text = ta.value.trim();
+        if (text.length < 2) { msg.textContent = 'Type a reply first.'; return; }
+        b.disabled = true; msg.textContent = 'Sending…';
+        try { const r = await post({ action: 'reply', id, text }); const f = s.feedback.find((x) => x.id === id); if (f) f.reply = { text, at: r.at }; repaintFeedback(); }
+        catch (err) { b.disabled = false; msg.textContent = err.message; }
       }));
     };
     if ($('#fbl-help')) wireFeedback();
