@@ -252,8 +252,9 @@
   (async () => {
     try {
       S = await api('/api/session?d=' + deviceId());
-      price = S.price || price;
+      price = S.price || S.normalPrice || price; // a ₹0 offer: the app shows "FREE" instead of a price
       window.PRICE_RS = Math.round(price / 100);
+      window.FREE_OFFER = S.freeOffer && S.freeSite ? { was: Math.round((S.normalPrice || price) / 100), ends: offerEnds(S.freeOffer), until: S.freeOffer, text: (S.sale && S.sale.text) || '' } : null;
       window.SITE_BANNER = S.banner || null;
       window.SIGNED_IN_AS = S.user || null;
       // the owner can switch sign-in off on /stats.html: then everyone opens the notes as a guest

@@ -5,7 +5,8 @@ module.exports = handle(async (req, res) => {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
   const u = getUser(req);
   if (!u) return send(res, 401, { error: 'Please sign in with your VIT student account first.' });
-  const { price, paused } = await settings();
+  const cfg = await settings(), paused = cfg.paused;
+  const price = cfg.price || cfg.normalPrice; // during a ₹0 offer only the reviewer still sees Pay: charge the normal price
   if (paused) return send(res, 503, { error: 'Payments are paused for now. Please check back soon.' });
   if (!Number.isInteger(price) || price < 100) return send(res, 500, { error: 'The price must be at least ₹1.' });
   const order = await razorpay('POST', '/orders', {

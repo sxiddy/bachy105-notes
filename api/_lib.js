@@ -87,15 +87,19 @@ function isOwner(req) {
 //   signin = "off": nobody new can sign in, and anyone can open the site without signing in (a guest). Students who
 //                   are already signed in stay signed in and keep what they paid for.
 //   mode = "free":  every module is open to everyone who can open the site (no paywall); "paid" (default) = as usual.
+//   A temporary offer at ₹0 (config "sale", price 0) does the same as "free" until the offer ends, then the site is paid again.
+//   .free = free right now for either reason; .freeMode = the switch; .freeOffer = the ₹0 offer's end time (ms) or null.
 // Cached for a few seconds per server instance, so a switch reaches every page within about 5 s.
 let MODE = null, MODE_AT = 0;
 async function siteMode(fresh) {
   if (!fresh && MODE && Date.now() - MODE_AT < 5000) return MODE;
   const store = require('./_store');
-  const out = { signin: true, free: false };
+  const out = { signin: true, free: false, freeMode: false, freeOffer: null };
   if (store.configured()) {
-    const [[s, m]] = await store.pipeline([['HMGET', 'config', 'signin', 'mode']]);
-    out.signin = s !== 'off'; out.free = m === 'free';
+    const [[s, m, sl]] = await store.pipeline([['HMGET', 'config', 'signin', 'mode', 'sale']]);
+    out.signin = s !== 'off'; out.freeMode = m === 'free';
+    try { const x = JSON.parse(sl || 'null'); if (x && x.price === 0 && x.until > Date.now()) out.freeOffer = x.until; } catch (e) {}
+    out.free = out.freeMode || !!out.freeOffer;
   }
   MODE = out; MODE_AT = Date.now();
   return out;
@@ -200,6 +204,7 @@ async function recordPaid(email, p) {
 // Owner settings kept in the store (hash "config"): price in paise, a temporary sale price, the announcement banner,
 // "paused" (payments switched off: the paywall shows a notice instead of Pay) and "business" (the name on the legal pages).
 // While a sale is running (until its end time) it replaces the normal price everywhere, then the normal price returns by itself.
+// A ₹0 sale makes every module free until it ends (see siteMode).
 async function settings() {
   const store = require('./_store');
   const out = { price: PRICE, normalPrice: PRICE, sale: null, banner: null, paused: null, business: '' };
@@ -211,7 +216,7 @@ async function settings() {
   try { const x = JSON.parse(b || 'null'); if (x && x.on && x.text) out.banner = { id: x.id, text: x.text }; } catch (e) {}
   try {
     const x = JSON.parse(sl || 'null');
-    if (x && Number.isInteger(x.price) && x.price >= 100 && x.until > Date.now()) { out.sale = { price: x.price, until: x.until, text: typeof x.text === 'string' ? x.text.slice(0, 140) : '' }; out.price = x.price; }
+    if (x && Number.isInteger(x.price) && (x.price === 0 || x.price >= 100) && x.until > Date.now()) { out.sale = { price: x.price, until: x.until, text: typeof x.text === 'string' ? x.text.slice(0, 140) : '' }; out.price = x.price; }
   } catch (e) {}
   return out;
 }

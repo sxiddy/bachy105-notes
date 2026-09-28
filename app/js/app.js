@@ -192,6 +192,15 @@ window.__startApp = function () {
     bar.querySelector('button').addEventListener('click', () => { bar.remove(); try { localStorage.setItem('bn_banner_x', B.id); } catch (e) { /* ignore */ } });
     main.insertBefore(bar, host);
   }
+  // a ₹0 temporary offer from the owner: every module is free until it ends (closable once per offer)
+  const FO = window.FREE_OFFER;
+  let offerClosed = ''; try { offerClosed = localStorage.getItem('bn_offer_x') || ''; } catch (e) { /* ignore */ }
+  if (FO && String(FO.until) !== offerClosed) {
+    const bar = h('div', { class: 'site-banner offer-free', role: 'status' });
+    bar.innerHTML = `<span><b class="offer-tag">FREE</b> <s>₹${esc(FO.was)}</s> Every module is free until ${esc(FO.ends)} IST.${FO.text ? ' ' + esc(FO.text) : ''}</span><button class="icon-btn" aria-label="Close">${icon('x')}</button>`;
+    bar.querySelector('button').addEventListener('click', () => { bar.remove(); try { localStorage.setItem('bn_offer_x', String(FO.until)); } catch (e) { /* ignore */ } });
+    main.insertBefore(bar, host);
+  }
   const PRICE_RS = window.PRICE_RS || 50;
   app.append(sidebar, scrim, main);
   const toasts = h('div', { class: 'toasts', 'aria-live': 'polite' });
