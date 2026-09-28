@@ -83,15 +83,39 @@ function isOwner(req) {
   return !!(t && t.p === 'owner');
 }
 
+// Two site-wide switches the owner flips on /stats.html (hash "config"):
+//   signin = "off": nobody new can sign in, and anyone can open the site without signing in (a guest). Students who
+//                   are already signed in stay signed in and keep what they paid for.
+//   mode = "free":  every module is open to everyone who can open the site (no paywall); "paid" (default) = as usual.
+// Cached for a few seconds per server instance, so a switch reaches every page within about 5 s.
+let MODE = null, MODE_AT = 0;
+async function siteMode(fresh) {
+  if (!fresh && MODE && Date.now() - MODE_AT < 5000) return MODE;
+  const store = require('./_store');
+  const out = { signin: true, free: false };
+  if (store.configured()) {
+    const [[s, m]] = await store.pipeline([['HMGET', 'config', 'signin', 'mode']]);
+    out.signin = s !== 'off'; out.free = m === 'free';
+  }
+  MODE = out; MODE_AT = Date.now();
+  return out;
+}
+// May this browser open the site at all? A signed-in student or the owner, or anyone while sign-in is switched off.
+async function canOpen(req) {
+  return !!(getUser(req) || isOwner(req) || !(await siteMode()).signin);
+}
+
 // Who can see the paid modules: the owner, a student whose email paid (hash "paid"), or one on the owner's free
 // list (hash "free"; removing them locks them out straight away, and a temporary grant has an "until" time). A free grant can be limited to some modules;
-// then .modules lists them (null = everything).
+// then .modules lists them (null = everything). While the whole site is free, everyone who can open it.
 async function hasAccess(req) {
   if (isOwner(req)) return { owner: true, modules: null };
   const u = getUser(req);
-  if (!u || isReviewer(u)) return null; // the reviewer never gets paid content, even after a test payment
+  if (isReviewer(u)) return null; // the reviewer never gets paid content, even after a test payment
   const store = require('./_store');
-  if (!store.configured()) return null;
+  const mode = await siteMode();
+  if (mode.free && (!mode.signin || (u && (await deviceActive(u, req))))) return { email: u ? u.e : null, freeSite: true, modules: null };
+  if (!u || !store.configured()) return null;
   if (!(await deviceActive(u, req))) return null;
   const [paid, free] = await store.pipeline([['HGET', 'paid', u.e], ['HGET', 'free', u.e]]);
   if (paid != null) return { email: u.e, paid: true, modules: null };
@@ -256,6 +280,6 @@ function handle(fn) {
 
 module.exports = {
   PRICE, DOMAIN, MAX_DEVICES, env, send, body, hmac, safeEqual,
-  getUser, isOwner, hasAccess, REVIEW_EMAIL, reviewOn, reviewerCookie, isReviewer, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
+  getUser, isOwner, hasAccess, siteMode, canOpen, REVIEW_EMAIL, reviewOn, reviewerCookie, isReviewer, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
   razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, deviceActive, parseLimits, limitUntil, handle,
 };

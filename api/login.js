@@ -6,8 +6,9 @@
 //   JSON flow: POST { credential | devEmail, deviceId } -> { ok, email } (devEmail only with DEV_LOGIN=1, never on Vercel).
 //   Reviewer: POST { reviewUser, reviewCode } from /review.html -> the Razorpay website reviewer's account (see _lib.js);
 //   only when REVIEW_CODE is set in Vercel, and at most 10 tries an hour per address (30 an hour in total).
+//   While the owner has switched sign-in off (/stats.html), new Google and dev sign-ins are refused (the reviewer's still works).
 //   Sign out: POST { logout: true } (also /api/logout) -> clears this browser's sign-in (their device slot stays theirs).
-const { send, handle, verifyGoogle, safeEqual: same, REVIEW_EMAIL, reviewerCookie, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, clearUserCookie, safeEqual, DOMAIN } = require('./_lib');
+const { send, handle, verifyGoogle, safeEqual: same, REVIEW_EMAIL, reviewerCookie, siteMode, isStudentEmail, normEmail, deviceIdFrom, claimDevice, userCookie, clearUserCookie, safeEqual, DOMAIN } = require('./_lib');
 
 const cookies = (req) => Object.fromEntries((req.headers.cookie || '').split(/;\s*/).filter(Boolean).map((c) => { const i = c.indexOf('='); return [c.slice(0, i), decodeURIComponent(c.slice(i + 1))]; }));
 
@@ -20,6 +21,7 @@ async function readBody(req) {
 }
 
 async function signIn(req, b, deviceId) {
+  if (!(await siteMode(true)).signin) throw Object.assign(new Error('Sign-in is switched off right now. You can open the notes without signing in.'), { status: 403 });
   let email;
   if (process.env.DEV_LOGIN === '1' && !process.env.VERCEL && b.devEmail) email = normEmail(b.devEmail);
   else {

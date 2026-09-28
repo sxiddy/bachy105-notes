@@ -113,6 +113,7 @@
 
   // ---------------------------------------------------------------- pay
   function paywall(msg) {
+    if (!S.user && !S.owner) return guestLocked();
     const rs = (price / 100).toFixed(0);
     root.innerHTML = `
       <div class="gate">
@@ -234,6 +235,20 @@
     }
   }
 
+  // a guest (sign-in switched off) tapped a paid module: paying needs an account, so there is no Pay button
+  function guestLocked() {
+    root.innerHTML = `
+      <div class="gate">
+        <div class="gate-card">
+          <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
+          <h1 class="gate-title">This module is locked</h1>
+          <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free to use. ${paidNames()} need full access. Sign-in is switched off right now, so full access can't be bought at the moment. Please check back soon.</p>
+          <p style="margin-top:14px"><a class="btn ghost" href="./">← Back to the free ${freeNames()}</a></p>
+          <p class="gate-muted gate-small gate-legal">${legal}</p>
+        </div>
+      </div>`;
+  }
+
   (async () => {
     try {
       S = await api('/api/session?d=' + deviceId());
@@ -241,7 +256,8 @@
       window.PRICE_RS = Math.round(price / 100);
       window.SITE_BANNER = S.banner || null;
       window.SIGNED_IN_AS = S.user || null;
-      if (!S.user && !S.owner) {
+      // the owner can switch sign-in off on /stats.html: then everyone opens the notes as a guest
+      if (!S.user && !S.owner && S.signin !== false) {
         const err = new URLSearchParams(location.search).get('login_error');
         if (err) history.replaceState(null, '', location.pathname + location.hash);
         return signIn(err || S.deviceError || '');

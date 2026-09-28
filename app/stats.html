@@ -219,7 +219,14 @@
         <p style="font-size:14.5px;margin-top:10px"><b>${days(s.battles, 30).reduce((a, x) => a + x[1], 0)}</b> 1v1 quiz battles started in the last 30 days.</p></section>` : ''}
 
       ${s.storage ? `<section class="sum-sec"><h2 class="h-sec">Settings</h2>
-        <form class="row" id="pf"><label class="lim">Price ₹ <input id="pr" type="number" min="1" max="5000" value="${esc(s.price)}" required style="width:90px"></label><button class="btn">Save price</button></form>
+        <div class="sale" style="margin-top:0"><div class="note-label">Google sign-in</div>
+          ${s.signin ? '<p><b>On.</b> Students sign in with their VIT Google account before they can open the notes.</p>' : '<p><b>Off.</b> Anyone can open the site without signing in, and nobody new can sign in. Students who were already signed in stay signed in and keep what they paid for. Messages, progress sync and battles need a signed-in account, so guests don’t get them.</p>'}
+          ${!s.signin && !s.freeSite ? '<p><b>Heads-up:</b> the site is paid and sign-in is off, so new students can only use the free modules and can’t pay (paying needs a signed-in account).</p>' : ''}
+          <p class="row" style="margin-top:8px"><button class="btn ${s.signin ? '' : 'primary'}" data-si="${s.signin ? 0 : 1}">${s.signin ? 'Turn sign-in off' : 'Turn sign-in back on'}</button></p><p class="msg" id="sim"></p></div>
+        <div class="sale"><div class="note-label">Free or paid</div>
+          ${s.freeSite ? '<p><b>Free.</b> Every module is open to everyone who can open the site. No payment page. Payments already made stay recorded, so switching back to paid keeps paid students unlocked.</p>' : '<p><b>Paid.</b> The free modules are open, and the rest need a payment or free access, as usual.</p>'}
+          <p class="row" style="margin-top:8px"><button class="btn ${s.freeSite ? 'primary' : ''}" data-fm="${s.freeSite ? 0 : 1}">${s.freeSite ? 'Make the site paid again' : 'Make the whole site free'}</button></p><p class="msg" id="fmm"></p></div>
+        <form class="row" id="pf" style="margin-top:18px"><label class="lim">Price ₹ <input id="pr" type="number" min="1" max="5000" value="${esc(s.price)}" required style="width:90px"></label><button class="btn">Save price</button></form>
         <p class="muted" style="font-size:13.5px;margin-top:6px">For new payments only. Everyone who already paid keeps access. The site shows the new price straight away.</p><p class="msg" id="pm"></p>
         <div class="sale"><div class="note-label">Temporary offer</div>
           ${s.sale ? `<p><b>Running now: ₹${esc(s.sale.rupees)}</b> instead of ₹${esc(s.price)}, until ${whenInline(s.sale.until)} IST${s.sale.text ? ', with the message "' + esc(s.sale.text) + '"' : ''}. After that the price goes back to ₹${esc(s.price)} by itself. <button class="btn small ghost" id="se">End offer now</button></p>` : `<p class="muted">Set a lower price until a date and time you pick, e.g. ₹30 until 11:59 PM tonight. Students see it as an offer, still pay once, and the normal price comes back automatically when it ends.</p>`}
@@ -374,6 +381,22 @@
       catch (err) { $('#bm').textContent = err.message; }
     }));
 
+    $$('[data-si]').forEach((b) => b.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const on = b.dataset.si === '1';
+      if (!on && !confirm('Turn Google sign-in off? Anyone will be able to open the site without signing in.')) return;
+      $('#sim').textContent = 'Saving…';
+      try { await post({ action: 'set-signin', on }); $('#sim').textContent = on ? 'Sign-in is on again.' : 'Sign-in is off. The site opens without it within a few seconds.'; setTimeout(load, 1200); }
+      catch (err) { $('#sim').textContent = err.message; }
+    }));
+    $$('[data-fm]').forEach((b) => b.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const free = b.dataset.fm === '1';
+      if (free && !confirm('Make every module free for everyone?')) return;
+      $('#fmm').textContent = 'Saving…';
+      try { await post({ action: 'set-mode', free }); $('#fmm').textContent = free ? 'The whole site is free now.' : 'The site is paid again.'; setTimeout(load, 1200); }
+      catch (err) { $('#fmm').textContent = err.message; }
+    }));
     $$('[data-pz]').forEach((b) => b.addEventListener('click', async (e) => {
       e.preventDefault(); $('#pzm').textContent = 'Saving…';
       try { await post({ action: 'set-paused', on: b.dataset.pz === '1', text: $('#pzt').value }); $('#pzm').textContent = b.dataset.pz === '1' ? 'Payments paused.' : 'Payments are on again.'; setTimeout(load, 1200); }

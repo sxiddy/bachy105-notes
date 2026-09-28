@@ -11,6 +11,8 @@
 //     set-sale { rupees, hours, text? } / end-sale   temporary price that ends by itself, with an optional message
 //     set-banner { text, on }            announcement shown at the top of the site
 //     set-paused { on, text? }           pause payments: the paywall shows a notice instead of the Pay button
+//     set-signin { on }                  Google sign-in on, or off (anyone opens the site as a guest; see siteMode in _lib.js)
+//     set-mode { free }                  the whole site free (every module open) or paid (as usual)
 //     set-business { name }              the business name shown on the terms, refund and contact pages
 //     feedback-status { id, status }     mark a Help? request or an idea open / fixed / ignored
 //     reply { id, text }                 answer a Help? request or an idea: saved in hash replies and sent to the
@@ -19,7 +21,7 @@
 //     bulk-limits { emails: [...], phones, pcs, until? }        the same device limit for many students
 //     approve-reset { email } / decline-reset { email }   a student's device reset request (hash "devreq")
 const crypto = require('crypto');
-const { send, body, env, safeEqual, razorpay, isOurs, settings, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, limitUntil, reviewOn, handle } = require('./_lib');
+const { send, body, env, safeEqual, razorpay, isOurs, settings, siteMode, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, limitUntil, reviewOn, handle } = require('./_lib');
 const store = require('./_store');
 const { paidModules = [] } = require('./_access.json');
 
@@ -87,6 +89,14 @@ module.exports = handle(async (req, res) => {
     if (a === 'set-paused') {
       const text = String(b.text || '').split('').filter((ch) => ch.charCodeAt(0) >= 32).join('').trim().slice(0, 240);
       await store.pipeline([b.on ? ['HSET', 'config', 'paused', JSON.stringify({ on: true, text })] : ['HDEL', 'config', 'paused']]);
+      return send(res, 200, { ok: true });
+    }
+    if (a === 'set-signin') {
+      await store.pipeline([b.on ? ['HDEL', 'config', 'signin'] : ['HSET', 'config', 'signin', 'off']]);
+      return send(res, 200, { ok: true });
+    }
+    if (a === 'set-mode') {
+      await store.pipeline([b.free ? ['HSET', 'config', 'mode', 'free'] : ['HDEL', 'config', 'mode']]);
       return send(res, 200, { ok: true });
     }
     if (a === 'set-business') {
@@ -200,7 +210,7 @@ module.exports = handle(async (req, res) => {
     });
   }
 
-  const [pays, cfg] = await Promise.all([paidPayments(10), settings()]);
+  const [pays, cfg, mode] = await Promise.all([paidPayments(10), settings(), siteMode(true)]);
   const byDay = {};
   pays.forEach((p) => { const d = istDay(p.created_at * 1000); byDay[d] = (byDay[d] || 0) + 1; });
   let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [], resetRequests = [], battles = null;
@@ -272,7 +282,7 @@ module.exports = handle(async (req, res) => {
     paidModules,
     price: cfg.normalPrice / 100,
     sale: cfg.sale ? { rupees: cfg.sale.price / 100, until: new Date(cfg.sale.until).toISOString(), text: cfg.sale.text || '' } : null,
-    banner, paused: cfg.paused, business: cfg.business || '', reviewOn: reviewOn(),
+    banner, paused: cfg.paused, business: cfg.business || '', reviewOn: reviewOn(), signin: mode.signin, freeSite: mode.free,
     payments: {
       count: pays.length,
       revenue: pays.reduce((a, p) => a + p.amount, 0) / 100,

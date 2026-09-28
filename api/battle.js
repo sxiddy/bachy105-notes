@@ -13,7 +13,7 @@
 // Paid (or free-access) students can battle on any topic their access covers. Everyone else gets one preview
 // battle, on one topic from a free module (key "bfree:<email>").
 const crypto = require('crypto');
-const { send, body, getUser, hasAccess, handle } = require('./_lib');
+const { send, body, getUser, hasAccess, siteMode, handle } = require('./_lib');
 const store = require('./_store');
 const B = require('./_battle.json');
 const { freeModules = [] } = require('./_access.json');
@@ -92,7 +92,7 @@ function view(id, { bt, a, qs, topics }, role, now) {
 
 module.exports = handle(async (req, res) => {
   const u = getUser(req);
-  if (!u) return send(res, 401, { error: 'Sign in with your VIT student account to battle.' });
+  if (!u) return send(res, 401, { error: (await siteMode()).signin ? 'Sign in with your VIT student account to battle.' : 'Battles need a signed-in account, and sign-in is switched off right now.' });
   if (!store.configured()) return send(res, 400, { error: 'Battles are not available right now.' });
   const now = Date.now();
 
