@@ -136,6 +136,9 @@
   }
 
   const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : 'Module 2 only');
+  // study numbers from the student's synced progress (api/sync.js); null = never synced (older app or never studied)
+  const dur = (sec) => { const m = Math.floor((+sec || 0) / 60); return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + (m % 60) + ' min'; };
+  const studyCell = (p) => (p ? `<span class="dt"><b>${esc(dur(p.total))}</b><small>${esc(dur(p.today))} today · ${p.streak} day${p.streak === 1 ? '' : 's'} in a row · ${p.topics} topic${p.topics === 1 ? '' : 's'} done</small></span>` : '<span class="muted">not synced yet</span>');
   let shown = 5; // students list starts with 5 rows; "Show more" adds 10 at a time
   function studentsHTML(s, q) {
     const list = (s.students || []).filter((x) => !q || x.email.includes(q.toLowerCase()));
@@ -143,21 +146,22 @@
       const e = q.trim().toLowerCase();
       return /^[a-z0-9._%+-]+@vitstudent.ac.in$/.test(e) ? `<p class="muted">${esc(e)} isn't in the list (never signed in, paid or given free access). <button class="btn small" data-look-email="${esc(e)}">Look up anyway</button></p>` : `<p class="muted">${q ? 'No student matches that.' : 'Nobody has signed in yet.'}</p>`;
     }
-    const rows = list.slice(0, shown).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${x.visits}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
-    return '<p class="muted" style="margin:-4px 0 10px;font-size:13.5px">Click a student to see their payments and devices, and to change their access.</p>' + tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Visits', 'Sign-ins', 'Devices'], rows) + `<p class="srow-more">${list.length > shown ? `<button class="btn small" data-more>Show more</button>` : ''}${shown > 5 ? `<button class="btn small ghost" data-less>Show less</button>` : ''}<span class="muted">Showing ${Math.min(shown, list.length)} of ${list.length}</span></p>`;
+    const rows = list.slice(0, shown).map((x) => `<tr><td><button class="linkish" data-look-email="${esc(x.email)}">${esc(x.email)}</button></td><td>${esc(accessLabel(s, x))}</td><td>${x.first ? when(x.first) : x.early ? '<span class="muted">before tracking started</span>' : '<span class="muted">not yet</span>'}</td><td>${x.lastSeen ? when(x.lastSeen) : '—'}</td><td>${studyCell(x.progress)}</td><td>${x.visits}</td><td>${x.logins}</td><td style="white-space:nowrap">${x.phones} phone${x.phones === 1 ? '' : 's'} · ${x.pcs} PC${x.pcs === 1 ? '' : 's'}</td></tr>`);
+    return '<p class="muted" style="margin:-4px 0 10px;font-size:13.5px">Click a student to see their payments and devices, and to change their access.</p>' + tbl(['Student email', 'Access', 'First sign-in (IST)', 'Last used (IST)', 'Study', 'Visits', 'Sign-ins', 'Devices'], rows) + `<p class="srow-more">${list.length > shown ? `<button class="btn small" data-more>Show more</button>` : ''}${shown > 5 ? `<button class="btn small ghost" data-less>Show less</button>` : ''}<span class="muted">Showing ${Math.min(shown, list.length)} of ${list.length}</span></p>`;
   }
   function studentsCSV(s) {
     const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
-    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at_ist', 'free_modules', 'first_sign_in_ist', 'last_used_ist', 'visits', 'sign_ins', 'phones', 'pcs'];
-    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? ist(x.paid.at) : '', x.free ? (x.free.modules || ['all']).join(' ') : '', ist(x.first), ist(x.lastSeen), x.visits, x.logins, x.phones, x.pcs].map(q).join(','));
+    const head = ['email', 'access', 'paid_amount', 'payment_id', 'paid_at_ist', 'free_modules', 'first_sign_in_ist', 'last_used_ist', 'study_total_min', 'study_today_min', 'streak_days', 'topics_done', 'modules_done', 'visits', 'sign_ins', 'phones', 'pcs'];
+    const lines = (s.students || []).map((x) => [x.email, accessLabel(s, x), x.paid ? x.paid.amount : '', x.paid ? x.paid.id : '', x.paid ? ist(x.paid.at) : '', x.free ? (x.free.modules || ['all']).join(' ') : '', ist(x.first), ist(x.lastSeen), ...(x.progress ? [Math.round(x.progress.total / 60), Math.round(x.progress.today / 60), x.progress.streak, x.progress.topics, x.progress.mods] : ['', '', '', '', '']), x.visits, x.logins, x.phones, x.pcs].map(q).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bachy105-students-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
   function lookupHTML(s, r) {
-    const d = r.devices, l = r.limits;
+    const d = r.devices, l = r.limits, st = (s.students || []).find((x) => x.email === r.email), p = st && st.progress;
     return `<div class="look">
       <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${whenInline(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
       <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${whenInline(r.free.at)}` : '<span class="muted">No</span>'}</div></div>
+      <div class="look-row"><span>Study</span><div>${p ? `${esc(dur(p.total))} in total · ${esc(dur(p.today))} today · ${p.streak} day${p.streak === 1 ? '' : 's'} in a row · ${p.topics} topic${p.topics === 1 ? '' : 's'} and ${p.mods} module${p.mods === 1 ? '' : 's'} done <span class="muted">(synced ${whenInline(p.at)})</span>` : '<span class="muted">Not synced yet</span>'}</div></div>
       <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit</span>' : '<span class="muted">(default)</span>'}</div></div>
       <div class="look-act">
         ${r.free ? `<button class="btn small ghost" data-look="revoke">Remove free access</button>` : `<button class="btn small" data-look="grant">Give free access…</button>`}

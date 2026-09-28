@@ -95,7 +95,7 @@ window.__startApp = function () {
   }
   let S = (function () { try { const raw = localStorage.getItem(KEY); if (raw) return normalize(JSON.parse(raw)); } catch (e) { /* storage blocked */ } return blank(); })();
   let saveTimer = 0;
-  function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }, 120); }
+  function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } syncSoon(); }, 120); }
 
   // ================================================================ model
   // Modules come from content/modules.json (built into js/modules.js). Add a module there, not here.
@@ -1718,6 +1718,74 @@ window.__startApp = function () {
   }
   const SITE_URL = /bachy105\.vercel\.app/.test(location.host) ? 'https://bachy105.vercel.app' : location.origin;
   const modsDone = () => MODULES.filter((m) => m.topics.length && doneIn(m.topics) === m.topics.length).length;
+
+  // ================================================================ progress sync (follows the account)
+  // On start the account's saved copy (/api/sync) is merged into this browser's, then a copy goes back ~10 s after
+  // each change and when the page is hidden. Merging never loses work from either side: lists are joined, done/ticks
+  // are kept if set anywhere, study time takes each day's larger number, and local notes/tags/cards win.
+  const obj = (x) => (x && typeof x === 'object' && !Array.isArray(x) ? x : {});
+  const uniq = (a, b) => Array.from(new Set([].concat(Array.isArray(a) ? a : [], Array.isArray(b) ? b : [])));
+  function mergeProgress(L, R) {
+    R = normalize(R);
+    for (const k in R.visited) L.visited[k] = uniq(L.visited[k], R.visited[k]);
+    for (const k in R.done) if (R.done[k]) L.done[k] = true;
+    for (const k in R.study) L.study[k] = Math.max(+L.study[k] || 0, +R.study[k] || 0);
+    for (const k in R.syl) if (R.syl[k]) L.syl[k] = 1;
+    for (const k in R.q) {
+      const a = obj(L.q[k]), b = obj(R.q[k]), m = Object.assign({}, b, a);
+      ['seen', 'right', 'wrong'].forEach((f) => { m[f] = Math.max(+a[f] || 0, +b[f] || 0); });
+      L.q[k] = m;
+    }
+    ['cards', 'tags', 'notes'].forEach((f) => { for (const k in R[f]) if (!(k in L[f])) L[f][k] = R[f][k]; });
+    for (const k in R.hl) {
+      const have = new Set((L.hl[k] || []).map((x) => x && x.id));
+      const add = (Array.isArray(R.hl[k]) ? R.hl[k] : []).filter((x) => x && x.id && !have.has(x.id));
+      if (add.length) L.hl[k] = (L.hl[k] || []).concat(add);
+    }
+    for (const k in R.confusing) L.confusing[k] = uniq(L.confusing[k], R.confusing[k]);
+    if (!L.last && R.last) L.last = R.last;
+    return L;
+  }
+  // at most one save a minute while studying (the study clock saves every 15 s), to stay inside the free store's limits
+  var syncOn = false, syncTimer = 0, syncDirty = false, syncLast = 0;
+  const syncBody = () => JSON.stringify({ data: S, mods: modsDone() });
+  function syncSoon() {
+    if (!syncOn) return; syncDirty = true;
+    if (!syncTimer) syncTimer = setTimeout(syncPush, Math.max(10000, 60000 - (Date.now() - syncLast)));
+  }
+  function syncPush() {
+    clearTimeout(syncTimer); syncTimer = 0; if (!syncOn || !syncDirty) return; syncDirty = false; syncLast = Date.now();
+    fetch('/api/sync', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: syncBody(), keepalive: true })
+      .then((r) => { if (r.status === 401 || r.status === 413) syncOn = false; }).catch(() => { syncDirty = true; });
+  }
+  let syncPulled = 0;
+  async function syncPull() {
+    syncPulled = Date.now();
+    try {
+      const r = await fetch('/api/sync', { cache: 'no-store' });
+      if (!r.ok) return false;
+      const j = await r.json();
+      const before = JSON.stringify(S);
+      if (j.data) mergeProgress(S, j.data);
+      const changed = JSON.stringify(S) !== before;
+      syncOn = true;
+      if (changed) { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } refreshAll(); paintStreak(); }
+      // send the merged copy back when this browser had something the account didn't
+      const core = (x) => JSON.stringify(Object.assign({}, x, { ui: 0, last: 0 }));
+      if (!j.data || core(normalize(j.data)) !== core(S)) { syncDirty = true; syncPush(); }
+      return true;
+    } catch (e) { return false; }
+  }
+  if (window.SIGNED_IN_AS) {
+    syncPull();
+    document.addEventListener('visibilitychange', () => {
+      if (!syncOn) return;
+      if (document.visibilityState === 'hidden') {
+        if (!syncDirty) return; syncDirty = false; clearTimeout(syncTimer); syncTimer = 0; syncLast = Date.now();
+        try { if (!navigator.sendBeacon('/api/sync', new Blob([syncBody()], { type: 'application/json' }))) syncDirty = true; } catch (e) { syncDirty = true; }
+      } else if (Date.now() - syncPulled > 30000) syncPull(); // back from the other device: pick up what was done there
+    });
+  }
   async function drawCard(o) {
     const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
     const g = c.getContext('2d');
@@ -1884,7 +1952,7 @@ window.__startApp = function () {
       ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day. Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
       ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner.</p>`)}
       ${sec('phone', 'Your account and devices', `<p>Your student account works on <b>1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind. If something looks wrong, tap <b>Devices</b> at the bottom of the sidebar to request a device reset (once a week; the owner approves it).</p>`)}
-      ${sec('db', 'Your data', `<p>Progress, highlights, notes, ticks and study time are saved in this browser. Use <b>Backup</b> at the bottom of the sidebar to copy them to another device. Switch between light and dark mode with the sun/moon button.</p>`)}`;
+      ${sec('db', 'Your data', `<p>Your progress follows your account: topics done, quiz scores, flashcards, highlights, notes, syllabus ticks and study time are saved to your student account and appear on your phone and your laptop once you sign in on both (give it a minute, or reopen the tab). <b>Backup</b> at the bottom of the sidebar still makes a copy you can keep. Switch between light and dark mode with the sun/moon button.</p>`)}`;
     return { el };
   }
 

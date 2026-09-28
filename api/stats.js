@@ -35,6 +35,13 @@ const parseJSON = (s, d) => { try { return JSON.parse(s) ?? d; } catch (e) { ret
 const IST = 5.5 * 3600e3; // days in Indian time
 const istDay = (ms) => new Date(ms + IST).toISOString().slice(0, 10);
 const lastDays = (n) => Array.from({ length: n }, (_, i) => istDay(Date.now() - i * 864e5));
+// a student's synced summary as of now: "today" only counts if it was saved today, and a streak last saved before
+// yesterday has since been broken
+function progress(p) {
+  if (!p || typeof p !== 'object') return null;
+  const [td, yd] = lastDays(2);
+  return { total: +p.total || 0, today: p.day === td ? +p.today || 0 : 0, streak: p.day === td || p.day === yd ? +p.streak || 0 : 0, topics: +p.topics || 0, mods: +p.mods || 0, at: p.at || '' };
+}
 
 module.exports = handle(async (req, res) => {
   const key = req.headers['x-admin-key'] || '';
@@ -190,8 +197,8 @@ module.exports = handle(async (req, res) => {
     banner = parseJSON(bn, null);
 
     // every student who has signed in (plus anyone paid or on the free list), newest activity first
-    const [uf, ul, us, un, pd, dk, uv] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'dev*:*@*'], ['HGETALL', 'userVisits']]);
-    const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd), visitsBy = store.pairs(uv);
+    const [uf, ul, us, un, pd, dk, uv, ps] = await store.pipeline([['HGETALL', 'userFirst'], ['HGETALL', 'userLogin'], ['HGETALL', 'userSeen'], ['HGETALL', 'userLogins'], ['HGETALL', 'paid'], ['KEYS', 'dev*:*@*'], ['HGETALL', 'userVisits'], ['HGETALL', 'progSum']]);
+    const first = store.pairs(uf), login = store.pairs(ul), seen = store.pairs(us), logins = store.pairs(un), paidBy = store.pairs(pd), visitsBy = store.pairs(uv), progBy = store.pairs(ps);
     const freeBy = Object.fromEntries(free.map((f) => [f.email, f]));
     // students who signed in before this list existed only left a device record ("devices:<email>:<kind>")
     const early = (dk || []).map((k) => k.slice(k.indexOf(':') + 1, k.lastIndexOf(':'))).filter(isStudentEmail);
@@ -206,6 +213,7 @@ module.exports = handle(async (req, res) => {
         first: first[e] || '', lastLogin: login[e] || '', lastSeen: seen[e] || login[e] || first[e] || '',
         logins: +logins[e] || 0, visits: +visitsBy[e] || 0, phones: dc[i * MAX_DEVICES] || 0, pcs: dc[i * MAX_DEVICES + 1] || 0,
         early: !first[e] && early.includes(e), // signed in before tracking started
+        progress: progBy[e] ? progress(parseJSON(progBy[e], null)) : null, // from the synced copy (api/sync.js)
       };
     }).sort((a, b) => (b.lastSeen > a.lastSeen ? 1 : b.lastSeen < a.lastSeen ? -1 : 0));
   }
