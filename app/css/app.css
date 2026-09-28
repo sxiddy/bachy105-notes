@@ -1009,3 +1009,24 @@ a.syl-name:hover { text-decoration: underline; }
 .bt-rule-list b { color: var(--white); font-weight: 600; }
 .bt-never { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; color: var(--text-dim); cursor: pointer; }
 .bt-never input { width: 16px; height: 16px; margin: 0; accent-color: var(--white); }
+
+/* redrawn diagrams (inline SVG in the theme colours) */
+.svgfig .fig-frame { background: var(--bg-2); border: 1px solid var(--line); padding: 14px; }
+.fig-svg { width: 100%; max-height: 560px; display: grid; place-items: center; color: var(--text-dim); font-size: 14px; }
+.fig-svg svg { display: block; width: 100%; height: 100%; max-height: 560px; }
+.lightbox .lb-frame.lb-svg { background: var(--bg-2); border: 1px solid var(--line-2); width: min(1100px, 96vw); }
+.lb-frame.lb-svg svg { display: block; width: 100%; height: auto; max-height: calc(82vh - 24px); }
+.lb-frame.lb-svg.zoom svg { max-height: none; width: 180%; }
+
+/* colour classes for the redrawn diagrams (figs-svg/README.md). Accents get darker shades in light mode. */
+:root { --dg-b: #7cc0ff; --dg-o: #ffb56b; --dg-r: #f08c8c; --dg-p: #c7a4ff; --dg-g: #86d4a9; --dg-y: #e9c46a; }
+:root[data-mode="light"] { --dg-b: #1f6fb8; --dg-o: #c2621a; --dg-r: #c0392b; --dg-p: #7b4fc9; --dg-g: #1f8a55; --dg-y: #9a7400; }
+.fig-svg svg, .lb-svg svg { font-family: var(--sans); }
+.fig-svg svg text, .lb-svg svg text { font-family: var(--sans); }
+.fig-svg svg .mono, .lb-svg svg .mono { font-family: var(--mono); }
+.dt { fill: var(--white); } .dt2 { fill: var(--text-2); } .dt3 { fill: var(--text-dim); }
+.dtb { fill: var(--dg-b); } .dto { fill: var(--dg-o); } .dtr { fill: var(--dg-r); } .dtp { fill: var(--dg-p); } .dtg { fill: var(--dg-g); } .dty { fill: var(--dg-y); }
+.ds { stroke: var(--white); } .ds2 { stroke: var(--text-dim); } .ds3 { stroke: var(--line-2); }
+.dsb { stroke: var(--dg-b); } .dso { stroke: var(--dg-o); } .dsr { stroke: var(--dg-r); } .dsp { stroke: var(--dg-p); } .dsg { stroke: var(--dg-g); } .dsy { stroke: var(--dg-y); }
+.df { fill: var(--surface); } .df2 { fill: var(--surface-2); } .df3 { fill: var(--surface-3); } .dfw { fill: var(--white); } .dfd { fill: var(--text-dim); }
+.dfb { fill: var(--dg-b); } .dfo { fill: var(--dg-o); } .dfr { fill: var(--dg-r); } .dfp { fill: var(--dg-p); } .dfg { fill: var(--dg-g); } .dfy { fill: var(--dg-y); }

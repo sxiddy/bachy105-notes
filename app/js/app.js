@@ -496,6 +496,24 @@ window.__startApp = function () {
     if (!m) return '';
     return 'BACHY105 course ' + (/\/p\d+/.test(src) || /m4\//.test(src) ? 'notes, VIT · Page ' : 'slides, VIT · Slide ') + parseInt(m[1], 10);
   }
+  const svgCache = {};
+  function loadSvg(id) {
+    // only our own files from img/, and only the <svg> element (no scripts or event handlers survive)
+    return svgCache[id] || (svgCache[id] = fetch(`img/${id}.svg`, { credentials: 'same-origin' }).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }).then((t) => {
+      const doc = new DOMParser().parseFromString(t, 'image/svg+xml'), svg = doc.documentElement;
+      if (!svg || svg.nodeName.toLowerCase() !== 'svg') throw new Error('not svg');
+      svg.querySelectorAll('script, foreignObject').forEach((x) => x.remove());
+      svg.querySelectorAll('*').forEach((x) => Array.from(x.attributes).forEach((a) => { if (/^on/i.test(a.name) || /javascript:/i.test(a.value)) x.removeAttribute(a.name); }));
+      svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+      // arrowhead/gradient ids are prefixed with the figure id, so two diagrams on one page never borrow each other's
+      let out = new XMLSerializer().serializeToString(svg);
+      Array.from(svg.querySelectorAll('[id]'), (x) => x.id).forEach((old) => {
+        const nu = id + '--' + old;
+        out = out.split(`id="${old}"`).join(`id="${nu}"`).split(`url(#${old})`).join(`url(#${nu})`).split(`href="#${old}"`).join(`href="#${nu}"`);
+      });
+      return out;
+    }).catch((e) => { delete svgCache[id]; throw e; }));
+  }
   function hydrate(root) {
     // figures
     $$('figure[data-fig]', root).forEach((fg) => {
@@ -506,6 +524,12 @@ window.__startApp = function () {
       const dim = D.figs[id] || {};
       const wide = dim.w && dim.h && dim.w / dim.h > 1.7;
       if (wide) fg.classList.add('wide');
+      if (dim.svg) { // the site's own redrawn diagram: inlined so it takes the theme's colours (dark and light mode)
+        fg.classList.add('svgfig');
+        fg.innerHTML = `<div class="fig-frame" tabindex="0" role="button" aria-label="Enlarge diagram"><div class="fig-svg" role="img" aria-label="${esc(f.alt || f.caption || '')}" style="aspect-ratio:${dim.w} / ${dim.h}"></div><span class="fig-zoom">${icon('zoom')}</span></div><figcaption>${f.caption || ''}${srcLabel(f.src) ? `<span class="fig-src">Redrawn from ${srcLabel(f.src)}</span>` : ''}</figcaption>`;
+        loadSvg(id).then((svg) => { const box = $('.fig-svg', fg); if (box) box.innerHTML = svg; }, () => { const box = $('.fig-svg', fg); if (box) box.textContent = 'Diagram unavailable'; });
+        return;
+      }
       fg.innerHTML = `<div class="fig-frame" tabindex="0" role="button" aria-label="Enlarge diagram"><img src="img/${id}.webp" alt="${esc(f.alt || f.caption || '')}" loading="lazy" decoding="async"${dim.w ? ` width="${dim.w}" height="${dim.h}"` : ''}><span class="fig-zoom">${icon('zoom')}</span></div><figcaption>${f.caption || ''}${srcLabel(f.src) ? `<span class="fig-src">${srcLabel(f.src)}</span>` : ''}</figcaption>`;
     });
     // tables
@@ -1555,9 +1579,9 @@ window.__startApp = function () {
       return m;
     });
   }
-  function openLightbox(src, caption, alt) {
+  function openLightbox(src, caption, alt, svg) {
     const lb = h('div', { class: 'lightbox', role: 'dialog', 'aria-modal': 'true' });
-    lb.innerHTML = `<button class="icon-btn lb-close" aria-label="Close">${icon('x')}</button><div class="lb-frame"><img src="${src}" alt="${esc(alt || '')}"></div>${caption ? `<p>${caption}</p>` : ''}`;
+    lb.innerHTML = `<button class="icon-btn lb-close" aria-label="Close">${icon('x')}</button><div class="lb-frame${svg ? ' lb-svg' : ''}">${svg ? `<div role="img" aria-label="${esc(alt || '')}">${svg}</div>` : `<img src="${src}" alt="${esc(alt || '')}">`}</div>${caption ? `<p>${caption}</p>` : ''}`;
     const close = () => { lb.remove(); document.removeEventListener('keydown', onKey, true); };
     const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } };
     lb.addEventListener('click', (e) => { if (e.target.closest('.lb-frame')) { $('.lb-frame', lb).classList.toggle('zoom'); return; } close(); });
@@ -2149,9 +2173,10 @@ window.__startApp = function () {
     if (b && document.body.classList.contains('recall')) { b.classList.add('shown'); return; }
     const fr = e.target.closest('.fig-frame');
     if (fr && !fr.closest('.missing')) {
-      const img = $('img', fr), fig = fr.closest('figure');
+      const img = $('img', fr), sv = $('.fig-svg', fr), fig = fr.closest('figure');
       const cap = $('figcaption', fig);
-      openLightbox(img.getAttribute('src'), cap ? cap.innerHTML : '', img.alt);
+      if (sv) openLightbox(null, cap ? cap.innerHTML : '', sv.getAttribute('aria-label'), sv.innerHTML);
+      else if (img) openLightbox(img.getAttribute('src'), cap ? cap.innerHTML : '', img.alt);
     }
   });
   document.addEventListener('keydown', (e) => {
