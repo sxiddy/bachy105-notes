@@ -6,6 +6,10 @@ const DOMAIN = (process.env.STUDENT_DOMAIN || 'vitstudent.ac.in').toLowerCase();
 const USER_COOKIE = 'bn_user';   // signed-in student: { e: email, d: device id }
 const OWNER_COOKIE = 'bn_access'; // owner unlock from /stats.html: { p: 'owner' }
 const MAX_AGE = 400 * 24 * 3600; // browsers cap cookies at 400 days
+// Razorpay's website reviewer signs in on /review.html with this username and the REVIEW_CODE the owner sets in
+// Vercel (unset = reviewer sign-in is off). The reviewer sees the free modules, the paywall and the Pay button, never paid content.
+const REVIEW_EMAIL = 'review@bachy105';
+const reviewOn = () => !!process.env.REVIEW_CODE;
 
 function env(name) {
   const v = process.env[name];
@@ -60,6 +64,8 @@ function cookie(name, value, maxAge) {
 const userCookie = (email, deviceId) => cookie(USER_COOKIE, sign({ e: email, d: deviceId }), MAX_AGE);
 const ownerCookie = () => cookie(OWNER_COOKIE, sign({ p: 'owner' }), MAX_AGE);
 const clearUserCookie = () => cookie(USER_COOKIE, '', 0);
+const reviewerCookie = () => cookie(USER_COOKIE, sign({ e: REVIEW_EMAIL, r: 1 }), 7 * 24 * 3600);
+const isReviewer = (u) => !!(u && u.r === 1 && u.e === REVIEW_EMAIL);
 
 const normEmail = (s) => String(s || '').trim().toLowerCase();
 const isStudentEmail = (e) => new RegExp('^[a-z0-9._%+-]+@' + DOMAIN.replace(/\./g, '\\.') + '$').test(normEmail(e));
@@ -68,6 +74,7 @@ const isStudentEmail = (e) => new RegExp('^[a-z0-9._%+-]+@' + DOMAIN.replace(/\.
 function getUser(req) {
   if (process.env.DEV_BYPASS === '1') return { e: 'dev@' + DOMAIN };
   const u = readSigned(req, USER_COOKIE);
+  if (isReviewer(u)) return reviewOn() ? u : null; // clearing REVIEW_CODE signs the reviewer out everywhere
   return u && isStudentEmail(u.e) ? u : null;
 }
 function isOwner(req) {
@@ -82,7 +89,7 @@ function isOwner(req) {
 async function hasAccess(req) {
   if (isOwner(req)) return { owner: true, modules: null };
   const u = getUser(req);
-  if (!u) return null;
+  if (!u || isReviewer(u)) return null; // the reviewer never gets paid content, even after a test payment
   const store = require('./_store');
   if (!store.configured()) return null;
   if (!(await deviceActive(u, req))) return null;
@@ -166,13 +173,16 @@ async function recordPaid(email, p) {
   await store.pipeline([['HSET', 'paid', email, JSON.stringify({ id: p.id, at: new Date(p.created_at * 1000).toISOString(), amount: p.amount })]]);
 }
 
-// Owner settings kept in the store (hash "config"): price in paise, a temporary sale price, and the announcement banner.
+// Owner settings kept in the store (hash "config"): price in paise, a temporary sale price, the announcement banner,
+// "paused" (payments switched off: the paywall shows a notice instead of Pay) and "business" (the name on the legal pages).
 // While a sale is running (until its end time) it replaces the normal price everywhere, then the normal price returns by itself.
 async function settings() {
   const store = require('./_store');
-  const out = { price: PRICE, normalPrice: PRICE, sale: null, banner: null };
+  const out = { price: PRICE, normalPrice: PRICE, sale: null, banner: null, paused: null, business: '' };
   if (!store.configured()) return out;
-  const [[p, b, sl]] = await store.pipeline([['HMGET', 'config', 'price', 'banner', 'sale']]);
+  const [[p, b, sl, pz, bz]] = await store.pipeline([['HMGET', 'config', 'price', 'banner', 'sale', 'paused', 'business']]);
+  try { const x = JSON.parse(pz || 'null'); if (x && x.on) out.paused = { text: typeof x.text === 'string' ? x.text.slice(0, 240) : '' }; } catch (e) {}
+  if (typeof bz === 'string') out.business = bz.slice(0, 120);
   const n = parseInt(p, 10); if (Number.isInteger(n) && n >= 100) out.price = out.normalPrice = n;
   try { const x = JSON.parse(b || 'null'); if (x && x.on && x.text) out.banner = { id: x.id, text: x.text }; } catch (e) {}
   try {
@@ -246,6 +256,6 @@ function handle(fn) {
 
 module.exports = {
   PRICE, DOMAIN, MAX_DEVICES, env, send, body, hmac, safeEqual,
-  getUser, isOwner, hasAccess, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
+  getUser, isOwner, hasAccess, REVIEW_EMAIL, reviewOn, reviewerCookie, isReviewer, normEmail, isStudentEmail, userCookie, ownerCookie, clearUserCookie, verifyGoogle,
   razorpay, checkPayment, isOurs, recordPaid, settings, deviceIdFrom, deviceKeys, claimDevice, deviceActive, parseLimits, limitUntil, handle,
 };

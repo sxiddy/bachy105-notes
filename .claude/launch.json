@@ -46,7 +46,8 @@
         "DEV_LOGIN": "1",
         "ADMIN_KEY": "testkey",
         "UPSTASH_REDIS_REST_URL": "http://127.0.0.1:5288",
-        "UPSTASH_REDIS_REST_TOKEN": "x"
+        "UPSTASH_REDIS_REST_TOKEN": "x",
+        "REVIEW_CODE": "localreview"
       }
     },
     {
