@@ -32,7 +32,7 @@ QUESTIONS({
       q: `<p>An unknown organic liquid shows <b>no absorption maximum above 200 nm</b>. A colleague insists it is benzaldehyde. What can you conclude?</p>`,
       options: null, correct: null,
       answer: `<p>It is <b>not benzaldehyde</b>: the sample contains no conjugated chromophore, no aldehyde or keto group and no benzene ring.</p>`,
-      explain: `<p>One application in the notes: a compound that shows no λ<sub>max</sub> above 200 nm cannot contain a conjugated chromophore, aldehyde, keto group or benzene ring. Benzaldehyde has both a benzene ring and a C=O conjugated with it, so it would absorb well above 200 nm (π→π* and n→π* bands). The unknown is more likely a saturated compound whose only transitions are σ→σ* or n→σ*, which lie at shorter wavelengths.</p>`,
+      explain: `<p>One application in the notes: a compound that shows no λ<sub>max</sub> above 200 nm cannot contain a conjugated chromophore, aldehyde, keto group or benzene ring. Benzaldehyde has both a benzene ring and a C=O conjugated with it, so it would absorb well above 200 nm (π→π* and n→π* bands). The unknown is more likely a saturated compound whose only transitions are σ→σ* or n→σ*, which mostly lie below 200 nm.</p>`,
       points: ['No λmax > 200 nm → no conjugation, no C=O, no aromatic ring', 'Benzaldehyde has both', 'Saturated compounds: σ→σ* (100–150 nm), n→σ* (150–250 nm)']
     },
     {
@@ -41,7 +41,7 @@ QUESTIONS({
       options: ['The keto form', 'The enol form', 'Neither, the solvent only shifts bands', 'Both forms equally'],
       correct: 1,
       answer: `<p><b>The enol form.</b></p>`,
-      explain: `<p>The keto form has an isolated C=O and gives a low-intensity band at 275 nm (ε = 20, a forbidden n→π*). The enol has a conjugated double bond and gives a high-intensity band at 245 nm (ε = 1800). A growing 245 nm band means more enol. Intensity (ε) tells you how allowed the transition is: ≤ 10 forbidden, 10–1000 partly allowed, 1000–100,000 allowed.</p>`,
+      explain: `<p>The keto form has an isolated C=O and gives a low-intensity band at 275 nm (ε = 20, a weak n→π*). The enol has a conjugated double bond and gives a high-intensity band at 245 nm (ε = 1800). A growing 245 nm band means more enol. Intensity (ε) tells you how allowed the transition is: ≤ 10 forbidden, 10–1000 partly allowed, 1000–100,000 allowed.</p>`,
       points: ['Keto: 275 nm, ε = 20', 'Enol: 245 nm, ε = 1800 (conjugated)', 'ε reflects transition probability', 'Keto–enol distinction is a listed UV-Vis application']
     },
     {
@@ -55,10 +55,10 @@ QUESTIONS({
     {
       id: 'm4-q-07', module: 'm4', topic: 'm4-bragg', type: 'numerical', level: 2,
       q: `<p>A powder diffractometer with a <b>Cu Kα source (λ = 1.5406 Å)</b> shows a first-order peak at <b>2θ = 38.2°</b>. What is the spacing of the planes that produced it?</p>`,
-      options: ['1.18 Å', '2.35 Å', '4.71 Å', '1.23 Å'],
+      options: ['1.18 Å', '2.35 Å', '4.71 Å', '1.25 Å'],
       correct: 1,
       answer: `<p><b>d ≈ 2.35 Å.</b> Remember to halve 2θ first.</p>`,
-      explain: `<div class="worked"><div class="given"><ul><li>λ = 1.5406 Å, n = 1, 2θ = 38.2° so θ = 19.1°</li></ul></div><div class="solve"><div class="eq">d = <span class="frac"><span>nλ</span><span>2 sin θ</span></span> = <span class="frac"><span>1.5406</span><span>2 × sin 19.1°</span></span> = <span class="frac"><span>1.5406</span><span>2 × 0.3272</span></span></div></div><div class="result"><b>d ≈ 2.35 Å</b></div></div><p>Using 38.2° directly in sin θ would give 1.23 Å, a common slip.</p>`,
+      explain: `<div class="worked"><div class="given"><ul><li>λ = 1.5406 Å, n = 1, 2θ = 38.2° so θ = 19.1°</li></ul></div><div class="solve"><div class="eq">d = <span class="frac"><span>nλ</span><span>2 sin θ</span></span> = <span class="frac"><span>1.5406</span><span>2 × sin 19.1°</span></span> = <span class="frac"><span>1.5406</span><span>2 × 0.3272</span></span></div></div><div class="result"><b>d ≈ 2.35 Å</b></div></div><p>Using 38.2° directly in sin θ would give 1.25 Å, a common slip.</p>`,
       points: ['Bragg: 2d sin θ = nλ', 'Diffractometer reports 2θ; use θ = 2θ/2', 'Cu Kα = 1.5406 Å (8.04 keV)', 'Keep units in Å']
     },
     {

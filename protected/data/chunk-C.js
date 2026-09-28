@@ -635,7 +635,7 @@ CHUNK({
       caption: 'A p–n junction. Carriers diffuse across, leaving + donor ions and − acceptor ions in the depletion layer, and the graph below shows the potential stepping down from the N side to the P side.',
       alt: 'N-region (blue, free electrons and positive donor ions) and P-region (orange, holes and negative acceptor ions) with a yellow depletion layer between them, a diffusion arrow above, a battery symbol across the layer, and a volts graph dropping from + to − across the junction.' },
     { id: 'm2-pv-cell-circuit', src: 'm2/slides/s52.png', crop: [0.015, 0.075, 0.455, 0.49],
-      caption: 'A PV cell in a circuit. Light passes the anti-reflection coating, pairs form at the n/p boundary, and current flows from the top electrode through the external load.',
+      caption: 'A PV cell in a circuit. Light passes the anti-reflection coating, pairs form at the n/p boundary, and electrons flow from the top electrode through the external load.',
       alt: 'Cross-section: anti-reflection coating and top electrode (−), N-type silicon over P-type silicon, bottom electrode (+), light arrows entering, plus and minus charge pairs, and a bulb as the external load with a current arrow.' },
     { id: 'm2-pv-inside-eia', src: 'm2/images/s52_2c21a9a6.png', crop: [0, 0.075, 1, 0.925],
       caption: 'Inside a PV cell (U.S. EIA). The three lower panels show light freeing electrons, the junction sorting electrons and holes, and electrons flowing out through the bulb.',
