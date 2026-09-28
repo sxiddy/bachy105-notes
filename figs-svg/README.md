@@ -54,3 +54,8 @@ cell-differences-table (generated: `node tools/figs/table.js figs-svg`, specs in
 
 Module 2 batch 3 done (6): liion-charge-discharge (charging panel's swapped +/− fixed: graphite always −),
 liion-variants-table (generated), fuel-cell-stack, fcv-layout (numbered key), nafion-structure, pemfc-diagram.
+
+Module 2 batch 4 done (3): sofc-diagram, solar-panels, solar-methods-tree.
+Next up (Module 2): pv-si-structures, pv-mono-cell, pv-poly-cell, pv-amorphous-film, pv-pn-depletion, pv-cell-circuit,
+pv-inside-eia, pv-gap-table, pv-tco-gap-table, pec-band-diagram, pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
+dssc-natural-dyes, dssc-hibiscus-cell, dssc-pros-cons; then m3-…, m4-….
