@@ -40,8 +40,14 @@ slides, VIT · Slide N".
   --screenshot=<png> file:///<out.html>` and look at it with the Read tool.
 - `node tools/figs/lattice.js figs-svg` regenerates the three silicon-lattice figures (a pattern for other
   repetitive figures: write a small generator instead of hand-placing dozens of shapes).
+- `node tools/figs/table.js figs-svg [id ...]` writes the slide text tables from `tools/figs/tables/<id>.js` as
+  stacked phone tables (one block per slide row, one line per column).
 
 ## Progress
 
 Module 2 batch 1 done (8): daniell-cell, band-diagrams, resistivity-temp, bands-temperature, semiconductor-types,
 intrinsic-lattice, n-type-doping, p-type-doping.
+
+Module 2 batch 2 done (8): zone-refining-fig, czochralski-steps, czochralski-puller, si-boule-photo,
+cell-differences-table (generated: `node tools/figs/table.js figs-svg`, specs in `tools/figs/tables/`; fuel-cell
+"reaction is reversible" corrected), nobel-2019 (text card, no portraits), liion-devices, liion-cutaway.
