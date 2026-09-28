@@ -155,7 +155,9 @@ async function checkPayment(paymentId, orderId) {
 
 // A completed payment for these notes, as seen in Razorpay's payment list (any price the owner has used).
 const isOurs = (p) => p.status === 'captured' && p.method === 'upi' && p.currency === 'INR'
-  && ((p.notes || {}).product === 'bachy105-notes' || p.amount === PRICE);
+  // untagged payments (from before orders carried a product) still match on price; a payment tagged for another
+  // product (e.g. the BAENG101 site on the same Razorpay account) never counts here
+  && ((p.notes || {}).product === 'bachy105-notes' || (!(p.notes || {}).product && p.amount === PRICE));
 
 // Records a verified payment against the student's email, so every device they sign in on has access.
 async function recordPaid(email, p) {
