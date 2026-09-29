@@ -2153,6 +2153,14 @@ window.__startApp = function () {
         ${q.topics && q.topics.length ? `<p class="paper-rev">Revise: ${topicLinks(q.topics)}</p>` : ''}
       </section>`).join('')}
       <p style="margin-top:32px"><a class="btn" href="#papers">${icon('left')}All question papers</a></p>`;
+    // the answers reuse the notes' own diagrams; one from a module this student can't open yet shows a lock card instead
+    $$('figure[data-fig]', el).forEach((fg) => {
+      const id = fg.getAttribute('data-fig');
+      if (FIGS[id]) return;
+      const m = MODULES.find((x) => id.startsWith(x.id + '-'));
+      fg.outerHTML = `<a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Diagram from ${esc(m ? 'Module ' + (+m.num) + ' notes' : 'the notes')}</strong><p>Unlock with full access for ₹${PRICE_RS} to see it here</p></div><span class="arrow">${icon('right')}</span></a>`;
+    });
+    hydrate(el);
     return { el };
   }
 

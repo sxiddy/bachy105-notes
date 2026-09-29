@@ -252,7 +252,9 @@ for (const f of files) {
       }
     }
     for (const id of Object.keys(d.papers.asked || {})) if (!allTopicIds.has(id)) err(`${base} › asked`, `unknown topic "${id}"`);
-    if (ctx.figRefs.length || ctx.vizRefs.length) err(base, 'no figures/viz inside papers');
+    // model answers may show the notes' own diagrams (by id); interactive viz stay in the notes
+    for (const r of ctx.figRefs) if (!g.figIds.has(r.id)) err(r.where, `figure "${r.id}" is not a notes figure`);
+    if (ctx.vizRefs.length) err(base, 'no viz inside papers');
     console.log(`\n${base}: ${ps.length} papers, ${nq} questions${d.papers.index ? `, index of ${d.papers.index.length}` : ''}${d.papers.asked ? `, ${Object.keys(d.papers.asked).length} asked topics` : ''}`);
   } else err(base, 'no CHUNK/QUESTIONS/SUMMARY/PAPERS call found');
 }

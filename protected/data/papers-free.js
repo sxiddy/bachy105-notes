@@ -45,7 +45,7 @@ PAPERS({
           n: '2', marks: 10, co: '2', bl: '3',
           prompt: `<p>A rechargeable electrochemical cell employed in electric vehicles and renewable-energy storage systems operates through the reversible movement of a light metal species between two layered host structures. Using a suitable diagram, analyse the ion and electron transport mechanism, formulate the electrode and overall charge–discharge reactions, and justify how the layered host structures facilitate reversible cycling and high energy density.</p>`,
           answer: `<p>This is the <b>lithium-ion battery</b>: Li<sup>+</sup> shuttles between a layered LiCoO<sub>2</sub> cathode and a layered graphite anode (a "rocking-chair" cell). It holds no metallic lithium.</p>
-<p><b>Diagram to draw:</b> left, graphite layers (negative electrode); right, LiCoO<sub>2</sub> layers (positive electrode); between them an organic carbonate electrolyte (EC, DEC with a lithium salt) and a porous PE/PP separator. Show Li<sup>+</sup> between the layers of both hosts. Arrows: on charging, Li<sup>+</sup> goes from LiCoO<sub>2</sub> to graphite through the electrolyte and e<sup>−</sup> goes the same way through the charger; on discharging both reverse, with e<sup>−</sup> through the load.</p>
+<figure data-fig="m2-liion-charge-discharge"></figure>
 <p><b>Transport mechanism</b></p>
 <ul><li><b>Charging:</b> Co<sup>3+</sup> in LiCoO<sub>2</sub> is oxidised towards Co<sup>4+</sup> and releases electrons. Li<sup>+</sup> leaves the oxide layers, crosses the electrolyte and separator, and slides in between the graphite sheets. The electrons are pushed round the outer circuit by the charger and meet the Li<sup>+</sup> in the graphite.</li>
 <li><b>Discharging:</b> Li<sup>+</sup> leaves the graphite, migrates back through the electrolyte and re-enters the spaces between the oxide layers. Electrons flow from graphite to LiCoO<sub>2</sub> through the device and do the work.</li>
@@ -70,7 +70,7 @@ PAPERS({
           n: '3', marks: 10, co: '2', bl: '2',
           prompt: `<p>A semiconductor-based photoelectrochemical device incorporates a photosensitizer to extend the semiconductor's light-absorption range. Design a suitable photoelectrochemical system with a neat diagram and explain the function of each component; illustrate the sequence of events from light absorption by the photosensitizer to charge separation, charge transport and current generation, and critically explain how these processes enable efficient production of electricity.</p>`,
           answer: `<p>This is the <b>dye-sensitized solar cell (DSSC, Grätzel cell)</b>, a regenerative PEC cell. TiO<sub>2</sub> alone absorbs only UV; a dye (the photosensitizer) absorbs the visible light and hands its electron to the TiO<sub>2</sub>.</p>
-<p><b>Diagram to draw:</b> two conducting glass plates facing each other. Upper plate: FTO/ITO glass with a nanoporous TiO<sub>2</sub> film coated with dye (anode, −). Lower plate: Pt or graphite on conducting glass (counter electrode, cathode, +). Between them the I<sup>−</sup>/I<sub>3</sub><sup>−</sup> electrolyte. Sunlight enters through the TiO<sub>2</sub> side; an external load joins the plates. Beside it, an energy diagram: dye S<sub>0</sub> → S* above the TiO<sub>2</sub> conduction band, injection arrow into the CB, and the redox level of I<sup>−</sup>/I<sub>3</sub><sup>−</sup> feeding back into S<sup>+</sup>.</p>
+<figure data-fig="m2-dssc-schematic"></figure>
 <p><b>Components and their functions</b></p>
 <ul><li><b>Transparent conductive glass (FTO, SnO<sub>2</sub>:F or ITO, In<sub>2</sub>O<sub>3</sub>:Sn):</b> lets light in (&gt; 80% transparent) and collects current.</li>
 <li><b>Nanoporous TiO<sub>2</sub> film:</b> wide-gap semiconductor. Its huge surface area holds a lot of dye, and its conduction band accepts and carries the injected electrons.</li>
@@ -100,7 +100,9 @@ PAPERS({
           answer: `<p><b>Why nano properties differ from bulk</b></p>
 <ul><li><b>Large surface area to volume ratio:</b> cutting a solid into smaller pieces keeps the volume the same but raises the total surface area (6a<sup>2</sup>n for n cuts per edge). At the nanoscale a large fraction of atoms sit at the surface, with unsatisfied bonds and high surface energy, so reactivity, melting point and conductivity change.</li>
 <li><b>Quantum confinement:</b> when the particle size approaches the de Broglie wavelength of the electrons, they are no longer free to move as in the bulk. Continuous bands break into discrete levels and the band gap widens as size falls. This drives a metal → semiconductor → insulator change in electrical behaviour.</li>
-<li><b>Optical effects:</b> a bigger gap means absorption and emission shift to shorter wavelength, so colour depends on size. Bulk gold is yellow and shiny, nano gold is red to purple; quantum dots give tunable fluorescence.</li>
+<li><b>Optical effects:</b> a bigger gap means absorption and emission shift to shorter wavelength, so colour depends on size. Bulk gold is yellow and shiny, nano gold is red to purple; quantum dots give tunable fluorescence.</li></ul>
+<figure data-fig="m3-confinement-bands"></figure>
+<ul>
 <li><b>Factors:</b> particle size, shape and dimensionality (0D, 1D, 2D), surface atoms and defects, and the surrounding medium.</li></ul>
 <p><b>Bottom-up route: sol–gel synthesis of silica nanoparticles</b></p>
 <p>Precursor: a silicon alkoxide Si(OR)<sub>4</sub> in alcohol and water. Extra: the usual one is TEOS, Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub>.</p>
@@ -112,6 +114,7 @@ PAPERS({
 <li><b>Aging:</b> condensation continues; porosity decreases and the structure strengthens.</li>
 <li><b>Drying:</b> water and alcohol are removed, giving a xerogel.</li>
 <li><b>Calcination:</b> heating removes organic residue and gives SiO<sub>2</sub> nanoparticles.</li></ol>
+<figure data-fig="m3-siloxane-network"></figure>
 <p><b>Controlling size and morphology</b> (Extra: not in the course material): the water : alkoxide ratio, the acid or base catalyst (base, e.g. ammonia, favours separate spherical particles; acid favours chain-like networks), temperature, precursor concentration and aging time. Spin- or dip-coating the sol gives thin films instead of powder.</p>
 <p><b>Advantages</b></p>
 <ul><li>Works at very low temperature compared with melting glass or firing ceramics.</li>
@@ -142,11 +145,14 @@ PAPERS({
 <li>Auxochromes: two –N(CH<sub>3</sub>)<sub>2</sub> groups whose lone pairs join the conjugation (a strong bathochromic push).</li>
 <li>The flat, fully conjugated cationic ring system has a very small π–π* gap.</li>
 <li>Absorbs at 600–700 nm (Extra: λ<sub>max</sub> ≈ 665 nm), <b>orange-red</b> light, so it looks <b>blue</b>.</li></ul>
+<figure data-fig="m4-dye-structures"></figure>
+<figure data-fig="m4-colour-wheel"></figure>
 <p><b>Comparison:</b> methylene blue absorbs at a longer wavelength than Congo red because its rigid, planar ring and the two electron-donating –NMe<sub>2</sub> groups delocalise the π electrons over the whole cation, lowering the gap further. Both colours are intense because their π → π* transitions are allowed, with ε of the order of 10<sup>4</sup>–10<sup>5</sup> L mol<sup>−1</sup> cm<sup>−1</sup>.</p>
 <p><b>(b) Wavelength</b> (c = 3.0 × 10<sup>8</sup> m s<sup>−1</sup>)</p>
 <div class="eq">E = 6.93 × 10<sup>3</sup> × 1.602 × 10<sup>−19</sup> = 1.110 × 10<sup>−15</sup> J</div>
 <div class="eq">λ = hc / E = (6.626 × 10<sup>−34</sup> × 3.0 × 10<sup>8</sup>) / 1.110 × 10<sup>−15</sup> = 1.79 × 10<sup>−10</sup> m = <b>0.179 nm (1.79 Å)</b></div>
 <p>Extra: this matches Co Kα radiation. c is not given in the paper; use 3.0 × 10<sup>8</sup> m s<sup>−1</sup> and say so.</p>
+<figure data-fig="m4-fwhm-peak"></figure>
 <p><b>Crystallite size</b></p>
 <div class="eq">θ = 44.60° / 2 = 22.30°, cos θ = 0.9252</div>
 <div class="eq">β = 0.95° × π/180 = 0.01658 rad</div>
@@ -173,7 +179,7 @@ PAPERS({
           prompt: `<p><b>(a)</b> Identify and explain an electrochemical power generation system that operates without any liquid or polymeric components, relying entirely on ceramic layers, with a diagram.</p>
 <p><b>(b)</b> Write the half-cell reactions, the net reaction and calculate the cell EMF of the following cell at 298 K: Zn | Zn<sup>2+</sup> (0.001 M) || Ag<sup>+</sup> (0.1 M) | Ag. The standard reduction potentials are −0.76 V and 0.80 V respectively.</p>`,
           answer: `<p><b>(a) The solid oxide fuel cell (SOFC)</b>, also called a ceramic fuel cell: every layer is a solid ceramic, with no liquid electrolyte and no polymer membrane.</p>
-<p><b>Diagram to draw:</b> three stacked solid layers. Left, a porous Ni–YSZ cermet anode with H<sub>2</sub>/CO fed in and H<sub>2</sub>O/CO<sub>2</sub> leaving. Middle, the dense YSZ electrolyte. Right, a porous ceramic cathode (LSM) with air (O<sub>2</sub>) fed in. Arrows: O<sup>2−</sup> from cathode to anode through the YSZ; e<sup>−</sup> from anode to cathode through the external load.</p>
+<figure data-fig="m2-sofc-diagram"></figure>
 <ul><li><b>Electrolyte:</b> yttria-stabilized zirconia (YSZ, ZrO<sub>2</sub> with Y<sub>2</sub>O<sub>3</sub>), which conducts O<sup>2−</sup> ions at 800–1000 °C.</li>
 <li><b>Anode (fuel electrode):</b> porous Ni–YSZ cermet, so fuel reaches the electrolyte.</li>
 <li><b>Cathode (air electrode):</b> porous ceramic such as LSM.</li>
@@ -198,7 +204,7 @@ PAPERS({
           prompt: `<p>A team of researchers is developing a low-cost, translucent solar panel for smart windows. Instead of using highly purified silicon, they use an intense light-harvesting coloured monolayer on a semiconductor with a counter electrode and a liquid chemical redox shuttle. Recognise the device and explain with suitable diagram, mechanism, principle and applications.</p>`,
           answer: `<p>This is the <b>dye-sensitized solar cell (DSSC, Grätzel cell)</b>: the coloured monolayer is the dye, the semiconductor is nanoporous TiO<sub>2</sub>, and the redox shuttle is I<sup>−</sup>/I<sub>3</sub><sup>−</sup>.</p>
 <p><b>Principle:</b> a dye absorbs visible light and injects an excited electron into the conduction band of a wide-gap semiconductor. The electron does work in the outer circuit and the redox electrolyte returns it to the dye, so nothing is used up (a regenerative photoelectrochemical cell).</p>
-<p><b>Diagram to draw:</b> FTO/ITO glass with dye-coated nanoporous TiO<sub>2</sub> (anode, −) facing Pt or graphite on conducting glass (cathode, +), I<sup>−</sup>/I<sub>3</sub><sup>−</sup> electrolyte between, light entering through the TiO<sub>2</sub> side, load in the outer circuit. Add the energy levels: dye S → S* above the TiO<sub>2</sub> conduction band.</p>
+<figure data-fig="m2-dssc-schematic"></figure>
 <p><b>Mechanism</b></p>
 <ol><li>Light absorption: S + hν → S*</li>
 <li>Electron injection: S* → S<sup>+</sup> + e<sup>−</sup> (into the TiO<sub>2</sub> conduction band)</li>
@@ -215,7 +221,7 @@ PAPERS({
           n: '3', marks: 10, co: '2', bl: '2',
           prompt: `<p>What type of electrochemical cell relies on the reversible intercalation of alkali metal ions into a graphite lattice to store energy? Explain with suitable diagram, mechanism, any one advantage and disadvantage with applications.</p>`,
           answer: `<p>The <b>lithium-ion battery</b>, a secondary cell in which Li<sup>+</sup> moves between a LiCoO<sub>2</sub> cathode and a graphite anode. No lithium metal is present.</p>
-<p><b>Diagram to draw:</b> graphite layers (negative) and LiCoO<sub>2</sub> layers (positive) with Li<sup>+</sup> between the layers, an organic carbonate electrolyte (EC, DEC) and a porous PE/PP separator. Arrows for Li<sup>+</sup> through the electrolyte and e<sup>−</sup> through the outer circuit, both ways.</p>
+<figure data-fig="m2-liion-charge-discharge"></figure>
 <p><b>Mechanism</b></p>
 <ul><li><b>Charging:</b> Co<sup>3+</sup> is oxidised, Li<sup>+</sup> leaves LiCoO<sub>2</sub>, crosses the electrolyte and intercalates between graphite sheets; electrons are pushed by the charger to the graphite.</li>
 <li><b>Discharging:</b> Li<sup>+</sup> leaves graphite and returns between the oxide layers; electrons flow through the device from graphite to LiCoO<sub>2</sub>.</li></ul>
@@ -242,6 +248,8 @@ PAPERS({
 <li><b>Aging:</b> condensation continues; porosity decreases.</li>
 <li><b>Drying:</b> water and solvent are removed, giving a xerogel.</li>
 <li><b>Calcination:</b> heating gives the final metal-oxide nanoparticles.</li></ul>
+<figure data-fig="m3-siloxane-network"></figure>
+<figure data-fig="m3-sol-gel-routes"></figure>
 <p><b>Advantages:</b> very low temperature compared with melting glass or firing ceramics; monosized particles are possible; one sol gives powders, films (spin or dip coating) or dense ceramics.</p>
 <p><b>Disadvantages:</b> hard to control growth and stop agglomeration; hard to ensure complete reaction, so residues may stay; growth aids must be fully removed; very slow production of nanopowders.</p>
 <div class="note trap"><p>Don't mix the two condensations: –OH + HO– gives off H<sub>2</sub>O, –OR + HO– gives off ROH.</p></div>
@@ -255,12 +263,15 @@ PAPERS({
           answer: `<p><b>(a) X-ray diffraction (XRD)</b>, which is nondestructive.</p>
 <p><b>Principle:</b> the regularly spaced planes of a crystal act as a diffraction grating for X-rays, whose wavelength is close to the spacing between atoms. Waves reflected from successive planes add up only when the path difference is a whole number of wavelengths:</p>
 <div class="eq">nλ = 2d sin θ (Bragg's law)</div>
+<figure data-fig="m4-bragg-geometry"></figure>
 <p>The diffractometer scans 2θ and records intensity; each peak position gives a d-spacing, and peak width falls as crystal size grows.</p>
 <p><b>Telling the three forms of silicon apart</b></p>
 <ul><li><b>Single crystal:</b> one lattice orientation, so only a few very sharp, intense reflections (spots rather than rings).</li>
 <li><b>Polycrystalline:</b> many randomly oriented grains, so a full set of sharp peaks (rings) at the Si positions.</li>
 <li><b>Amorphous:</b> no long-range order, so no sharp peaks, only a broad hump.</li></ul>
+<figure data-fig="m4-sio2-patterns"></figure>
 <p><b>Applications:</b> crystalline vs amorphous materials; identifying phases by matching JCPDS/ICSD patterns; unit-cell dimensions and symmetry; texture of polygrained materials; strain and crystallite size.</p>
+<figure data-fig="m4-fwhm-peak"></figure>
 <p><b>(b)</b> 38.2° is the 2θ value, so θ = 19.1°.</p>
 <div class="eq">cos 19.1° = 0.9449</div>
 <div class="eq">β = 0.45° × π/180 = 0.007854 rad</div>
