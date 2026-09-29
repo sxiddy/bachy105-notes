@@ -180,6 +180,8 @@ window.__startApp = function () {
   const sidebar = h('aside', { class: 'sidebar', 'aria-label': 'Contents' });
   const scrim = h('div', { class: 'scrim', onclick: () => closeDrawer() });
   const main = h('main', { class: 'main', id: 'main' });
+  // whichever box actually scrolls the page: <main> when it has its own scrollbar, otherwise the window
+  const pageScroller = () => (main.scrollHeight > main.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(main).overflowY) ? main : (document.scrollingElement || document.documentElement));
   const topbar = h('header', { class: 'topbar' });
   const host = h('div', { class: 'view-host' });
   main.append(topbar, host);
@@ -244,12 +246,13 @@ window.__startApp = function () {
     musicDock.classList.toggle('open', !!st.open);
     musicDock.classList.toggle('playing', music.playing);
     if (!musicDock.querySelector('.music-row')) {
-      musicDock.innerHTML = `<button class="music-row" data-m="toggle" aria-expanded="false"><span class="music-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="music-lbl">Study music</span><span class="music-now"></span>${icon('chev', 'sb-chev')}</button>
+      musicDock.innerHTML = `<div class="music-top"><button class="music-row" data-m="toggle" aria-expanded="false"><span class="m-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="music-lbl">Study music</span><span class="music-now"></span>${icon('chev', 'sb-chev')}</button><button class="music-ctl" data-m="pp" hidden></button><button class="music-ctl" data-m="stop" title="Stop the music" aria-label="Stop the music" hidden><span class="m-stop"></span></button></div>
         <div class="music-body" hidden>
           <div class="music-chips">${MUSIC.map(([id, n]) => `<button class="music-chip" data-m="pick" data-ref="playlist/${id}" data-label="${esc(n)}">${esc(n)}</button>`).join('')}</div>
           <form class="music-paste" data-m="paste"><input type="url" inputmode="url" placeholder="Paste a Spotify link" aria-label="Spotify playlist, album or song link"><button class="btn small" type="submit">Play</button></form>
           <p class="music-msg" data-mmsg></p>
           <div class="music-player"><div data-mslot></div></div>
+          <p class="music-hint">Tap <b>▶</b> in the player to start. No sound? <a data-mopen target="_blank" rel="noopener">Open in Spotify ↗</a></p>
           <p class="music-note">Spotify's own player. Signed in to Spotify in this browser: full songs. Otherwise 30-second previews.</p>
         </div>`;
     }
@@ -257,9 +260,15 @@ window.__startApp = function () {
     $('.music-body', musicDock).hidden = !st.open;
     $('.music-now', musicDock).textContent = st.label ? '· ' + st.label : '';
     $$('.music-chip', musicDock).forEach((b) => b.classList.toggle('on', b.dataset.ref === st.ref));
+    const op = $('[data-mopen]', musicDock); if (op) { op.href = 'https://open.spotify.com/' + (st.ref || 'playlist/' + MUSIC[0][0]); }
+    const hint = $('.music-hint', musicDock); if (hint) hint.hidden = !st.ref;
+    // our own pause and stop buttons stay in the top row (also when the strip is folded), so sound can always be stopped
+    const pp = $('[data-m=pp]', musicDock), stop = $('[data-m=stop]', musicDock);
+    pp.hidden = !music.playing; stop.hidden = !music.ctrl;
+    pp.textContent = '❚❚'; pp.title = 'Pause'; pp.setAttribute('aria-label', 'Pause');
   }
-  function playMusic(ref, label, auto) {
-    if (auto == null) auto = true;
+  function playMusic(ref, label) {
+    const auto = false; // browsers block sound the site starts itself: the student taps ▶ in Spotify's player
     const st = mState(); st.ref = ref; st.label = label; save(); paintMusic();
     const uri = 'spotify:' + ref.replace('/', ':');
     if (music.ctrl) { music.ctrl.loadUri(uri); if (auto) music.ctrl.play(); return; }
@@ -268,7 +277,7 @@ window.__startApp = function () {
     const start = (API) => {
       const slot = $('[data-mslot]', musicDock);
       API.createController(slot, { uri, width: '100%', height: 152 }, (ctrl) => {
-        music.ctrl = ctrl; music.loading = false;
+        music.ctrl = ctrl; music.loading = false; paintMusic();
         ctrl.addListener('playback_update', (e) => { const p = !!(e && e.data && !e.data.isPaused); if (p !== music.playing) { music.playing = p; paintMusic(); } });
         if (auto) ctrl.addListener('ready', () => { try { ctrl.play(); } catch (err) { /* the student taps play */ } });
       });
@@ -279,9 +288,18 @@ window.__startApp = function () {
     s.onerror = () => { music.loading = false; const m = $('[data-mmsg]', musicDock); if (m) m.textContent = 'Spotify could not load. Check your connection or ad blocker.'; };
     document.head.appendChild(s);
   }
+  function stopMusic() {
+    const c = music.ctrl; music.ctrl = null; music.playing = false; music.loading = false;
+    try { c.pause(); } catch (err) { /* already gone */ }
+    try { c.destroy(); } catch (err) { /* removed below */ }
+    const box = $('.music-player', musicDock); box.innerHTML = '<div data-mslot></div>';
+    const st = mState(); st.ref = null; st.label = ''; save(); paintMusic();
+  }
   musicDock.addEventListener('click', (e) => {
     const t = e.target.closest('[data-m]'); if (!t) return;
-    if (t.dataset.m === 'toggle') { const st = mState(); st.open = !st.open; save(); paintMusic(); if (st.open && st.ref && !music.ctrl) playMusic(st.ref, st.label, false); }
+    if (t.dataset.m === 'pp' && music.ctrl) { music.ctrl.pause(); return; }
+    if (t.dataset.m === 'stop' && music.ctrl) { stopMusic(); return; }
+    if (t.dataset.m === 'toggle') { const st = mState(); st.open = !st.open; save(); paintMusic(); if (st.open && st.ref && !music.ctrl) playMusic(st.ref, st.label); }
     else if (t.dataset.m === 'pick') playMusic(t.dataset.ref, t.dataset.label);
   });
   musicDock.addEventListener('submit', (e) => {
@@ -343,6 +361,7 @@ window.__startApp = function () {
         <div class="sb-label">Exams</div>
         <a class="sb-link" href="#syllabus.cat1" data-key="syllabus.cat1">${icon('list')}<span>CAT-1 syllabus</span></a>
         <a class="sb-link" href="#syllabus.cat2" data-key="syllabus.cat2">${icon('list')}<span>CAT-2 syllabus</span><span class="count" data-sylcount></span></a>
+        ${(D.paperIndex || D.papers || []).length ? `<a class="sb-link" href="#papers" data-key="papers">${icon('exam')}<span>Question papers</span></a>` : ''}
         <div class="sb-label">Talk to us</div>
         <button class="sb-link" data-act="ideas">${icon('bulb')}<span>Any ideas?</span></button>
         <button class="sb-link" data-act="help">${icon('help')}<span>Help?</span></button>
@@ -398,7 +417,10 @@ window.__startApp = function () {
   const themeLabel = () => (S.ui.theme === 'light' ? `${icon('moon')}Dark mode` : `${icon('sun')}Light mode`);
 
   // ---------------------------------------------------------------- top bar
-  let timerState = { left: 25 * 60, running: false, iv: 0 };
+  const FOCUS_LENS = [30, 60, 120, 180];
+  const focusMin = () => (FOCUS_LENS.includes(+S.ui.focusMin) ? +S.ui.focusMin : 30);
+  const lenLabel = (m) => (m < 60 ? m + ' minutes' : m / 60 + (m === 60 ? ' hour' : ' hours'));
+  let timerState = { left: focusMin() * 60, running: false, iv: 0 };
   function buildTopbar() {
     topbar.innerHTML = `
       <button class="icon-btn" data-act="sidebar" title="Toggle sidebar ( [ )" aria-label="Toggle sidebar">${icon('side')}</button>
@@ -443,12 +465,17 @@ window.__startApp = function () {
       focusPrevCollapsed = app.classList.contains('sb-collapsed');
       if (!narrow()) app.classList.add('sb-collapsed');
       closeDrawer();
-      tEl.hidden = false; timerState.left = 25 * 60; startTimer(true);
+      tEl.hidden = false; timerState.left = focusMin() * 60; startTimer(true);
       // phones have no Esc key: a bar with Pause and Exit stays on screen during focus mode
       const fb = h('div', { class: 'focus-bar', role: 'group', 'aria-label': 'Focus timer' });
-      fb.innerHTML = `${icon('timer')}<span class="timer" data-ftime></span><button class="btn small" data-act="focuspause">${icon('pause')}Pause</button><button class="btn small primary" data-act="focusexit">${icon('x')}Exit focus</button>`;
+      fb.innerHTML = `${icon('timer')}<span class="timer" data-ftime></span><select class="focus-len" data-focuslen aria-label="Timer length" title="Timer length">${FOCUS_LENS.map((m) => `<option value="${m}"${m === focusMin() ? ' selected' : ''}>${m < 60 ? m + ' min' : m / 60 + ' h'}</option>`).join('')}</select><button class="btn small" data-act="focuspause">${icon('pause')}Pause</button><button class="btn small primary" data-act="focusexit">${icon('x')}Exit focus</button>`;
       document.body.appendChild(fb);
-      toast(touchUI() ? 'Focus: 25 minutes. Tap Exit focus to leave' : 'Focus: 25 minutes. Esc or Exit focus to leave', 'timer');
+      toast(`Focus: ${lenLabel(focusMin())}. ${touchUI() ? 'Tap Exit focus to leave' : 'Esc or Exit focus to leave'}`, 'timer');
+      fb.querySelector('[data-focuslen]').addEventListener('change', (ev) => {
+        S.ui.focusMin = +ev.target.value; save();
+        timerState.left = focusMin() * 60; startTimer(true); paintTimer();
+        toast(`Timer set to ${lenLabel(focusMin())}`, 'timer');
+      });
     } else {
       if (!narrow() && focusPrevCollapsed === false) app.classList.remove('sb-collapsed');
       tEl.hidden = true; startTimer(false);
@@ -460,12 +487,12 @@ window.__startApp = function () {
     clearInterval(timerState.iv); timerState.running = run;
     if (run) timerState.iv = setInterval(() => {
       timerState.left--; paintTimer();
-      if (timerState.left <= 0) { startTimer(false); toast('25 minutes done. Take five.', 'timer'); timerState.left = 25 * 60; }
+      if (timerState.left <= 0) { startTimer(false); toast(`${lenLabel(focusMin())} done. Take a break.`, 'timer'); timerState.left = focusMin() * 60; paintTimer(); }
     }, 1000);
   }
   function paintTimer() {
-    const m = Math.floor(timerState.left / 60), s = timerState.left % 60;
-    $$('.topbar .timer, [data-ftime]').forEach((tEl) => { tEl.textContent = `${m}:${String(s).padStart(2, '0')}`; });
+    const L = timerState.left, hh = Math.floor(L / 3600), m = Math.floor((L % 3600) / 60), s = L % 60, p2 = (x) => String(x).padStart(2, '0');
+    $$('.topbar .timer, [data-ftime]').forEach((tEl) => { tEl.textContent = hh ? `${hh}:${p2(m)}:${p2(s)}` : `${m}:${p2(s)}`; });
     const pb = $('[data-act="focuspause"]'); if (pb) pb.innerHTML = timerState.running ? `${icon('pause')}Pause` : `${icon('play')}Resume`;
   }
   const touchUI = () => !!(window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches);
@@ -486,7 +513,7 @@ window.__startApp = function () {
     let m = raw.match(/^(m[0-9]+)-summary$/);
     if (m && MOD[m[1]] && MOD[m[1]].locked) return { view: 'unlock' };
     if (m && MOD[m[1]]) return { view: 'summary', mod: m[1] };
-    m = raw.match(/^(questions|cards|quiz|formulas|lab|mine|guide|syllabus|battle)(?:\.([a-z0-9-]+))?$/);
+    m = raw.match(/^(questions|cards|quiz|formulas|lab|mine|guide|syllabus|battle|papers)(?:\.([a-z0-9-]+))?$/);
     if (m) return { view: m[1], arg: m[2] || null };
     m = raw.match(/^([a-z0-9-]+?)(?:\.(\d+))?$/);
     if (m && TOPIC[m[1]]) return { view: 'topic', id: m[1], tab: m[2] != null ? +m[2] : null };
@@ -546,6 +573,7 @@ window.__startApp = function () {
         case 'mine': view = viewMine(r); break;
         case 'guide': view = viewGuide(r); break;
         case 'syllabus': view = viewSyllabus(r); break;
+        case 'papers': view = viewPapers(r); break;
         case 'battle': view = viewBattle(r); break;
         default: view = viewHome(r);
       }
@@ -553,7 +581,7 @@ window.__startApp = function () {
       host.appendChild(view.el);
       current = Object.assign({}, r, { api: view.api, cleanup: view.cleanup });
       main.style.scrollBehavior = 'auto';
-      main.scrollTop = 0;
+      main.scrollTop = 0; window.scrollTo(0, 0);
       main.style.scrollBehavior = '';
       if (view.after) view.after();
       stagger(view.el);
@@ -570,16 +598,17 @@ window.__startApp = function () {
   }
 
   // ================================================================ content hydration
-  const NOTE_LABEL = { why: ['bulb', 'Why it works'], exam: ['exam', 'Exam angle'], trap: ['warn', 'Common trap'], 'heads-up': ['info', 'Heads-up: slide vs textbook'], example: ['ex', 'Example'] };
+  const NOTE_LABEL = { why: ['bulb', 'Why it works'], exam: ['exam', 'Exam angle'], trap: ['warn', 'Common trap'], 'heads-up': ['info', 'Heads-up'], example: ['ex', 'Example'] };
   function srcLabel(src) {
     const m = String(src || '').match(/\/(?:slides|images|hi)\/s(\d+)/) || String(src || '').match(/\/(?:pages|images)\/p(\d+)/);
     if (!m) return '';
-    return 'BACHY105 course ' + (/\/p\d+/.test(src) || /m4\//.test(src) ? 'notes, VIT · Page ' : 'slides, VIT · Slide ') + parseInt(m[1], 10);
+    return 'BACHY105 course ' + (/\/p\d+/.test(src) || /m4\//.test(src) ? 'material, VIT · Page ' : 'material, VIT · No. ') + parseInt(m[1], 10);
   }
   const svgCache = {};
   function loadSvg(id) {
     // only our own files from img/, and only the <svg> element (no scripts or event handlers survive)
-    return svgCache[id] || (svgCache[id] = fetch(`img/${id}.svg`, { credentials: 'same-origin' }).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }).then((t) => {
+    const packed = (window.DATA.figsvg || {})[id]; // shipped inside the module's notes file
+    return svgCache[id] || (svgCache[id] = (packed ? Promise.resolve(packed) : fetch(`img/${id}.svg`, { credentials: 'same-origin' }).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })).then((t) => {
       const doc = new DOMParser().parseFromString(t, 'image/svg+xml'), svg = doc.documentElement;
       if (!svg || svg.nodeName.toLowerCase() !== 'svg') throw new Error('not svg');
       svg.querySelectorAll('script, foreignObject').forEach((x) => x.remove());
@@ -741,7 +770,7 @@ window.__startApp = function () {
     return `<a class="trow" href="#${t.id}">
       <span class="tick${isDone(t.id) ? ' done' : ''}" style="--p:${Math.round(f * 100)}%"></span>
       <div><h3>${rt(t.title)}</h3><p>${rt(t.blurb)}</p></div>
-      <span class="meta">${esc(t.source)} · ${t.tabs.length} tabs <span class="arrow">→</span></span>
+      <span class="meta">${t.tabs.length} tabs <span class="arrow">→</span></span>
     </a>`;
   }
   function summaryRow(m) {
@@ -764,8 +793,8 @@ window.__startApp = function () {
       <section class="hero">
         <div class="eyebrow"><span class="code">BACHY105</span><span>Applied Chemistry</span><span class="dot">·</span><span>Fall semester 2026–27</span></div>
         <h1 class="h-display">${words.map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(' ')}</h1>
-        <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the slides${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
-        <p class="credit">Based on the BACHY105 Applied Chemistry course material taught at VIT. Slide diagrams are reproduced from the course slides and credited to their authors; the notes, questions and interactive models are written for this site. <a href="privacy.html">Privacy</a></p>
+        <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the course material${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
+        <p class="credit">Based on the BACHY105 Applied Chemistry course material taught at VIT. Diagrams are reproduced from the course material and credited to their authors; the notes, questions and interactive models are written for this site. <a href="privacy.html">Privacy</a></p>
         <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div><button class="btn small" data-act="share">${icon('share')}Share progress</button></div>
         <div class="study-line">${icon('fire')}<span><b>${streakDays()}</b> day${streakDays() === 1 ? '' : 's'} in a row</span><span class="dot">·</span><span><b data-today>${fmtDur(todaySecs())}</b> today</span><span class="dot">·</span><span><b data-total>${fmtDur(totalSecs())}</b> in total</span></div>
         ${last ? `<div class="continue"><a class="btn primary" href="${last.hash}">Continue: ${rt(last.title)} ${icon('right')}</a></div>` : (TOPICS[0] ? `<div class="continue"><a class="btn primary" href="#${TOPICS[0].id}">Start with ${rt(TOPICS[0].title)} ${icon('right')}</a></div>` : '')}
@@ -785,7 +814,7 @@ window.__startApp = function () {
         <section class="mod-sec">
           <div class="mod-head"><span class="mod-num">Module ${m.num}</span><h2 class="h-sec">${esc(m.title)}</h2><span class="count">${icon('lock')} locked</span></div>
           <p class="mod-syl">${esc(m.syllabus)}</p>
-          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock ${lockedNames()} for ₹${PRICE_RS}</strong><p>Notes, slide diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
+          <a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>Unlock ${lockedNames()} for ₹${PRICE_RS}</strong><p>Notes, diagrams, interactive models, questions, quiz, flashcards and summary. One-time UPI payment.</p></div><span class="arrow">${icon('right')}</span></a>
         </section>`).join('')}
       <section class="mod-sec">
         <div class="mod-head"><h2 class="h-sec">Practice</h2></div>
@@ -798,6 +827,7 @@ window.__startApp = function () {
           <a class="tile" href="#lab"><span class="tt">${icon('flask')}Lab bench</span>${nViz ? `<span class="big">${nViz}</span>` : ''}<p>All the interactive models and calculators in one place: Nernst, Beer–Lambert, Bragg, Scherrer and more.</p></a>
           <a class="tile" href="#mine"><span class="tt">${icon('pen')}Highlights & notes</span><p>Your highlighted lines, personal notes, tagged topics and questions to revisit.</p></a>
           <a class="tile" href="#battle"><span class="tt">${icon('swords')}1v1 Quiz battle</span><p>Challenge a friend with a link: 10 questions, 10 seconds each, live scores.</p></a>
+          ${PINDEX.length ? `<a class="tile" href="#papers"><span class="tt">${icon('exam')}Question papers</span><p>Real CAT papers and model papers in the same pattern, with model answers.</p></a>` : ''}
           <a class="tile" href="#syllabus.cat2"><span class="tt">${icon('list')}CAT syllabus</span><p>The CAT-2 syllabus as a checklist, each line linked to its notes.</p></a>
         </div>
       </section>
@@ -851,9 +881,10 @@ window.__startApp = function () {
     const nq = (QBY[t.id] || []).length, nc = (t.flashcards || []).length;
     const el = h('article', { class: 'view topic' });
     el.innerHTML = `
-      <div class="eyebrow"><span class="code">M${+m.num}</span><a href="#${m.id}" style="text-decoration:none">${esc(m.title)}</a><span class="dot">·</span><span>${esc(t.source)}</span></div>
+      <div class="eyebrow"><span class="code">M${+m.num}</span><a href="#${m.id}" style="text-decoration:none">${esc(m.title)}</a></div>
       <h1 class="h-display">${rt(t.title)}</h1>
       <p class="blurb">${rt(t.blurb)}</p>
+      ${askedBadge(t.id)}
       <div class="t-actions">
         <button class="btn" data-act="done"></button>
         <button class="btn" data-act="tagtopic" title="Colour-tag this topic"></button>
@@ -949,7 +980,7 @@ window.__startApp = function () {
       moveInk();
       const completed = markVisited(t, i);
       paintDone(); paintNav(); updateSidebar(); updateOverall();
-      if (completed) toast('Topic complete. Every tab read.', 'check');
+      if (completed) { toast('Topic complete. Every tab read.', 'check'); if (autoTick([t.id])) updateSidebar(); }
       replaceHash(`#${t.id}.${i}`);
       S.last = { hash: `#${t.id}.${i}`, title: t.title }; save();
       setCrumbs([{ t: 'Home', href: '#home' }, { t: `Module ${+m.num}`, href: '#' + m.id, hideSm: true }, { t: t.short || t.title, href: `#${t.id}.0`, hideSm: true }, { t: t.tabs[i].title }]);
@@ -959,14 +990,21 @@ window.__startApp = function () {
       } else fill(opts.animate !== false && changed);
       if (opts.scroll) {
         const wrap = $('.tabs-wrap', el);
-        const panelTop = main.scrollTop + panel.getBoundingClientRect().top - main.getBoundingClientRect().top;
+        // bring the start of the new tab to the top of the screen, just under the top bar and the tab strip
+        const sc = pageScroller(), origin = sc === main ? main.getBoundingClientRect().top : 0;
+        const panelTop = sc.scrollTop + panel.getBoundingClientRect().top - origin;
         const top = Math.max(0, panelTop - topbar.offsetHeight - wrap.offsetHeight - 6);
-        if (main.scrollTop > top + 4) main.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' });
+        if (Math.abs(sc.scrollTop - top) > 4) sc.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' });
       }
     }
     tabsEl.addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (b) setTab(+b.dataset.i, { scroll: true }); });
     tabsEl.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); e.stopPropagation(); setTab(i + (e.key === 'ArrowRight' ? 1 : -1), { scroll: true }); $(`.tab[data-i="${i}"]`, tabsEl).focus(); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault(); e.stopPropagation();
+        const r = e.key === 'ArrowRight';
+        if ((r && i === n - 1) || (!r && i === 0)) { (r ? goNext : goPrev)(); return; }
+        setTab(i + (r ? 1 : -1), { scroll: true }); $(`.tab[data-i="${i}"]`, tabsEl).focus();
+      }
     });
     nav.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) setTab(+b.dataset.go, { scroll: true }); });
     panel.addEventListener('click', (e) => {
@@ -977,13 +1015,21 @@ window.__startApp = function () {
         showSelBar(mk.getBoundingClientRect(), [{ html: icon('trash') + 'Remove highlight', title: 'Remove highlight', fn: () => { S.hl[t.id] = (S.hl[t.id] || []).filter((x) => x.id !== hid); save(); fill(false); } }]);
       }
     });
+    // arrow keys run on past the ends of a topic: last tab → the next topic, first tab → the previous topic's last tab
+    function goNext() { if (i < n - 1) setTab(i + 1, { scroll: true }); else if (nx) navigate('#' + nx.key); }
+    function goPrev() {
+      if (i > 0) { setTab(i - 1, { scroll: true }); return; }
+      const pv = ORDER[oi - 1]; if (!pv) return;
+      const pt = TOPIC[pv.key];
+      navigate('#' + pv.key + (pt && pt.tabs && pt.tabs.length ? '.' + (pt.tabs.length - 1) : ''));
+    }
     const onResize = () => moveInk();
     window.addEventListener('resize', onResize);
     return {
       el,
       after() { setTab(i, { animate: false }); requestAnimationFrame(moveInk); if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInk); },
       cleanup() { window.removeEventListener('resize', onResize); },
-      api: { setTab, tab: () => i, next: () => setTab(i + 1, { scroll: true }), prev: () => setTab(i - 1, { scroll: true }), refresh: () => fill(false), topic: t },
+      api: { setTab, tab: () => i, next: goNext, prev: goPrev, refresh: () => fill(false), topic: t },
     };
   }
 
@@ -1279,7 +1325,7 @@ window.__startApp = function () {
         });
       }
       holder.appendChild(card);
-      next.addEventListener('click', () => { run.i++; step(); main.scrollTo({ top: 0 }); });
+      next.addEventListener('click', () => { run.i++; step(); pageScroller().scrollTo({ top: 0 }); });
       $('[data-quit]', el).addEventListener('click', finish);
       if (keyHandler) document.removeEventListener('keydown', keyHandler);
       keyHandler = (e) => {
@@ -1611,10 +1657,10 @@ window.__startApp = function () {
       m.innerHTML = `<div class="modal-head"><h2>Keyboard shortcuts</h2><button class="icon-btn" data-x aria-label="Close">${icon('x')}</button></div>
         <div class="modal-body"><div class="keys">
           <span>${k(isMac ? '⌘ K' : 'Ctrl K')}${k('/')}</span><span>Search everything</span>
-          <span>${k('←')}${k('→')}</span><span>Previous / next tab (flashcards: still learning / know it)</span>
+          <span>${k('←')}${k('→')}</span><span>Previous / next tab, running on to the next or previous topic at the ends (flashcards: still learning / know it)</span>
           <span>${k('N')}${k('P')}</span><span>Next / previous topic</span>
           <span>${k('R')}</span><span>Recall mode: blank every key term</span>
-          <span>${k('F')}</span><span>Focus mode with a 25-minute timer</span>
+          <span>${k('F')}</span><span>Focus mode with a timer (30 min, 1, 2 or 3 hours)</span>
           <span>${k('[')}</span><span>Show or hide the sidebar</span>
           <span>${k('Space')}</span><span>Flip a flashcard</span>
           <span>${k('1')}${k('2')}${k('3')}${k('4')}</span><span>Pick an option in the quiz, <kbd>Enter</kbd> for next</span>
@@ -2014,6 +2060,13 @@ window.__startApp = function () {
     ],
   };
   const sylItems = (cat) => (SYL[cat] || []).flatMap((g) => g.lines.flatMap(([, tl]) => tl.map(([id]) => ({ id, mod: g.mod }))));
+  // a topic read to the end ticks itself on every syllabus that lists it; a tick the student removed by hand (0) stays off
+  function autoTick(ids) {
+    let changed = false;
+    Object.keys(SYL).forEach((cat) => sylItems(cat).forEach((x) => { const k = cat + ':' + x.id; if ((!ids || ids.includes(x.id)) && S.syl[k] === undefined && isDone(x.id)) { S.syl[k] = 1; changed = true; } }));
+    if (changed) save();
+    return changed;
+  }
   function viewSyllabus(r) {
     const cat = r.arg === 'cat1' ? 'cat1' : 'cat2', label = cat === 'cat1' ? 'CAT-1' : 'CAT-2';
     setCrumbs([{ t: 'Home', href: '#home' }, { t: label + ' syllabus' }]); setActive('syllabus.' + cat); document.title = `${label} syllabus · BACHY105 Notes`;
@@ -2026,25 +2079,80 @@ window.__startApp = function () {
       return { el };
     }
     function paint() {
+      autoTick(); // topics read before this feature existed tick themselves too
       const items = sylItems(cat), ticked = items.filter((x) => S.syl[cat + ':' + x.id]).length;
       const pct = items.length ? Math.round((ticked / items.length) * 100) : 0;
       el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>${label}</span><span class="dot">·</span><span>${items.length} topics</span></div>
         <h1 class="h-display">${label} syllabus</h1>
-        <p class="blurb">Every line of the ${label} syllabus, linked to the notes that cover it. Tick a topic when you can explain it without looking. Topics you've finished reading are marked <span class="syl-read">read</span>.</p>
+        <p class="blurb">Every line of the ${label} syllabus, linked to the notes that cover it. A topic ticks itself when you finish reading every tab of it. You can also tick or untick one yourself.</p>
         <div class="syl-top"><div class="ring" style="--p:${pct}"><span>${pct}%</span></div><div><b>${ticked} of ${items.length}</b> ticked<br><span class="muted" style="font-size:14px">Saved in this browser.</span></div>${ticked ? `<button class="btn small ghost" data-clear>${icon('rotate')}Clear ticks</button>` : ''}</div>
         ${groups.map((g) => { const M = MOD[g.mod] || { num: g.mod.slice(1) }; const locked = !!M.locked; const gi = sylItems(cat).filter((x) => x.mod === g.mod);
           return `<section class="syl-mod"><div class="mod-head"><span class="mod-num">Module ${+M.num}</span><h2 class="h-sec">${esc(g.title)}</h2><span class="count">${gi.filter((x) => S.syl[cat + ':' + x.id]).length}/${gi.length}${locked ? ` · ${icon('lock')} locked` : ''}</span></div>
             ${g.lines.map(([line, tl]) => `<div class="syl-line"><div class="syl-lt">${esc(line)}</div>${tl.map(([id, name]) => { const on = !!S.syl[cat + ':' + id], t = TOPIC[id];
               return locked || !t ? `<a class="syl-item locked" href="#unlock"><span class="syl-box">${icon('lock')}</span><span class="syl-name">${esc(name)}</span><span class="syl-tag">Unlock</span></a>`
-                : `<div class="syl-item${on ? ' on' : ''}"><button class="syl-box" role="checkbox" aria-checked="${on}" aria-label="Tick ${esc(name)}" data-tick="${id}">${on ? icon('check') : ''}</button><a class="syl-name" href="#${id}">${rt(t.title)}</a>${isDone(id) ? '<span class="syl-read">read</span>' : `<span class="syl-tag">${Math.round(frac(t) * 100)}%</span>`}</div>`; }).join('')}</div>`).join('')}
+                : `<div class="syl-item${on ? ' on' : ''}"><button class="syl-box" role="checkbox" aria-checked="${on}" aria-label="Tick ${esc(name)}" data-tick="${id}">${on ? icon('check') : ''}</button><a class="syl-name" href="#${id}">${rt(t.title)}</a>${on ? '' : `<span class="syl-tag">${Math.round(frac(t) * 100)}% read</span>`}</div>`; }).join('')}</div>`).join('')}
           </section>`; }).join('')}`;
     }
     el.addEventListener('click', (e) => {
       const b = e.target.closest('[data-tick]');
-      if (b) { const k = cat + ':' + b.dataset.tick; if (S.syl[k]) delete S.syl[k]; else S.syl[k] = 1; save(); paint(); updateSidebar(); return; }
-      if (e.target.closest('[data-clear]') && confirm(`Clear all ${label} ticks?`)) { sylItems(cat).forEach((x) => delete S.syl[cat + ':' + x.id]); save(); paint(); updateSidebar(); }
+      if (b) { const k = cat + ':' + b.dataset.tick; S.syl[k] = S.syl[k] ? 0 : 1; save(); paint(); updateSidebar(); return; }
+      if (e.target.closest('[data-clear]') && confirm(`Clear all ${label} ticks?`)) { sylItems(cat).forEach((x) => { S.syl[cat + ':' + x.id] = 0; }); save(); paint(); updateSidebar(); }
     });
     paint();
+    return { el };
+  }
+
+  // ================================================================ CAT question papers
+  // papers-free.js: the actual CAT papers, the free model papers, the index of all papers and which topics were asked.
+  // papers-paid.js: the other model papers (loaded only with full access). Locked ones are listed from the index.
+  // No papers file yet: the sidebar link and home tile stay hidden and #papers says they are coming.
+  const PAPERS = (D.papers || []).slice(), PAPER = {};
+  PAPERS.forEach((p) => { PAPER[p.id] = p; });
+  const PINDEX = D.paperIndex || PAPERS.map((p) => ({ id: p.id, kind: p.kind, title: p.title, sub: p.sub }));
+  const ASKED = D.asked || {};
+  const CAT2_UNTIL = Date.parse('2026-10-04T23:59:59+05:30'); // the "asked in CAT-2" note shows until CAT-2 ends
+  function askedBadge(id) {
+    // one entry, or a list when the topic came up in more than one slot's paper
+    const list = [].concat(ASKED[id] || []);
+    if (!list.length || Date.now() > CAT2_UNTIL) return '';
+    const slot = (x) => { const p = PAPER[x.paper] || PINDEX.find((y) => y.id === x.paper); return p ? (p.short || p.title).replace(/ paper$/, '') : ''; };
+    const lines = list.map((x) => `${list.length > 1 ? `<b>${esc(slot(x))}</b> ` : ''}(${esc(x.where)}): ${esc(x.what)}. <a href="#papers.${esc(x.paper)}">See the question paper ${icon('right')}</a>`);
+    return `<div class="note exam cat2-asked"><p><b>This topic was asked in CAT-2</b>${list.length > 1 ? ` in ${list.length} slots` : ''}${list.length > 1 ? ':</p><p>' + lines.join('</p><p>') : ' ' + lines[0]}</p></div>`;
+  }
+  function viewPapers(r) {
+    const p = r.arg && PAPER[r.arg];
+    const el = h('div', { class: 'view papers' });
+    if (!p) {
+      setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers' }]); setActive('papers'); document.title = 'Question papers · BACHY105 Notes';
+      const row = (x) => { const open = !!PAPER[x.id];
+        return open ? `<a class="next-topic" href="#papers.${esc(x.id)}"><div><small>${esc(x.sub || '')}</small><strong>${esc(x.title)}</strong></div><span class="arrow">${icon('right')}</span></a>`
+          : `<a class="lock-card" href="#unlock"><span class="lock-ico">${icon('lock')}</span><div><strong>${esc(x.title)}</strong><p>${esc(x.sub || '')} · unlock with full access for ₹${PRICE_RS}</p></div><span class="arrow">${icon('right')}</span></a>`; };
+      const actual = PINDEX.filter((x) => x.kind === 'actual'), model = PINDEX.filter((x) => x.kind === 'model');
+      el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>CAT</span><span class="dot">·</span><span>${actual.length} actual · ${model.length} model</span></div>
+        <h1 class="h-display">Question papers</h1>
+        ${PINDEX.length ? `<p class="blurb">Real CAT papers, typed out cleanly, and model papers in the same pattern. Try each question on paper first, then open the model answer.</p>
+        ${actual.length ? `<section class="sum-sec"><h2 class="h-sec">Actual papers <small>${actual.length}</small></h2><div class="paper-list">${actual.map(row).join('')}</div></section>` : ''}
+        ${model.length ? `<section class="sum-sec"><h2 class="h-sec">Model papers <small>${model.length}</small></h2><div class="paper-list">${model.map(row).join('')}</div></section>` : ''}`
+          : '<p class="blurb">Question papers are coming soon: the actual CAT papers with model answers, and model papers in the same pattern.</p>'}`;
+      stagger(el);
+      return { el };
+    }
+    setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers', href: '#papers', hideSm: true }, { t: p.short || p.title }]); setActive('papers');
+    document.title = `${p.title} · BACHY105 Notes`;
+    const topicLinks = (ids) => (ids || []).filter((id) => TOPIC[id]).map((id) => `<a href="#${id}">${rt(TOPIC[id].short || TOPIC[id].title)}</a>`).join(' · ');
+    el.innerHTML = `<div class="eyebrow"><span class="code">${p.kind === 'actual' ? 'Actual paper' : 'Model paper'}</span><span>${esc(p.sub || '')}</span></div>
+      <h1 class="h-display">${esc(p.title)}</h1>
+      ${p.meta ? `<div class="kv paper-meta">${p.meta.map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>` : ''}
+      ${p.instructions ? `<div class="note heads-up"><p>${p.instructions}</p></div>` : ''}
+      ${(p.questions || []).map((q) => `<section class="paper-q prose">
+        <div class="paper-qhead"><span class="paper-qn">Q${esc(q.n)}</span><span class="ew-score">${esc(q.marks)} marks${q.co ? ' · CO' + esc(q.co) : ''}${q.bl ? ' · BL' + esc(q.bl) : ''}</span></div>
+        <div class="paper-prompt">${q.prompt}</div>
+        ${q.passage ? `<div class="paper-passage">${q.passage}</div>` : ''}
+        ${q.parts ? `<ol class="paper-parts">${q.parts.map((x) => `<li>${x.text}${x.marks ? ` <span class="ew-score">(${esc(x.marks)} marks)</span>` : ''}</li>`).join('')}</ol>` : ''}
+        ${q.answer ? `<details class="more paper-ans"><summary>Model answer</summary>${q.answer}</details>` : ''}
+        ${q.topics && q.topics.length ? `<p class="paper-rev">Revise: ${topicLinks(q.topics)}</p>` : ''}
+      </section>`).join('')}
+      <p style="margin-top:32px"><a class="btn" href="#papers">${icon('left')}All question papers</a></p>`;
     return { el };
   }
 
@@ -2070,7 +2178,7 @@ window.__startApp = function () {
       ${sec('sigma', 'Formula sheet and Lab bench', `<p>The <a href="#formulas">Formula sheet</a> has every equation, the numbers worth memorising and the classic traps, per module. The <a href="#lab">Lab bench</a> collects every interactive model and calculator (Nernst, Beer–Lambert, Bragg, Scherrer and more), each linked to the tab that explains it.</p>`)}
       ${sec('book', 'Module summaries', `<p>Every module ends with a one-page summary: how it fits together, the key points of every topic, all its diagrams, side-by-side comparisons, equations, numbers and traps. Best the night before an exam.</p><p class="g-ex">Try it: <a href="#m2-summary">Module 2 summary</a>.</p>`)}
       ${sec('list', 'CAT syllabus checklists', `<p>The <a href="#syllabus.cat2">CAT-2 syllabus</a> lists every syllabus line with links to the topics that cover it. Tick a topic when you can explain it without looking, and watch the percentage climb.</p>`)}
-      ${sec('timer', 'Focus mode', `<p>Tap <b>Focus</b> in the top bar (or press <kbd>F</kbd>) for a 25-minute timer with fewer distractions. A bar at the bottom lets you <b>Pause</b> or <b>Exit focus</b> at any time (on a computer, <kbd>Esc</kbd> works too).</p>`)}
+      ${sec('timer', 'Focus mode', `<p>Tap <b>Focus</b> in the top bar (or press <kbd>F</kbd>) for a focus timer with fewer distractions. Pick <b>30 minutes, 1, 2 or 3 hours</b> in the bar at the bottom, which also lets you <b>Pause</b> or <b>Exit focus</b> at any time (on a computer, <kbd>Esc</kbd> works too).</p>`)}
       ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day (it pauses after 3 minutes without a tap or scroll, except while the Focus timer is running). Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
       ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner. When the owner replies, you get a note when you open the site and the reply appears under <b>Messages</b> in the sidebar.</p>`)}
       ${sec('phone', 'Your account and devices', `<p>Your student account works on <b>1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind. If something looks wrong, tap <b>Devices</b> at the bottom of the sidebar to request a device reset (once a week; the owner approves it).</p>`)}
@@ -2386,6 +2494,11 @@ window.__startApp = function () {
       if (k === 'ArrowRight') { e.preventDefault(); current.api.next(); }
       else if (k === 'ArrowLeft') { e.preventDefault(); current.api.prev(); }
     }
+    else if (current && current.view === 'summary' && (k === 'ArrowRight' || k === 'ArrowLeft')) {
+      // a module summary sits between topics in the reading order, so the arrows carry on through it
+      const o = ORDER[orderIdx(current.mod + '-summary') + (k === 'ArrowRight' ? 1 : -1)];
+      if (o) { e.preventDefault(); const pt = TOPIC[o.key]; navigate('#' + o.key + (k === 'ArrowLeft' && pt ? '.' + (pt.tabs.length - 1) : '')); }
+    }
     if ((k === 'n' || k === 'p') && current && (current.view === 'topic' || current.view === 'summary')) {
       const key = current.view === 'topic' ? current.id : current.mod + '-summary';
       const o = ORDER[orderIdx(key) + (k === 'n' ? 1 : -1)];
@@ -2395,10 +2508,11 @@ window.__startApp = function () {
   function onScroll() {
     const bar = $('.read-bar', topbar); if (!bar) return;
     const show = current && (current.view === 'topic' || current.view === 'summary');
-    const max = main.scrollHeight - main.clientHeight;
-    bar.style.width = show && max > 40 ? (main.scrollTop / max) * 100 + '%' : '0';
+    const sc = pageScroller(), max = sc.scrollHeight - sc.clientHeight;
+    bar.style.width = show && max > 40 ? (sc.scrollTop / max) * 100 + '%' : '0';
   }
   main.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
   main.addEventListener('scroll', () => { if (selBar) hideSelBar(); }, { passive: true });
   function onHistory() {
     const r = parse(location.hash);
@@ -2412,6 +2526,7 @@ window.__startApp = function () {
   window.addEventListener('hashchange', onHistory);
 
   // ================================================================ boot
+  autoTick();
   buildSidebar();
   buildTopbar();
   let startHash = location.hash;

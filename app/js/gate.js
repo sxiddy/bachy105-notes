@@ -96,7 +96,8 @@
       const FM = window.FILE_MODULE || {};
       const paidFiles = !paid ? [] : (window.PAID_FILES || []).filter((f) => !modules || modules.includes(FM[f]));
       const files = (window.FREE_FILES || []).concat(paidFiles);
-      for (const f of files) await loadScript('data/' + f);
+      // all at once: every file only registers data (the app sorts chunks, questions and papers itself)
+      await Promise.all(files.map((f) => loadScript('data/' + f)));
       const allPaid = CFG.filter((m) => !m.free).every((m) => !modules || modules.includes(m.id));
       window.APP_LOCKED = !paid || !allPaid;
       window.__showPaywall = paywall;
@@ -120,7 +121,7 @@
         <div class="gate-card">
           <div class="gate-eyebrow">BACHY105 · Applied Chemistry</div>
           <h1 class="gate-title">Applied Chemistry</h1>
-          <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, slide diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
+          <p class="gate-lead">${freeNames()} ${freeCount() === 1 ? 'is' : 'are'} free. Unlock ${paidNames()}: their notes, diagrams, interactive models, questions, quiz, flashcards and summaries.</p>
           ${S.sale && S.sale.text && S.normalPrice > price ? `<div class="gate-offer-note" role="note">${esc(S.sale.text)}</div>` : ''}
           <div class="gate-price"><span class="gate-rs">₹${rs}</span>${S.sale && S.normalPrice > price ? `<s class="gate-was">₹${(S.normalPrice / 100).toFixed(0)}</s><span class="gate-offer">Offer ends ${offerEnds(S.sale.until)}</span>` : ''}<span class="gate-muted">one-time · pay with any UPI app</span></div>
           <div class="gate-devices" role="note">

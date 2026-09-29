@@ -19,8 +19,8 @@ fs.mkdirSync(PDATA, { recursive: true });
 for (const f of fs.readdirSync(PDATA)) fs.unlinkSync(path.join(PDATA, f));
 fs.rmSync(path.join(APP, 'data'), { recursive: true, force: true }); // never ship notes publicly
 
-const order = (f) => (f.startsWith('chunk-') ? 0 : f.startsWith('q-') ? 1 : f.startsWith('summary-') ? 2 : 3);
-const contentFiles = fs.readdirSync(CONTENT).filter((f) => /^(chunk|q|summary)-[A-Za-z0-9]+\.js$/.test(f)).sort((a, b) => order(a) - order(b) || a.localeCompare(b));
+const order = (f) => (f.startsWith('chunk-') ? 0 : f.startsWith('q-') ? 1 : f.startsWith('summary-') ? 2 : f.startsWith('papers-') ? 3 : 4);
+const contentFiles = fs.readdirSync(CONTENT).filter((f) => /^(chunk|q|summary|papers)-[A-Za-z0-9]+\.js$/.test(f)).sort((a, b) => order(a) - order(b) || a.localeCompare(b));
 for (const f of contentFiles) fs.copyFileSync(path.join(CONTENT, f), path.join(PDATA, f));
 
 const dims = {};
@@ -49,7 +49,7 @@ for (const f of paidViz) fs.copyFileSync(path.join(ROOT, 'viz-paid', f), path.jo
 // Modules (names, chunks, free or paid) come from content/modules.json — the one place to add a module.
 const MODULES = JSON.parse(fs.readFileSync(path.join(CONTENT, 'modules.json'), 'utf8'));
 const filesOf = (m) => [...m.chunks.map((c) => `chunk-${c}.js`), m.questions, `summary-${m.id}.js`].filter(Boolean);
-const FREE = MODULES.filter((m) => m.free).flatMap(filesOf);
+const FREE = [...MODULES.filter((m) => m.free).flatMap(filesOf), 'papers-free.js']; // the papers file (once there is one) is free for everyone signed in
 fs.writeFileSync(path.join(APP, 'js', 'modules.js'), `window.MODULES_CONFIG = ${JSON.stringify(MODULES.map(({ id, num, title, free, chunks, syllabus }) => ({ id, num, title, free, chunks, syllabus })))};\n`);
 // which module each paid file belongs to, so the owner can unlock a single module for someone
 const fileModule = {};
@@ -84,7 +84,7 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${TITLE}</title>
-<meta name="description" content="Applied Chemistry (BACHY105) modules 2–4 as tabbed study notes with slide diagrams, interactive models and scenario questions.">
+<meta name="description" content="Applied Chemistry (BACHY105) modules 2–4 as tabbed study notes with diagrams, interactive models and scenario questions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONTS}">
