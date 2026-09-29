@@ -85,39 +85,40 @@ CHUNK({
             <li>A cell reaction is <b>feasible when E<sub>cell</sub> is positive</b>.</li>
           </ul>
           <div class="note why"><p>Voltage and free energy measure the same drive: ΔG = −nFE. A positive E<sub>cell</sub> means ΔG &lt; 0, which is exactly the spontaneous case a galvanic cell runs on.</p></div>
-          <h3>Nernst equation, as on the slide</h3>
-          <div class="eq">E<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub> + <span class="frac"><span>0.059</span><span>n</span></span> log<sub>10</sub> <span class="frac"><span>[M<sub>1</sub><sup>n+</sup>]</span><span>[M<sub>2</sub><sup>n+</sup>]</span></span></div>
+          <h3>Nernst equation</h3>
+          <div class="eq" data-label="Nernst equation (298 K)">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log Q</div>
           <div class="kv">
-            <div><span>E°<sub>M1</sub></span><b>standard reduction potential of the cathode</b></div>
-            <div><span>E°<sub>M2</sub></span><b>standard reduction potential of the anode</b></div>
-            <div><span>n</span><b>electrons transferred</b></div>
-            <div><span>0.059</span><b>2.303RT/F at 298 K</b></div>
+            <div><span>E°<sub>cell</sub></span><b>E°<sub>cathode</sub> − E°<sub>anode</sub> (both standard reduction potentials)</b></div>
+            <div><span>n</span><b>electrons transferred in the balanced reaction</b></div>
+            <div><span>Q</span><b>[products] / [reactants], each raised to its coefficient; solids count as 1</b></div>
+            <div><span>0.0591</span><b>2.303RT/F at 298 K</b></div>
           </div>
-          <p>In words: E<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub> + (0.059/n) log([cathode ion]/[anode ion]). Flip the fraction and the sign and you get the form most books print, often with the constant written 0.0591 (the same 2.303RT/F at 298 K, rounded to one more digit):</p>
-          <div class="eq" data-label="Same equation, textbook form">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span></div>
-          <div class="note heads-up"><p>The slide labels both E° values "standard reduction potential of cathode". The second one, E°<sub>M2</sub>, belongs to the anode. The numbering also swaps between slides: here M<sub>1</sub> is the cathode, but in the cell-notation slide M<sub>1</sub> was the left-hand anode. Go by cathode and anode rather than by the subscript. The worked example (Cu cathode on top of the fraction) confirms this reading.</p></div>
+          <p>For a metal cell M<sub>1</sub> | M<sub>1</sub><sup>n+</sup> ‖ M<sub>2</sub><sup>n+</sup> | M<sub>2</sub> (anode left, cathode right) the reaction is M<sub>1</sub> + M<sub>2</sub><sup>n+</sup> → M<sub>1</sub><sup>n+</sup> + M<sub>2</sub>. The anode ion is a product and the cathode ion a reactant, so:</p>
+          <div class="eq" data-label="Metal | ion cells">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span></div>
+          <div class="note trap"><p>When the two ions have different charges, balance the reaction first. Ni + 2Ag<sup>+</sup> → Ni<sup>2+</sup> + 2Ag has n = 2 and Q = [Ni<sup>2+</sup>] / [Ag<sup>+</sup>]<sup>2</sup>.</p></div>
+          <div class="note heads-up"><p>You may also see it written E°<sub>cathode</sub> − E°<sub>anode</sub> + (0.059/n) log([cathode ion]/[anode ion]). That is the same equation: flipping the fraction flips the sign of the log. Either one gets full marks; stick to the one above.</p></div>
           <h3>Equimolar solutions</h3>
-          <p>If the electrolytes for M<sub>1</sub> and M<sub>2</sub> have the same concentration, the ratio is 1, log 1 = 0, and the log term disappears:</p>
-          <div class="eq" data-label="Equimolar">E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub></div>
-          <div class="note why"><p>Reading the log term: more cathode ions, or fewer anode ions, pushes the reaction forward, so E<sub>cell</sub> rises above E°<sub>cell</sub>. Dilute the cathode side and it drops.</p></div>
+          <p>If both ions have the same charge and the same concentration, Q = 1, log 1 = 0, and the log term disappears:</p>
+          <div class="eq" data-label="Equimolar">E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></div>
+          <div class="note why"><p>Reading the log term: more cathode ions, or fewer anode ions, makes Q smaller than 1, so log Q is negative and E<sub>cell</sub> rises above E°<sub>cell</sub>. Dilute the cathode side and it drops.</p></div>
         ` },
         { title: 'Worked example', html: `
-          <p class="lead">The slide problem: write the half-cell reactions, the net reaction and the EMF of Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu. Standard reduction potentials are −0.40 V and 0.34 V respectively.</p>
+          <p class="lead">Write the half-cell reactions, the net reaction and the EMF of Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu. Standard reduction potentials are −0.40 V and 0.34 V respectively.</p>
           <div class="worked">
             <div class="given"><p>Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu</p><p>E°(Cd<sup>2+</sup>/Cd) = −0.40 V, E°(Cu<sup>2+</sup>/Cu) = 0.34 V, n = 2</p></div>
             <div class="solve">
               <div class="eq" data-label="At anode">Cd → Cd<sup>2+</sup> + 2e<sup>−</sup> (E° = −0.40 V)</div>
               <div class="eq" data-label="At cathode">Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu (E° = 0.34 V)</div>
               <div class="eq" data-label="Net reaction">Cd + Cu<sup>2+</sup> → Cu + Cd<sup>2+</sup></div>
-              <div class="eq" data-label="Cell EMF">E<sub>cell</sub> = 0.34 − (−0.40) + <span class="frac"><span>0.059</span><span>2</span></span> log<sub>10</sub> <span class="frac"><span>[0.5]</span><span>[0.01]</span></span></div>
-              <div class="eq">= 0.74 + <span class="frac"><span>0.059</span><span>2</span></span> log<sub>10</sub> 50</div>
-              <div class="eq">= 0.74 + <span class="frac"><span>0.059</span><span>2</span></span> × 1.7</div>
+              <div class="eq" data-label="Standard EMF">E°<sub>cell</sub> = 0.34 − (−0.40) = 0.74 V</div>
+              <div class="eq" data-label="Cell EMF">E<sub>cell</sub> = 0.74 − <span class="frac"><span>0.0591</span><span>2</span></span> log <span class="frac"><span>[Cd<sup>2+</sup>]</span><span>[Cu<sup>2+</sup>]</span></span> = 0.74 − <span class="frac"><span>0.0591</span><span>2</span></span> log <span class="frac"><span>0.01</span><span>0.5</span></span></div>
+              <div class="eq">= 0.74 − 0.02955 × log 0.02 = 0.74 − 0.02955 × (−1.699)</div>
               <div class="eq">= 0.74 + 0.05</div>
             </div>
             <div class="result"><p>E<sub>cell</sub> = <b>0.79 V</b>. Positive, so the reaction is feasible.</p></div>
           </div>
           <div class="note why"><p>E°<sub>cell</sub> on its own is <b>0.74 V</b>. The answer comes out higher because the cathode solution is concentrated (0.5 M Cu<sup>2+</sup>) and the anode solution is dilute (0.01 M Cd<sup>2+</sup>). Both favour the forward reaction.</p></div>
-          <div class="note exam"><p>The electrode with the <b>lower (more negative) reduction potential</b> is the one oxidised. Cd (−0.40 V) has the lower reduction potential, so Cd is the one oxidised. That is why it sits on the left as the anode. Keep log 50 = 1.699 ≈ 1.7 handy.</p></div>
+          <div class="note exam"><p>The electrode with the <b>lower (more negative) reduction potential</b> is the one oxidised. Cd (−0.40 V) has the lower reduction potential, so Cd is the one oxidised. That is why it sits on the left as the anode. Keep log 0.02 = −1.699 (log 50 = +1.699) handy.</p></div>
           <p>Try it: load the Cd/Cu preset to get 0.79 V, then lower [Cu<sup>2+</sup>] to 0.01 M and watch E<sub>cell</sub> fall back to E°<sub>cell</sub> = 0.74 V.</p>
           <div data-viz="nernst"></div>
         ` }
@@ -131,7 +132,7 @@ CHUNK({
         { front: 'Define EMF of a cell.', back: 'The <b>maximum potential difference</b> between the two electrodes of a galvanic (voltaic) cell.' },
         { front: 'When is a cell reaction feasible?', back: 'When <b>E<sub>cell</sub> is positive</b> (which means ΔG &lt; 0).' },
         { front: 'Nernst equation when both solutions are equimolar?', back: '<b>E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></b>. The log term vanishes because log 1 = 0, so the cell potential equals the standard cell potential.' },
-        { front: 'EMF of Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu?', back: '<b>0.79 V</b>: E°<sub>cell</sub> = 0.74 V plus (0.059/2) × log 50 ≈ 0.05 V.' },
+        { front: 'EMF of Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu?', back: '<b>0.79 V</b>: E°<sub>cell</sub> = 0.74 V, then − (0.0591/2) log(0.01/0.5) = + 0.05 V.' },
         { front: 'Who gave their names to the voltaic cell and the Daniell cell?', back: '<b>Alessandro Volta</b>, Italian physicist; <b>John Frederic Daniell</b>, British chemist.' }
       ],
       oneLiners: [
@@ -140,12 +141,12 @@ CHUNK({
         'Daniell cell Zn | ZnSO<sub>4</sub> ‖ CuSO<sub>4</sub> | Cu gives 1.1 V; salt bridge is KCl or NH<sub>4</sub>Cl in gelatine.',
         'A salt bridge maintains charge balance and minimises the liquid junction potential.',
         'EMF is the maximum potential difference between the electrodes; the reaction is feasible when E<sub>cell</sub> &gt; 0.',
-        'E<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub> + (0.059/n) log([cathode ion]/[anode ion]); equimolar case drops the log term.',
+        'Nernst: E<sub>cell</sub> = E°<sub>cell</sub> − (0.0591/n) log Q, with Q = [anode ion]/[cathode ion] for metal cells; Q = 1 drops the log term.',
         'Cd/Cu example: 0.74 V + 0.05 V = 0.79 V.'
       ],
       formulas: [
-        { name: 'Nernst equation (slide form)', html: `E<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub> + <span class="frac"><span>0.059</span><span>n</span></span> log<sub>10</sub> <span class="frac"><span>[M<sub>1</sub><sup>n+</sup>]</span><span>[M<sub>2</sub><sup>n+</sup>]</span></span>`, note: 'Careful: here M<sub>1</sub> = cathode and M<sub>2</sub> = anode, the reverse of M<sub>1</sub>/M<sub>2</sub> in the cell-notation formula. Both E° are standard reduction potentials; 298 K.' },
-        { name: 'Nernst equation (textbook form)', html: `E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span>`, note: 'Same equation with the fraction flipped and the sign changed; 0.059 and 0.0591 are both 2.303RT/F at 298 K, rounded.' },
+        { name: 'Nernst equation', html: `E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log Q`, note: 'E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub>; Q = [products]/[reactants] with coefficients as powers; 298 K.' },
+        { name: 'Nernst for metal | ion cells', html: `E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span>`, note: 'The anode ion is a product, the cathode ion a reactant.' },
         { name: 'Equimolar solutions', html: `E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub>`, note: 'log 1 = 0, so the concentration term drops out.' },
         { name: 'Free energy and EMF', html: `ΔG = −nFE<sub>cell</sub>`, note: 'Standard link behind the rule: E > 0 means ΔG < 0 (spontaneous).' },
         { name: 'Daniell cell', html: `Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu`, note: 'Anode Zn → Zn²⁺ + 2e⁻; cathode Cu²⁺ + 2e⁻ → Cu; EMF 1.1 V.' },

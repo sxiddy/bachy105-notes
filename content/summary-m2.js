@@ -27,7 +27,7 @@ SUMMARY({
   ],
   numbers: [
     { value: '1.1 V', what: 'Daniell cell EMF' }, { value: '0.0591 / n', what: 'Nernst factor at 298 K' },
-    { value: '0.79 V', what: 'Cd/Cu slide example' }, { value: '99.9999%', what: 'Purity needed for Si and Ge' },
+    { value: '0.79 V', what: 'Cd/Cu worked example' }, { value: '99.9999%', what: 'Purity needed for Si and Ge' },
     { value: '300 mm, 250 kg', what: 'Czochralski Si crystal' }, { value: '3.7 V', what: 'Max Li-ion cell voltage (vs 1.3 V Ni–Cd)' },
     { value: '500–1000', what: 'Li-ion cycles before capacity falls' }, { value: '≥ 40%', what: 'Fuel cell electrical efficiency' },
     { value: '1.23 V', what: 'E°cell of H₂–O₂ / PEMFC' }, { value: '< 80 °C', what: 'PEMFC operating temperature' },
