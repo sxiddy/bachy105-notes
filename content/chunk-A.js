@@ -98,7 +98,7 @@ CHUNK({
           <div class="note heads-up"><p>The slide labels both E° values "standard reduction potential of cathode". The second one, E°<sub>M2</sub>, belongs to the anode. The numbering also swaps between slides: here M<sub>1</sub> is the cathode, but in the cell-notation slide M<sub>1</sub> was the left-hand anode. Go by cathode and anode rather than by the subscript. The worked example (Cu cathode on top of the fraction) confirms this reading.</p></div>
           <h3>Equimolar solutions</h3>
           <p>If the electrolytes for M<sub>1</sub> and M<sub>2</sub> have the same concentration, the ratio is 1, log 1 = 0, and the log term disappears:</p>
-          <div class="eq" data-label="Equimolar">E<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub></div>
+          <div class="eq" data-label="Equimolar">E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub></div>
           <div class="note why"><p>Reading the log term: more cathode ions, or fewer anode ions, pushes the reaction forward, so E<sub>cell</sub> rises above E°<sub>cell</sub>. Dilute the cathode side and it drops.</p></div>
         ` },
         { title: 'Worked example', html: `
@@ -130,7 +130,7 @@ CHUNK({
         { front: 'What is the salt bridge made of, and what are its two jobs?', back: '<b>KCl or NH<sub>4</sub>Cl in gelatine</b>. It keeps the <b>charge balance</b> in both half cells and minimises the <b>liquid junction potential</b>.' },
         { front: 'Define EMF of a cell.', back: 'The <b>maximum potential difference</b> between the two electrodes of a galvanic (voltaic) cell.' },
         { front: 'When is a cell reaction feasible?', back: 'When <b>E<sub>cell</sub> is positive</b> (which means ΔG &lt; 0).' },
-        { front: 'Nernst equation when both solutions are equimolar?', back: '<b>E<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></b>. The log term vanishes because log 1 = 0.' },
+        { front: 'Nernst equation when both solutions are equimolar?', back: '<b>E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></b>. The log term vanishes because log 1 = 0, so the cell potential equals the standard cell potential.' },
         { front: 'EMF of Cd | Cd<sup>2+</sup> (0.01 M) ‖ Cu<sup>2+</sup> (0.5 M) | Cu?', back: '<b>0.79 V</b>: E°<sub>cell</sub> = 0.74 V plus (0.059/2) × log 50 ≈ 0.05 V.' },
         { front: 'Who gave their names to the voltaic cell and the Daniell cell?', back: '<b>Alessandro Volta</b>, Italian physicist; <b>John Frederic Daniell</b>, British chemist.' }
       ],
@@ -146,7 +146,7 @@ CHUNK({
       formulas: [
         { name: 'Nernst equation (slide form)', html: `E<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub> + <span class="frac"><span>0.059</span><span>n</span></span> log<sub>10</sub> <span class="frac"><span>[M<sub>1</sub><sup>n+</sup>]</span><span>[M<sub>2</sub><sup>n+</sup>]</span></span>`, note: 'Careful: here M<sub>1</sub> = cathode and M<sub>2</sub> = anode, the reverse of M<sub>1</sub>/M<sub>2</sub> in the cell-notation formula. Both E° are standard reduction potentials; 298 K.' },
         { name: 'Nernst equation (textbook form)', html: `E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span>`, note: 'Same equation with the fraction flipped and the sign changed; 0.059 and 0.0591 are both 2.303RT/F at 298 K, rounded.' },
-        { name: 'Equimolar solutions', html: `E<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub>`, note: 'log 1 = 0, so the concentration term drops out.' },
+        { name: 'Equimolar solutions', html: `E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub>`, note: 'log 1 = 0, so the concentration term drops out.' },
         { name: 'Free energy and EMF', html: `ΔG = −nFE<sub>cell</sub>`, note: 'Standard link behind the rule: E > 0 means ΔG < 0 (spontaneous).' },
         { name: 'Daniell cell', html: `Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu`, note: 'Anode Zn → Zn²⁺ + 2e⁻; cathode Cu²⁺ + 2e⁻ → Cu; EMF 1.1 V.' },
         { name: 'Cell representation', html: `M<sub>1</sub> | M<sub>1</sub><sup>n+</sup> (C<sub>1</sub>) ‖ M<sub>2</sub><sup>n+</sup> (C<sub>2</sub>) | M<sub>2</sub>`, note: 'Anode left, cathode right; ‖ is the salt bridge.' }
