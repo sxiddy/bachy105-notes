@@ -529,6 +529,7 @@ window.__startApp = function () {
       r = { view: 'home' }; replaceHash('#home');
     }
     const run = () => {
+      tickStudy(); // opening the next topic adds the seconds studied since the last tick, so the clock is up to date
       clearMounted();
       if (current && current.cleanup) try { current.cleanup(); } catch (e) { /* ignore */ }
       closeDrawer();
@@ -766,7 +767,7 @@ window.__startApp = function () {
         <p class="blurb">Modules 2, 3 and 4, rebuilt as short tabbed notes with every diagram from the slides${nViz ? `, ${nViz} interactive models` : ''} and ${QS.length} questions that make you use what you read. White text is what you must remember. Everything else is there so it makes sense.</p>
         <p class="credit">Based on the BACHY105 Applied Chemistry course material taught at VIT. Slide diagrams are reproduced from the course slides and credited to their authors; the notes, questions and interactive models are written for this site. <a href="privacy.html">Privacy</a></p>
         <div class="stat-line"><span class="stat-big">${d}/${n}</span><span class="muted">topics done</span><div class="bar"><i style="width:${n ? (d / n) * 100 : 0}%"></i></div><button class="btn small" data-act="share">${icon('share')}Share progress</button></div>
-        <div class="study-line">${icon('fire')}<span><b>${streakDays()}</b> day${streakDays() === 1 ? '' : 's'} in a row</span><span class="dot">·</span><span><b>${fmtDur(todaySecs())}</b> today</span><span class="dot">·</span><span><b>${fmtDur(totalSecs())}</b> in total</span></div>
+        <div class="study-line">${icon('fire')}<span><b>${streakDays()}</b> day${streakDays() === 1 ? '' : 's'} in a row</span><span class="dot">·</span><span><b data-today>${fmtDur(todaySecs())}</b> today</span><span class="dot">·</span><span><b data-total>${fmtDur(totalSecs())}</b> in total</span></div>
         ${last ? `<div class="continue"><a class="btn primary" href="${last.hash}">Continue: ${rt(last.title)} ${icon('right')}</a></div>` : (TOPICS[0] ? `<div class="continue"><a class="btn primary" href="#${TOPICS[0].id}">Start with ${rt(TOPICS[0].title)} ${icon('right')}</a></div>` : '')}
       </section>
       <div class="how">
@@ -1787,7 +1788,9 @@ window.__startApp = function () {
 
   // ================================================================ study time and streaks
   // Active study time is counted in this browser: 15 s at a time while the page is open, visible and used in the last
-  // 3 minutes. A day counts toward the streak once it has at least a minute. Days are Indian time.
+  // 3 minutes, or at any time while the focus timer runs (students read for long stretches without touching the page,
+  // and taps inside the music player never reach it). A day counts toward the streak once it has at least a minute.
+  // Days are Indian time.
   const DAYMS = 864e5, ISTMS = 5.5 * 3600e3;
   const dayKey = (ms) => new Date(ms + ISTMS).toISOString().slice(0, 10);
   const todaySecs = () => +S.study[dayKey(Date.now())] || 0;
@@ -1805,6 +1808,9 @@ window.__startApp = function () {
     return mm < 60 ? mm + ' min' : Math.floor(mm / 60) + ' h ' + (mm % 60) + ' min';
   }
   function paintStreak() {
+    // the home page's "today" and "in total" keep counting while it stays open
+    $$('[data-today]').forEach((x) => { x.textContent = fmtDur(todaySecs()); });
+    $$('[data-total]').forEach((x) => { x.textContent = fmtDur(totalSecs()); });
     const c = $('[data-streak]', topbar); if (!c) return;
     const n = streakDays();
     c.hidden = !n; c.innerHTML = icon('fire') + '<b>' + n + '</b>';
@@ -1812,14 +1818,19 @@ window.__startApp = function () {
   }
   let lastAct = Date.now();
   ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll', 'mousemove'].forEach((ev) => document.addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true }));
-  setInterval(() => {
-    if (document.visibilityState !== 'visible' || Date.now() - lastAct > 180000) return;
-    const d = dayKey(Date.now()), before = +S.study[d] || 0;
-    S.study[d] = before + 15;
+  // every 15 s, and on each page change: adds the real seconds since the last tick (at most 15)
+  let lastTick = Date.now();
+  function tickStudy() {
+    const now = Date.now(), secs = Math.min(15, Math.round((now - lastTick) / 1000));
+    lastTick = now;
+    if (secs <= 0 || document.visibilityState !== 'visible' || (now - lastAct > 180000 && !timerState.running)) return;
+    const d = dayKey(now), before = +S.study[d] || 0;
+    S.study[d] = before + secs;
     if (before < 60 && S.study[d] >= 60) { const n = streakDays(); if (n >= 2) toast(`You've studied ${n} days in a row. Keep it going!`, 'fire'); }
     const keys = Object.keys(S.study); if (keys.length > 400) keys.sort().slice(0, keys.length - 400).forEach((k) => delete S.study[k]);
     save(); paintStreak();
-  }, 15000);
+  }
+  setInterval(tickStudy, 15000);
 
   // ================================================================ share cards (a picture, like a run summary)
   // First name = the part of the student email before the first "." (siddharth.duddu2026@… -> Siddharth)
@@ -2060,7 +2071,7 @@ window.__startApp = function () {
       ${sec('book', 'Module summaries', `<p>Every module ends with a one-page summary: how it fits together, the key points of every topic, all its diagrams, side-by-side comparisons, equations, numbers and traps. Best the night before an exam.</p><p class="g-ex">Try it: <a href="#m2-summary">Module 2 summary</a>.</p>`)}
       ${sec('list', 'CAT syllabus checklists', `<p>The <a href="#syllabus.cat2">CAT-2 syllabus</a> lists every syllabus line with links to the topics that cover it. Tick a topic when you can explain it without looking, and watch the percentage climb.</p>`)}
       ${sec('timer', 'Focus mode', `<p>Tap <b>Focus</b> in the top bar (or press <kbd>F</kbd>) for a 25-minute timer with fewer distractions. A bar at the bottom lets you <b>Pause</b> or <b>Exit focus</b> at any time (on a computer, <kbd>Esc</kbd> works too).</p>`)}
-      ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day. Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
+      ${sec('fire', 'Study time, streaks and share cards', `<p>The site counts the time you actually study here each day (it pauses after 3 minutes without a tap or scroll, except while the Focus timer is running). Study at least a minute a day to keep your streak going (the flame in the top bar). Tap <b>Share progress</b> on the home page for a picture with today's time, your total, your streak and the modules you've finished.</p>`)}
       ${sec('help', 'Help? and Any ideas?', `<p>Found a mistake, have a suggestion, or something isn't working? Tap <b>Help?</b> (at the bottom of any tab, or in the sidebar). Want a new feature? Tap <b>Any ideas?</b> in the sidebar. Both go straight to the owner. When the owner replies, you get a note when you open the site and the reply appears under <b>Messages</b> in the sidebar.</p>`)}
       ${sec('phone', 'Your account and devices', `<p>Your student account works on <b>1 phone + 1 laptop/PC</b>. Signing in on a new one signs out the old one of the same kind. If something looks wrong, tap <b>Devices</b> at the bottom of the sidebar to request a device reset (once a week; the owner approves it).</p>`)}
       ${sec('db', 'Your data', `<p>Your progress follows your account: topics done, quiz scores, flashcards, highlights, notes, syllabus ticks and study time are saved to your student account and appear on your phone and your laptop once you sign in on both (give it a minute, or reopen the tab). <b>Backup</b> at the bottom of the sidebar still makes a copy you can keep. Switch between light and dark mode with the sun/moon button.</p>`)}`;
