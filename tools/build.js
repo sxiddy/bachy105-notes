@@ -25,12 +25,12 @@ for (const f of contentFiles) fs.copyFileSync(path.join(CONTENT, f), path.join(P
 
 const dims = {};
 for (const f of fs.readdirSync(PIMG).filter((f) => /^manifest-.*\.json$/.test(f))) Object.assign(dims, JSON.parse(fs.readFileSync(path.join(PIMG, f), 'utf8')));
-// The site's own redrawn diagrams (figs-svg/<id>.svg) replace the cropped slide images, but only once every figure
-// is redrawn (figs-svg/READY), so a half-finished set is never served. They are copied next to the slide crops, and
-// api/img.js stops serving a crop once its drawing exists.
+// The site's own redrawn diagrams (figs-svg/<id>.svg) replace the cropped slide images one by one: each finished
+// drawing goes live as soon as it is in figs-svg/, and figures not redrawn yet keep their crop. They are copied next
+// to the slide crops, and api/img.js stops serving a crop once its drawing exists.
 const SVGSRC = path.join(ROOT, 'figs-svg');
 for (const f of fs.readdirSync(PIMG).filter((f) => /\.svg$/.test(f))) fs.unlinkSync(path.join(PIMG, f));
-if (fs.existsSync(path.join(SVGSRC, 'READY'))) {
+{
   for (const f of fs.readdirSync(SVGSRC).filter((f) => /^m\d+-[a-z0-9-]+\.svg$/.test(f))) {
     const id = f.slice(0, -4), svg = fs.readFileSync(path.join(SVGSRC, f), 'utf8');
     const vb = (svg.match(/viewBox="([^"]+)"/) || [])[1];
@@ -41,6 +41,18 @@ if (fs.existsSync(path.join(SVGSRC, 'READY'))) {
   }
 }
 fs.writeFileSync(path.join(PDATA, 'figs.js'), `FIGDIMS(${JSON.stringify(dims)});\n`);
+// Each module's diagrams also travel inside that module's first notes file (same sign-in and payment rules as
+// the notes), so they show even when a separate /img request fails; api/img.js stays as the fallback.
+{
+  const mods = JSON.parse(fs.readFileSync(path.join(CONTENT, 'modules.json'), 'utf8'));
+  for (const m of mods) {
+    const first = (m.chunks || [])[0], file = first && path.join(PDATA, 'chunk-' + first + '.js');
+    if (!file || !fs.existsSync(file)) continue;
+    const pack = {};
+    for (const id of Object.keys(dims).filter((id) => dims[id].svg && id.startsWith(m.id + '-'))) pack[id] = fs.readFileSync(path.join(SVGSRC, id + '.svg'), 'utf8');
+    if (Object.keys(pack).length) fs.appendFileSync(file, '\nFIGSVG(' + JSON.stringify(pack) + ');\n');
+  }
+}
 
 // paid diagram code (Modules 3 and 4) lives outside app/ and is served like the notes
 const paidViz = fs.readdirSync(path.join(ROOT, 'viz-paid')).filter((f) => /\.js$/.test(f)).sort();

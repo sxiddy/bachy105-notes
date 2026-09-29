@@ -3,7 +3,7 @@
 One file per figure: `figs-svg/<figure id>.svg`, the site's own drawing of the same information as the cropped
 course-slide image `protected/img/<figure id>.webp` (figure list, captions and alt text: `content/chunk-*.js`).
 
-They switch on only when **all** of them exist and the file `figs-svg/READY` is created. Then `tools/build.js`
+Each one goes live as soon as it is added here (figures not redrawn yet keep their crop). `tools/build.js`
 copies them next to the slide crops, marks them `svg` in the figure sizes, `api/img.js` stops serving the crops,
 and the app inlines each SVG so it follows dark and light mode. The caption says "Redrawn from BACHY105 course
 slides, VIT · Slide N".

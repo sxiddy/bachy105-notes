@@ -1,6 +1,6 @@
 // GET /img/<id>.svg | <id>.webp (rewritten to /api/img?f=...) -> figures. Signed-in VIT students (or the owner; anyone while sign-in is switched off);
 // free modules (content/modules.json) need nothing more, the rest need payment or free access.
-// <id>.svg is the site's own redrawn diagram (copied here by tools/build.js once all are drawn). Once it exists,
+// <id>.svg is the site's own redrawn diagram (copied here by tools/build.js as each one is drawn). Once it exists,
 // the cropped course-slide image <id>.webp is no longer served.
 const fs = require('fs'), path = require('path');
 const { hasAccess, canOpen, handle } = require('./_lib');
