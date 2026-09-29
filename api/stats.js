@@ -35,6 +35,11 @@ async function paidPayments(pages) {
   }
   return out;
 }
+// the admin page still opens when Razorpay refuses (wrong/rotated keys, test vs live mix-up); it says why instead
+async function tryPayments(pages) {
+  try { return { pays: await paidPayments(pages), razorpayError: null }; }
+  catch (e) { return { pays: [], razorpayError: e.message || 'Razorpay request failed' }; }
+}
 const iso = (sec) => new Date(sec * 1000).toISOString();
 const feedbackId = (x) => x.id || crypto.createHash('sha1').update(String(x.at) + '|' + String(x.text)).digest('hex').slice(0, 12);
 const parseJSON = (s, d) => { try { return JSON.parse(s) ?? d; } catch (e) { return d; } };
@@ -192,7 +197,8 @@ module.exports = handle(async (req, res) => {
     }
 
     // lookup
-    const mine = (await paidPayments(20)).filter((p) => normEmail((p.notes || {}).email) === email);
+    const { pays: all, razorpayError } = await tryPayments(20);
+    const mine = all.filter((p) => normEmail((p.notes || {}).email) === email);
     const [paidRaw, freeRaw, limRaw, ...counts] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'free', email], ['HGET', 'limits', email], ...deviceKeys(email).map((k) => ['ZCARD', k])]);
     const pd = paidRaw != null ? parseJSON(paidRaw, {}) : null;
     let fr = freeRaw != null ? parseJSON(freeRaw, {}) : null;
@@ -203,14 +209,14 @@ module.exports = handle(async (req, res) => {
     return send(res, 200, {
       email,
       paid: !!pd,
-      payments,
+      payments, razorpayError,
       free: fr ? { name: fr.name || '', at: fr.at || '', modules: fr.modules || null, until: fr.until ? new Date(fr.until).toISOString() : null } : null,
       limits: { phones: lim.phone, pcs: lim.pc, custom: limRaw != null && !lim.expired, until: lim.until ? new Date(lim.until).toISOString() : null },
       devices: { phones: counts[0] || 0, pcs: counts[1] || 0 },
     });
   }
 
-  const [pays, cfg, mode] = await Promise.all([paidPayments(10), settings(), siteMode(true)]);
+  const [{ pays, razorpayError }, cfg, mode] = await Promise.all([tryPayments(10), settings(), siteMode(true)]);
   const byDay = {};
   pays.forEach((p) => { const d = istDay(p.created_at * 1000); byDay[d] = (byDay[d] || 0) + 1; });
   let visits = null, views = null, feedback = null, free = [], limits = [], quiz = [], confusing = [], funnel = null, banner = null, students = [], resetRequests = [], battles = null;
@@ -278,6 +284,7 @@ module.exports = handle(async (req, res) => {
   }
   send(res, 200, {
     storage: store.configured(),
+    razorpayError,
     maxDevices: MAX_DEVICES,
     paidModules,
     price: cfg.normalPrice / 100,

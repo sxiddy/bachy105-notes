@@ -167,7 +167,7 @@
   function lookupHTML(s, r) {
     const d = r.devices, l = r.limits, st = (s.students || []).find((x) => x.email === r.email), p = st && st.progress;
     return `<div class="look">
-      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${whenInline(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : '<span class="muted">No payment from this student</span>'}</div></div>
+      <div class="look-row"><span>Payments</span><div>${r.payments.length ? r.payments.map((p) => `₹${p.amount} on ${whenInline(p.at)} <code>${esc(p.id)}</code>`).join('<br>') : (r.razorpayError ? '<span class="muted">Could not check Razorpay: ' + esc(r.razorpayError) + '</span>' : '<span class="muted">No payment from this student</span>')}</div></div>
       <div class="look-row"><span>Free access</span><div>${r.free ? `Yes${r.free.name ? ', ' + esc(r.free.name) : ''} · ${esc(modsLabel(s, r.free.modules))} · since ${whenInline(r.free.at)} · ${limUntil(r.free)}` : '<span class="muted">No</span>'}</div></div>
       <div class="look-row"><span>Study</span><div>${p ? `${esc(dur(p.total))} in total · ${esc(dur(p.today))} today · ${p.streak} day${p.streak === 1 ? '' : 's'} in a row · ${p.topics} topic${p.topics === 1 ? '' : 's'} and ${p.mods} module${p.mods === 1 ? '' : 's'} done <span class="muted">(synced ${whenInline(p.at)})</span>` : '<span class="muted">Not synced yet</span>'}</div></div>
       <div class="look-row"><span>Devices in use</span><div>${d.phones} of ${l.phones} phone${l.phones === 1 ? '' : 's'} · ${d.pcs} of ${l.pcs} laptop${l.pcs === 1 ? '' : 's'}/PC${l.pcs === 1 ? '' : 's'} ${l.custom ? '<span class="pill-tag">custom limit, ' + limUntil(l) + '</span>' : '<span class="muted">(default)</span>'}</div></div>
@@ -188,6 +188,7 @@
     const modChecks = (s.paidModules || []).map((m) => `<label class="lim"><input type="checkbox" class="gmod" value="${esc(m.id)}" checked> Module ${+m.num}</label>`).join('');
     $('#out').innerHTML = `
       <div class="note"><div class="note-label">Your own access</div><p>Unlock every module on this device, free, with no device limit. Do it once on each phone or PC you use.</p><p style="margin-top:10px"><button class="btn primary" id="me">Unlock the full site on this device</button> <span class="msg" id="mm" style="display:inline-block;margin-left:10px"></span></p></div>
+      ${s.razorpayError ? `<div class="note heads-up"><div class="note-label">Razorpay said: ${esc(s.razorpayError)}</div><p>Payment numbers below are empty because Razorpay refused the keys. In Vercel → Settings → Environment Variables, check that <code>RAZORPAY_KEY_ID</code> and <code>RAZORPAY_KEY_SECRET</code> are a matching pair from the same mode (both live or both test), then redeploy. Students can't pay until this is fixed.</p></div>` : ''}
       ${s.storage ? '' : `<div class="note heads-up"><div class="note-label">Storage not set up yet</div><p>Payments below come straight from Razorpay. Everything else starts working once you add Upstash Redis in Vercel → Storage (free).</p></div>`}
 
 
