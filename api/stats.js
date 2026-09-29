@@ -23,7 +23,7 @@
 const crypto = require('crypto');
 const { send, body, env, safeEqual, razorpay, isOurs, settings, siteMode, MAX_DEVICES, deviceKeys, normEmail, isStudentEmail, DOMAIN, ownerCookie, parseLimits, limitUntil, reviewOn, handle } = require('./_lib');
 const store = require('./_store');
-const { paidModules = [] } = require('./_access.json');
+const { paidModules = [], freeModules = [] } = require('./_access.json');
 
 async function paidPayments(pages) {
   const from = Math.floor(Date.now() / 1000) - 400 * 24 * 3600, out = [];
@@ -286,7 +286,7 @@ module.exports = handle(async (req, res) => {
     storage: store.configured(),
     razorpayError,
     maxDevices: MAX_DEVICES,
-    paidModules,
+    paidModules, freeModules,
     price: cfg.normalPrice / 100,
     sale: cfg.sale ? { rupees: cfg.sale.price / 100, until: new Date(cfg.sale.until).toISOString(), text: cfg.sale.text || '' } : null,
     banner, paused: cfg.paused, business: cfg.business || '', reviewOn: reviewOn(), signin: mode.signin, freeSite: mode.freeMode, freeNow: mode.free,
