@@ -143,7 +143,7 @@
   // Permanent / Temporary switch for device limits and free access: Temporary shows an end date-time (this computer's time, IST in India)
   const whenPick = (id) => `<label class="lim">For <select id="${id}m" class="sel"><option value="p">Permanent</option><option value="t">Temporary</option></select></label><label class="lim" id="${id}w" style="display:none">until <input id="${id}u" type="datetime-local" class="sel dtp"></label>`;
   const limUntil = (l) => (l.until ? 'until ' + whenInline(l.until) : 'permanent');
-  const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : ((s.freeModules || []).length ? (s.freeModules || []).map((id) => 'Module ' + (+String(id).replace(/D/g, ''))).join(', ') + ' only' : 'No access'));
+  const accessLabel = (s, x) => (x.paid ? `Paid ₹${x.paid.amount}` : x.free ? `Free · ${modsLabel(s, x.free.modules)}` : ((s.freeModules || []).length ? (s.freeModules || []).map((id) => 'Module ' + (+String(id).replace(/\D/g, ''))).join(', ') + ' only' : 'No access'));
   // study numbers from the student's synced progress (api/sync.js); null = never synced (older app or never studied)
   const dur = (sec) => { const m = Math.floor((+sec || 0) / 60); return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + (m % 60) + ' min'; };
   const studyCell = (p) => (p ? `<span class="dt"><b>${esc(dur(p.total))}</b><small>${esc(dur(p.today))} today · ${p.streak} day${p.streak === 1 ? '' : 's'} in a row · ${p.topics} topic${p.topics === 1 ? '' : 's'} done</small></span>` : '<span class="muted">not synced yet</span>');
