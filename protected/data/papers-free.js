@@ -3,6 +3,7 @@
 PAPERS({
   index: [
     { id: 'cat2-b1tb1', kind: 'actual', title: 'CAT-2 · Slot B1+TB1 · 28-09-2026', sub: 'Actual paper · Fall 2026–27' },
+    { id: 'cat2-b2tb2', kind: 'actual', title: 'CAT-2 · Slot B2+TB2 · 28-09-2026', sub: 'Actual paper · Fall 2026–27' },
   ],
 
   papers: [
@@ -162,18 +163,131 @@ PAPERS({
         },
       ],
     },
+    {
+      id: 'cat2-b2tb2', kind: 'actual', title: 'CAT-2 · Slot B2+TB2 · 28-09-2026', short: 'B2+TB2 paper', sub: 'Actual paper · Fall 2026–27',
+      meta: [['Slot', 'B2+TB2'], ['Date', '28-09-2026'], ['Duration', '90 minutes'], ['Max marks', '50'], ['Programme', 'B.Tech. Computer Science and Engineering']],
+      instructions: `<b>General instructions:</b> Answer All Questions. M – Max mark; CO – Course Outcome; BL – Blooms Taxonomy Level (1 – Remember, 2 – Understand, 3 – Apply, 4 – Analyse, 5 – Evaluate, 6 – Create).<br><b>Course Outcomes:</b> CO2: Use chemical concepts for the advancement of materials in electrical, magnetic, and energy domains. CO3: Demonstrate UV Visible spectroscopic and X-ray diffraction techniques.`,
+      questions: [
+        {
+          n: '1', marks: '5+5', co: '2', bl: '3',
+          prompt: `<p><b>(a)</b> Identify and explain an electrochemical power generation system that operates without any liquid or polymeric components, relying entirely on ceramic layers, with a diagram.</p>
+<p><b>(b)</b> Write the half-cell reactions, the net reaction and calculate the cell EMF of the following cell at 298 K: Zn | Zn<sup>2+</sup> (0.001 M) || Ag<sup>+</sup> (0.1 M) | Ag. The standard reduction potentials are −0.76 V and 0.80 V respectively.</p>`,
+          answer: `<p><b>(a) The solid oxide fuel cell (SOFC)</b>, also called a ceramic fuel cell: every layer is a solid ceramic, with no liquid electrolyte and no polymer membrane.</p>
+<p><b>Diagram to draw:</b> three stacked solid layers. Left, a porous Ni–YSZ cermet anode with H<sub>2</sub>/CO fed in and H<sub>2</sub>O/CO<sub>2</sub> leaving. Middle, the dense YSZ electrolyte. Right, a porous ceramic cathode (LSM) with air (O<sub>2</sub>) fed in. Arrows: O<sup>2−</sup> from cathode to anode through the YSZ; e<sup>−</sup> from anode to cathode through the external load.</p>
+<ul><li><b>Electrolyte:</b> yttria-stabilized zirconia (YSZ, ZrO<sub>2</sub> with Y<sub>2</sub>O<sub>3</sub>), which conducts O<sup>2−</sup> ions at 800–1000 °C.</li>
+<li><b>Anode (fuel electrode):</b> porous Ni–YSZ cermet, so fuel reaches the electrolyte.</li>
+<li><b>Cathode (air electrode):</b> porous ceramic such as LSM.</li>
+<li><b>Fuels:</b> H<sub>2</sub> and CO; efficiency over 60%; relatively tolerant of sulphur.</li></ul>
+<div class="eq">Cathode: O<sub>2</sub> + 4e<sup>−</sup> → 2O<sup>2−</sup></div>
+<div class="eq">Anode: H<sub>2</sub> + CO + 2O<sup>2−</sup> → H<sub>2</sub>O + CO<sub>2</sub> + 4e<sup>−</sup></div>
+<div class="eq">Overall: H<sub>2</sub> + CO + O<sub>2</sub> → H<sub>2</sub>O + CO<sub>2</sub></div>
+<p><b>Pros:</b> all-solid, so no electrolyte loss or electrode corrosion; high efficiency and hot exhaust for cogeneration; low emissions. <b>Cons:</b> very high operating temperature, slow start-up, expensive materials.</p>
+<p><b>(b)</b> Zn (−0.76 V) has the lower reduction potential, so Zn is the anode and Ag the cathode.</p>
+<div class="eq">Anode: Zn → Zn<sup>2+</sup> + 2e<sup>−</sup></div>
+<div class="eq">Cathode: 2Ag<sup>+</sup> + 2e<sup>−</sup> → 2Ag</div>
+<div class="eq">Net: Zn + 2Ag<sup>+</sup> → Zn<sup>2+</sup> + 2Ag, n = 2</div>
+<div class="eq">E°<sub>cell</sub> = 0.80 − (−0.76) = 1.56 V</div>
+<div class="eq">E<sub>cell</sub> = E°<sub>cell</sub> − (0.0591 / 2) log ([Zn<sup>2+</sup>] / [Ag<sup>+</sup>]<sup>2</sup>) = 1.56 − 0.02955 log (0.001 / (0.1)<sup>2</sup>)</div>
+<div class="eq">= 1.56 − 0.02955 × log 0.1 = 1.56 + 0.0296 = <b>1.59 V</b></div>
+<div class="note trap"><p>Square [Ag<sup>+</sup>]: the balanced reaction has 2Ag<sup>+</sup>. Without the square, log(0.001/0.1) = −2 and you get 1.62 V, which is wrong. And n = 2, not 1.</p></div>
+<div class="note exam"><p>Five marks each part. In (a): name the SOFC, the labelled three-layer diagram with the O<sup>2−</sup> arrow, and the three reactions. In (b): half reactions, net reaction, E°, the Nernst step and 1.59 V with its unit.</p></div>`,
+          topics: ['m2-sofc', 'm2-electrochemical-cells'],
+        },
+        {
+          n: '2', marks: 10, co: '2', bl: '3',
+          prompt: `<p>A team of researchers is developing a low-cost, translucent solar panel for smart windows. Instead of using highly purified silicon, they use an intense light-harvesting coloured monolayer on a semiconductor with a counter electrode and a liquid chemical redox shuttle. Recognise the device and explain with suitable diagram, mechanism, principle and applications.</p>`,
+          answer: `<p>This is the <b>dye-sensitized solar cell (DSSC, Grätzel cell)</b>: the coloured monolayer is the dye, the semiconductor is nanoporous TiO<sub>2</sub>, and the redox shuttle is I<sup>−</sup>/I<sub>3</sub><sup>−</sup>.</p>
+<p><b>Principle:</b> a dye absorbs visible light and injects an excited electron into the conduction band of a wide-gap semiconductor. The electron does work in the outer circuit and the redox electrolyte returns it to the dye, so nothing is used up (a regenerative photoelectrochemical cell).</p>
+<p><b>Diagram to draw:</b> FTO/ITO glass with dye-coated nanoporous TiO<sub>2</sub> (anode, −) facing Pt or graphite on conducting glass (cathode, +), I<sup>−</sup>/I<sub>3</sub><sup>−</sup> electrolyte between, light entering through the TiO<sub>2</sub> side, load in the outer circuit. Add the energy levels: dye S → S* above the TiO<sub>2</sub> conduction band.</p>
+<p><b>Mechanism</b></p>
+<ol><li>Light absorption: S + hν → S*</li>
+<li>Electron injection: S* → S<sup>+</sup> + e<sup>−</sup> (into the TiO<sub>2</sub> conduction band)</li>
+<li>Transport through TiO<sub>2</sub> to the FTO, then through the load to the counter electrode</li>
+<li>At the counter electrode: I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup></li>
+<li>Dye regeneration: 2S<sup>+</sup> + 3I<sup>−</sup> → 2S + I<sub>3</sub><sup>−</sup></li></ol>
+<p><b>Why it suits smart windows:</b> the cell is transparent, cheap and works in low light and at wide angles; it needs no highly purified silicon.</p>
+<p><b>Applications:</b> building-integrated windows and facades, indoor and low-light electronics (sensors, calculators), portable chargers, decorative panels.</p>
+<div class="note trap"><p>The dyed TiO<sub>2</sub> side is the anode (−), not the cathode. And the dye is regenerated by I<sup>−</sup>, not by the counter electrode directly.</p></div>
+<div class="note exam"><p>Ten marks: naming the DSSC, the labelled diagram, the five-step mechanism with equations, the principle and a few applications.</p></div>`,
+          topics: ['m2-dssc', 'm2-pec-cells'],
+        },
+        {
+          n: '3', marks: 10, co: '2', bl: '2',
+          prompt: `<p>What type of electrochemical cell relies on the reversible intercalation of alkali metal ions into a graphite lattice to store energy? Explain with suitable diagram, mechanism, any one advantage and disadvantage with applications.</p>`,
+          answer: `<p>The <b>lithium-ion battery</b>, a secondary cell in which Li<sup>+</sup> moves between a LiCoO<sub>2</sub> cathode and a graphite anode. No lithium metal is present.</p>
+<p><b>Diagram to draw:</b> graphite layers (negative) and LiCoO<sub>2</sub> layers (positive) with Li<sup>+</sup> between the layers, an organic carbonate electrolyte (EC, DEC) and a porous PE/PP separator. Arrows for Li<sup>+</sup> through the electrolyte and e<sup>−</sup> through the outer circuit, both ways.</p>
+<p><b>Mechanism</b></p>
+<ul><li><b>Charging:</b> Co<sup>3+</sup> is oxidised, Li<sup>+</sup> leaves LiCoO<sub>2</sub>, crosses the electrolyte and intercalates between graphite sheets; electrons are pushed by the charger to the graphite.</li>
+<li><b>Discharging:</b> Li<sup>+</sup> leaves graphite and returns between the oxide layers; electrons flow through the device from graphite to LiCoO<sub>2</sub>.</li></ul>
+<div class="eq">Charge: LiCoO<sub>2</sub> + C<sub>6</sub> → Li<sub>1−n</sub>CoO<sub>2</sub> + Li<sub>n</sub>C<sub>6</sub></div>
+<div class="eq">Discharge: Li<sub>1−n</sub>CoO<sub>2</sub> + Li<sub>n</sub>C<sub>6</sub> → LiCoO<sub>2</sub> + C<sub>6</sub></div>
+<p>Half reactions on discharge: Li<sub>n</sub>C<sub>6</sub> → C<sub>6</sub> + nLi<sup>+</sup> + ne<sup>−</sup> (negative) and Li<sub>1−n</sub>CoO<sub>2</sub> + nLi<sup>+</sup> + ne<sup>−</sup> → LiCoO<sub>2</sub> (positive).</p>
+<p><b>One advantage:</b> high energy density, because lithium is light and each cell gives about 3.6–3.7 V. <b>One disadvantage:</b> it needs a protection circuit, since the flammable organic electrolyte can catch fire if overcharged or damaged.</p>
+<p><b>Applications:</b> phones, laptops and cameras (LCO), power tools and medical devices (LMO, LFP, NMC), electric vehicles and grid storage (NCA).</p>
+<div class="note trap"><p>"Anode" and "cathode" swap between charging and discharging; "positive" (LiCoO<sub>2</sub>) and "negative" (graphite) never do. Label the plates by polarity to stay safe.</p></div>
+<div class="note exam"><p>Ten marks: the name, the diagram, charge and discharge mechanism with reactions, one advantage, one disadvantage and applications.</p></div>`,
+          topics: ['m2-li-ion'],
+        },
+        {
+          n: '4', marks: 10, co: '2', bl: '2',
+          prompt: `<p>What chemical synthesis route involves transforming a stable colloidal suspension of nanoparticles within a liquid into a continuous, interconnected three-dimensional solid network spanning the entire volume of the medium? Explain with suitable chemical reactions, advantages and disadvantages.</p>`,
+          answer: `<p>The <b>sol–gel method</b>, a bottom-up route: a sol (tiny solid particles suspended in a liquid) turns into a gel (a 3D network through the whole volume). The precursor is a metal alkoxide M(OR)<sub>n</sub>, for example Si(OR)<sub>4</sub>.</p>
+<p><b>Steps:</b> hydrolysis → condensation → aging → drying → calcination.</p>
+<div class="eq">Hydrolysis: –M–OR + H<sub>2</sub>O → –M–OH + ROH</div>
+<div class="eq">Si(OR)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4ROH</div>
+<div class="eq">Condensation: –M–OH + HO–M– → –M–O–M– + H<sub>2</sub>O</div>
+<div class="eq">–M–OH + RO–M– → –M–O–M– + ROH</div>
+<ul><li><b>Hydrolysis</b> in water or with alcohol forms the sol.</li>
+<li><b>Condensation</b> builds M–O–M (oxo) or M–OH–M (hydroxo) bridges; viscosity rises and the gel network forms (Si–O–Si siloxanes for silica).</li>
+<li><b>Aging:</b> condensation continues; porosity decreases.</li>
+<li><b>Drying:</b> water and solvent are removed, giving a xerogel.</li>
+<li><b>Calcination:</b> heating gives the final metal-oxide nanoparticles.</li></ul>
+<p><b>Advantages:</b> very low temperature compared with melting glass or firing ceramics; monosized particles are possible; one sol gives powders, films (spin or dip coating) or dense ceramics.</p>
+<p><b>Disadvantages:</b> hard to control growth and stop agglomeration; hard to ensure complete reaction, so residues may stay; growth aids must be fully removed; very slow production of nanopowders.</p>
+<div class="note trap"><p>Don't mix the two condensations: –OH + HO– gives off H<sub>2</sub>O, –OR + HO– gives off ROH.</p></div>
+<div class="note exam"><p>Ten marks: naming sol–gel, the hydrolysis and condensation equations, the five steps, and the pros and cons.</p></div>`,
+          topics: ['m3-sol-gel', 'm3-synthesis'],
+        },
+        {
+          n: '5', marks: '5+5', co: '3', bl: '3',
+          prompt: `<p><b>(a)</b> Identify and explain the principle and applications of the non-destructive technique which is used to differentiate single crystal, polycrystalline and amorphous silicon.</p>
+<p><b>(b)</b> Calculate the average crystallite size (D) of a gold nanoparticle sample from the following X-ray diffraction (XRD) data: wavelength of X-ray 0.15406 nm; diffraction angle (38.2°); full width at half maximum (0.45°); and shape factor 0.9.</p>`,
+          answer: `<p><b>(a) X-ray diffraction (XRD)</b>, which is nondestructive.</p>
+<p><b>Principle:</b> the regularly spaced planes of a crystal act as a diffraction grating for X-rays, whose wavelength is close to the spacing between atoms. Waves reflected from successive planes add up only when the path difference is a whole number of wavelengths:</p>
+<div class="eq">nλ = 2d sin θ (Bragg's law)</div>
+<p>The diffractometer scans 2θ and records intensity; each peak position gives a d-spacing, and peak width falls as crystal size grows.</p>
+<p><b>Telling the three forms of silicon apart</b></p>
+<ul><li><b>Single crystal:</b> one lattice orientation, so only a few very sharp, intense reflections (spots rather than rings).</li>
+<li><b>Polycrystalline:</b> many randomly oriented grains, so a full set of sharp peaks (rings) at the Si positions.</li>
+<li><b>Amorphous:</b> no long-range order, so no sharp peaks, only a broad hump.</li></ul>
+<p><b>Applications:</b> crystalline vs amorphous materials; identifying phases by matching JCPDS/ICSD patterns; unit-cell dimensions and symmetry; texture of polygrained materials; strain and crystallite size.</p>
+<p><b>(b)</b> 38.2° is the 2θ value, so θ = 19.1°.</p>
+<div class="eq">cos 19.1° = 0.9449</div>
+<div class="eq">β = 0.45° × π/180 = 0.007854 rad</div>
+<div class="eq">D = kλ / (β cos θ) = (0.9 × 0.15406) / (0.007854 × 0.9449) = 0.13865 / 0.007422</div>
+<div class="eq">D ≈ <b>18.7 nm</b></div>
+<p>About 18.7 nm, so the gold is nanocrystalline (1–100 nm).</p>
+<div class="note trap"><p>Using 38.2° in cos θ instead of 19.1° gives 22.5 nm, which is wrong. Convert the FWHM to radians before dividing.</p></div>
+<div class="note exam"><p>Five marks each part. In (a): name XRD, Bragg's law and what each form of silicon looks like. In (b): θ, β in radians, the Scherrer step and D with its unit.</p></div>`,
+          topics: ['m4-xrd-patterns', 'm4-bragg', 'm4-scherrer'],
+        },
+      ],
+    },
   ],
   asked: {
     'm2-fuel-cells': [{ where: 'Q1(a), 5 marks', what: 'the H₂–O₂ (alkaline) fuel cell for space vehicles: construction, ion and electron flow, reactions', paper: 'cat2-b1tb1' }],
-    'm2-electrochemical-cells': [{ where: 'Q1(b), 5 marks', what: 'Ni | Ni²⁺ || Ag⁺ | Ag: cell notation, half reactions and E(cell) by the Nernst equation', paper: 'cat2-b1tb1' }],
-    'm2-li-ion': [{ where: 'Q2, 10 marks', what: 'Li-ion transport, charge–discharge reactions and why layered hosts allow reversible cycling', paper: 'cat2-b1tb1' }],
-    'm2-dssc': [{ where: 'Q3, 10 marks', what: 'a dye-sensitized cell: components, sequence from light absorption to current, why it is efficient', paper: 'cat2-b1tb1' }],
-    'm2-pec-cells': [{ where: 'Q3, 10 marks', what: 'a photosensitized photoelectrochemical cell', paper: 'cat2-b1tb1' }],
+    'm2-electrochemical-cells': [{ where: 'Q1(b), 5 marks', what: 'Ni | Ni²⁺ || Ag⁺ | Ag: cell notation, half reactions and E(cell) by the Nernst equation', paper: 'cat2-b1tb1' }, { where: 'Q1(b), 5 marks', what: 'Zn | Zn²⁺ (0.001 M) || Ag⁺ (0.1 M) | Ag: half reactions, net reaction and EMF', paper: 'cat2-b2tb2' }],
+    'm2-li-ion': [{ where: 'Q2, 10 marks', what: 'Li-ion transport, charge–discharge reactions and why layered hosts allow reversible cycling', paper: 'cat2-b1tb1' }, { where: 'Q3, 10 marks', what: 'Li-ion by graphite intercalation: diagram, mechanism, one advantage and disadvantage, uses', paper: 'cat2-b2tb2' }],
+    'm2-dssc': [{ where: 'Q3, 10 marks', what: 'a dye-sensitized cell: components, sequence from light absorption to current, why it is efficient', paper: 'cat2-b1tb1' }, { where: 'Q2, 10 marks', what: 'recognise the DSSC for smart windows: diagram, mechanism, principle, applications', paper: 'cat2-b2tb2' }],
+    'm2-pec-cells': [{ where: 'Q3, 10 marks', what: 'a photosensitized photoelectrochemical cell', paper: 'cat2-b1tb1' }, { where: 'Q2, 10 marks', what: 'a dye-on-semiconductor cell with a redox shuttle', paper: 'cat2-b2tb2' }],
     'm3-why-nano': [{ where: 'Q4, 10 marks', what: 'why nano electrical and optical properties differ from bulk', paper: 'cat2-b1tb1' }],
-    'm3-synthesis': [{ where: 'Q4, 10 marks', what: 'a bottom-up route for nanoscale silica', paper: 'cat2-b1tb1' }],
-    'm3-sol-gel': [{ where: 'Q4, 10 marks', what: 'sol–gel silica: equations, steps, size control, pros and cons', paper: 'cat2-b1tb1' }],
+    'm3-synthesis': [{ where: 'Q4, 10 marks', what: 'a bottom-up route for nanoscale silica', paper: 'cat2-b1tb1' }, { where: 'Q4, 10 marks', what: 'the sol–gel bottom-up route', paper: 'cat2-b2tb2' }],
+    'm3-sol-gel': [{ where: 'Q4, 10 marks', what: 'sol–gel silica: equations, steps, size control, pros and cons', paper: 'cat2-b1tb1' }, { where: 'Q4, 10 marks', what: 'identify sol–gel from sol to gel network: reactions, advantages, disadvantages', paper: 'cat2-b2tb2' }],
     'm4-uv-vis': [{ where: 'Q5(a), 5 marks', what: 'UV-Vis principle; Congo red vs methylene blue: chromophores, auxochromes, conjugation, transitions', paper: 'cat2-b1tb1' }],
     'm4-xrays': [{ where: 'Q5(b), 5 marks', what: 'X-ray wavelength from a 6.93 keV photon energy', paper: 'cat2-b1tb1' }],
-    'm4-scherrer': [{ where: 'Q5(b), 5 marks', what: 'crystallite size by Scherrer (2θ = 44.60°, FWHM 0.95°, k = 0.9)', paper: 'cat2-b1tb1' }],
+    'm4-scherrer': [{ where: 'Q5(b), 5 marks', what: 'crystallite size by Scherrer (2θ = 44.60°, FWHM 0.95°, k = 0.9)', paper: 'cat2-b1tb1' }, { where: 'Q5(b), 5 marks', what: 'gold nanoparticle crystallite size (2θ = 38.2°, FWHM 0.45°, λ = 0.15406 nm)', paper: 'cat2-b2tb2' }],
+    'm2-sofc': [{ where: 'Q1(a), 5 marks', what: 'identify the all-ceramic fuel cell (SOFC) and explain it with a diagram', paper: 'cat2-b2tb2' }],
+    'm4-xrd-patterns': [{ where: 'Q5(a), 5 marks', what: 'XRD to tell single-crystal, polycrystalline and amorphous silicon apart', paper: 'cat2-b2tb2' }],
+    'm4-bragg': [{ where: 'Q5(a), 5 marks', what: 'the principle of XRD (Bragg law)', paper: 'cat2-b2tb2' }],
   },
 });
