@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 902">
+  <text x="14" y="36" font-size="26" font-weight="700" class="dt">γ-rays, X-rays</text>
+  <text x="14" y="70" font-size="22" font-weight="700" class="dtb">E (kJ/mol)</text>
+  <text x="170" y="70" font-size="22" class="dt2">10⁵ – 10³</text>
+  <text x="14" y="104" font-size="22" font-weight="700" class="dto">Technique</text>
+  <text x="170" y="104" font-size="22" class="dt2">X-ray diffraction</text>
+  <text x="170" y="134" font-size="22" class="dt2">(nuclear transitions)</text>
+  <text x="14" y="168" font-size="22" font-weight="700" class="dtg">Time (s)</text>
+  <text x="170" y="168" font-size="22" class="dt2">10⁻¹⁸</text>
+  <path d="M0 180H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="216" font-size="26" font-weight="700" class="dt">Ultraviolet-visible</text>
+  <text x="14" y="250" font-size="22" font-weight="700" class="dtb">E (kJ/mol)</text>
+  <text x="170" y="250" font-size="22" class="dt2">10³ – 10¹</text>
+  <text x="14" y="284" font-size="22" font-weight="700" class="dto">Technique</text>
+  <text x="170" y="284" font-size="22" class="dt2">UV-vis</text>
+  <text x="170" y="314" font-size="22" class="dt2">(electronic transitions)</text>
+  <text x="14" y="348" font-size="22" font-weight="700" class="dtg">Time (s)</text>
+  <text x="170" y="348" font-size="22" class="dt2">10⁻¹⁵ – 10⁻¹⁴</text>
+  <path d="M0 360H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="396" font-size="26" font-weight="700" class="dt">Infrared</text>
+  <text x="14" y="430" font-size="22" font-weight="700" class="dtb">E (kJ/mol)</text>
+  <text x="170" y="430" font-size="22" class="dt2">10¹ – 10⁻¹</text>
+  <text x="14" y="464" font-size="22" font-weight="700" class="dto">Technique</text>
+  <text x="170" y="464" font-size="22" class="dt2">IR</text>
+  <text x="170" y="494" font-size="22" class="dt2">(vibrational transitions)</text>
+  <text x="14" y="528" font-size="22" font-weight="700" class="dtg">Time (s)</text>
+  <text x="170" y="528" font-size="22" class="dt2">10⁻¹³</text>
+  <path d="M0 540H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="576" font-size="26" font-weight="700" class="dt">Microwaves</text>
+  <text x="14" y="610" font-size="22" font-weight="700" class="dtb">E (kJ/mol)</text>
+  <text x="170" y="610" font-size="22" class="dt2">10⁻³</text>
+  <text x="14" y="644" font-size="22" font-weight="700" class="dto">Technique</text>
+  <text x="170" y="644" font-size="22" class="dt2">Electron spin resonance</text>
+  <text x="170" y="674" font-size="22" class="dt2">(ESR, rotational motion)</text>
+  <text x="14" y="708" font-size="22" font-weight="700" class="dtg">Time (s)</text>
+  <text x="170" y="708" font-size="22" class="dt2">10⁻⁴ – 10⁻⁸</text>
+  <path d="M0 720H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="756" font-size="26" font-weight="700" class="dt">Radiowaves</text>
+  <text x="14" y="790" font-size="22" font-weight="700" class="dtb">E (kJ/mol)</text>
+  <text x="170" y="790" font-size="22" class="dt2">10⁻⁷</text>
+  <text x="14" y="824" font-size="22" font-weight="700" class="dto">Technique</text>
+  <text x="170" y="824" font-size="22" class="dt2">NMR</text>
+  <text x="170" y="854" font-size="22" class="dt2">(nuclear spin transitions)</text>
+  <text x="14" y="888" font-size="22" font-weight="700" class="dtg">Time (s)</text>
+  <text x="170" y="888" font-size="22" class="dt2">10⁻¹ – 10⁻⁹</text>
+</svg>
