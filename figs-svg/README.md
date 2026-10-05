@@ -56,6 +56,6 @@ Module 2 batch 3 done (6): liion-charge-discharge (charging panel's swapped +/�
 liion-variants-table (generated), fuel-cell-stack, fcv-layout (numbered key), nafion-structure, pemfc-diagram.
 
 Module 2 batch 4 done (3): sofc-diagram, solar-panels, solar-methods-tree.
-Next up (Module 2): pv-si-structures, pv-mono-cell, pv-poly-cell, pv-amorphous-film, pv-pn-depletion, pv-cell-circuit,
-pv-inside-eia, pv-gap-table, pv-tco-gap-table, pec-band-diagram, pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
+Module 2 batch 5 done (10): pv-si-structures, pv-mono-cell, pv-poly-cell, pv-amorphous-film, pv-pn-depletion, pv-cell-circuit, pv-inside-eia, pv-gap-table, pv-tco-gap-table (both tables generated), pec-band-diagram (generator: `node tools/figs/pv-batch5.js figs-svg`).
+Next up (Module 2): pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
 dssc-natural-dyes, dssc-hibiscus-cell, dssc-pros-cons; then m3-…, m4-….

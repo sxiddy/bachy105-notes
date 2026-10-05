@@ -29,6 +29,10 @@ function render(spec) {
       });
     });
   });
+  if (spec.foot) {
+    y += 12; out.push(`<path d="M0 ${y}H${W}" class="ds3" stroke-width="2"/>`);
+    spec.foot.forEach((ln) => { y += 34; out.push(`<text x="${labelX}" y="${y}" font-size="22" class="dt3">${esc(ln)}</text>`); });
+  }
   y += 14;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 ${y}">\n  ${out.join('\n  ')}\n</svg>\n`;
 }

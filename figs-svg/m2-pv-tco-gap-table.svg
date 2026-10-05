@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 494">
+  <text x="14" y="36" font-size="26" font-weight="700" class="dt">CdS</text>
+  <text x="14" y="70" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="70" font-size="22" class="dt2">2.42</text>
+  <path d="M0 82H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="118" font-size="26" font-weight="700" class="dt">ZnS</text>
+  <text x="14" y="152" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="152" font-size="22" class="dt2">3.58</text>
+  <path d="M0 164H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="200" font-size="26" font-weight="700" class="dt">Zn₀.₃Cd₀.₇S</text>
+  <text x="14" y="234" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="234" font-size="22" class="dt2">2.8</text>
+  <path d="M0 246H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="282" font-size="26" font-weight="700" class="dt">ZnO</text>
+  <text x="14" y="316" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="316" font-size="22" class="dt2">3.3</text>
+  <path d="M0 328H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="364" font-size="26" font-weight="700" class="dt">In₂O₃:Sn</text>
+  <text x="14" y="398" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="398" font-size="22" class="dt2">3.7–4.4</text>
+  <path d="M0 410H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="446" font-size="26" font-weight="700" class="dt">SnO₂:F</text>
+  <text x="14" y="480" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="480" font-size="22" class="dt2">3.9–4.6</text>
+</svg>

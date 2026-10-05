@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 976">
+  <text x="14" y="36" font-size="26" font-weight="700" class="dt">c-Si</text>
+  <text x="14" y="70" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="70" font-size="22" class="dt2">1.12 (i)</text>
+  <text x="14" y="104" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="104" font-size="22" class="dt2">diamond</text>
+  <path d="M0 116H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="152" font-size="26" font-weight="700" class="dt">GaAs</text>
+  <text x="14" y="186" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="186" font-size="22" class="dt2">1.424 (d)</text>
+  <text x="14" y="220" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="220" font-size="22" class="dt2">zinc blende</text>
+  <path d="M0 232H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="268" font-size="26" font-weight="700" class="dt">InP</text>
+  <text x="14" y="302" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="302" font-size="22" class="dt2">1.35 (d)</text>
+  <text x="14" y="336" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="336" font-size="22" class="dt2">zinc blende</text>
+  <path d="M0 348H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="384" font-size="26" font-weight="700" class="dt">a-Si</text>
+  <text x="14" y="418" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="418" font-size="22" class="dt2">~1.8 (d)</text>
+  <text x="14" y="452" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="452" font-size="22" class="dt2">none (amorphous)</text>
+  <path d="M0 464H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="500" font-size="26" font-weight="700" class="dt">CdTe</text>
+  <text x="14" y="534" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="534" font-size="22" class="dt2">1.45–1.5 (d)</text>
+  <text x="14" y="568" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="568" font-size="22" class="dt2">zinc blende</text>
+  <path d="M0 580H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="616" font-size="26" font-weight="700" class="dt">CuInSe₂ (CIS)</text>
+  <text x="14" y="650" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="650" font-size="22" class="dt2">0.96–1.04 (d)</text>
+  <text x="14" y="684" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="684" font-size="22" class="dt2">chalcopyrite</text>
+  <path d="M0 696H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="732" font-size="26" font-weight="700" class="dt">AlₓGa₁₋ₓAs, 0 ≤ x ≤ 0.45</text>
+  <text x="14" y="766" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="766" font-size="22" class="dt2">1.424 + 1.247x (d)</text>
+  <text x="14" y="800" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="800" font-size="22" class="dt2">zinc blende</text>
+  <path d="M0 812H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="848" font-size="26" font-weight="700" class="dt">AlₓGa₁₋ₓAs, 0.45 &lt; x ≤ 1</text>
+  <text x="14" y="882" font-size="22" font-weight="700" class="dtb">Eg (eV)</text>
+  <text x="180" y="882" font-size="22" class="dt2">1.9 + 0.125x + 0.143x² (i)</text>
+  <text x="14" y="916" font-size="22" font-weight="700" class="dto">Structure</text>
+  <text x="180" y="916" font-size="22" class="dt2">zinc blende</text>
+  <path d="M0 928H600" class="ds3" stroke-width="2"/>
+  <text x="14" y="962" font-size="22" class="dt3">d = direct gap, i = indirect gap</text>
+</svg>
