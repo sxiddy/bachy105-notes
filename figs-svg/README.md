@@ -60,3 +60,5 @@ Module 2 batch 5 done (10): pv-si-structures, pv-mono-cell, pv-poly-cell, pv-amo
 Batches 6-7 (22): solar-energy, pec-liquid-junction, dssc-* set, electrochemical-cells and batteries (copies of daniell-cell / cell-differences-table), m3-nanomaterials .. m3-siloxane-network (generators: tools/figs/batch6.js, batch7.js, shared helpers tools/figs/lib.js; list what is left with: node tmp/todo.js).
 Old next-up list (done): pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
 dssc-natural-dyes, dssc-hibiscus-cell, dssc-pros-cons; then m3-…, m4-….
+
+Batches 8-12 done 2026-10-06 (generators tools/figs/batch8..12.js): all 124 figures now have a redraw (node tmp/todo.js lists none left).
