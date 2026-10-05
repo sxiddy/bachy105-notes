@@ -437,7 +437,7 @@ CHUNK({
   ],
   figures: [
     { id: 'm2-daniell-cell', src: 'm2/images/s05_714faec4.png', crop: null,
-      caption: 'Electrons leave the Zn anode (−), pass the voltmeter and reach the Cu cathode (+). The KCl salt bridge joins the ZnSO₄ and CuSO₄ half cells. Its zinc equation has the electrons on the wrong side; see the note.',
+      caption: 'Electrons leave the Zn anode (−), pass the voltmeter and reach the Cu cathode (+). The KCl salt bridge joins the ZnSO₄ and CuSO₄ half cells. The zinc half-equation is drawn the right way round, Zn → Zn²⁺ + 2e⁻ (the course slide had the electrons on the wrong side).',
       alt: 'Two beakers: a zinc rod in ZnSO4 labelled anode (oxidation, negative) and a copper rod in CuSO4 labelled cathode (reduction, positive), joined by a KCl salt bridge and a wire through a voltmeter, with arrows showing electrons flowing from Zn to Cu. Half reactions and the cell notation Zn(s) | ZnSO4(aq) || CuSO4(aq) | Cu(s) are written below.' },
     { id: 'm2-band-diagrams', src: 'm2/images/s08_51c5293b.png', crop: [0, 0.1, 1, 0.9],
       caption: 'Insulator: wide forbidden band. Semiconductor: a narrow gap with a small tail of electrons reaching the conduction band. Conductor: the bands overlap.',
@@ -449,7 +449,7 @@ CHUNK({
       caption: 'Temperature rises from left to right. On heating, some electrons cross the gap Eg into the conduction band (bottom edge E₀) and leave holes (white) behind in the valence band.',
       alt: 'Two band diagrams. Left: all electrons (pink dots) sit in the blue valence band below the gap Eg. Right, at higher temperature: a few electrons are in the yellow conduction band and white holes remain at the top of the valence band.' },
     { id: 'm2-semiconductor-types', src: 'm2/slides/s10.png', crop: [0.06, 0.12, 0.88, 0.81],
-      caption: 'Intrinsic is the pure element; extrinsic splits into n-type (pentavalent, electrons dominate) and p-type (trivalent, holes dominate). The p-type "donor" label is a slip for acceptor.',
+      caption: 'Intrinsic is the pure element; extrinsic splits into n-type (pentavalent, electrons dominate) and p-type (trivalent, holes dominate). The p-type impurity is an acceptor (the course slide mislabelled it "donor").',
       alt: 'Tree chart: Semiconductor branches into intrinsic semiconductor (pure form of Ge, Si, ne = nh = ni) and extrinsic semiconductor, which branches into N-type (pentavalent impurity P, As, Sb, donor impurity ND, ne much greater than nh) and P-type (trivalent impurity Ga, B, In, Al, ne much less than nh).' },
     { id: 'm2-intrinsic-lattice', src: 'm2/slides/s11.png', crop: [0.157, 0.252, 0.684, 0.694],
       caption: 'Left: heat breaks a Si–Si bond, freeing an electron and leaving a hole. Right: with a field applied, electrons and holes drift in opposite directions.',

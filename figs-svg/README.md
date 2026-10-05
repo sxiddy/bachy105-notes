@@ -34,6 +34,8 @@ slides, VIT · Slide N".
 
 ## Tools
 
+- The lean method (generators, previews, token rules, gotchas) is written down in `tools/figs/PLAYBOOK.md`; reuse it for a new subject site.
+
 - `node tools/figs/phone-preview.js <repo folder> <out.html> <id> <id> ...` builds the phone preview described
   above (slide picture, dark, light, each 375 px wide). Screenshot it with headless Chrome:
   `chrome --headless=new --allow-file-access-from-files --window-size=1210,<height> --force-device-scale-factor=1
@@ -57,8 +59,8 @@ liion-variants-table (generated), fuel-cell-stack, fcv-layout (numbered key), na
 
 Module 2 batch 4 done (3): sofc-diagram, solar-panels, solar-methods-tree.
 Module 2 batch 5 done (10): pv-si-structures, pv-mono-cell, pv-poly-cell, pv-amorphous-film, pv-pn-depletion, pv-cell-circuit, pv-inside-eia, pv-gap-table, pv-tco-gap-table (both tables generated), pec-band-diagram (generator: `node tools/figs/pv-batch5.js figs-svg`).
-Batches 6-7 (22): solar-energy, pec-liquid-junction, dssc-* set, electrochemical-cells and batteries (copies of daniell-cell / cell-differences-table), m3-nanomaterials .. m3-siloxane-network (generators: tools/figs/batch6.js, batch7.js, shared helpers tools/figs/lib.js; list what is left with: node tmp/todo.js).
+Batches 6-7 (22): solar-energy, pec-liquid-junction, dssc-* set, electrochemical-cells and batteries (copies of daniell-cell / cell-differences-table), m3-nanomaterials .. m3-siloxane-network (generators: tools/figs/batch6.js, batch7.js, shared helpers tools/figs/lib.js; list what is left with: node tools/figs/todo.js).
 Old next-up list (done): pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
 dssc-natural-dyes, dssc-hibiscus-cell, dssc-pros-cons; then m3-…, m4-….
 
-Batches 8-12 done 2026-10-06 (generators tools/figs/batch8..12.js): all 124 figures now have a redraw (node tmp/todo.js lists none left).
+Batches 8-12 done 2026-10-06 (generators tools/figs/batch8..12.js): all 124 figures now have a redraw (node tools/figs/todo.js lists none left).

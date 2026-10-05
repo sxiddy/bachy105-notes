@@ -634,7 +634,7 @@ CHUNK({
 
   figures: [
     { id: 'm2-cell-differences-table', src: 'm2/images/s42_9ffdd11e.png', crop: null,
-      caption: 'The slide-42 comparison of primary, secondary and fuel cells, row by row: role, reversibility, recharging, life, examples and uses.',
+      caption: 'Primary, secondary and fuel cells compared row by row: role, reversibility, recharging, life, examples and uses. The fuel-cell reaction runs one way while fresh fuel is fed in (the course slide called it reversible).',
       alt: 'Three-column table headed Primary, Secondary and Fuel cells with numbered rows of differences, examples and uses.' },
     { id: 'm2-nobel-2019', src: 'm2/images/s20_80dbda85.png', crop: null,
       caption: 'The 2019 Chemistry Nobel: John B. Goodenough (USA), M. Stanley Whittingham (UK) and Akira Yoshino (Japan), for developing lithium-ion batteries.',
@@ -646,7 +646,7 @@ CHUNK({
       caption: 'Inside a cylindrical cell: cathode and anode sheets with separators between them are wound into a jelly roll, with tabs to the positive and negative terminals and a central vent tube.',
       alt: 'Cutaway of a cylindrical Li-ion cell labelled positive terminal, cathode tab, cathode, anode, separators, electrode windings (jelly roll), vent tube, anode tab and negative terminal.' },
     { id: 'm2-liion-charge-discharge', src: 'm2/images/s23_be0fb458.png', crop: null,
-      caption: 'Left, charging: Li⁺ leaves LiCoO₂ for graphite while the charger moves electrons the same way outside. Right, discharging: Li⁺ returns to CoO₂ and the electrons light the bulb. The +/− signs on the left panel are swapped; graphite is always the negative terminal.',
+      caption: 'Left, charging: Li⁺ leaves LiCoO₂ for graphite while the charger moves electrons the same way outside. Right, discharging: Li⁺ returns to CoO₂ and the electrons light the bulb. Graphite is the negative terminal in both panels (the course slide had the signs swapped on the left).',
       alt: 'Two Li-ion cells side by side, each with graphite, electrolyte and cobalt oxide layers, SEI films, Li⁺ arrows and half-reactions labelled oxidation and reduction.' },
     { id: 'm2-liion-variants-table', src: 'm2/images/s25_e84ec3e7.png', crop: null,
       caption: 'Li-ion chemistries by cathode: only LiCoO₂ (LCO) is marked high capacity, and NCA is the one listed for electric vehicles and grid storage.',
