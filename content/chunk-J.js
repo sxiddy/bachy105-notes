@@ -127,9 +127,11 @@ CHUNK({
             </tbody>
           </table>
           <div class="note exam"><p>First-order half-life does <b>not</b> depend on the starting concentration. Zero order: longer for higher [A]<sub>0</sub>. Second order: shorter for higher [A]<sub>0</sub>.</p></div>
+          <figure data-fig="m1-order-conc-time"></figure>
         ` },
         { title: 'Reading the plots', html: `
           <p class="lead">Which quantity gives a straight line tells you the order, and the slope gives k.</p>
+          <figure data-fig="m1-linear-rate-plots"></figure>
           <div class="kv">
             <div><span>Zero order</span><b>[A]<sub>t</sub> vs time, slope = −k</b></div>
             <div><span>First order</span><b>ln[A]<sub>t</sub> vs time, slope = −k</b></div>
@@ -326,5 +328,12 @@ CHUNK({
       formulas: []
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm1-order-conc-time', src: null, crop: null,
+      caption: 'Concentration against time for the three orders with the same starting concentration and starting rate: zero order falls in a straight line to zero, first order decays exponentially, second order slows most and has the longest tail.',
+      alt: 'Graph of concentration of A against time with three curves from the same starting point: a straight green line reaching zero, a blue exponential decay, and an orange curve that flattens most.' },
+    { id: 'm1-linear-rate-plots', src: null, crop: null,
+      caption: 'Three stacked plots: [A] against t for zero order and ln[A] against t for first order both fall with slope minus k; 1/[A] against t for second order rises with slope plus k.',
+      alt: 'Three small graphs against time: a falling line of A labelled zero order, a falling line of ln A labelled first order, and a rising line of 1 over A labelled second order, each with its slope in terms of k.' }
+  ]
 });

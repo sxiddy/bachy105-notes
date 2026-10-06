@@ -290,6 +290,7 @@ CHUNK({
             <li>ΔH &lt; 0 and ΔS &lt; 0: decreasing T makes ΔG more negative.</li>
           </ul>
           <div class="mnemonic">Same signs: temperature decides. Opposite signs: the answer never changes.</div>
+          <figure data-fig="m1-gibbs-four-cases"></figure>
         ` },
         { title: 'Third law', html: `
           <p class="lead">The <b>entropy of all perfect crystalline substances is zero at T = 0</b>.</p>
@@ -304,6 +305,7 @@ CHUNK({
             <div><span>W</span><b>number of microstates, the ways a molecular state can be spread over the energy states for a given total energy</b></div>
           </div>
           <p>At T = 0, W = 1, so S = k ln 1 = <b>0</b>.</p>
+          <figure data-fig="m1-entropy-temperature"></figure>
           <div class="note why"><p>If zero entropy is given to elements in their perfect crystalline form at 0 K, then all perfect crystalline <b>compounds</b> also have zero entropy at 0 K. This is why absolute entropies S° can be tabulated.</p></div>
         ` }
       ],
@@ -453,6 +455,12 @@ CHUNK({
       alt: 'P against V graph of a closed loop with four labelled points A, B, C, D. Two blue and red isotherms are joined by two steeper yellow adiabats, with arrows running clockwise and the inside shaded.' },
     { id: 'm1-carnot-ts', src: null, crop: null,
       caption: 'On a T-S diagram the Carnot cycle is a rectangle: heat in along the hot isotherm, heat out along the cold one, and vertical adiabats at constant entropy.',
-      alt: 'Temperature against entropy graph with a shaded rectangle. The top side at T hot has an arrow to the right, the right side points down, the bottom side at T cold points left, and the left side points up.' }
+      alt: 'Temperature against entropy graph with a shaded rectangle. The top side at T hot has an arrow to the right, the right side points down, the bottom side at T cold points left, and the left side points up.' },
+    { id: 'm1-gibbs-four-cases', src: null, crop: null,
+      caption: 'Each case is a straight line, G = H - TS: the intercept is the enthalpy change and the slope is minus the entropy change. Lines a and d never cross zero; b and c switch sign at a crossover temperature.',
+      alt: 'Graph of delta G against temperature with a zero axis and four straight lines: a starts below zero and falls, b starts above zero and falls through zero, c starts below zero and rises through zero, d starts high above zero and rises.' },
+    { id: 'm1-entropy-temperature', src: null, crop: null,
+      caption: 'Entropy is zero for a perfect crystal at 0 K, rises smoothly with temperature, and jumps at melting and again at boiling, where the change is enthalpy of the transition divided by its temperature.',
+      alt: 'Graph of entropy against temperature starting at zero, rising through solid, a vertical jump at the melting temperature, the liquid region, a larger vertical jump at the boiling temperature, then the gas region.' }
   ]
 });
