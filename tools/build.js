@@ -54,7 +54,7 @@ for (const f of fs.readdirSync(PIMG).filter((f) => /\.svg$/.test(f))) fs.unlinkS
 for (const f of fs.readdirSync(SVGSRC).filter((f) => /^m\d+-[a-z0-9-]+\.svg$/.test(f))) {
   const id = f.slice(0, -4), svg = fs.readFileSync(path.join(SVGSRC, f), 'utf8');
   const vb = (svg.match(/viewBox="([^"]+)"/) || [])[1];
-  if (!vb || !dims[id]) continue;
+  if (!vb) continue;
   const [, , w, h] = vb.trim().split(/[\s,]+/).map(Number);
   dims[id] = { w: Math.round(w), h: Math.round(h), svg: 1 };
   fs.copyFileSync(path.join(SVGSRC, f), path.join(PIMG, f));

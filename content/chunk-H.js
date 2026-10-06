@@ -235,10 +235,12 @@ CHUNK({
           </ul>
           <div class="eq" data-label="Reversible, n moles">w = −nRT ln <span class="frac"><span>V<sub>2</sub></span><span>V<sub>1</sub></span></span> = −nRT ln <span class="frac"><span>P<sub>1</sub></span><span>P<sub>2</sub></span></span></div>
           <p>The work equals the <b>area under the isotherm</b> P = nRT/V. In an irreversible expansion against the same final pressure, the work is the smaller rectangular area.</p>
+          <figure data-fig="m1-pv-isothermal"></figure>
           <div class="note exam"><p><b>Reversible work is the maximum work.</b> The numericals call it the maximum work done, W = −nRT ln(P<sub>1</sub>/P<sub>2</sub>).</p></div>
         ` },
         { title: 'Adiabatic', html: `
           <p class="lead">In an adiabatic process <b>q = 0</b>, so the first law reduces to <b>ΔU = w</b>. The system pays for its work out of its own internal energy.</p>
+          <figure data-fig="m1-pv-adiabatic"></figure>
           <ul>
             <li>Expansion: w = −ve, ΔU = −ve, so the <b>temperature falls</b>.</li>
             <li>Example: a CO<sub>2</sub> fire extinguisher. The gas leaves at high pressure and cools as it expands at atmospheric pressure.</li>
@@ -257,6 +259,7 @@ CHUNK({
         ` },
         { title: 'Isobaric & isochoric', html: `
           <p class="lead">Two simple cases: pressure fixed, or volume fixed.</p>
+          <figure data-fig="m1-pv-isobaric-isochoric"></figure>
           <div class="vs">
             <div class="side"><h4>Isobaric</h4><p>Pressure is constant. Work = <b>pressure × change in volume</b>.</p><div class="eq">w = −P ΔV</div><p>Example: a gas slowly heated or cooled, held by a piston in a cylinder.</p></div>
             <div class="side"><h4>Isochoric</h4><p>Volume is constant, so the <b>work done is zero</b>.</p><div class="eq">w = 0, ΔU = q<sub>v</sub></div><p>Example: a gas in a box with fixed walls.</p></div>
@@ -301,5 +304,15 @@ CHUNK({
       ]
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm1-pv-isothermal', src: null, crop: null,
+      caption: 'On a P-V diagram the reversible work is the whole area under the isotherm. Expanding against the final pressure P2 in one step gives only the smaller rectangle.',
+      alt: 'P against V graph with a falling hyperbola from P1 at V1 to P2 at V2. The area under the curve is shaded blue and a lower rectangle of height P2 from V1 to V2 is shaded orange.' },
+    { id: 'm1-pv-adiabatic', src: null, crop: null,
+      caption: 'From the same start A, the adiabat falls more steeply than the isotherm, so the same volume change ends at a lower pressure (and lower temperature) at C.',
+      alt: 'P against V graph with two falling curves from point A: a blue isotherm ending at B and a steeper red adiabat ending lower at C, both at volume V2.' },
+    { id: 'm1-pv-isobaric-isochoric', src: null, crop: null,
+      caption: 'Isobaric: a horizontal line whose area under it is the work. Isochoric: a vertical line with no area under it, so no work.',
+      alt: 'Two small P against V graphs. Top: a horizontal arrow with the rectangle under it shaded and labelled w equals minus P delta V. Bottom: a vertical downward arrow labelled no area, so w equals zero.' }
+  ]
 });

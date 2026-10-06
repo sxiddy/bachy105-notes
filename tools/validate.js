@@ -119,7 +119,7 @@ function checkChunk(file, d, globalCtx) {
     if (!/^m[0-9]+-[a-z0-9-]+$/.test(f.id || '')) err(w, 'bad id');
     if (figIds.has(f.id) || globalCtx.figIds.has(f.id)) err(w, 'duplicate figure id');
     figIds.add(f.id); globalCtx.figIds.add(f.id);
-    if (!f.src || !fs.existsSync(path.join(ROOT, 'src', f.src))) err(w, `src not found: ${f.src}`);
+    if (f.src === null && fs.existsSync(path.join(ROOT, 'figs-svg', f.id + '.svg'))) { /* drawn directly, no slide image */ } else if (!f.src || !fs.existsSync(path.join(ROOT, 'src', f.src))) err(w, `src not found: ${f.src}`);
     if (/\.wmf$/i.test(f.src || '')) err(w, 'wmf equations cannot be shown; transcribe as text');
     if (f.crop !== null && f.crop !== undefined && (!Array.isArray(f.crop) || f.crop.length !== 4)) err(w, 'crop must be null or [x,y,w,h]');
     if (!f.caption) err(w, 'caption required');

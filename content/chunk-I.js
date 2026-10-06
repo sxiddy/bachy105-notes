@@ -120,9 +120,11 @@ CHUNK({
             </tbody>
           </table>
           <p>The <b>area enclosed</b> by the four curves on the P–V diagram is the net work done by the engine in one cycle.</p>
+          <figure data-fig="m1-carnot-pv"></figure>
         ` },
         { title: 'Efficiency & statements', html: `
           <p class="lead">Add the entropy changes round the cycle and the total is zero, which links heat to temperature.</p>
+          <figure data-fig="m1-carnot-ts"></figure>
           <div class="eq">∮ dS = <span class="frac"><span>q<sub>h</sub></span><span>T<sub>h</sub></span></span> + <span class="frac"><span>q<sub>c</sub></span><span>T<sub>c</sub></span></span> = 0, so q<sub>h</sub>/q<sub>c</sub> = −T<sub>h</sub>/T<sub>c</sub></div>
           <div class="eq" data-label="Carnot efficiency">η = <span class="frac"><span>W</span><span>q<sub>h</sub></span></span> = 1 − <span class="frac"><span>q<sub>c</sub></span><span>q<sub>h</sub></span></span> = 1 − <span class="frac"><span>T<sub>c</sub></span><span>T<sub>h</sub></span></span></div>
           <div class="vs">
@@ -445,5 +447,12 @@ CHUNK({
       ]
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm1-carnot-pv', src: null, crop: null,
+      caption: 'The Carnot cycle on a P-V diagram: isothermal expansion A to B, adiabatic expansion B to C, isothermal compression C to D, adiabatic compression D to A. The enclosed area is the net work.',
+      alt: 'P against V graph of a closed loop with four labelled points A, B, C, D. Two blue and red isotherms are joined by two steeper yellow adiabats, with arrows running clockwise and the inside shaded.' },
+    { id: 'm1-carnot-ts', src: null, crop: null,
+      caption: 'On a T-S diagram the Carnot cycle is a rectangle: heat in along the hot isotherm, heat out along the cold one, and vertical adiabats at constant entropy.',
+      alt: 'Temperature against entropy graph with a shaded rectangle. The top side at T hot has an arrow to the right, the right side points down, the bottom side at T cold points left, and the left side points up.' }
+  ]
 });
