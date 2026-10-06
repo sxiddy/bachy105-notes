@@ -564,10 +564,12 @@ CHUNK({
           <div class="note trap"><p>A has no unit: (L mol<sup>−1</sup> cm<sup>−1</sup>) × (cm) × (mol L<sup>−1</sup>) cancels out. M<sup>−1</sup> cm<sup>−1</sup> is the same unit as L mol<sup>−1</sup> cm<sup>−1</sup>. And ε holds for one wavelength only.</p></div>
           <details class="more"><summary>Transmittance, if it is asked</summary>
             <p>Transmittance is T = I/I<sub>0</sub>, and %T = 100 × T. Since A = log<sub>10</sub>(I<sub>0</sub>/I), A = −log<sub>10</sub> T. So A = 1 means 10% of the light gets through, and A = 2 means 1%.</p>
+            <figure data-fig="m4-transmittance-absorbance"></figure>
           </details>
         ` },
         { title: 'Solving for concentration', html: `
           <p class="lead">The page 24 problem is the standard exam pattern: <b>rearrange A = εLc for c</b>, substitute, and give the answer in mol/L.</p>
+          <figure data-fig="m4-beer-calibration"></figure>
           <div class="worked">
             <div class="given"><p>A sample has its absorption maximum at <b>275 nm</b> (the slide words it as "a maximum absorbance of 275 nm") and molar absorptivity <b>ε = 8400 M<sup>−1</sup> cm<sup>−1</sup></b>. The spectrophotometer reads <b>A = 0.70</b> in a cuvette <b>1 cm</b> wide. Find the concentration.</p></div>
             <div class="solve">
@@ -830,6 +832,12 @@ CHUNK({
       alt: 'Double-beam layout: D2 lamp and tungsten lamp reflect off a mirror, pass a filter wheel into a monochromator, then a beam splitter sends one beam through the sample and, via a mirror, one through the reference, each to a photodiode feeding data processing and an absorbance readout.' },
     { id: 'm4-q2-structure', src: 'm4/pages/p24.png', crop: [0.135, 0.55, 0.245, 0.28],
       caption: 'Page 24, problem 2: five circled groups (A–E) on a naphthalene-based molecule to sort into chromophores and auxochromes.',
-      alt: 'A naphthalene core with circled groups: A an OH, B a CH=N linked to a cyclopentadiene ring, C the naphthalene rings, D a propyl chain, E an amide CONH2.' }
+      alt: 'A naphthalene core with circled groups: A an OH, B a CH=N linked to a cyclopentadiene ring, C the naphthalene rings, D a propyl chain, E an amide CONH2.' },
+    { id: 'm4-beer-calibration', src: null, crop: null,
+      caption: 'Absorbance rises in a straight line with concentration, with slope epsilon times L. An absorbance of 0.70 corresponds to 8.33 x 10^-5 M in the worked example.',
+      alt: 'Graph of absorbance against concentration: a straight line from the origin with a marked point at absorbance 0.70 and concentration 8.33 in units of 10 to the minus 5 molar, joined to the axes by dashed lines.' },
+    { id: 'm4-transmittance-absorbance', src: null, crop: null,
+      caption: 'Transmittance falls by a factor of ten for each unit of absorbance: A = 1 lets 10% of the light through and A = 2 lets 1% through.',
+      alt: 'A falling exponential curve of percent transmittance against absorbance with marked points at A equal to 0, 1 and 2 labelled 100%, 10% and 1%.' }
   ]
 });
