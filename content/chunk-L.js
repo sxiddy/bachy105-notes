@@ -12,6 +12,7 @@ CHUNK({
       tabs: [
         { title: 'Dipole & field', html: `
           <p class="lead">The ends of a magnet, where the magnetic effect is strongest, are its <b>poles</b>. Every magnet has two: one <b>north</b>, one <b>south</b>.</p>
+          <figure data-fig="m3-bar-magnet-field"></figure>
           <ul>
             <li>Any two opposite poles separated by a finite distance form a <b>magnetic dipole</b>.</li>
             <li>The <b>magnetic field</b> is the space around a magnet in which its influence is felt.</li>
@@ -104,6 +105,7 @@ CHUNK({
           <p class="lead">Every substance is an assembly of atoms that are either magnetic or non-magnetic. By response to a field, materials fall into five classes.</p>
           <div class="chips"><span class="chip">diamagnetic</span><span class="chip">paramagnetic</span><span class="chip">ferromagnetic</span><span class="chip">antiferromagnetic</span><span class="chip">ferrimagnetic</span></div>
           <p>Ferro-, antiferro- and ferrimagnetism need no new kind of moment. They are different ways the <b>same moments are coupled (arranged)</b>.</p>
+          <figure data-fig="m3-spin-arrangements"></figure>
           <table class="tbl">
             <thead><tr><th>Type</th><th>Spin arrangement</th></tr></thead>
             <tbody>
@@ -175,6 +177,7 @@ CHUNK({
           <div class="note heads-up"><p>The slide table says "χ = C/(T ± θ) when T &gt; T<sub>N</sub>; when T &lt; T<sub>N</sub> behaves as paramagnetic". The slide text says paramagnetic <b>above</b> the Curie temperature, so the table has the direction reversed and uses T<sub>N</sub> where T<sub>C</sub> is meant. Use the text version.</p></div>
         ` },
         { title: 'Summary table', html: `
+        <figure data-fig="m3-chi-temperature"></figure>
           <table class="tbl">
             <thead><tr><th>Type</th><th>Susceptibility</th><th>Atomic behaviour</th><th>Example (χ)</th></tr></thead>
             <tbody>
@@ -241,6 +244,7 @@ CHUNK({
       tabs: [
         { title: 'Superexchange', html: `
           <p class="lead">In the paramagnetic state the moments of ions with unpaired electrons are random. An applied field only partly aligns them.</p>
+          <figure data-fig="m3-superexchange"></figure>
           <ul>
             <li>In the ferro and antiferro states the dipoles align <b>spontaneously</b>, because of a positive interaction energy between spins. This cooperative interaction is <b>quantum mechanical</b> in origin.</li>
             <li>One mechanism behind antiferromagnetism in <b>NiO</b> is <b>superexchange</b>: the single electrons in the d<sub>z²</sub> and d<sub>x²−y²</sub> orbitals of one Ni<sup>2+</sup> couple antiferromagnetically with those of a neighbouring Ni<sup>2+</sup>, <b>through the p orbital of the oxide ion</b>.</li>
@@ -249,6 +253,7 @@ CHUNK({
         ` },
         { title: 'Hysteresis loop', html: `
           <p class="lead">The striking property of ferromagnets is the relation between magnetization M and field H, called <b>hysteresis</b>. Ferromagnets contain <b>domains</b>, with parallel spins inside each. At saturation all domains share one orientation.</p>
+          <figure data-fig="m3-hysteresis-loop"></figure>
           <ol class="steps">
             <li><b>Virgin curve.</b> Start unmagnetised (M = 0) and raise H. M rises to a maximum at P, the <b>saturation magnetization M<sub>s</sub></b>. More field adds no more moment.</li>
             <li><b>Remanence.</b> Reduce H to zero. M falls only to Q, the <b>residual magnetization M<sub>r</sub></b>.</li>
@@ -257,6 +262,7 @@ CHUNK({
             <li><b>Close the loop.</b> Reverse the polarity and raise it again. M falls to the residual value, to zero, then back to saturation and rejoins the original curve.</li>
           </ol>
           <div class="note exam"><p><b>The area of the loop equals the energy wasted per cycle.</b> Large loop, large loss.</p></div>
+          <figure data-fig="m3-hard-soft-loops"></figure>
           <div class="vs">
             <div class="side"><h4>Hard magnetic material</h4><p>Large loop, high coercivity. Example: <b>Alnico alloy</b>. Used for permanent magnets.</p></div>
             <div class="side"><h4>Soft magnetic material</h4><p>Small loop, <b>low coercivity</b>. Example: <b>ferrous-nickel alloy</b>. Used for cores.</p></div>
@@ -320,5 +326,24 @@ CHUNK({
       formulas: []
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm3-bar-magnet-field', src: null, crop: null,
+      caption: 'A bar magnet is a dipole: field lines leave the north pole and curve round to the south pole outside the magnet.',
+      alt: 'A bar magnet drawn as a red N block next to a blue S block with curved field lines with arrows looping above and below from the N end to the S end.' },
+    { id: 'm3-spin-arrangements', src: null, crop: null,
+      caption: 'The same moments arranged four ways: random (paramagnetic), all parallel (ferromagnetic), alternating and equal (antiferromagnetic), alternating and unequal (ferrimagnetic).',
+      alt: 'Four rows of arrows: randomly oriented, all pointing up, alternately up and down with equal lengths, and alternately up and down with unequal lengths.' },
+    { id: 'm3-chi-temperature', src: null, crop: null,
+      caption: 'Susceptibility against temperature: paramagnets follow C/T, ferromagnets follow Curie-Weiss above their Curie temperature, antiferromagnets peak at the Neel temperature.',
+      alt: 'Three small graphs of susceptibility against temperature: a falling hyperbola, a curve diverging near the Curie temperature, and a rise to a peak at the Neel temperature followed by a fall.' },
+    { id: 'm3-hysteresis-loop', src: null, crop: null,
+      caption: 'Magnetisation against field for a ferromagnet: saturation at P, remanence Mr at Q, coercivity Hc at R, reverse saturation at S. The dashed curve is the first magnetisation.',
+      alt: 'An S-shaped loop on M against H axes with labelled points P, Q, R and S, a dashed first-magnetisation curve from the origin, and Ms, Mr and Hc marked.' },
+    { id: 'm3-hard-soft-loops', src: null, crop: null,
+      caption: 'A hard magnet has a wide loop and high coercivity, suited to permanent magnets. A soft magnet has a narrow loop and low coercivity, suited to cores with low loss.',
+      alt: 'Two hysteresis loops on the same axes scale: a wide red loop for a hard material and a narrow blue loop for a soft material.' },
+    { id: 'm3-superexchange', src: null, crop: null,
+      caption: 'Superexchange in NiO: the oxygen between two nickel ions passes the spin along the Ni-O-Ni line, so the two nickel spins point opposite ways.',
+      alt: 'Three circles in a row labelled Ni2+, O2- and Ni2+ with spin arrows: up on the left Ni, a down and an up pair on oxygen, and down on the right Ni.' }
+  ]
 });
