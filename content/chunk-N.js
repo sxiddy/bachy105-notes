@@ -12,6 +12,7 @@ CHUNK({
       tabs: [
         { title: 'p–p and s–p overlap', html: `
           <p class="lead">When two atomic orbitals overlap, they form a <b>bonding</b> and an <b>antibonding</b> molecular orbital. The type of overlap sets the type of bond.</p>
+          <figure data-fig="m5-orbital-overlap"></figure>
           <div class="vs">
             <div class="side"><h4>p–p overlap</h4><p>Two p orbitals overlap to give a bonding and an antibonding orbital. Head-on overlap along the bond axis gives σ and σ*; sideways overlap gives π and π*.</p></div>
             <div class="side"><h4>s–p overlap</h4><p>An s orbital overlapping a p orbital gives a σ bonding orbital (in-phase) and a σ* antibonding orbital (out-of-phase).</p></div>
@@ -74,9 +75,11 @@ CHUNK({
             <div class="side"><h4>Anharmonic oscillator</h4><p>Real molecules <b>deviate from a perfect parabola</b>.</p><div class="eq">V = D<sub>e</sub> (1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup></div></div>
           </div>
           <p>The slides show curves for <b>H<sub>2</sub></b> and <b>HCl</b>.</p>
+          <figure data-fig="m5-pec-diatomic"></figure>
         ` },
         { title: 'Surface & hypersurface', html: `
           <p class="lead">A <b>potential energy surface (PES)</b> shows how energy changes with atomic positions. It looks like a terrain of <b>hills and valleys</b>.</p>
+          <figure data-fig="m5-pes-contours"></figure>
           <ul>
             <li>It helps identify <b>transition states and intermediates</b>, predict rate, find the most stable configuration and trace the energy pathway.</li>
             <li>One variable (H<sub>2</sub>: a single bond length) gives a <b>2D curve</b>.</li>
@@ -162,6 +165,7 @@ CHUNK({
             <div class="side"><h4>Non-linear molecule</h4><div class="eq">3N − 6 modes</div></div>
           </div>
           <p>N is the number of atoms.</p>
+          <figure data-fig="m5-water-normal-modes"></figure>
           <div class="worked"><div class="given"><p>How many normal modes does water have?</p></div>
           <div class="solve"><p>Water is non-linear with N = 3.</p><div class="eq">3(3) − 6 = 3</div></div>
           <div class="result"><b>3 normal modes</b></div></div>
@@ -277,6 +281,7 @@ CHUNK({
             <li><b>Exit complex ID2.</b> An exit ion–dipole complex forms before separation into products.</li>
           </ol>
           <p>The PES has a <b>double-well shape</b>: two valleys (ID1 and ID2) and one peak (the TS). This shape is universal for gas-phase SN2.</p>
+          <figure data-fig="m5-sn2-profile"></figure>
         ` },
         { title: 'Solvent effect', html: `
           <p class="lead">Solvent changes SN2 dramatically.</p>
@@ -326,6 +331,7 @@ CHUNK({
         ` },
         { title: 'Screening semiconductors', html: `
           <p class="lead">The aim is to <b>screen and identify the optimal semiconductor material</b> from a large database.</p>
+          <figure data-fig="m5-ml-workflow"></figure>
           <ol class="steps">
             <li><b>Data.</b> Formation energy, lattice constants, density and total magnetisation.</li>
             <li><b>Target.</b> Band gap (eV).</li>
@@ -350,5 +356,24 @@ CHUNK({
       formulas: []
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm5-orbital-overlap', src: null, crop: null,
+      caption: 'Overlap of two orbitals gives a bonding and an antibonding MO. Head-on p-p overlap gives sigma and sigma-star, sideways p-p overlap gives pi and pi-star, and s-p overlap gives sigma and sigma-star. Blue and orange are opposite signs.',
+      alt: 'Three rows of lobe drawings, each with a bonding picture on the left where same-sign lobes merge and an antibonding picture on the right with a dashed node between opposite-sign lobes.' },
+    { id: 'm5-pec-diatomic', src: null, crop: null,
+      caption: 'Potential energy against bond length for a diatomic AB: the minimum is at the equilibrium bond length Re, De is the well depth, and the harmonic parabola matches the real curve only near the minimum.',
+      alt: 'A U-shaped curve of potential energy against R with its minimum at Re, rising steeply on the left and levelling off to a dashed line on the right with the depth De marked, and a dashed parabola hugging the minimum.' },
+    { id: 'm5-pes-contours', src: null, crop: null,
+      caption: 'A PES seen from above as contours: two valleys (reactant and product minima) joined by a pass, the saddle point, which is the transition state.',
+      alt: 'Contour map with concentric rings around a reactant and a product on the left and right, curved contour lines above and below the centre, and a dashed arrow along the path through the saddle point.' },
+    { id: 'm5-sn2-profile', src: null, crop: null,
+      caption: 'Gas-phase SN2 profile with two ion-dipole wells (ID1, ID2) and one transition state, compared with the single much higher barrier the reaction has in water.',
+      alt: 'Energy against reaction coordinate: a blue curve with a well, a small peak labelled TS and a second well, and a dashed orange curve with one high peak over the same range.' },
+    { id: 'm5-water-normal-modes', src: null, crop: null,
+      caption: 'The three normal modes of water: symmetric stretch, bend and asymmetric stretch. All atoms move together at one frequency in each mode.',
+      alt: 'Three small water molecules with orange arrows on the hydrogens: both moving outward, both moving up, and one moving outward while the other moves inward.' },
+    { id: 'm5-ml-workflow', src: null, crop: null,
+      caption: 'Screening workflow: collect data, train models, tune them, predict the band gap of each material, and rank the best semiconductors.',
+      alt: 'Five stacked boxes joined by downward arrows: Data, Train models, Tune, Predict and Rank.' }
+  ]
 });
