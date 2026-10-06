@@ -50,15 +50,12 @@
   "pro-N.js",
   "qa-M5.js",
   "papers-pro-answers.js",
-  "viz-m1.js",
   "viz-m2a.js",
   "viz-m2b.js",
   "viz-m2c.js",
-  "viz-m3-em.js",
   "viz-m3.js",
   "viz-m4a.js",
-  "viz-m4b.js",
-  "viz-m5.js"
+  "viz-m4b.js"
  ],
  "freeModules": [
   "m1",
@@ -140,14 +137,11 @@
   "q-M5.js": "m5",
   "qa-M5.js": "m5",
   "summary-m5.js": "m5",
-  "viz-m1.js": "m1",
   "viz-m2a.js": "m2",
   "viz-m2b.js": "m2",
   "viz-m2c.js": "m2",
-  "viz-m3-em.js": "m3",
   "viz-m3.js": "m3",
   "viz-m4a.js": "m4",
-  "viz-m4b.js": "m4",
-  "viz-m5.js": "m5"
+  "viz-m4b.js": "m4"
  }
 }
