@@ -1,10 +1,10 @@
 // Shared helpers for the sign-in, payment and content functions (files starting with _ are not deployed as endpoints).
 const crypto = require('crypto');
 
-const PRICE = parseInt(process.env.PRICE_PAISE || '5000', 10); // ₹50 default; the owner can change it on /stats.html
+const PRICE = parseInt(process.env.PRICE_PAISE || '5000', 10); // ₹50 default; the owner can change it on /admin
 const DOMAIN = (process.env.STUDENT_DOMAIN || 'vitstudent.ac.in').toLowerCase(); // only these Google accounts get in
 const USER_COOKIE = 'bn_user';   // signed-in student: { e: email, d: device id }
-const OWNER_COOKIE = 'bn_access'; // owner unlock from /stats.html: { p: 'owner' }
+const OWNER_COOKIE = 'bn_access'; // owner unlock from /admin: { p: 'owner' }
 const MAX_AGE = 400 * 24 * 3600; // browsers cap cookies at 400 days
 // Razorpay's website reviewer signs in on /review.html with this username and the REVIEW_CODE the owner sets in
 // Vercel (unset = reviewer sign-in is off). The reviewer sees the free modules, the paywall and the Pay button, never paid content.
@@ -83,10 +83,11 @@ function isOwner(req) {
   return !!(t && t.p === 'owner');
 }
 
-// Two site-wide switches the owner flips on /stats.html (hash "config"):
+// Two site-wide switches the owner flips on /admin (hash "config"):
 //   signin = "off": nobody new can sign in, and anyone can open the site without signing in (a guest). Students who
 //                   are already signed in stay signed in and keep what they paid for.
-//   mode = "free":  every module is open to everyone who can open the site (no paywall); "paid" (default) = as usual.
+//   mode = "free" (also the default while unset): every Pro feature is open to everyone who can open the site (no
+//                   paywall); "paid" = Pro is locked: the notes stay free, Pro needs a payment or free access.
 //   A temporary offer at ₹0 (config "sale", price 0) does the same as "free" until the offer ends, then the site is paid again.
 //   .free = free right now for either reason; .freeMode = the switch; .freeOffer = the ₹0 offer's end time (ms) or null.
 // Cached for a few seconds per server instance, so a switch reaches every page within about 5 s.
@@ -97,7 +98,7 @@ async function siteMode(fresh) {
   const out = { signin: true, free: false, freeMode: false, freeOffer: null };
   if (store.configured()) {
     const [[s, m, sl]] = await store.pipeline([['HMGET', 'config', 'signin', 'mode', 'sale']]);
-    out.signin = s !== 'off'; out.freeMode = m === 'free';
+    out.signin = s !== 'off'; out.freeMode = m !== 'paid'; // Pro is free for everyone until the owner locks it (mode 'paid')
     try { const x = JSON.parse(sl || 'null'); if (x && x.price === 0 && x.until > Date.now()) out.freeOffer = x.until; } catch (e) {}
     out.free = out.freeMode || !!out.freeOffer;
   }
@@ -223,7 +224,7 @@ async function settings() {
 
 // ---------------------------------------------------------------- devices
 // Each student account signs in on one phone (or tablet) and one laptop/PC, unless the owner set a custom limit for
-// that email on /stats.html (hash "limits": email -> {"phone":n,"pc":n}). The kind comes from the browser's user agent;
+// that email on /admin (hash "limits": email -> {"phone":n,"pc":n}). The kind comes from the browser's user agent;
 // the browser keeps a random device id in localStorage, so signing in again on the same device reuses its slot.
 const DEVICE_KINDS = ['phone', 'pc'];
 const MAX_DEVICES = DEVICE_KINDS.length;

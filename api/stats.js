@@ -12,7 +12,7 @@
 //     set-banner { text, on }            announcement shown at the top of the site
 //     set-paused { on, text? }           pause payments: the paywall shows a notice instead of the Pay button
 //     set-signin { on }                  Google sign-in on, or off (anyone opens the site as a guest; see siteMode in _lib.js)
-//     set-mode { free }                  the whole site free (every module open) or paid (as usual)
+//     set-mode { free }                  Pro features free for everyone, or locked (mode 'paid': students pay for Pro)
 //     set-business { name }              the business name shown on the terms, refund and contact pages
 //     feedback-status { id, status }     mark a Help? request or an idea open / fixed / ignored
 //     reply { id, text }                 answer a Help? request or an idea: saved in hash replies and sent to the
@@ -101,7 +101,7 @@ module.exports = handle(async (req, res) => {
       return send(res, 200, { ok: true });
     }
     if (a === 'set-mode') {
-      await store.pipeline([b.free ? ['HSET', 'config', 'mode', 'free'] : ['HDEL', 'config', 'mode']]);
+      await store.pipeline([['HSET', 'config', 'mode', b.free ? 'free' : 'paid']]);
       return send(res, 200, { ok: true });
     }
     if (a === 'set-business') {

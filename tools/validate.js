@@ -10,14 +10,9 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const MODULE_IDS = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'content', 'modules.json'), 'utf8')).map((m) => m.id));
 
-const VIZ_IDS = new Set([
-  'cell-galvanic', 'nernst', 'bands', 'doping', 'zone-refining', 'czochralski',
-  'cell-types', 'liion', 'fuelcell', 'pn-junction', 'dssc', 'solar-routes',
-  'nano-scale', 'nano-dims', 'sa-volume', 'gold-color', 'topdown-bottomup',
-  'ball-mill', 'sol-gel', 'confinement', 'qd-size', 'coolant-picker',
-  'em-spectrum', 'wave-calc', 'transitions', 'color-wheel', 'beer-lambert', 'spectrophotometer',
-  'xray-tube', 'interference', 'bragg', 'xrd-pattern', 'xrd-calc', 'size-hierarchy',
-]);
+// widget ids: whatever the widget files register (VIZ.register('id', ...)) in app/js/viz and viz-paid
+const VIZ_IDS = new Set((['app/js/viz', 'viz-paid'].filter((d) => fs.existsSync(path.join(ROOT, d))).map((d) => fs.readdirSync(path.join(ROOT, d)).filter((f) => f.endsWith('.js'))
+  .map((f) => [...fs.readFileSync(path.join(ROOT, d, f), 'utf8').matchAll(/\bregister\('([a-z0-9-]+)'/g)].map((m) => m[1])))).flat(2));
 const TAGS = new Set('p h3 h4 b em sub sup br ul ol li table thead tbody tr th td div span figure details summary small code'.split(' '));
 const VOID = new Set(['br']);
 const CLASSES = new Set('lead eq frac tbl kv vs side steps chips chip note why exam trap heads-up example worked given solve result mnemonic more'.split(' '));
@@ -128,6 +123,7 @@ function checkChunk(file, d, globalCtx) {
     if (/\.wmf$/i.test(f.src || '')) err(w, 'wmf equations cannot be shown; transcribe as text');
     if (f.crop !== null && f.crop !== undefined && (!Array.isArray(f.crop) || f.crop.length !== 4)) err(w, 'crop must be null or [x,y,w,h]');
     if (!f.caption) err(w, 'caption required');
+    if (!fs.existsSync(path.join(ROOT, 'figs-svg', f.id + '.svg'))) warn(w, 'not redrawn yet (figs-svg/' + f.id + '.svg): the slide crop is shown');
     if (!f.alt) warn(w, 'alt text missing');
   }
   const used = new Map();
@@ -191,6 +187,7 @@ if (all || files.some((f) => /q-|summary-/.test(f))) {
 }
 const chunkFiles = fs.readdirSync(contentDir).filter((f) => /^chunk-.*\.js$/.test(f)).map((f) => path.join(contentDir, f));
 if (all) files = fs.readdirSync(contentDir).filter((f) => /\.js$/.test(f)).map((f) => path.join(contentDir, f));
+if (all && !files.length) { console.log('no content files yet'); process.exit(0); }
 if (!files.length) { console.error('usage: node tools/validate.js <file...> | --all'); process.exit(2); }
 
 const g = { topicIds: new Set(), figIds: new Set(), vizUsed: new Map() };
