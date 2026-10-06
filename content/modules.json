@@ -29,7 +29,7 @@
     "id": "m3",
     "num": "03",
     "title": "Functional Materials",
-    "free": false,
+    "free": true,
     "chunks": [
       "K",
       "L",
@@ -46,7 +46,7 @@
     "id": "m4",
     "num": "04",
     "title": "Spectroscopy & Diffraction",
-    "free": false,
+    "free": true,
     "chunks": [
       "F",
       "G"
