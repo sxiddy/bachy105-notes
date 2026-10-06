@@ -882,7 +882,7 @@ window.__startApp = function () {
         <div class="eyebrow"><span class="code">Pro</span><span>Timed mock ${KIND}</span></div>
         <h1 class="h-display">Mock ${KIND}</h1>
         <p class="blurb">Pick a paper. You get the questions and a ${MINUTES}-minute timer, just like the exam hall. Write your answers on paper. When the time is up, or you press Finish, the model answers open.</p>
-        ${papers.length ? papers.map((pp, i) => `<button class="next-topic" data-i="${i}"><div><small>${esc(pp.sub || '')}</small><strong>${esc(pp.title)}</strong></div><span class="arrow">${icon('play')}</span></button>`).join('') : `<div class="empty">The ${KIND} papers are added after the modules are done. Check back soon.</div>`}`;
+        ${papers.length ? papers.map((pp, i) => `<button class="next-topic" data-i="${i}"><div><small>${esc(pp.sub || '')}</small><strong>${esc(pp.title)}</strong></div><span class="arrow">${icon('play')}</span></button>`).join('') : `<div class="empty">No ${KIND} papers are listed.</div>`}`;
       $$('[data-i]', el).forEach((b) => b.addEventListener('click', () => run(papers[+b.dataset.i])));
     }
     function run(pp) {
@@ -2246,8 +2246,36 @@ window.__startApp = function () {
         ['Powder XRD: determination of crystallite size', [['m4-scherrer', 'Crystallite size & Scherrer']]],
       ] },
     ],
-    fat: null, // coming soon
   };
+  // FAT is the whole course: Module 1 (CAT-1), Modules 2-4 (CAT-2) plus every topic the CAT lists leave out, then Module 5
+  SYL.fat = (() => {
+    const g = (m) => SYL.cat2.find((x) => x.mod === m);
+    return [
+      SYL.cat1[0],
+      { mod: 'm2', title: g('m2').title, lines: g('m2').lines.concat([['Electrolysis of molten NaCl and water', [['m2-electrolysis', 'Electrolysis: molten NaCl and water']]]]) },
+      { mod: 'm3', title: 'Electrical and magnetic materials, nanomaterials, coolants', lines: [
+        ['Energy bands: conductors, semiconductors, insulators', [['m3-band-theory', 'Energy bands']]],
+        ['Conducting materials: copper and aluminium', [['m3-conducting-materials', 'Conducting materials']]],
+        ['n-type and p-type semiconductors and their uses', [['m3-semiconductor-types-uses', 'n-type vs p-type and uses']]],
+        ['Insulators', [['m3-insulators', 'Insulators']]],
+        ['Superconductors and the Meissner effect', [['m3-superconductors', 'Superconductors and the Meissner effect']]],
+        ['Magnetic dipoles, moments and quantities', [['m3-magnetic-basics', 'Magnetic dipoles and quantities']]],
+        ['Dia-, para-, ferro-, antiferro- and ferrimagnetism', [['m3-magnetic-classes', 'Types of magnetism']]],
+        ['Superexchange, hysteresis and magnetic storage', [['m3-hysteresis-storage', 'Hysteresis and magnetic storage']]],
+      ].concat(g('m3').lines, [['Liquid coolants and their types', [['m3-coolants', 'Liquid coolants and requirements'], ['m3-coolant-types', 'Types of coolants']]]]) },
+      g('m4'),
+      { mod: 'm5', title: 'Computational chemistry', lines: [
+        ['What computational chemistry is and its methods', [['m5-comp-intro', 'What computational chemistry is'], ['m5-comp-methods', 'Computational methods']]],
+        ['Atomic orbitals', [['m5-atomic-orbitals', 'Atomic orbitals']]],
+        ['Molecular orbital theory and LCAO', [['m5-molecular-orbitals', 'Molecular orbital theory and LCAO'], ['m5-orbital-overlap', 'Orbital interaction and bonding']]],
+        ['Potential energy curves and surfaces', [['m5-potential-energy-surface', 'PES and electrostatic potential']]],
+        ['Geometry optimisation and frequency calculations', [['m5-geometry-frequency', 'Geometry optimisation and frequencies']]],
+        ['Reaction mechanisms and SN2 reactions', [['m5-reaction-mechanisms', 'Reaction mechanisms and SN2']]],
+        ['AI and machine learning for semiconductor screening', [['m5-ai-ml-screening', 'AI and ML screening']]],
+      ] },
+    ];
+  })();
+
   const sylItems = (cat) => { const seen = new Set(); return (SYL[cat] || []).flatMap((g) => g.lines.flatMap(([, tl]) => tl.map(([id]) => ({ id, mod: g.mod })))).filter((x) => !seen.has(x.id) && seen.add(x.id)); };
   // a topic read to the end ticks itself on every syllabus that lists it; a tick the student removed by hand (0) stays off
   function autoTick(ids) {
@@ -2263,7 +2291,7 @@ window.__startApp = function () {
     const groups = SYL[cat];
     if (!groups) {
       el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>${label}</span></div><h1 class="h-display">${label} syllabus</h1>
-        <div class="empty">The ${label} syllabus hasn't been added yet. It will show up here as a checklist, linked to the notes, as soon as it's in.</div>
+        <div class="empty">No ${label} syllabus is listed.</div>
         <p style="margin-top:18px"><a class="btn" href="#syllabus.cat2">${icon('list')}Open the CAT-2 syllabus</a></p>`;
       return { el };
     }
@@ -2294,7 +2322,7 @@ window.__startApp = function () {
   // ================================================================ CAT question papers
   // papers-free.js: the actual CAT papers, the free model papers, the index of all papers and which topics were asked.
   // papers-paid.js: the other model papers (loaded only with full access). Locked ones are listed from the index.
-  // No papers file yet: the sidebar link and home tile stay hidden and #papers says they are coming.
+  // No papers file: the sidebar links and home tile stay hidden.
   const PP = D.papersPro || null; // Pro only: { answers: { paperId: { n: html } }, asked }
   const PAPERS = (D.papers || []).map((p) => (PP && PP.answers && PP.answers[p.id] ? Object.assign({}, p, { questions: (p.questions || []).map((q) => (PP.answers[p.id][q.n] != null ? Object.assign({}, q, { answer: PP.answers[p.id][q.n] }) : q)) }) : p)), PAPER = {};
   PAPERS.forEach((p) => { PAPER[p.id] = p; });
@@ -2338,7 +2366,7 @@ window.__startApp = function () {
         ${PINDEX.length ? `<p class="blurb">Real CAT papers, typed out cleanly, and model papers in the same pattern. Try each question on paper first, then open the model answer.</p>
         ${actual.length ? `<section class="sum-sec"><h2 class="h-sec">Actual papers <small>${actual.length}</small></h2><div class="paper-list">${actual.map(row).join('')}</div></section>` : ''}
         ${model.length ? `<section class="sum-sec"><h2 class="h-sec">Model papers <small>${model.length}</small></h2><div class="paper-list">${model.map(row).join('')}</div></section>` : ''}`
-          : '<p class="blurb">Question papers are coming soon: the actual CAT papers with model answers, and model papers in the same pattern.</p>'}`;
+          : '<p class="blurb">No question papers are listed.</p>'}`;
       stagger(el);
       return { el };
     }

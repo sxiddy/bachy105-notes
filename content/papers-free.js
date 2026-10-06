@@ -134,8 +134,7 @@ PAPERS({
           co: '2',
           bl: '3',
           prompt: `<p>A rechargeable electrochemical cell employed in electric vehicles and renewable-energy storage systems operates through the reversible movement of a light metal species between two layered host structures. Using a suitable diagram, analyse the ion and electron transport mechanism, formulate the electrode and overall charge–discharge reactions, and justify how the layered host structures facilitate reversible cycling and high energy density.</p>`,
-          answer: `<div class="note heads-up"><p>Notes on adsorption (why it can be spontaneous when entropy falls) are to be added soon. Part of the answer below comes from standard chemistry, not yet from these notes.</p></div>
-<p>This is the <b>lithium-ion battery</b>: Li<sup>+</sup> shuttles between a layered LiCoO<sub>2</sub> cathode and a layered graphite anode (a "rocking-chair" cell). It holds no metallic lithium.</p>
+          answer: `<p>This is the <b>lithium-ion battery</b>: Li<sup>+</sup> shuttles between a layered LiCoO<sub>2</sub> cathode and a layered graphite anode (a "rocking-chair" cell). It holds no metallic lithium.</p>
 <figure data-fig="m2-liion-charge-discharge"></figure>
 <p><b>Transport mechanism</b></p>
 <ul><li><b>Charging:</b> Co<sup>3+</sup> in LiCoO<sub>2</sub> is oxidised towards Co<sup>4+</sup> and releases electrons. Li<sup>+</sup> leaves the oxide layers, crosses the electrolyte and separator, and slides in between the graphite sheets. The electrons are pushed round the outer circuit by the charger and meet the Li<sup>+</sup> in the graphite.</li>
@@ -232,8 +231,7 @@ PAPERS({
           bl: '3',
           prompt: `<p><b>(a)</b> A series of organic compounds exhibits different absorption characteristics when interacting with electromagnetic radiation. Explain the fundamental principle of the appropriate spectroscopy. Using Congo red and methylene blue as representative coloured compounds, compare their absorption patterns and account for their intense colours in terms of chromophores, auxochromes, extent of conjugation and the electronic transitions involved. Relate the molecular structures of these compounds to their characteristic absorption in the visible region.</p>
 <p><b>(b)</b> A crystalline material gives a diffraction peak at 2θ = 44.60° with an FWHM of 0.95° when analysed using X-rays of energy 6.93 keV. Taking the shape factor k = 0.9, determine the X-ray wavelength and the average crystallite size using the Scherrer equation, and critically comment on the significance of the calculated crystallite size in relation to the material's nanoscale properties. Given: h = 6.626 × 10<sup>−34</sup> J s, 1 eV = 1.602 × 10<sup>−19</sup> J.</p>`,
-          answer: `<div class="note heads-up"><p>The molecular orbital diagrams for diatomic molecules beyond H<sub>2</sub> are not in the notes yet and will be added soon. The MO part below is standard chemistry.</p></div>
-<p><b>(a) UV-Visible spectroscopy</b></p>
+          answer: `<p><b>(a) UV-Visible spectroscopy</b></p>
 <p><b>Principle:</b> molecules absorb light of 200–700 nm, whose energy matches the gap between electronic levels. A photon is absorbed only when hν = ΔE, lifting a valence electron from a bonding or lone-pair orbital to an antibonding one (π → π*, n → π*). The wavelength absorbed depends on the groups present, and the amount absorbed follows the Beer–Lambert law, A = εcl. A coloured compound absorbs one band of visible light and shows the complementary colour.</p>
 <p><b>Terms:</b> a <b>chromophore</b> is an unsaturated group that absorbs (C=C, C=O, –N=N–, –NO<sub>2</sub>). An <b>auxochrome</b> (–OH, –NH<sub>2</sub>, –NR<sub>2</sub>, –SO<sub>3</sub>H, –COOH) is attached to it and shifts absorption to longer wavelength (bathochromic) and often raises intensity (hyperchromic). The more double bonds in conjugation, the smaller the π–π* gap and the longer the wavelength absorbed.</p>
 <p><b>Congo red</b></p>
@@ -1716,8 +1714,7 @@ PAPERS({
           co: '2',
           bl: '3',
           prompt: `<p>Distinguish between diamagnetic, paramagnetic, and ferromagnetic materials. Write any five applications of magnetic materials.</p>`,
-          answer: `<div class="note heads-up"><p>The O<sub>2</sub> molecular orbital diagram is not in the notes yet and will be added soon. This answer is standard chemistry.</p></div>
-<table><thead><tr><th></th><th>Diamagnetic</th><th>Paramagnetic</th><th>Ferromagnetic</th></tr></thead><tbody>
+          answer: `<table><thead><tr><th></th><th>Diamagnetic</th><th>Paramagnetic</th><th>Ferromagnetic</th></tr></thead><tbody>
 <tr><td>Electrons</td><td>All paired; no permanent moment</td><td>Unpaired electrons, moments random</td><td>Unpaired electrons, moments aligned in domains</td></tr>
 <tr><td>In a field</td><td>Weakly repelled</td><td>Weakly attracted</td><td>Strongly attracted</td></tr>
 <tr><td>Susceptibility χ</td><td>Small, negative</td><td>Small, positive</td><td>Large, positive</td></tr>
@@ -1754,8 +1751,7 @@ PAPERS({
           prompt: `<p><b>9.a)</b> With a neat diagram, explain how the ceramic materials in a device produce electricity. Despite the high operating temperature, reason out the advantages of using this energy device.</p>
 <p><b>[OR]</b></p>
 <p><b>9.b)</b> Describe the function of a Lithium-ion battery with a neat diagram and list out the advantages and disadvantages associated with this energy device.</p>`,
-          answer: `<div class="note heads-up"><p>Notes on why lithium suits energy-storage anodes are to be added soon. Part (a) below is standard chemistry, not yet from these notes.</p></div>
-<p><b>9.a) The solid oxide fuel cell (SOFC).</b></p>
+          answer: `<p><b>9.a) The solid oxide fuel cell (SOFC).</b></p>
 <figure data-fig="m2-sofc-diagram"></figure>
 <p>The ceramics are a dense yttria-stabilised zirconia (YSZ) electrolyte that conducts O<sup>2−</sup>, a Ni–YSZ cermet anode and an LSM (lanthanum strontium manganite) cathode. Operating temperature: 800–1000 °C.</p>
 <div class="eq">Cathode: ½O<sub>2</sub> + 2e<sup>−</sup> → O<sup>2−</sup></div>
