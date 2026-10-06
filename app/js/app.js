@@ -2205,7 +2205,23 @@ window.__startApp = function () {
   // ================================================================ CAT syllabus checklists
   // Each syllabus line links to the topics that cover it. Titles are kept here too, so locked modules still list them.
   const SYL = {
-    cat1: null, // not given yet
+    cat1: [
+      { mod: 'm1', title: 'Thermodynamics and kinetics', lines: [
+        ['Basic terminologies: system, surroundings, state and path functions', [['m1-thermo-basics', 'Thermodynamics: basic terminologies']]],
+        ['Zeroth and first law of thermodynamics', [['m1-zeroth-first-law', 'Zeroth and first law']]],
+        ['Enthalpy and heat capacity', [['m1-enthalpy-heat-capacity', 'Enthalpy and heat capacity']]],
+        ['Work in isothermal and adiabatic expansion', [['m1-expansion-work', 'First law applied to expansion work']]],
+        ['Second law and entropy', [['m1-second-law-entropy', 'Second law and entropy']]],
+        ['Carnot cycle and efficiency of heat engines', [['m1-carnot-cycle', 'Carnot cycle and heat engines']]],
+        ['Free energy and spontaneity', [['m1-free-energy', 'Free energy and spontaneity']]],
+        ['Gibbs–Helmholtz equation and third law', [['m1-gibbs-helmholtz-third-law', 'Gibbs–Helmholtz equation and third law']]],
+        ['Numerical problems on thermodynamics', [['m1-thermo-numericals', 'Thermodynamics numericals']]],
+        ['Rate of reaction, rate law, order and molecularity', [['m1-rate-law', 'Reaction rate and rate law']]],
+        ['Integrated rate equations and half-life', [['m1-integrated-rate', 'Integrated rate equations and half-life']]],
+        ['Collision theory, activation energy and the Arrhenius equation', [['m1-collision-arrhenius', 'Collision theory and Arrhenius equation']]],
+        ['Catalysis', [['m1-catalysis', 'Catalysis']]],
+      ] },
+    ],
     cat2: [
       { mod: 'm2', title: 'Energy devices', lines: [
         ['Electrochemical and electrolytic cells', [['m2-electrochemical-cells', 'Electrochemical cells']]],
