@@ -76,6 +76,7 @@ CHUNK({
           </div>
           <p>The slides show curves for <b>H<sub>2</sub></b> and <b>HCl</b>.</p>
           <figure data-fig="m5-pec-diatomic"></figure>
+          <div data-viz="morse-curve"></div>
         ` },
         { title: 'Surface & hypersurface', html: `
           <p class="lead">A <b>potential energy surface (PES)</b> shows how energy changes with atomic positions. It looks like a terrain of <b>hills and valleys</b>.</p>
@@ -166,6 +167,7 @@ CHUNK({
           </div>
           <p>N is the number of atoms.</p>
           <figure data-fig="m5-water-normal-modes"></figure>
+          <div data-viz="normal-modes"></div>
           <div class="worked"><div class="given"><p>How many normal modes does water have?</p></div>
           <div class="solve"><p>Water is non-linear with N = 3.</p><div class="eq">3(3) − 6 = 3</div></div>
           <div class="result"><b>3 normal modes</b></div></div>
@@ -282,6 +284,7 @@ CHUNK({
           </ol>
           <p>The PES has a <b>double-well shape</b>: two valleys (ID1 and ID2) and one peak (the TS). This shape is universal for gas-phase SN2.</p>
           <figure data-fig="m5-sn2-profile"></figure>
+          <div data-viz="sn2-path"></div>
         ` },
         { title: 'Solvent effect', html: `
           <p class="lead">Solvent changes SN2 dramatically.</p>

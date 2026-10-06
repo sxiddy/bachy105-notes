@@ -268,6 +268,7 @@ CHUNK({
           <p class="lead">Molecules made of two identical atoms, such as H<sub>2</sub>, are <b>homonuclear diatomic</b>. The MOs are solutions of the Schrödinger equation for <b>one electron</b>, filled by the Aufbau and Pauli principles and Hund's rule.</p>
           <div class="eq" data-label="Bond order">Bond order = <span class="frac"><span>(bonding electrons) − (antibonding electrons)</span><span>2</span></span></div>
           <figure data-fig="m5-mo-h2"></figure>
+          <div data-viz="mo-builder"></div>
           <div class="worked"><div class="given"><p>Bond order of H<sub>2</sub>: two electrons in the bonding σ<sub>1s</sub>, none in σ*<sub>1s</sub>.</p></div>
           <div class="solve"><div class="eq">(2 − 0)/2</div></div>
           <div class="result">Bond order = <b>1</b></div></div>

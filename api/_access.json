@@ -57,7 +57,8 @@
   "viz-m3-em.js",
   "viz-m3.js",
   "viz-m4a.js",
-  "viz-m4b.js"
+  "viz-m4b.js",
+  "viz-m5.js"
  ],
  "freeModules": [
   "m1",
@@ -146,6 +147,7 @@
   "viz-m3-em.js": "m3",
   "viz-m3.js": "m3",
   "viz-m4a.js": "m4",
-  "viz-m4b.js": "m4"
+  "viz-m4b.js": "m4",
+  "viz-m5.js": "m5"
  }
 }
