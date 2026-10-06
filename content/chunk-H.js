@@ -239,6 +239,7 @@ CHUNK({
           <p>The work equals the <b>area under the isotherm</b> P = nRT/V. In an irreversible expansion against the same final pressure, the work is the smaller rectangular area.</p>
           <figure data-fig="m1-pv-isothermal"></figure>
           <div class="note exam"><p><b>Reversible work is the maximum work.</b> The numericals call it the maximum work done, W = −nRT ln(P<sub>1</sub>/P<sub>2</sub>).</p></div>
+          <div data-viz="pv-explorer"></div>
         ` },
         { title: 'Adiabatic', html: `
           <p class="lead">In an adiabatic process <b>q = 0</b>, so the first law reduces to <b>ΔU = w</b>. The system pays for its work out of its own internal energy.</p>

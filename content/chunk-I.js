@@ -22,6 +22,7 @@ CHUNK({
             <div><span>S<sub>sur</sub></span><b>entropy of the surroundings</b></div>
           </div>
           <div class="note exam"><p>The second law is a statement about the <b>total</b> entropy of the isolated system (the universe), and not just about the system you are studying.</p></div>
+          <div data-viz="entropy-expansion"></div>
           <figure data-fig="m1-free-expansion"></figure>
           <ul>
             <li>The <b>1st law</b> uses internal energy to identify <b>permissible</b> changes.</li>
@@ -135,6 +136,7 @@ CHUNK({
             <div class="side"><h4>Clausius statement</h4><p>It is impossible for any process to have as its sole result the transfer of heat from a cooler object to a warmer one.</p></div>
           </div>
           <div class="note exam"><p>Temperatures in the efficiency formula must be in <b>kelvin</b>. Efficiency is never 1 unless T<sub>c</sub> = 0 K.</p></div>
+          <div data-viz="carnot-engine"></div>
         ` },
         { title: 'Uses & temperature scale', html: `
           <p class="lead">The efficiency of a Carnot cycle is <b>independent of the working substance</b>. Any reversible cycle that absorbs heat at one temperature and rejects it at another has the Carnot efficiency.</p>
@@ -294,6 +296,7 @@ CHUNK({
             <li>ΔH &lt; 0 and ΔS &lt; 0: decreasing T makes ΔG more negative.</li>
           </ul>
           <div class="mnemonic">Same signs: temperature decides. Opposite signs: the answer never changes.</div>
+          <div data-viz="gibbs-temperature"></div>
           <figure data-fig="m1-gibbs-four-cases"></figure>
         ` },
         { title: 'Third law', html: `

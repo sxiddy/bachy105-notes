@@ -128,6 +128,7 @@ CHUNK({
             </tbody>
           </table>
           <div class="note exam"><p>First-order half-life does <b>not</b> depend on the starting concentration. Zero order: longer for higher [A]<sub>0</sub>. Second order: shorter for higher [A]<sub>0</sub>.</p></div>
+          <div data-viz="rate-order-plotter"></div>
           <figure data-fig="m1-order-conc-time"></figure>
         ` },
         { title: 'Reading the plots', html: `
@@ -245,6 +246,7 @@ CHUNK({
             <li>If E<sub>a</sub> = 0, the rate is <b>independent of temperature</b>.</li>
           </ul>
           <div class="note heads-up"><p>The slide prints "ln k = E<sub>a</sub>/RT + ln A", missing the minus sign. The correct form is ln k = −E<sub>a</sub>/RT + ln A, which is why the plot slopes down.</p></div>
+          <div data-viz="arrhenius-slider"></div>
         ` }
       ],
       flashcards: [
@@ -289,6 +291,7 @@ CHUNK({
         ` },
         { title: 'How it works', html: `
           <p class="lead">A catalyst gives the reaction an <b>alternative mechanism</b> with a different, <b>lower-energy transition state</b>. The activation energy falls compared with the uncatalysed reaction.</p>
+          <div data-viz="catalyst-barrier"></div>
           <figure data-fig="m1-catalyst-profile"></figure>
           <ol class="steps">
             <li><b>Lowers E<sub>a</sub>.</b> Reactants need less energy to convert into products.</li>
