@@ -1,0 +1,44 @@
+SUMMARY({
+  module: 'm1',
+  tldr: `<p>Thermodynamics tells you <b>whether</b> a change can happen and how much energy it moves: <b>ΔU = q + w</b>, then entropy and <b>ΔG = ΔH − TΔS</b> for spontaneity, with the Carnot cycle setting the <b>maximum efficiency 1 − T<sub>c</sub>/T<sub>h</sub></b>. Kinetics tells you <b>how fast</b>: the rate law, integrated equations and half-lives, then collision theory, the Arrhenius equation and catalysis.</p>`,
+  storyline: [
+    { title: 'Energy', html: `<p>Zeroth law gives temperature, first law gives <b>ΔU = q + w</b>, enthalpy and heat capacities.</p>` },
+    { title: 'Work', html: `<p>Isothermal, adiabatic, isobaric and isochoric expansion.</p>` },
+    { title: 'Direction', html: `<p>Second law, entropy, Carnot cycle, then <b>G = H − TS</b> and the third law.</p>` },
+    { title: 'Speed', html: `<p>Rate law, order, half-life, Arrhenius, catalysis.</p>` }
+  ],
+  bigIdeas: [
+    { title: 'Terminology', topic: 'm1-thermo-basics', html: `<p>System and surroundings; <b>state functions</b> (U, H, T, P) vs <b>path functions</b> (q, w); <b>dw = −P<sub>ex</sub>dV</b>.</p>` },
+    { title: 'Zeroth and first law', topic: 'm1-zeroth-first-law', html: `<p>Thermal equilibrium is transitive (thermometers). <b>ΔU = q + w</b>, energy conserved.</p>` },
+    { title: 'Enthalpy and Cp, Cv', topic: 'm1-enthalpy-heat-capacity', html: `<p><b>H = U + PV</b>. <b>C<sub>p</sub> − C<sub>v</sub> = R</b>, γ = C<sub>p</sub>/C<sub>v</sub>.</p>` },
+    { title: 'Expansion work', topic: 'm1-expansion-work', html: `<p>Reversible isothermal <b>w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</b>, the maximum. Adiabatic: <b>ΔU = w = C<sub>v</sub>ΔT</b>, T falls.</p>` },
+    { title: 'Second law', topic: 'm1-second-law-entropy', html: `<p><b>ΔS<sub>tot</sub> &gt; 0</b> for spontaneous change. <b>dS = dq<sub>rev</sub>/T</b>; isothermal ΔS = nR ln(V<sub>f</sub>/V<sub>i</sub>).</p>` },
+    { title: 'Carnot cycle', topic: 'm1-carnot-cycle', html: `<p>Four reversible strokes; <b>η = 1 − T<sub>c</sub>/T<sub>h</sub></b>, independent of working substance.</p>` },
+    { title: 'Free energy', topic: 'm1-free-energy', html: `<p><b>G = H − TS</b>, spontaneous if dG ≤ 0; dG = 0 at equilibrium. Spontaneous is not fast.</p>` },
+    { title: 'Gibbs–Helmholtz, third law', topic: 'm1-gibbs-helmholtz-third-law', html: `<p><b>ΔG = ΔH − TΔS</b>; four sign cases. <b>S = k ln W</b>, S = 0 for a perfect crystal at 0 K.</p>` },
+    { title: 'Numericals', topic: 'm1-thermo-numericals', html: `<p>Pick the formula by what is fixed: work, ΔU, ΔS, ΔG, Carnot efficiency.</p>` },
+    { title: 'Rate law', topic: 'm1-rate-law', html: `<p><b>rate = k[A]<sup>m</sup>[B]<sup>n</sup></b>, found by experiment. Overall order = m + n.</p>` },
+    { title: 'Integrated laws', topic: 'm1-integrated-rate', html: `<p>Zero, first, second order: linear plot, k units and half-life. First order: <b>t<sub>1/2</sub> = 0.693/k</b>.</p>` },
+    { title: 'Collision and Arrhenius', topic: 'm1-collision-arrhenius', html: `<p>Reaction needs energy ≥ E<sub>a</sub> and correct orientation. <b>k = A e<sup>−E<sub>a</sub>/RT</sup></b>.</p>` },
+    { title: 'Catalysis', topic: 'm1-catalysis', html: `<p>Lowers E<sub>a</sub> through a new pathway; equilibrium unchanged. Homogeneous, heterogeneous, enzyme.</p>` }
+  ],
+  compare: [
+    { title: 'Reaction orders', html: `<table class="tbl"><thead><tr><th></th><th>Zero</th><th>First</th><th>Second</th></tr></thead><tbody><tr><td>Units of k</td><td>mol L⁻¹ s⁻¹</td><td>s⁻¹</td><td>L mol⁻¹ s⁻¹</td></tr><tr><td>Linear plot</td><td>[A] vs t</td><td>ln[A] vs t</td><td>1/[A] vs t</td></tr><tr><td>Half-life</td><td>[A]₀/2k</td><td>0.693/k</td><td>1/(k[A]₀)</td></tr></tbody></table>` },
+    { title: 'Spontaneity by signs', html: `<table class="tbl"><thead><tr><th>ΔH</th><th>ΔS</th><th>ΔG</th></tr></thead><tbody><tr><td>−</td><td>+</td><td>always negative</td></tr><tr><td>+</td><td>+</td><td>negative at high T</td></tr><tr><td>−</td><td>−</td><td>negative at low T</td></tr><tr><td>+</td><td>−</td><td>always positive</td></tr></tbody></table>` }
+  ],
+  numbers: [
+    { value: '8.314 J mol⁻¹ K⁻¹', what: 'Gas constant R' },
+    { value: '0.08206 dm³ atm mol⁻¹ K⁻¹', what: 'R in dm³ atm' },
+    { value: '273.16 K', what: 'Triple point of water' },
+    { value: '0.693', what: 'ln 2, in t½ = 0.693/k' },
+    { value: '−41 469 J', what: 'Max work, 10 mol, 10 to 2 atm, 310 K' },
+    { value: '48.9 %', what: 'Carnot efficiency, 573 K to 293 K' }
+  ],
+  traps: [
+    `<p>Rate-law orders come from <b>experiment</b>, not the balanced equation.</p>`,
+    `<p><b>Spontaneous does not mean fast</b>: ΔG gives direction, k gives speed.</p>`,
+    `<p>Use <b>kelvin</b> in Carnot efficiency and in ΔG = ΔH − TΔS (and convert J to kJ).</p>`,
+    `<p>A catalyst does not change the equilibrium position or ΔG.</p>`,
+    `<p>The slides print ln k = Ea/RT + ln A without the minus sign; the correct slope is −Ea/R.</p>`
+  ]
+});

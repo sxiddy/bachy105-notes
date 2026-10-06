@@ -97,6 +97,7 @@ CHUNK({
           <div class="eq" data-label="Metal | ion cells">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span></div>
           <div class="note trap"><p>When the two ions have different charges, balance the reaction first. Ni + 2Ag<sup>+</sup> → Ni<sup>2+</sup> + 2Ag has n = 2 and Q = [Ni<sup>2+</sup>] / [Ag<sup>+</sup>]<sup>2</sup>.</p></div>
           <div class="note heads-up"><p>You may also see it written E°<sub>cathode</sub> − E°<sub>anode</sub> + (0.059/n) log([cathode ion]/[anode ion]). That is the same equation: flipping the fraction flips the sign of the log. Either one gets full marks; stick to the one above.</p></div>
+          <div class="note heads-up"><p>The older slide set writes the Nernst equation as E<sub>cell</sub> = E°<sub>M1</sub> − E°<sub>M2</sub> + (0.059/n) log([M1<sup>n+</sup>]/[M2<sup>n+</sup>]) and labels both standard potentials "of cathode". The deck's own cell notation (slide 4) puts M<sub>1</sub> at the <b>anode</b>, so read that label as a slip. It also rounds 0.0591 to 0.059; the two give the same answer to the precision of the problems.</p></div>
           <h3>Equimolar solutions</h3>
           <p>If both ions have the same charge and the same concentration, Q = 1, log 1 = 0, and the log term disappears:</p>
           <div class="eq" data-label="Equimolar">E<sub>cell</sub> = E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></div>
@@ -432,6 +433,60 @@ CHUNK({
       formulas: [
         { name: 'Hydrolysis of GeCl₄', html: `GeCl<sub>4</sub> + 2H<sub>2</sub>O → GeO<sub>2</sub> + 4HCl`, note: 'Pure GeCl₄ treated with extra-pure water after cooling.' },
         { name: 'Reduction of GeO₂', html: `GeO<sub>2</sub> + 2H<sub>2</sub> → Ge + 2H<sub>2</sub>O`, note: 'Pure hydrogen gives highly pure elemental Ge.' }
+      ]
+    },
+    // ------------------------------------------------------------------
+    {
+      id: 'm2-electrolysis',
+      title: 'Electrolysis: molten NaCl and water',
+      short: 'Electrolysis examples',
+      blurb: 'Two electrolytic cells at work: molten sodium chloride giving sodium and chlorine, and water splitting into hydrogen and oxygen.',
+      source: 'Slides 8–9 (older deck)',
+      tabs: [
+        { title: 'Molten NaCl', html: `
+          <p class="lead">An electrolytic cell forces a non-spontaneous reaction with an outside supply. Molten sodium chloride is the standard example.</p>
+          <ul>
+            <li><b>Inert electrodes</b> are used and electrolysis is carried out at about <b>801 °C</b>, the melting point of NaCl.</li>
+            <li>The <b>positive</b> terminal of the supply connects to the <b>anode</b>, the <b>negative</b> terminal to the <b>cathode</b>. This forces electrons to move from the anode to the cathode.</li>
+            <li>Na<sup>+</sup> ions gain electrons at the cathode and are reduced to Na. As they are used up, more Na<sup>+</sup> ions migrate towards the cathode.</li>
+            <li>In the same way Cl<sup>−</sup> ions move overall to the anode, where they are oxidised to Cl<sub>2</sub>.</li>
+          </ul>
+          <div class="eq" data-label="Cathode (reduction)">2 Na<sup>+</sup>(l) + 2e<sup>−</sup> → 2 Na(l)</div>
+          <div class="eq" data-label="Anode (oxidation)">2 Cl<sup>−</sup>(l) → Cl<sub>2</sub>(g) + 2e<sup>−</sup></div>
+          <div class="eq" data-label="Overall">2 NaCl(l) → 2 Na(l) + Cl<sub>2</sub>(g)</div>
+          <div class="note example"><p>The industrial version (the Downs cell) has a graphite anode under a hood that collects Cl<sub>2</sub>, a steel cylinder as cathode around it, an iron screen between the two zones, and molten Na collecting above the cathode. The feed is NaCl with CaCl<sub>2</sub>, which the slide shows in the figure without explanation.</p></div>
+          <div class="note why"><p>Oxidation is still at the anode and reduction at the cathode, as in every cell. What flips compared with a galvanic cell is the sign: here the anode is positive and the cathode negative.</p></div>
+        ` },
+        { title: 'Splitting water', html: `
+          <p class="lead">Applying a voltage between a pair of inert electrodes dipped in water makes bubbles of H<sub>2</sub> and O<sub>2</sub> form quickly.</p>
+          <ul>
+            <li>Pure water conducts very poorly. A small amount of an <b>ionic solute</b> such as H<sub>2</sub>SO<sub>4</sub> or Na<sub>2</sub>SO<sub>4</sub> is added to raise its conductivity.</li>
+            <li>The added electrolytes are chosen so that their ions are <b>harder to oxidise or reduce than water</b>, so only water reacts.</li>
+          </ul>
+          <div class="eq" data-label="Cathode">4 H<sup>+</sup>(aq) + 4e<sup>−</sup> → 2 H<sub>2</sub>(g)</div>
+          <div class="eq" data-label="Anode">2 H<sub>2</sub>O → O<sub>2</sub>(g) + 4 H<sup>+</sup> + 4e<sup>−</sup></div>
+          <div class="eq" data-label="Overall">2 H<sub>2</sub>O → O<sub>2</sub>(g) + 2 H<sub>2</sub>(g)</div>
+          <div class="note example"><p>The slide shows a beaker with two electrodes wired to a 9 V battery, each under its own inverted collecting tube: O<sub>2</sub> collects over the anode and H<sub>2</sub> over the cathode.</p></div>
+          <div class="note why"><p>Two H<sub>2</sub> for every O<sub>2</sub> follows from the electron count: 4 electrons make 2 H<sub>2</sub> at the cathode and 4 electrons are released making 1 O<sub>2</sub> at the anode.</p></div>
+        ` }
+      ],
+      flashcards: [
+        { front: 'Which terminal connects to the anode in electrolysis?', back: 'The <b>positive</b> terminal of the supply.' },
+        { front: 'Cathode reaction in molten NaCl electrolysis?', back: '<b>2Na<sup>+</sup> + 2e<sup>−</sup> → 2Na(l)</b>.' },
+        { front: 'Anode reaction in molten NaCl electrolysis?', back: '<b>2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup></b>.' },
+        { front: 'Overall reaction for molten NaCl electrolysis?', back: '<b>2NaCl(l) → 2Na(l) + Cl<sub>2</sub>(g)</b>.' },
+        { front: 'Why add H<sub>2</sub>SO<sub>4</sub> or Na<sub>2</sub>SO<sub>4</sub> to water before electrolysis?', back: 'Pure water conducts poorly; the <b>ionic solute raises conductivity</b> and its ions resist oxidation or reduction.' },
+        { front: 'Overall reaction for water electrolysis?', back: '<b>2H<sub>2</sub>O → O<sub>2</sub> + 2H<sub>2</sub></b>.' }
+      ],
+      oneLiners: [
+        'Molten NaCl electrolysis (about 801 °C, inert electrodes) gives Na at the cathode and Cl2 at the anode.',
+        'In an electrolytic cell the anode is positive and the cathode negative.',
+        'Water electrolysis: H2 at the cathode, O2 at the anode, in a 2:1 ratio.',
+        'A little H2SO4 or Na2SO4 makes water conduct without taking part.'
+      ],
+      formulas: [
+        { name: 'Molten NaCl electrolysis', html: `2 NaCl(l) → 2 Na(l) + Cl<sub>2</sub>(g)`, note: 'Cathode: Na⁺ + e⁻ → Na. Anode: 2Cl⁻ → Cl₂ + 2e⁻.' },
+        { name: 'Water electrolysis', html: `2 H<sub>2</sub>O → O<sub>2</sub>(g) + 2 H<sub>2</sub>(g)`, note: 'Cathode: 4H⁺ + 4e⁻ → 2H₂. Anode: 2H₂O → O₂ + 4H⁺ + 4e⁻.' }
       ]
     }
   ],

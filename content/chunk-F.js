@@ -33,7 +33,7 @@ CHUNK({
             <tbody>
               <tr><td><b>1672</b></td><td><b>Sir Isaac Newton</b></td><td>Introduced the word <b>spectrum</b> for the rainbow of colours</td></tr>
               <tr><td><b>1814</b></td><td><b>Fraunhofer</b></td><td>Major contributions to optics and spectroscopy</td></tr>
-              <tr><td><b>1859</b></td><td><b>Kirchhoff</b></td><td>Showed that spectroscopy is useful for chemical analysis</td></tr>
+              <tr><td><b>1859</b></td><td><b>Kirchhoff and Bunsen</b></td><td>Showed that spectroscopy is useful for chemical analysis</td></tr>
             </tbody>
           </table>
           <p>Since then spectroscopy has pushed <b>chemistry, physics and astronomy</b> forward.</p>
@@ -76,11 +76,12 @@ CHUNK({
           <div class="note heads-up"><p>The slide credits the dual nature of radiation to de Broglie (1923), so write that in the exam. Strictly, de Broglie's idea ran the other way: that <em>matter</em>, such as electrons, also behaves as waves. The particle picture of light goes back to Planck (1900) and Einstein (1905).</p></div>
         ` },
         { title: 'Describing a wave', html: `
-          <p class="lead">Three quantities pin down any electromagnetic wave: <b>wavelength</b>, <b>frequency</b> and <b>speed</b>. The energy of each photon follows from the frequency.</p>
+          <p class="lead">A wave is a way of transferring energy from one place to another. Three quantities pin down any electromagnetic wave: <b>wavelength</b>, <b>frequency</b> and <b>speed</b>. The energy of each photon follows from the frequency.</p>
           <figure data-fig="m4-em-wave"></figure>
           <div class="kv">
             <div><span>Wavelength (λ)</span><b>distance between adjacent crests (cm)</b></div>
             <div><span>Frequency (ν)</span><b>oscillations per unit time, in hertz (Hz)</b></div>
+            <div><span>Wavenumber (ν̄)</span><b>number of waves per unit distance, in cm<sup>−1</sup></b></div>
             <div><span>Velocity (c), in vacuum</span><b>2.9979 × 10<sup>8</sup> m s<sup>−1</sup></b></div>
             <div><span>Photon energy (E)</span><b>E = hν, directly proportional to ν</b></div>
           </div>
@@ -117,7 +118,7 @@ CHUNK({
       flashcards: [
         { front: 'Spectroscopy is the interaction of ___ with ___.', back: '<b>Electromagnetic radiant energy</b> with <b>matter</b>.' },
         { front: 'Who introduced the word "spectrum", and when?', back: '<b>Sir Isaac Newton, 1672</b>, to describe the rainbow of colours.' },
-        { front: 'Fraunhofer and Kirchhoff: years and contributions?', back: 'Fraunhofer <b>1814</b>: optics and spectroscopy. Kirchhoff <b>1859</b>: showed spectroscopy is useful for <b>chemical analysis</b>.' },
+        { front: 'Fraunhofer and Kirchhoff: years and contributions?', back: 'Fraunhofer <b>1814</b>: optics and spectroscopy. Kirchhoff and Bunsen <b>1859</b>: showed spectroscopy is useful for <b>chemical analysis</b>.' },
         { front: 'Three ways energy is transferred?', back: '<b>Conduction</b> (direct contact), <b>convection</b> (through a fluid by molecular motion), <b>radiation</b> (rays, waves or particles).' },
         { front: 'Dual nature of radiation: who, when, and what does it say?', back: '<b>de Broglie, 1923</b>. EMR behaves as a <b>wave in space</b> and as a <b>particle</b> (photons) in matter interaction.' },
         { front: 'Which nature of light explains reflection, refraction and diffraction? Which explains absorption and emission?', back: '<b>Wave</b> nature for the first three; <b>particle</b> (photon) nature for absorption and emission.' },
@@ -128,7 +129,7 @@ CHUNK({
       ],
       oneLiners: [
         'Spectroscopy = interaction of electromagnetic radiant energy with matter; used for qualitative and quantitative analysis of inorganic, organic and biological compounds.',
-        'Newton coined "spectrum" in 1672; Fraunhofer 1814; Kirchhoff showed its use in chemical analysis in 1859.',
+        'Newton coined "spectrum" in 1672; Fraunhofer 1814; Kirchhoff and Bunsen showed its use in chemical analysis in 1859.',
         'Energy transfer: conduction (contact), convection (fluid motion), radiation (rays, waves, particles).',
         'de Broglie (1923): EMR is a wave in space and a particle (photon) in matter interaction.',
         'c = λν, E = hν; c = 2.9979 × 10⁸ m s⁻¹ in vacuum.',
@@ -183,17 +184,21 @@ CHUNK({
             </tbody>
           </table>
           <p>Conversion used throughout the module: <b>1 eV = 96.48 kJ/mol</b>.</p>
-          <h3>The radio row in detail</h3>
-          <div class="kv">
-            <div><span>Region / unit</span><b>Radio, MHz</b></div>
-            <div><span>Molecular effect</span><b>Nuclear (spin)</b></div>
-            <div><span>Wavelength</span><b>&gt; 10<sup>9</sup> Å</b></div>
-            <div><span>Frequency</span><b>&lt; 3 × 10<sup>9</sup> Hz</b></div>
-            <div><span>Energy</span><b>&lt; 10<sup>−5</sup> eV</b></div>
-            <div><span>Spectroscopy application</span><b>Molecular identity and structure</b></div>
-          </div>
+          <h3>Regions, molecular effects and applications</h3>
+          <table class="tbl">
+            <thead><tr><th>Region (unit)</th><th>Molecular effect</th><th>Wavelength (Å)</th><th>Frequency (Hz)</th><th>Energy (eV)</th><th>Application</th></tr></thead>
+            <tbody>
+              <tr><td>Radio (MHz)</td><td>Nuclear spin transitions</td><td>&gt; 10<sup>9</sup></td><td>&lt; 3 × 10<sup>9</sup></td><td>&lt; 10<sup>−5</sup></td><td>Molecular identity and structure</td></tr>
+              <tr><td>Microwave (GHz, THz, cm<sup>−1</sup>)</td><td>Rotational motion</td><td>10<sup>9</sup>–10<sup>6</sup></td><td>3 × 10<sup>9</sup>–3 × 10<sup>11</sup></td><td>10<sup>−5</sup>–0.01</td><td>Bond length calculations</td></tr>
+              <tr><td>Infrared (cm<sup>−1</sup>)</td><td>Vibrational</td><td>10<sup>6</sup>–7000</td><td>3 × 10<sup>11</sup>–4.3 × 10<sup>14</sup></td><td>0.01–2</td><td>Functional group analysis</td></tr>
+              <tr><td>Visible (nm)</td><td>Electronic transitions</td><td>7000–4000</td><td>4 × 10<sup>14</sup>–7.5 × 10<sup>14</sup></td><td>2–3</td><td>Molecules with conjugated π and n systems</td></tr>
+              <tr><td>Ultraviolet (nm)</td><td>Electronic transitions</td><td>4000–10</td><td>7.5 × 10<sup>14</sup>–3 × 10<sup>16</sup></td><td>3–10<sup>3</sup></td><td>Molecules with conjugated π and n systems</td></tr>
+              <tr><td>X-rays (keV, eV)</td><td>Ionisation</td><td>10–0.1</td><td>3 × 10<sup>16</sup>–3 × 10<sup>19</sup></td><td>10<sup>3</sup>–10<sup>5</sup></td><td>Size and shape of molecules</td></tr>
+              <tr><td>Gamma rays (MeV)</td><td>Ionisation</td><td>&lt; 0.1</td><td>&gt; 3 × 10<sup>19</sup></td><td>&gt; 10<sup>5</sup></td><td>Identifying radioactive isotopes</td></tr>
+            </tbody>
+          </table>
           <div class="note why"><p>The more energy a photon carries, the deeper into the molecule it reaches. Radio waves only flip nuclear spins. Microwaves turn whole molecules and flip electron spins. IR makes bonds stretch and bend. UV-Vis moves valence electrons. X-rays reach inner-shell electrons, and gamma rays reach the nucleus. The time column follows the same trend: the high-energy events are over fastest.</p></div>
-          <div class="note heads-up"><p>Three slips to know. (1) The page 6 table is cut off in the PDF: only the radio row prints, and its effect column stops at "Nucl…". (2) The slide pairs X-ray diffraction with "nuclear transitions". X-rays actually excite inner-shell electrons; nuclear transitions belong to γ-rays, and XRD is diffraction, not absorption. (3) Rotational motion is what microwaves drive (rotational spectroscopy), and ESR also uses microwaves, to flip electron spins; the slide merges the two into one cell. Reproduce the table as given if it is asked.</p></div>
+          <div class="note heads-up"><p>Three slips to know. (1) In the newer PDF this table is cut off after the radio row; the older slide set prints all seven rows (above). It lists X-rays and gamma rays under "ionisation", which fits the heads-up below that XRD is not a nuclear transition. (2) The slide pairs X-ray diffraction with "nuclear transitions". X-rays actually excite inner-shell electrons; nuclear transitions belong to γ-rays, and XRD is diffraction, not absorption. (3) Rotational motion is what microwaves drive (rotational spectroscopy), and ESR also uses microwaves, to flip electron spins; the slide merges the two into one cell. Reproduce the table as given if it is asked.</p></div>
           <details class="more"><summary>The original table from the slides</summary><figure data-fig="m4-regions-table"></figure></details>
         ` },
         { title: 'Spectroscopy family', html: `

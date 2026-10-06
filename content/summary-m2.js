@@ -9,6 +9,7 @@ SUMMARY({
   ],
   bigIdeas: [
     { title: 'Electrochemical cells', topic: 'm2-electrochemical-cells', html: `<p>Galvanic: <b>ΔG &lt; 0</b>, chemical → electrical. Electrolytic: ΔG &gt; 0. Anode (left) oxidises, cathode (right) reduces. The Daniell cell gives <b>1.1 V</b>; the salt bridge keeps charge balance. Nernst: E = E° − (0.0591/n) log Q.</p>` },
+    { title: 'Electrolysis', topic: 'm2-electrolysis', html: `<p>Molten NaCl gives <b>Na at the cathode and Cl<sub>2</sub> at the anode</b>; water gives <b>H<sub>2</sub> and O<sub>2</sub> (2:1)</b>. In an electrolytic cell the anode is positive and the cathode negative.</p>` },
     { title: 'Semiconductors', topic: 'm2-semiconductors', html: `<p>Small gap (Si ~1 eV, Ge 0.7 eV per slides). <b>Conductivity rises with temperature</b>; insulator at 0 K. Intrinsic: n<sub>e</sub> = n<sub>h</sub>. <b>n-type</b>: P, As, Sb. <b>p-type</b>: B, Al, In.</p>` },
     { title: 'Purifying Si and Ge', topic: 'm2-semiconductor-purification', html: `<p>Target <b>99.9999%</b>. Distil GeCl<sub>4</sub> / SiHCl<sub>3</sub>, <b>zone refine</b> (impurities stay in the melt), then <b>Czochralski</b> pull from a seed for a single crystal.</p>` },
     { title: 'Battery families', topic: 'm2-batteries', html: `<p><b>Primary</b>: irreversible. <b>Secondary</b>: recharged by reverse current. <b>Fuel/flow</b>: reactants fed in continuously, no storage.</p>` },

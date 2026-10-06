@@ -343,9 +343,9 @@ CHUNK({
           <table class="tbl">
             <thead><tr><th>Reading</th><th>What it tells you</th></tr></thead>
             <tbody>
-              <tr><td>Peak position (2θ)</td><td>Where atoms sit within the lattice: each 2θ gives a <b>d-spacing</b> through Bragg's law</td></tr>
+              <tr><td>Peak position (2θ)</td><td>Where atoms sit within the lattice: each 2θ gives a <b>d-spacing</b> (d<sub>hkl</sub>, the distance between reflection planes) through Bragg's law, and from it the <b>lattice parameter</b> and the <b>crystal structure</b></td></tr>
               <tr><td>Peak intensity</td><td>Tracks the <b>number of atoms in phase</b>; a taller peak means more crystals or molecules with that spacing</td></tr>
-              <tr><td>Peak width</td><td><b>Inversely proportional</b> to crystal size</td></tr>
+              <tr><td>Peak width</td><td><b>Inversely proportional</b> to crystal size; it also reflects the <b>perfection of the lattice</b> (crystalline or amorphous)</td></tr>
             </tbody>
           </table>
           <div class="vs">

@@ -1,6 +1,6 @@
 SUMMARY({
   module: 'm3',
-  tldr: `<p>Below about <b>100 nm</b>, materials change because of two things: a huge <b>surface area to volume ratio</b> and <b>quantum confinement</b>. That is why nano gold is red or green, melts lower and catalyses reactions, and why a quantum dot's colour depends on its size. You make nanomaterials top-down (milling) or bottom-up (sol–gel). The second half is liquid coolants: choose one by heat properties, electrical conductivity, flammability, toxicity, compatibility, environment and cost.</p>`,
+  tldr: `<p>The module starts with electrical and magnetic materials: bands set whether a solid conducts, superconductors lose all resistance below T<sub>c</sub>, and magnets split into five classes. Then, below about <b>100 nm</b>, materials change because of two things: a huge <b>surface area to volume ratio</b> and <b>quantum confinement</b>. That is why nano gold is red or green, melts lower and catalyses reactions, and why a quantum dot's colour depends on its size. You make nanomaterials top-down (milling) or bottom-up (sol–gel). The second half is liquid coolants: choose one by heat properties, electrical conductivity, flammability, toxicity, compatibility, environment and cost.</p>`,
   storyline: [
     { title: 'Scale', html: `<p>At least one dimension under 100 nm; classify as <b>0D–3D</b>.</p>` },
     { title: 'Why it differs', html: `<p><b>Surface area</b> and <b>quantum effects</b>, shown clearly by bulk vs nano gold.</p>` },
@@ -9,6 +9,15 @@ SUMMARY({
     { title: 'Coolants', html: `<p>Match the fluid to the job using the seven requirements.</p>` }
   ],
   bigIdeas: [
+    { title: 'Ohm and resistivity', topic: 'm3-ohm-resistivity', html: `<p><b>V = IR</b>, <b>R = ρl/A</b>. Resistivity depends on temperature, alloying, stress, age hardening and cold working.</p>` },
+    { title: 'Energy bands', topic: 'm3-band-theory', html: `<p>Valence band, conduction band, <b>forbidden gap</b>. Conductor: overlap. Semiconductor: about <b>1 eV</b>. Insulator: very wide. Temperature coefficient of resistance: positive for conductors, negative for semiconductors.</p>` },
+    { title: 'Conductors', topic: 'm3-conducting-materials', html: `<p>Cu 1.68 µΩ·cm (mp 1085 °C), Al 2.65 µΩ·cm (mp 660 °C); <b>ACSR</b> = aluminium over a steel core. Impurities raise resistivity.</p>` },
+    { title: 'n-type and p-type', topic: 'm3-semiconductor-types-uses', html: `<p>Pentavalent <b>donor</b> gives n-type (electrons); trivalent <b>acceptor</b> gives p-type (holes).</p>` },
+    { title: 'Insulators', topic: 'm3-insulators', html: `<p>Wide gap, conductivity almost zero; protect from shock and leakage current.</p>` },
+    { title: 'Superconductors', topic: 'm3-superconductors', html: `<p>Zero resistance below <b>T<sub>c</sub></b> (Hg 4 K, YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub> 93 K); <b>Meissner effect</b> expels the field. Uses: maglev, MRI, loss-free cables, quantum computers.</p>` },
+    { title: 'Magnetic quantities', topic: 'm3-magnetic-basics', html: `<p>Spin and orbital moments; <b>µ = √[n(n+2)] BM</b>; <b>B = µH</b>, <b>M = χH</b>.</p>` },
+    { title: 'Types of magnetism', topic: 'm3-magnetic-classes', html: `<p>Dia (weak, opposes), para (Curie law), ferro (parallel, Curie temperature), antiferro (Néel temperature), ferri (unequal antiparallel).</p>` },
+    { title: 'Hysteresis and storage', topic: 'm3-hysteresis-storage', html: `<p>Saturation, remanence, coercivity; loop area = energy loss. Soft magnets for cores, hard magnets for permanents, CrO<sub>2</sub> and γ-Fe<sub>2</sub>O<sub>3</sub> for recording.</p>` },
     { title: 'Nanomaterials', topic: 'm3-nanomaterials', html: `<p>At least one dimension <b>&lt; 100 nm</b>; 1 nm = 10<sup>−9</sup> m ≈ 10 atoms. Engineered nanomaterials appear in sunscreens (TiO<sub>2</sub>), dental fillers (silica), coatings and medicine.</p>` },
     { title: 'Classes', topic: 'm3-nano-classes', html: `<p><b>0D</b> dots and particles, <b>1D</b> wires and tubes, <b>2D</b> films, <b>3D</b> bulk built from nano units.</p>` },
     { title: 'Bulk vs nano gold', topic: 'm3-nano-gold', html: `<p>Nano gold is never gold-coloured: <b>SPR</b> gives 25 nm red, 50 nm green, 100 nm orange. Melts ~940 °C vs ~1080 °C; a very good catalyst.</p>` },

@@ -1,10 +1,27 @@
 [
   {
+    "id": "m1",
+    "num": "01",
+    "title": "Thermodynamics & Kinetics",
+    "free": true,
+    "chunks": [
+      "H",
+      "I",
+      "J"
+    ],
+    "questions": "q-M1.js",
+    "syllabus": "Laws of thermodynamics, entropy, Carnot cycle, free energy and the Gibbs–Helmholtz equation; rate laws, order, integral rate equations, half-life, collision theory, Arrhenius equation and catalysis."
+  },
+  {
     "id": "m2",
     "num": "02",
     "title": "Energy Devices",
     "free": true,
-    "chunks": ["A", "B", "C"],
+    "chunks": [
+      "A",
+      "B",
+      "C"
+    ],
     "questions": "q-M2.js",
     "syllabus": "Electrochemical and electrolytic cells, semiconductor electrode materials, classes of batteries, Li-ion chemistry, H₂–O₂ and solid oxide fuel cells, silicon photovoltaics, photoelectrochemical and dye-sensitized cells."
   },
@@ -13,17 +30,40 @@
     "num": "03",
     "title": "Functional Materials",
     "free": false,
-    "chunks": ["D", "E"],
-    "questions": "q-M3.js",
-    "syllabus": "Nanomaterials: what they are, top-down and bottom-up synthesis, bulk vs nano gold, quantum dots. Liquid coolants: requirements, types and uses."
+    "chunks": [
+      "K",
+      "L",
+      "D",
+      "E"
+    ],
+    "questions": [
+      "q-M3b.js",
+      "q-M3.js"
+    ],
+    "syllabus": "Electrical materials (Ohm’s law, energy bands, conductors, semiconductors, insulators, superconductors), magnetic materials, nanomaterials (synthesis, bulk vs nano gold, quantum dots) and liquid coolants."
   },
   {
     "id": "m4",
     "num": "04",
     "title": "Spectroscopy & Diffraction",
     "free": false,
-    "chunks": ["F", "G"],
+    "chunks": [
+      "F",
+      "G"
+    ],
     "questions": "q-M4.js",
     "syllabus": "Principle, instrumentation and applications of UV-Visible spectroscopy and powder XRD, crystallite size from XRD, numericals."
+  },
+  {
+    "id": "m5",
+    "num": "05",
+    "title": "Computational Chemistry",
+    "free": true,
+    "chunks": [
+      "M",
+      "N"
+    ],
+    "questions": "q-M5.js",
+    "syllabus": "Quantum mechanical calculations, molecular mechanics and dynamics, ab initio, semi-empirical and DFT methods, atomic and molecular orbitals, potential energy surfaces, geometry optimisation, frequencies, reaction mechanisms and AI-driven screening."
   }
 ]
