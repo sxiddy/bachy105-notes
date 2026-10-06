@@ -205,6 +205,7 @@ CHUNK({
             <li>Example: <b>Cl + NOCl → NO + Cl<sub>2</sub></b>. A collision may or may not lead to reaction, depending on which parts meet.</li>
           </ul>
           <div class="note why"><p>So a collision needs two things: <b>enough energy</b> (next tab) and the <b>right orientation</b>. Many collisions fail one test or the other.</p></div>
+          <figure data-fig="m1-collision-orientation"></figure>
         ` },
         { title: 'Activation energy', html: `
           <p class="lead">In 1888 the Swedish chemist <b>Svante Arrhenius</b> suggested that molecules need a certain <b>minimum energy</b> to react.</p>
@@ -218,12 +219,14 @@ CHUNK({
             <div class="side"><h4>Effect on k</h4><p>The rate constant depends on the size of E<sub>a</sub>. The <b>lower E<sub>a</sub></b>, the larger k and the faster the reaction.</p></div>
           </div>
           <p>At a higher temperature, a much <b>greater fraction of molecules</b> have kinetic energy above E<sub>a</sub>. That is why the rate climbs.</p>
+          <figure data-fig="m1-energy-profile"></figure>
           <div class="worked"><div class="given"><p>Three reactions have the same frequency factor A but different energy profiles. Rank the forward rate constants from smallest to largest.</p></div>
           <div class="solve"><p>The lower the activation energy, the larger k. The value of ΔE (reactant to product) does <b>not</b> change k.</p></div>
           <div class="result">Order on the slide: <b>2 &lt; 3 &lt; 1</b></div></div>
         ` },
         { title: 'Arrhenius equation', html: `
           <p class="lead">Arrhenius noted that for most reactions the rate rises <b>non-linearly</b> with temperature. The rate constant follows:</p>
+          <figure data-fig="m1-arrhenius-plot"></figure>
           <div class="eq" data-label="Arrhenius equation">k = A e<sup>−E<sub>a</sub>/RT</sup></div>
           <div class="eq" data-label="Logarithmic form">ln k = ln A − <span class="frac"><span>E<sub>a</sub></span><span>RT</span></span></div>
           <div class="kv">
@@ -284,6 +287,7 @@ CHUNK({
         ` },
         { title: 'How it works', html: `
           <p class="lead">A catalyst gives the reaction an <b>alternative mechanism</b> with a different, <b>lower-energy transition state</b>. The activation energy falls compared with the uncatalysed reaction.</p>
+          <figure data-fig="m1-catalyst-profile"></figure>
           <ol class="steps">
             <li><b>Lowers E<sub>a</sub>.</b> Reactants need less energy to convert into products.</li>
             <li><b>More effective collisions.</b> More molecules now have enough energy to clear the lower barrier, so successful collisions per unit time rise.</li>
@@ -334,6 +338,18 @@ CHUNK({
       alt: 'Graph of concentration of A against time with three curves from the same starting point: a straight green line reaching zero, a blue exponential decay, and an orange curve that flattens most.' },
     { id: 'm1-linear-rate-plots', src: null, crop: null,
       caption: 'Three stacked plots: [A] against t for zero order and ln[A] against t for first order both fall with slope minus k; 1/[A] against t for second order rises with slope plus k.',
-      alt: 'Three small graphs against time: a falling line of A labelled zero order, a falling line of ln A labelled first order, and a rising line of 1 over A labelled second order, each with its slope in terms of k.' }
+      alt: 'Three small graphs against time: a falling line of A labelled zero order, a falling line of ln A labelled first order, and a rising line of 1 over A labelled second order, each with its slope in terms of k.' },
+    { id: 'm1-collision-orientation', src: null, crop: null,
+      caption: 'For Cl + NOCl, a collision at the Cl end of NOCl can give NO + Cl2. The same Cl hitting the O end bounces off with no reaction.',
+      alt: 'Two rows of ball-and-stick drawings of O, N and Cl atoms. In the top row a Cl atom approaches the Cl end and the reaction proceeds; in the bottom row a Cl atom approaches the O end and bounces off.' },
+    { id: 'm1-energy-profile', src: null, crop: null,
+      caption: 'Energy profile: Ea is the climb from the reactants to the top of the barrier, where the activated complex sits. ΔE between reactants and products does not set the rate.',
+      alt: 'Energy against reaction progress curve: a flat reactant level, a peak labelled activated complex, then a lower product level. An arrow marks Ea from reactants to the peak and another marks delta E between reactants and products.' },
+    { id: 'm1-arrhenius-plot', src: null, crop: null,
+      caption: 'ln k against 1/T is a straight line with slope minus Ea over R and intercept ln A. A higher Ea gives a steeper line.',
+      alt: 'Graph of ln k against 1/T with two falling straight lines extrapolated back to a common intercept ln A on the vertical axis; the steeper line is labelled high Ea and the shallower one low Ea.' },
+    { id: 'm1-catalyst-profile', src: null, crop: null,
+      caption: 'A catalyst opens a path with a lower barrier. Reactant and product energies are unchanged, so the equilibrium position stays the same while both directions speed up.',
+      alt: 'Two energy profiles from the same reactant level to the same lower product level: a high blue peak for the uncatalysed path and a lower green peak for the catalysed path, with arrows marking each activation energy.' }
   ]
 });
