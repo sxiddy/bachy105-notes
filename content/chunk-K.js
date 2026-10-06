@@ -87,6 +87,7 @@ CHUNK({
         { title: 'Three classes', html: `
           <p class="lead">The size of the forbidden gap decides whether a solid conducts.</p>
           <figure data-fig="m3-band-classes"></figure>
+          <div data-viz="band-gap-picker"></div>
           <div class="vs">
             <div class="side"><h4>Conductor</h4><p>The conduction band <b>overlaps</b> the valence band: <b>no band gap</b>. A small potential difference moves many electrons into conduction.</p></div>
             <div class="side"><h4>Semiconductor</h4><p>Valence band full, conduction band empty, a very <b>small gap, about 1 eV</b>. A small potential difference lets electrons jump across.</p><p>Behaves as an <b>insulator at low or room temperature</b>. As T rises, more electrons cross and conductivity rises. A hole is left behind for each electron that jumps.</p></div>
@@ -161,6 +162,7 @@ CHUNK({
         ` },
         { title: 'Comparing the metals', html: `
         <figure data-fig="m3-metal-resistivity-bars"></figure>
+        <div data-viz="resistance-wire"></div>
           <table class="tbl">
             <thead><tr><th>Metal</th><th>Resistivity (µΩ·cm)</th><th>Temp. coefficient of resistance (/°C)</th></tr></thead>
             <tbody>
@@ -337,6 +339,7 @@ CHUNK({
         { title: 'Meissner effect', html: `
           <p class="lead">The <b>Meissner effect</b> is the <b>exclusion of magnetic flux</b> (ejection of lines of magnetic induction) from the interior of a bulk superconductor when it is cooled below its transition temperature.</p>
           <figure data-fig="m3-meissner-effect"></figure>
+          <div data-viz="superconductor-transition"></div>
           <ul>
             <li>Found by <b>Walther Meissner and Robert Ochsenfeld in 1933</b>, by measuring the magnetic-field distribution outside superconducting <b>tin and lead</b> samples.</li>
             <li>A superconductor with little or no magnetic field inside is in the <b>Meissner state</b>.</li>

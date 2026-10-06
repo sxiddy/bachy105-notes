@@ -142,7 +142,7 @@
       const C = api.C, s = api.stage('0 0 640 330', body, 'k against T and ln k against 1/T');
       const A = { x: 50, y: 26, w: 250, h: 230 }, B = { x: 370, y: 26, w: 230, h: 230 }, g = api.svg('g', null, s);
       axes(api, s, A, 'T', 'k'); axes(api, s, B, '1/T', 'ln k');
-      let Ea = 60, T = 300;
+      let Ea = 60, T = 450;
       const ctl = api.controls();
       api.slider({ label: 'Activation energy E<sub>a</sub>', min: 20, max: 150, step: 1, value: Ea, format: (v) => v + ' kJ/mol' }, (v) => { Ea = v; paint(); }, ctl);
       api.slider({ label: 'Temperature T', min: 250, max: 600, step: 1, value: T, format: (v) => v + ' K' }, (v) => { T = v; paint(); }, ctl);

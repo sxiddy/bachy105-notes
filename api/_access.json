@@ -54,6 +54,7 @@
   "viz-m2a.js",
   "viz-m2b.js",
   "viz-m2c.js",
+  "viz-m3-em.js",
   "viz-m3.js",
   "viz-m4a.js",
   "viz-m4b.js"
@@ -142,6 +143,7 @@
   "viz-m2a.js": "m2",
   "viz-m2b.js": "m2",
   "viz-m2c.js": "m2",
+  "viz-m3-em.js": "m3",
   "viz-m3.js": "m3",
   "viz-m4a.js": "m4",
   "viz-m4b.js": "m4"

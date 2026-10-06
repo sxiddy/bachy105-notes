@@ -178,6 +178,7 @@ CHUNK({
         ` },
         { title: 'Summary table', html: `
         <figure data-fig="m3-chi-temperature"></figure>
+        <div data-viz="curie-temperature"></div>
           <table class="tbl">
             <thead><tr><th>Type</th><th>Susceptibility</th><th>Atomic behaviour</th><th>Example (χ)</th></tr></thead>
             <tbody>
@@ -263,6 +264,7 @@ CHUNK({
           </ol>
           <div class="note exam"><p><b>The area of the loop equals the energy wasted per cycle.</b> Large loop, large loss.</p></div>
           <figure data-fig="m3-hard-soft-loops"></figure>
+          <div data-viz="hysteresis-loop"></div>
           <div class="vs">
             <div class="side"><h4>Hard magnetic material</h4><p>Large loop, high coercivity. Example: <b>Alnico alloy</b>. Used for permanent magnets.</p></div>
             <div class="side"><h4>Soft magnetic material</h4><p>Small loop, <b>low coercivity</b>. Example: <b>ferrous-nickel alloy</b>. Used for cores.</p></div>
