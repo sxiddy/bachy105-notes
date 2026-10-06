@@ -374,7 +374,7 @@ window.__startApp = function () {
         <a class="sb-link" href="#syllabus.cat1" data-key="syllabus.cat1">${icon('list')}<span>CAT-1 syllabus</span></a>
         <a class="sb-link" href="#syllabus.cat2" data-key="syllabus.cat2">${icon('list')}<span>CAT-2 syllabus</span><span class="count" data-sylcount></span></a>
         <a class="sb-link" href="#syllabus.fat" data-key="syllabus.fat">${icon('list')}<span>FAT syllabus</span></a>
-        ${(D.paperIndex || D.papers || []).length ? `<a class="sb-link" href="#papers" data-key="papers">${icon('exam')}<span>Question papers</span></a>` : ''}
+        ${(() => { const L = D.paperIndex || D.papers || []; const n = (k) => L.filter((x) => (/^fat/.test(x.id) ? 'fat' : /^cat1/.test(x.id) ? 'cat1' : 'cat2') === k).length; return [['cat1', 'CAT-1 papers'], ['cat2', 'CAT-2 papers'], ['fat', 'FAT papers']].filter(([k]) => n(k)).map(([k, l]) => `<a class="sb-link" href="#papers.${k}" data-key="papers.${k}">${icon('exam')}<span>${l}</span><span class="count">${n(k)}</span></a>`).join(''); })()}
         <a class="sb-link" href="#mock" data-key="mock">${icon('timer')}<span>Timed mock CAT</span>${PRO ? '' : '<span class="pro-tag">Pro</span>'}</a>
         <a class="sb-link" href="#mock.fat" data-key="mock.fat">${icon('timer')}<span>Timed mock FAT</span>${PRO ? '' : '<span class="pro-tag">Pro</span>'}</a>
         <a class="sb-link" href="#revise" data-key="revise">${icon('fire')}<span>Revision pack</span>${PRO ? '' : '<span class="pro-tag">Pro</span>'}</a>
@@ -2297,6 +2297,20 @@ window.__startApp = function () {
   function viewPapers(r) {
     const p = r.arg && PAPER[r.arg];
     const el = h('div', { class: 'view papers' });
+    const EXAMS = { cat1: 'CAT-1', cat2: 'CAT-2', fat: 'FAT' };
+    const examOf = (x) => (/^fat/.test(x.id) ? 'fat' : /^cat1/.test(x.id) ? 'cat1' : 'cat2');
+    if (!p && EXAMS[r.arg]) {
+      const k = r.arg, list = PINDEX.filter((x) => examOf(x) === k);
+      setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers', href: '#papers', hideSm: true }, { t: EXAMS[k] + ' papers' }]); setActive('papers.' + k); document.title = EXAMS[k] + ' question papers · BACHY105 Notes';
+      const row = (x) => `<a class="next-topic" href="#papers.${esc(x.id)}"><div><small>${esc(x.sub || '')}</small><strong>${esc(x.title)}</strong></div><span class="arrow">${icon('right')}</span></a>`;
+      el.innerHTML = `<div class="eyebrow"><span class="code">Exams</span><span>${EXAMS[k]}</span><span class="dot">·</span><span>${list.length} papers</span></div>
+        <h1 class="h-display">${EXAMS[k]} question papers</h1>
+        <p class="blurb">Real ${EXAMS[k]} papers, typed out cleanly, with model answers. Try each question on paper first, then open the model answer.</p>
+        <div class="paper-list">${list.map(row).join('')}</div>
+        <p style="margin-top:32px"><a class="btn" href="#papers">${icon('left')}All question papers</a></p>`;
+      stagger(el);
+      return { el };
+    }
     if (!p) {
       setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers' }]); setActive('papers'); document.title = 'Question papers · BACHY105 Notes';
       const row = (x) => { const open = !!PAPER[x.id];
@@ -2312,7 +2326,7 @@ window.__startApp = function () {
       stagger(el);
       return { el };
     }
-    setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers', href: '#papers', hideSm: true }, { t: p.short || p.title }]); setActive('papers');
+    setCrumbs([{ t: 'Home', href: '#home' }, { t: 'Question papers', href: '#papers', hideSm: true }, { t: p.short || p.title }]); setActive('papers.' + examOf(p));
     document.title = `${p.title} · BACHY105 Notes`;
     const topicLinks = (ids) => (ids || []).filter((id) => TOPIC[id]).map((id) => `<a href="#${id}">${rt(TOPIC[id].short || TOPIC[id].title)}</a>`).join(' · ');
     el.innerHTML = `<div class="eyebrow"><span class="code">${p.kind === 'actual' ? 'Actual paper' : 'Model paper'}</span><span>${esc(p.sub || '')}</span></div>
