@@ -1030,7 +1030,7 @@ a.syl-name:hover { text-decoration: underline; }
 .fig-svg svg .mono, .lb-svg svg .mono { font-family: var(--mono); }
 .dt { fill: var(--white); } .dt2 { fill: var(--text-2); } .dt3 { fill: var(--text-dim); }
 .dtb { fill: var(--dg-b); } .dto { fill: var(--dg-o); } .dtr { fill: var(--dg-r); } .dtp { fill: var(--dg-p); } .dtg { fill: var(--dg-g); } .dty { fill: var(--dg-y); }
-.ds { stroke: var(--white); } .ds2 { stroke: var(--text-dim); } .ds3 { stroke: var(--line-2); }
+.ds, .dsw { stroke: var(--white); } .ds2 { stroke: var(--text-dim); } .ds3 { stroke: var(--line-2); }
 .dsb { stroke: var(--dg-b); } .dso { stroke: var(--dg-o); } .dsr { stroke: var(--dg-r); } .dsp { stroke: var(--dg-p); } .dsg { stroke: var(--dg-g); } .dsy { stroke: var(--dg-y); }
 .df { fill: var(--surface); } .df2 { fill: var(--surface-2); } .df3 { fill: var(--surface-3); } .dfw { fill: var(--white); } .dfd { fill: var(--text-dim); }
 .dfb { fill: var(--dg-b); } .dfo { fill: var(--dg-o); } .dfr { fill: var(--dg-r); } .dfp { fill: var(--dg-p); } .dfg { fill: var(--dg-g); } .dfy { fill: var(--dg-y); }

@@ -90,6 +90,7 @@ CHUNK({
       tabs: [
         { title: 'The method tree', html: `
           <p class="lead">Methods split by the physics they use.</p>
+          <figure data-fig="m5-method-tree"></figure>
           <div class="vs">
             <div class="side"><h4>Quantum mechanics</h4><ul><li><b>Ab initio</b> methods</li><li><b>Semi-empirical</b> methods</li><li><b>Density Functional Theory</b> (DFT)</li></ul></div>
             <div class="side"><h4>Classical mechanics</h4><ul><li><b>Molecular mechanics</b> (MM)</li><li><b>Molecular dynamics</b> (MD)</li></ul></div>
@@ -195,6 +196,7 @@ CHUNK({
         ` },
         { title: 'Filling rules', html: `
           <p class="lead">Occupancy of atomic orbitals is set by three rules.</p>
+          <figure data-fig="m5-filling-rules"></figure>
           <div class="kv">
             <div><span>Aufbau principle</span><b>fill the lowest-energy orbitals first</b></div>
             <div><span>Pauli exclusion principle</span><b>no two electrons have the same four quantum numbers (two per orbital, opposite spins)</b></div>
@@ -204,6 +206,7 @@ CHUNK({
         ` },
         { title: 'Orbital shapes', html: `
           <p class="lead">The shapes come from the slide figures (after J. D. Lee).</p>
+          <figure data-fig="m5-orbital-shapes"></figure>
           <table class="tbl">
             <thead><tr><th>Orbital</th><th>Shape</th></tr></thead>
             <tbody>
@@ -264,6 +267,7 @@ CHUNK({
         { title: 'Homonuclear diatomics', html: `
           <p class="lead">Molecules made of two identical atoms, such as H<sub>2</sub>, are <b>homonuclear diatomic</b>. The MOs are solutions of the Schrödinger equation for <b>one electron</b>, filled by the Aufbau and Pauli principles and Hund's rule.</p>
           <div class="eq" data-label="Bond order">Bond order = <span class="frac"><span>(bonding electrons) − (antibonding electrons)</span><span>2</span></span></div>
+          <figure data-fig="m5-mo-h2"></figure>
           <div class="worked"><div class="given"><p>Bond order of H<sub>2</sub>: two electrons in the bonding σ<sub>1s</sub>, none in σ*<sub>1s</sub>.</p></div>
           <div class="solve"><div class="eq">(2 − 0)/2</div></div>
           <div class="result">Bond order = <b>1</b></div></div>
@@ -295,6 +299,7 @@ CHUNK({
           <p class="lead">A <b>heteronuclear</b> diatomic has two different atoms A and B, with orbitals φ<sub>A</sub> (energy α<sub>A</sub>) and φ<sub>B</sub> (energy α<sub>B</sub>).</p>
           <div class="eq" data-label="Secular equation">(α<sub>A</sub> − E)(α<sub>B</sub> − E) − (β − ES)<sup>2</sup> = 0</div>
           <p>With α<sub>A</sub> &lt; α<sub>B</sub>, combining the two AOs gives two MOs:</p>
+          <figure data-fig="m5-mo-heteronuclear"></figure>
           <ul>
             <li><b>Ψ<sub>1</sub></b> lies lower than α<sub>A</sub>. It is mainly φ<sub>A</sub> with a small in-phase contribution from φ<sub>B</sub>.</li>
             <li><b>Ψ<sub>2</sub></b> lies higher than α<sub>B</sub>. It is mainly φ<sub>B</sub> with a small out-of-phase contribution from φ<sub>A</sub>.</li>
@@ -359,5 +364,21 @@ CHUNK({
       ]
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm5-method-tree', src: null, crop: null,
+      caption: 'Computational methods split by the physics they use: quantum mechanics (ab initio, semi-empirical, DFT) and classical mechanics (molecular mechanics, molecular dynamics).',
+      alt: 'A tree diagram with Computational methods at the top, branching to Quantum mechanics with three boxes below it and Classical mechanics with two boxes below it.' },
+    { id: 'm5-orbital-shapes', src: null, crop: null,
+      caption: 'Orbital shapes: s is a sphere, each p orbital is a dumbbell along one axis, d orbitals are mostly four-lobed cloverleafs, and dz2 has two lobes and a ring. Blue and orange mark opposite signs of the wave.',
+      alt: 'A sphere for s, three dumbbells for px, py and pz, and below them dxy and dx2-y2 four-lobed shapes and a dz2 shape with two vertical lobes and a flat ring.' },
+    { id: 'm5-filling-rules', src: null, crop: null,
+      caption: 'Nitrogen shown in boxes: 1s and 2s are full pairs with opposite spins, and the three 2p boxes each hold one electron with parallel spins.',
+      alt: 'Five boxes labelled 1s, 2s and three 2p: the 1s and 2s boxes each have an up and a down arrow, and each 2p box has a single up arrow.' },
+    { id: 'm5-mo-h2', src: null, crop: null,
+      caption: 'Two 1s orbitals combine into a bonding sigma and an antibonding sigma-star orbital. Both electrons go into the bonding orbital, so the bond order is 1.',
+      alt: 'Energy level diagram with a 1s level for each H atom at the sides, a lower sigma 1s level holding two electrons, a higher sigma-star 1s level empty, and dashed lines linking them.' },
+    { id: 'm5-mo-heteronuclear', src: null, crop: null,
+      caption: 'For two different atoms the lower MO sits mainly on the atom with the lower orbital energy (the more electronegative one), so the bonding electrons are drawn towards it.',
+      alt: 'Energy level diagram with a low atomic level for A on the left, a higher level for B on the right, a bonding MO below both holding two electrons and an antibonding MO above both.' }
+  ]
 });
