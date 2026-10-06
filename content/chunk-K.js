@@ -156,9 +156,11 @@ CHUNK({
           </ol>
           <p>The properties needed vary with the purpose.</p>
           <div class="note why"><p>Any impurity, metallic or not, and even one of low resistivity, <b>raises</b> the resistivity of a metal. It creates lattice imperfections that scatter electrons.</p></div>
+          <figure data-fig="m3-metal-resistivity-temperature"></figure>
           <div class="note heads-up"><p>The slide asks for "highest possible conductivity (ideally zero)". Ideally zero is the target for resistivity and for the temperature coefficient, not for conductivity.</p></div>
         ` },
         { title: 'Comparing the metals', html: `
+        <figure data-fig="m3-metal-resistivity-bars"></figure>
           <table class="tbl">
             <thead><tr><th>Metal</th><th>Resistivity (µΩ·cm)</th><th>Temp. coefficient of resistance (/°C)</th></tr></thead>
             <tbody>
@@ -284,6 +286,7 @@ CHUNK({
       tabs: [
         { title: 'Band picture', html: `
           <p class="lead">An insulator has an <b>empty conduction band</b>, a valence band holding many electrons, and a <b>very wide forbidden gap</b> (15 eV in the slides).</p>
+          <figure data-fig="m3-insulator-breakdown"></figure>
           <ul>
             <li>Valence electrons lack the energy to reach the conduction band, so conductivity is <b>almost zero</b>.</li>
             <li>They need a very high electric field to cross the gap.</li>
@@ -406,6 +409,15 @@ CHUNK({
       alt: 'Graph of resistivity against temperature: a blue normal-metal curve that flattens at a finite value near zero temperature, and a green line at zero resistivity up to a critical temperature where it jumps up to meet the blue curve.' },
     { id: 'm3-meissner-effect', src: null, crop: null,
       caption: 'Above Tc the field lines pass straight through the sample. Below Tc the superconductor pushes them out and they bend around it.',
-      alt: 'Two panels of parallel field lines with arrows around an ellipse: straight through it above Tc, curving around it below Tc.' }
+      alt: 'Two panels of parallel field lines with arrows around an ellipse: straight through it above Tc, curving around it below Tc.' },
+    { id: 'm3-metal-resistivity-temperature', src: null, crop: null,
+      caption: 'Resistivity of a metal rises with temperature. Impurities shift the whole line upward, so the alloy has a higher resistivity at every temperature.',
+      alt: 'Graph of resistivity against temperature with two parallel rising lines: a lower blue line for the pure metal and a higher red line for the metal with impurities, joined by an upward arrow.' },
+    { id: 'm3-metal-resistivity-bars', src: null, crop: null,
+      caption: 'Resistivity in microohm centimetres: silver 1.58, copper 1.68, gold 2.21 and aluminium 2.65. Lower is the better conductor.',
+      alt: 'Horizontal bars for silver, copper, gold and aluminium with lengths increasing in that order and the values printed at the bar ends.' },
+    { id: 'm3-insulator-breakdown', src: null, crop: null,
+      caption: 'An insulator carries almost no current as the field rises, until the field is high enough to push electrons across the wide gap and it breaks down.',
+      alt: 'Graph of current against field: a curve hugging zero for most of the field range and then rising almost vertically at the breakdown field.' }
   ]
 });

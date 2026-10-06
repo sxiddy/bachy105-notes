@@ -48,6 +48,7 @@ CHUNK({
         ` },
         { title: 'ΔS for ideal-gas processes', html: `
           <p class="lead">One formula per process, all for <b>1 mole</b> of an ideal gas. For n moles multiply by n.</p>
+          <figure data-fig="m1-entropy-isobaric-isochoric"></figure>
           <table class="tbl">
             <thead><tr><th>Process</th><th>Entropy change</th></tr></thead>
             <tbody>
@@ -212,6 +213,7 @@ CHUNK({
         ` },
         { title: 'Spontaneous reaction', html: `
           <p class="lead">A <b>spontaneous reaction</b> favours the formation of products at the conditions where it runs. It happens <b>without outside intervention</b>, but it may be fast or slow.</p>
+          <figure data-fig="m1-gibbs-reaction-progress"></figure>
           <div class="note example"><p>Graphite turning into diamond is slow. A burning fire is relatively fast. Both are spontaneous.</p></div>
           <ul>
             <li>"In any spontaneous process there is always an increase in the entropy of the universe." So <b>ΔS<sub>universe</sub> must be positive</b>.</li>
@@ -469,6 +471,12 @@ CHUNK({
       alt: 'A hot reservoir box on top with an arrow down to a circle labelled engine, an arrow to the right labelled work, and an arrow down to a cold reservoir box.' },
     { id: 'm1-free-expansion', src: null, crop: null,
       caption: 'Opening the valve lets the gas spread into both bulbs by itself. It never gathers back into one bulb on its own, because the total entropy has risen.',
-      alt: 'Two connected bulbs: before, gas dots fill only the left bulb; after the valve opens, dots are spread through both bulbs.' }
+      alt: 'Two connected bulbs: before, gas dots fill only the left bulb; after the valve opens, dots are spread through both bulbs.' },
+    { id: 'm1-entropy-isobaric-isochoric', src: null, crop: null,
+      caption: 'Entropy against ln T on heating: the constant-pressure line has slope Cp and the constant-volume line has slope Cv. Since Cp is larger, heating at constant pressure raises the entropy more.',
+      alt: 'Graph of entropy against ln T with two straight lines from the same start point: a steeper red line for constant pressure and a shallower blue line for constant volume.' },
+    { id: 'm1-gibbs-reaction-progress', src: null, crop: null,
+      caption: 'Free energy along a reaction: G falls towards a minimum at equilibrium. Where G is falling in the forward direction, delta G is negative and the forward reaction is spontaneous.',
+      alt: 'A U-shaped curve of G against reaction progress with the minimum marked equilibrium, a green arrow down the left side labelled delta G less than zero and a red arrow down the right side labelled delta G greater than zero.' }
   ]
 });
