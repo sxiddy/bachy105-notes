@@ -22,6 +22,7 @@ CHUNK({
             <div><span>S<sub>sur</sub></span><b>entropy of the surroundings</b></div>
           </div>
           <div class="note exam"><p>The second law is a statement about the <b>total</b> entropy of the isolated system (the universe), and not just about the system you are studying.</p></div>
+          <figure data-fig="m1-free-expansion"></figure>
           <ul>
             <li>The <b>1st law</b> uses internal energy to identify <b>permissible</b> changes.</li>
             <li>The <b>2nd law</b> uses entropy to pick out which permissible changes are <b>spontaneous</b>.</li>
@@ -97,6 +98,7 @@ CHUNK({
       tabs: [
         { title: 'Heat engine', html: `
           <p class="lead">A <b>heat engine</b> transforms heat into work, and it does so in a <b>cyclic process</b>.</p>
+          <figure data-fig="m1-heat-engine"></figure>
           <div class="kv">
             <div><span>Hot reservoir (T<sub>h</sub>)</span><b>supplies heat Q<sub>H</sub></b></div>
             <div><span>Cold reservoir (T<sub>c</sub>)</span><b>receives waste heat Q<sub>C</sub></b></div>
@@ -461,6 +463,12 @@ CHUNK({
       alt: 'Graph of delta G against temperature with a zero axis and four straight lines: a starts below zero and falls, b starts above zero and falls through zero, c starts below zero and rises through zero, d starts high above zero and rises.' },
     { id: 'm1-entropy-temperature', src: null, crop: null,
       caption: 'Entropy is zero for a perfect crystal at 0 K, rises smoothly with temperature, and jumps at melting and again at boiling, where the change is enthalpy of the transition divided by its temperature.',
-      alt: 'Graph of entropy against temperature starting at zero, rising through solid, a vertical jump at the melting temperature, the liquid region, a larger vertical jump at the boiling temperature, then the gas region.' }
+      alt: 'Graph of entropy against temperature starting at zero, rising through solid, a vertical jump at the melting temperature, the liquid region, a larger vertical jump at the boiling temperature, then the gas region.' },
+    { id: 'm1-heat-engine', src: null, crop: null,
+      caption: 'A heat engine takes heat Q hot from a hot reservoir, turns part of it into work W, and rejects the rest as Q cold to a cold reservoir.',
+      alt: 'A hot reservoir box on top with an arrow down to a circle labelled engine, an arrow to the right labelled work, and an arrow down to a cold reservoir box.' },
+    { id: 'm1-free-expansion', src: null, crop: null,
+      caption: 'Opening the valve lets the gas spread into both bulbs by itself. It never gathers back into one bulb on its own, because the total entropy has risen.',
+      alt: 'Two connected bulbs: before, gas dots fill only the left bulb; after the valve opens, dots are spread through both bulbs.' }
   ]
 });

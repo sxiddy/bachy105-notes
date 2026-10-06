@@ -30,6 +30,7 @@ CHUNK({
           <div class="eq" data-label="Disappearance of reactant R">rate = −d[R]/dt</div>
           <div class="eq" data-label="Formation of product P">rate = +d[P]/dt</div>
           <p>The <b>negative sign</b> for a reactant shows that its concentration is decreasing with time. Both rates are positive numbers.</p>
+          <figure data-fig="m1-rate-slope"></figure>
           <h3>General reaction A + B → C</h3>
           <div class="eq">rate = −d[A]/dt = −d[B]/dt = +d[C]/dt</div>
           <h3>General reaction aA + bB → cC + dD</h3>
@@ -131,6 +132,7 @@ CHUNK({
         ` },
         { title: 'Reading the plots', html: `
           <p class="lead">Which quantity gives a straight line tells you the order, and the slope gives k.</p>
+          <figure data-fig="m1-rate-halflife-conc"></figure>
           <figure data-fig="m1-linear-rate-plots"></figure>
           <div class="kv">
             <div><span>Zero order</span><b>[A]<sub>t</sub> vs time, slope = −k</b></div>
@@ -350,6 +352,12 @@ CHUNK({
       alt: 'Graph of ln k against 1/T with two falling straight lines extrapolated back to a common intercept ln A on the vertical axis; the steeper line is labelled high Ea and the shallower one low Ea.' },
     { id: 'm1-catalyst-profile', src: null, crop: null,
       caption: 'A catalyst opens a path with a lower barrier. Reactant and product energies are unchanged, so the equilibrium position stays the same while both directions speed up.',
-      alt: 'Two energy profiles from the same reactant level to the same lower product level: a high blue peak for the uncatalysed path and a lower green peak for the catalysed path, with arrows marking each activation energy.' }
+      alt: 'Two energy profiles from the same reactant level to the same lower product level: a high blue peak for the uncatalysed path and a lower green peak for the catalysed path, with arrows marking each activation energy.' },
+    { id: 'm1-rate-slope', src: null, crop: null,
+      caption: 'The rate at any moment is minus the slope of the reactant concentration curve: steep early on, flatter later as the reactant is used up.',
+      alt: 'A falling exponential curve of reactant concentration against time with two tangent lines, a steep one early labelled fast and a shallow one later labelled slower.' },
+    { id: 'm1-rate-halflife-conc', src: null, crop: null,
+      caption: 'Rate against concentration: flat for zero order, a straight line for first order, a curve for second order. Half-life against starting concentration: rising, constant and falling respectively.',
+      alt: 'Two stacked graphs with three lines each for zero, first and second order: rate against concentration and half-life against starting concentration.' }
   ]
 });

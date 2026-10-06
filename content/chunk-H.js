@@ -111,6 +111,7 @@ CHUNK({
         { title: 'First law', html: `
           <p class="lead">The first law is the <b>law of conservation of energy</b>: energy is never lost, only changed from one form to another.</p>
           <div class="eq" data-label="First law">ΔU = q + w</div>
+          <figure data-fig="m1-first-law-flows"></figure>
           <div class="kv">
             <div><span>w</span><b>work done on the system</b></div>
             <div><span>q</span><b>energy transferred to the system as heat</b></div>
@@ -174,6 +175,7 @@ CHUNK({
         ` },
         { title: 'Cv and Cp', html: `
           <p class="lead">What happens to the heat depends on whether the volume or the pressure is held fixed.</p>
+          <figure data-fig="m1-cv-cp-pistons"></figure>
           <div class="vs">
             <div class="side"><h4>At constant volume (C<sub>v</sub>)</h4><p>w = 0, so <b>ΔU = q<sub>v</sub></b>.</p><div class="eq">C<sub>v</sub> = (∂U/∂T)<sub>v</sub></div><p>All the heat raises U.</p></div>
             <div class="side"><h4>At constant pressure (C<sub>p</sub>)</h4><p>The volume changes and some work is done, so <b>ΔH = q<sub>p</sub></b>.</p><div class="eq">C<sub>p</sub> = (∂H/∂T)<sub>p</sub></div><p>Some of the heat goes into expansion work.</p></div>
@@ -313,6 +315,12 @@ CHUNK({
       alt: 'P against V graph with two falling curves from point A: a blue isotherm ending at B and a steeper red adiabat ending lower at C, both at volume V2.' },
     { id: 'm1-pv-isobaric-isochoric', src: null, crop: null,
       caption: 'Isobaric: a horizontal line whose area under it is the work. Isochoric: a vertical line with no area under it, so no work.',
-      alt: 'Two small P against V graphs. Top: a horizontal arrow with the rectangle under it shaded and labelled w equals minus P delta V. Bottom: a vertical downward arrow labelled no area, so w equals zero.' }
+      alt: 'Two small P against V graphs. Top: a horizontal arrow with the rectangle under it shaded and labelled w equals minus P delta V. Bottom: a vertical downward arrow labelled no area, so w equals zero.' },
+    { id: 'm1-first-law-flows', src: null, crop: null,
+      caption: 'Heat and work crossing the boundary: energy entering the system raises its internal energy, energy leaving lowers it.',
+      alt: 'A box labelled system with delta U equals q plus w. Arrows labelled q in and w on system point into the box; arrows labelled q out and w by system point away from it.' },
+    { id: 'm1-cv-cp-pistons', src: null, crop: null,
+      caption: 'At constant volume all the heat raises the internal energy. At constant pressure the gas also lifts the piston, so the same temperature rise needs more heat and Cp is larger than Cv.',
+      alt: 'Two cylinders of gas heated from below: one with a fixed lid marked constant volume and one with a rising piston marked constant pressure.' }
   ]
 });
