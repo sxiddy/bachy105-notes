@@ -27,6 +27,7 @@ CHUNK({
         { title: 'Resistivity', html: `
           <p class="lead">Resistance depends on the shape of the specimen. <b>Resistivity ρ</b> removes the shape and keeps only the material.</p>
           <div class="eq" data-label="Resistance">R = ρ <span class="frac"><span>l</span><span>A</span></span></div>
+          <figure data-fig="m3-resistivity-geometry"></figure>
           <div class="eq" data-label="Resistivity">ρ = <span class="frac"><span>R A</span><span>l</span></span> = <span class="frac"><span>V A</span><span>I l</span></span></div>
           <div class="kv">
             <div><span>l</span><b>length (cm)</b></div>
@@ -67,6 +68,7 @@ CHUNK({
       tabs: [
         { title: 'Energy band theory', html: `
           <p class="lead">In an isolated atom, each orbit has a <b>definite energy</b>. In a solid the atoms sit close together, and that changes the picture.</p>
+          <figure data-fig="m3-band-formation"></figure>
           <ul>
             <li>The outer-orbit levels are affected by the neighbouring atoms. Outer electrons interact or are shared, so an outer electron of one atom is attracted by the neighbouring nucleus.</li>
             <li>The levels shift <b>higher or lower</b> than the original, so electrons in the same orbit end up with <b>different</b> energies.</li>
@@ -84,6 +86,7 @@ CHUNK({
         ` },
         { title: 'Three classes', html: `
           <p class="lead">The size of the forbidden gap decides whether a solid conducts.</p>
+          <figure data-fig="m3-band-classes"></figure>
           <div class="vs">
             <div class="side"><h4>Conductor</h4><p>The conduction band <b>overlaps</b> the valence band: <b>no band gap</b>. A small potential difference moves many electrons into conduction.</p></div>
             <div class="side"><h4>Semiconductor</h4><p>Valence band full, conduction band empty, a very <b>small gap, about 1 eV</b>. A small potential difference lets electrons jump across.</p><p>Behaves as an <b>insulator at low or room temperature</b>. As T rises, more electrons cross and conductivity rises. A hole is left behind for each electron that jumps.</p></div>
@@ -247,6 +250,7 @@ CHUNK({
             </tbody>
           </table>
           <div class="note trap"><p>Both n-type and p-type crystals are electrically <b>neutral</b>. The words positive and negative here describe the ionised impurity atom, not the crystal.</p></div>
+          <figure data-fig="m3-donor-acceptor"></figure>
         ` },
         { title: 'Uses', html: `
           <p class="lead">Semiconductors sit inside most modern electronics.</p>
@@ -315,6 +319,7 @@ CHUNK({
       tabs: [
         { title: 'Superconductivity', html: `
           <p class="lead">Cool some materials below a certain temperature and their <b>resistivity vanishes</b>. They show <b>infinite conductivity</b>.</p>
+          <figure data-fig="m3-superconductor-resistivity"></figure>
           <ul>
             <li>Discovered in <b>1911 in Leiden</b> by the Dutch physicist <b>Heike Kamerlingh Onnes</b>, who won the <b>Nobel Prize in Physics in 1913</b> for low-temperature research.</li>
             <li>The <b>critical (transition) temperature, T<sub>c</sub></b> is the temperature at which a metal changes from the normal conducting state to the superconducting state.</li>
@@ -328,6 +333,7 @@ CHUNK({
         ` },
         { title: 'Meissner effect', html: `
           <p class="lead">The <b>Meissner effect</b> is the <b>exclusion of magnetic flux</b> (ejection of lines of magnetic induction) from the interior of a bulk superconductor when it is cooled below its transition temperature.</p>
+          <figure data-fig="m3-meissner-effect"></figure>
           <ul>
             <li>Found by <b>Walther Meissner and Robert Ochsenfeld in 1933</b>, by measuring the magnetic-field distribution outside superconducting <b>tin and lead</b> samples.</li>
             <li>A superconductor with little or no magnetic field inside is in the <b>Meissner state</b>.</li>
@@ -382,5 +388,24 @@ CHUNK({
       formulas: []
     }
   ],
-  figures: []
+  figures: [
+    { id: 'm3-resistivity-geometry', src: null, crop: null,
+      caption: 'A wire of length l and cross-sectional area A: resistance grows with length and shrinks with area, while resistivity is a property of the material alone.',
+      alt: 'A cylindrical wire with current arrows at both ends, its length l marked below and its end-face area A labelled, with the formula R equals rho l over A.' },
+    { id: 'm3-band-formation', src: null, crop: null,
+      caption: 'As atoms are packed closer, each single-atom level splits into many close levels that merge into a band. The outer levels spread most.',
+      alt: 'Energy against closeness of atoms: two single levels on the left each fan out into six lines that end as an upper band and a lower band with a gap between them.' },
+    { id: 'm3-band-classes', src: null, crop: null,
+      caption: 'Conductor: bands overlap. Semiconductor: small gap of about 1 eV. Insulator: very wide gap.',
+      alt: 'Three pairs of stacked blocks for conduction and valence bands: overlapping for a conductor, a small gap for a semiconductor, a large gap for an insulator.' },
+    { id: 'm3-donor-acceptor', src: null, crop: null,
+      caption: 'A donor level sits just below the conduction band and gives electrons to it. An acceptor level sits just above the valence band and takes electrons from it, leaving holes.',
+      alt: 'Two band diagrams. n-type: a dashed donor level with electrons just under the conduction band and an arrow up. p-type: a dashed acceptor level just above the valence band with an arrow up from the valence band.' },
+    { id: 'm3-superconductor-resistivity', src: null, crop: null,
+      caption: 'A normal metal levels off at a finite resistivity as T falls. A superconductor drops sharply to zero at its critical temperature.',
+      alt: 'Graph of resistivity against temperature: a blue normal-metal curve that flattens at a finite value near zero temperature, and a green line at zero resistivity up to a critical temperature where it jumps up to meet the blue curve.' },
+    { id: 'm3-meissner-effect', src: null, crop: null,
+      caption: 'Above Tc the field lines pass straight through the sample. Below Tc the superconductor pushes them out and they bend around it.',
+      alt: 'Two panels of parallel field lines with arrows around an ellipse: straight through it above Tc, curving around it below Tc.' }
+  ]
 });
