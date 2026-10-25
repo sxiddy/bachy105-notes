@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-thermo-basics',
-      title: 'Thermodynamics: basic terminologies',
-      short: 'Basic terminologies',
+      title: "Introduction and terminologies",
+      short: "Terminologies",
       blurb: 'System and surroundings, intensive and extensive properties, state and path functions, internal energy, the four named processes, expansion work and reversible processes.',
       source: 'Pages 30–34',
       tabs: [
@@ -90,8 +90,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-zeroth-first-law',
-      title: 'Zeroth and first law',
-      short: 'Zeroth & first law',
+      title: "Zeroth law and first law",
+      short: "Zeroth & first law",
       blurb: 'Thermal equilibrium and temperature, where the zeroth law is used, then the first law as conservation of energy with its sign convention.',
       source: 'Pages 35–37',
       tabs: [
@@ -222,8 +222,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-expansion-work',
-      title: 'First law applied to expansion work',
-      short: 'Expansion work',
+      title: "Applications of the first law: expansion work",
+      short: "First law applications",
       blurb: 'Isothermal reversible and irreversible expansion, adiabatic expansion (reversible, free, against constant pressure), isobaric and isochoric processes.',
       source: 'Pages 40–43',
       tabs: [

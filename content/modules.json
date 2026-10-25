@@ -10,7 +10,7 @@
       "J"
     ],
     "questions": "q-M1.js",
-    "syllabus": "Laws of thermodynamics, entropy, Carnot cycle, free energy and the Gibbs–Helmholtz equation; rate laws, order, integral rate equations, half-life, collision theory, Arrhenius equation and catalysis."
+    "syllabus": "Introduction and terminologies; zeroth law, first law, enthalpy and heat capacity; applications of the first law; second law; Carnot cycle; third law and the Gibbs–Helmholtz equation; chemical kinetics (rate equation, order of the reaction, integral rate equations, half-life of reactions); collision theory, effect of temperature and catalysts on reaction rate; numericals."
   },
   {
     "id": "m2",
@@ -23,7 +23,7 @@
       "C"
     ],
     "questions": "q-M2.js",
-    "syllabus": "Electrochemical and electrolytic cells, semiconductor electrode materials, classes of batteries, Li-ion chemistry, H₂–O₂ and solid oxide fuel cells, silicon photovoltaics, photoelectrochemical and dye-sensitized cells."
+    "syllabus": "Electrochemical and electrolytic cells, electrode materials with examples; Nernst equation and numericals; classification of batteries; chemistry of Li-ion secondary batteries; fuel cells (H₂–O₂ and solid oxide); solar cells (silicon photovoltaic cell); photoelectrochemical cells; dye-sensitized cells."
   },
   {
     "id": "m3",
@@ -40,7 +40,7 @@
       "q-M3b.js",
       "q-M3.js"
     ],
-    "syllabus": "Electrical materials (Ohm’s law, energy bands, conductors, semiconductors, insulators, superconductors), magnetic materials, nanomaterials (synthesis, bulk vs nano gold, quantum dots) and liquid coolants."
+    "syllabus": "Electrical materials (Ohm’s law and resistivity); classification of metals and semiconductors; intrinsic and extrinsic Si, insulators, superconductors; magnetic materials (para and dia, ferromagnetic, antiferromagnetic and applications in storage devices); liquid cooling (types of coolants, thermal conductivity and applications); nanomaterials (introduction, top-down and bottom-up approaches for synthesis, bulk vs nano gold, quantum dots)."
   },
   {
     "id": "m4",
@@ -52,7 +52,7 @@
       "G"
     ],
     "questions": "q-M4.js",
-    "syllabus": "Principle, instrumentation and applications of UV-Visible spectroscopy and powder XRD, crystallite size from XRD, numericals."
+    "syllabus": "Fundamental concepts in spectroscopic and diffraction techniques; principle and instrumentation of UV-Visible spectroscopy; applications of UV-Visible; powder XRD, determination of crystallite size, numericals."
   },
   {
     "id": "m5",
@@ -64,6 +64,6 @@
       "N"
     ],
     "questions": "q-M5.js",
-    "syllabus": "Quantum mechanical calculations, molecular mechanics and dynamics, ab initio, semi-empirical and DFT methods, atomic and molecular orbitals, potential energy surfaces, geometry optimisation, frequencies, reaction mechanisms and AI-driven screening."
+    "syllabus": "Introduction to quantum mechanical calculations; molecular orbital theory (atomic orbitals, molecular orbitals); orbital interactions and chemical bonding; potential energy curve and surface; electrostatic potentials; geometry optimisation; frequency; reaction mechanism; application of AI to screen semiconductors."
   }
 ]

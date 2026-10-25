@@ -225,8 +225,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-semiconductor-types-uses',
-      title: 'n-type vs p-type and uses of semiconductors',
-      short: 'n vs p, uses',
+      title: "Intrinsic and extrinsic semiconductors (n-type, p-type) and uses",
+      short: "Intrinsic & extrinsic Si",
       blurb: 'Side-by-side comparison of n-type and p-type semiconductors, and where semiconductors are used.',
       source: 'Pages 14–22',
       tabs: [

@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-electrochemical-cells',
-      title: 'Electrochemical cells',
-      short: 'Electrochemical cells',
+      title: "Electrochemical cells and the Nernst equation",
+      short: "Cells & Nernst",
       blurb: 'What a cell is made of, galvanic vs electrolytic, how to write a cell, the Daniell cell and its salt bridge, EMF and the Nernst equation with a worked Cd/Cu problem.',
       source: 'Slides 2–7',
       tabs: [
@@ -438,8 +438,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-electrolysis',
-      title: 'Electrolysis: molten NaCl and water',
-      short: 'Electrolysis examples',
+      title: "Electrolytic cells: molten NaCl and water",
+      short: "Electrolytic cells",
       blurb: 'Two electrolytic cells at work: molten sodium chloride giving sodium and chlorine, and water splitting into hydrogen and oxygen.',
       source: 'Slides 8–9 (older deck)',
       tabs: [

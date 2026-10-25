@@ -123,8 +123,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-photovoltaics',
-      title: 'Photovoltaic cells',
-      short: 'Photovoltaic cells',
+      title: "Solar cells: silicon photovoltaic cells",
+      short: "Silicon solar cells",
       blurb: 'The photovoltaic effect, why silicon wins, the three forms of silicon and their efficiencies, how a p–n junction turns light into current, other semiconductors, and the downsides of PV.',
       source: 'Slides 46–54',
       tabs: [
@@ -295,8 +295,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-pec-cells',
-      title: 'Photoelectrochemical cells',
-      short: 'PEC cells',
+      title: "Photoelectrochemical cells",
+      short: "PEC cells",
       blurb: 'A semiconductor dipped in an electrolyte: how light makes it drive redox reactions, the LJSC and PES families, regenerative cells, what a good electrode needs, and where PEC beats PV.',
       source: 'Slides 55–59',
       tabs: [
@@ -404,8 +404,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-dssc',
-      title: 'Dye-sensitized solar cells',
-      short: 'Dye-sensitized cells',
+      title: "Dye-sensitized solar cells",
+      short: "Dye-sensitized cells",
       blurb: 'The Grätzel cell: a dye on nanoporous TiO₂ catches the light and iodide carries electrons back. Parts and their specs, the working equations, a hibiscus-tea build, pros and cons, and PV vs PEC vs DSSC.',
       source: 'Slides 60–72',
       tabs: [

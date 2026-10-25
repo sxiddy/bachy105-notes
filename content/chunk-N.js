@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm5-orbital-overlap',
-      title: 'Orbital interaction and chemical bonding',
-      short: 'Orbital overlap',
+      title: "Orbital interactions and chemical bonding",
+      short: "Orbital interactions",
       blurb: 'p–p and s–p overlap giving bonding and antibonding orbitals, and orbital overlap in H₂, BeH₂, BF₃, CH₄, NH₃ and ethane.',
       source: 'Pages 47–56',
       tabs: [
@@ -52,8 +52,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm5-potential-energy-surface',
-      title: 'Potential energy curves, surfaces and electrostatic potential',
-      short: 'PES & ESP',
+      title: "Potential energy curves, surfaces and electrostatic potentials",
+      short: "PES & ESP",
       blurb: 'Potential energy curve for a diatomic, harmonic and anharmonic models, surfaces and hypersurfaces, stationary points and the electrostatic potential.',
       source: 'Pages 57–68',
       tabs: [
@@ -316,8 +316,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm5-ai-ml-screening',
-      title: 'AI and machine learning for semiconductor screening',
-      short: 'AI & ML screening',
+      title: "Application of AI to screen semiconductors",
+      short: "AI & ML screening",
       blurb: 'AI and ML basics, supervised and unsupervised learning, applications in chemistry and the workflow for predicting band gaps of semiconductor materials.',
       source: 'Pages 86–90',
       tabs: [

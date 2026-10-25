@@ -238,8 +238,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-hysteresis-storage',
-      title: 'Superexchange, hysteresis and magnetic storage',
-      short: 'Hysteresis & storage',
+      title: "Superexchange, hysteresis and applications in storage devices",
+      short: "Hysteresis & storage",
       blurb: 'Superexchange in NiO, the hysteresis loop with saturation, remanence and coercivity, hard and soft magnets, and magnetic recording materials and heads.',
       source: 'Pages 59–68',
       tabs: [

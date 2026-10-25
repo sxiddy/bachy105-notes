@@ -162,8 +162,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-bragg',
-      title: "Diffraction & Bragg's law",
-      short: 'Diffraction & Bragg',
+      title: "Fundamental concepts in diffraction: Bragg’s law",
+      short: "Diffraction & Bragg",
       blurb: 'How waves bend and add up, why a crystal acts as a grating for X-rays, how ordered and disordered solids differ, and how two triangles give 2d sin θ = nλ.',
       source: 'Pages 30–32, 37',
       tabs: [
@@ -294,8 +294,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-xrd-patterns',
-      title: 'Diffractometer & patterns',
-      short: 'Diffractometer & peaks',
+      title: "Powder XRD: diffractometer and patterns",
+      short: "Powder XRD",
       blurb: 'What sits inside an X-ray diffractometer, how to read peak position, height and width off a diffractogram, how databases confirm a phase, and where XRD earns its keep.',
       source: 'Pages 33–34, 38',
       tabs: [
@@ -425,8 +425,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-scherrer',
-      title: 'Crystallite size & Scherrer',
-      short: 'Crystallite size',
+      title: "Powder XRD: crystallite size and numericals",
+      short: "Crystallite size",
       blurb: 'Crystallite vs grain vs particle and which instrument sees each, how peak broadening turns into a size through the Scherrer equation, and the p-XRD numerical worked through.',
       source: 'Pages 35–37',
       tabs: [

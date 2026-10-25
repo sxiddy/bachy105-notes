@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-rate-law',
-      title: 'Reaction rate and rate law',
-      short: 'Rate & rate law',
+      title: "Chemical kinetics: rate equation and order of the reaction",
+      short: "Rate equation & order",
       blurb: 'What chemical kinetics studies, factors affecting rate, rate expressions with stoichiometry, the rate law and rate constant, and order of a reaction.',
       source: 'Pages 3–10',
       tabs: [
@@ -107,8 +107,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-integrated-rate',
-      title: 'Integrated rate equations and half-life',
-      short: 'Integrated rate laws',
+      title: "Integral rate equations and half-life of reactions",
+      short: "Integral rate equations",
       blurb: 'Zero, first, pseudo-first and second order: rate laws, units, integrated equations, plots, half-lives, the methyl isonitrile example and pseudo-first-order reactions.',
       source: 'Pages 11–16',
       tabs: [
@@ -187,8 +187,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-collision-arrhenius',
-      title: 'Collision theory, activation energy and Arrhenius equation',
-      short: 'Collision & Arrhenius',
+      title: "Collision theory and the effect of temperature on reaction rate",
+      short: "Collision & Arrhenius",
       blurb: 'Temperature and rate, the collision model, orientation factor, activation energy and the transition state, energy distribution, and the Arrhenius equation and plot.',
       source: 'Pages 17–22',
       tabs: [
@@ -275,8 +275,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-catalysis',
-      title: 'Catalysis',
-      short: 'Catalysis',
+      title: "Effect of catalysts on reaction rate",
+      short: "Catalysts",
       blurb: 'What a catalyst is, importance, how it lowers activation energy, homogeneous, heterogeneous and enzyme catalysis with examples, and what a catalyst does and does not change.',
       source: 'Pages 23–27',
       tabs: [

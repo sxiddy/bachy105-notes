@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm5-comp-intro',
-      title: 'What computational chemistry is',
-      short: 'Computational chemistry',
+      title: "Introduction to computational chemistry",
+      short: "Computational chemistry",
       blurb: 'From classical to quantum mechanics, the Nobel milestones, what computational chemistry is, why use it, and what it can calculate.',
       source: 'Pages 3–16',
       tabs: [
@@ -83,8 +83,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm5-comp-methods',
-      title: 'Computational methods',
-      short: 'Computational methods',
+      title: "Quantum mechanical calculations and methods",
+      short: "QM methods",
       blurb: 'Molecular mechanics, molecular dynamics, ab initio, semi-empirical and DFT methods, the Schrödinger equation behind them, and accuracy against cost.',
       source: 'Pages 17–26',
       tabs: [

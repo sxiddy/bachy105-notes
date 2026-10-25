@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-nanomaterials',
-      title: 'What nanomaterials are',
-      short: 'What nanomaterials are',
+      title: "Nanomaterials: introduction",
+      short: "Nanomaterials intro",
       blurb: 'The 100 nm rule, how small a nanometre really is, and where engineered nanomaterials already turn up, from sunscreen to tennis balls.',
       source: 'Slides 2–7',
       tabs: [
@@ -362,8 +362,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-synthesis',
-      title: 'Top-down vs bottom-up',
-      short: 'Top-down vs bottom-up',
+      title: "Top-down and bottom-up approaches",
+      short: "Top-down & bottom-up",
       blurb: 'The two ways to make nanomaterials: carve bulk down or build up from atoms. What each is good at, and which methods belong on which side.',
       source: 'Slides 18–19',
       tabs: [

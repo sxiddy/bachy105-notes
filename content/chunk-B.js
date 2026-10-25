@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-batteries',
-      title: 'Batteries: parts & classification',
-      short: 'Battery basics',
+      title: "Classification of batteries",
+      short: "Classifying batteries",
       blurb: 'What a battery is, what the anode, cathode and electrolyte each do, and how primary, secondary and fuel cells differ.',
       source: 'Slides 19, 42',
       tabs: [
@@ -89,8 +89,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-li-ion',
-      title: 'Lithium-ion batteries',
-      short: 'Li-ion batteries',
+      title: "Chemistry of lithium-ion secondary batteries",
+      short: "Li-ion batteries",
       blurb: 'Why lithium, how the cell is built, what happens on charge and discharge, the variants, where they are used, and why they sometimes catch fire.',
       source: 'Slides 20–28',
       tabs: [
@@ -412,8 +412,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm2-pemfc',
-      title: 'PEM fuel cell',
-      short: 'PEM fuel cell',
+      title: "H₂–O₂ (PEM) fuel cell",
+      short: "H₂–O₂ fuel cell",
       blurb: 'The low-temperature fuel cell with a Nafion membrane: why it needs pure hydrogen, what happens at each electrode, and the layers inside the cell.',
       source: 'Slides 33–35',
       tabs: [

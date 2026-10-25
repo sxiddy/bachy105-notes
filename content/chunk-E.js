@@ -219,8 +219,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-coolants',
-      title: 'Liquid coolants & requirements',
-      short: 'Coolant requirements',
+      title: "Liquid cooling: requirements and thermal conductivity",
+      short: "Liquid cooling",
       blurb: 'What a coolant does, why chips need one, two real cooling loops, and the seven things a good coolant has to get right.',
       source: 'Slides 40–47',
       tabs: [
@@ -346,8 +346,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm3-coolant-types',
-      title: 'Types of coolants',
-      short: 'Types of coolants',
+      title: "Types of coolants and their applications",
+      short: "Types of coolants",
       blurb: 'Water, deionised water, glycol and formate mixes, salt brines and dielectric fluids: what each is good at, where it fails, and how to pick one.',
       source: 'Slides 48–51',
       tabs: [

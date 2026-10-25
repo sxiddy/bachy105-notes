@@ -5,8 +5,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-spectroscopy',
-      title: 'Spectroscopy & EMR',
-      short: 'Spectroscopy & EMR',
+      title: "Fundamental concepts in spectroscopic techniques",
+      short: "Spectroscopy basics",
       blurb: 'What spectroscopy measures, who named it, how energy travels, why light is both a wave and a particle, and the six things that can happen when light meets matter.',
       source: 'Pages 1–5',
       tabs: [
@@ -324,8 +324,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-uv-vis',
-      title: 'UV-Vis: absorption & transitions',
-      short: 'UV-Vis absorption',
+      title: "UV-Visible: principle, absorption and transitions",
+      short: "UV-Vis principle",
       blurb: 'The 200–700 nm window, how molecules absorb and emit, the four electronic transitions and how strong their bands are, chromophores and auxochromes, the four shifts, and why coloured things look the colour they do.',
       source: 'Pages 12–19',
       tabs: [
@@ -617,8 +617,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm4-uv-vis-instrument',
-      title: 'UV-Vis instruments & uses',
-      short: 'UV-Vis instruments',
+      title: "UV-Visible: instrumentation and applications",
+      short: "UV-Vis instrument & uses",
       blurb: 'How single-beam and double-beam spectrophotometers are built, the five things UV-Vis is used for, and the two practice problems on groups and transitions.',
       source: 'Pages 21–24',
       tabs: [

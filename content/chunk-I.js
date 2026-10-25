@@ -252,8 +252,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-gibbs-helmholtz-third-law',
-      title: 'Gibbs–Helmholtz equation and third law',
-      short: 'G–H equation, 3rd law',
+      title: "Third law and the Gibbs–Helmholtz equation",
+      short: "3rd law, G–H equation",
       blurb: 'ΔG = ΔH − TΔS, how temperature changes spontaneity (the four sign cases), and the third law with S = k ln W.',
       source: 'Pages 58–60',
       tabs: [
@@ -341,8 +341,8 @@ CHUNK({
     // ------------------------------------------------------------------
     {
       id: 'm1-thermo-numericals',
-      title: 'Thermodynamics numericals',
-      short: 'Thermo numericals',
+      title: "Numericals on thermodynamics",
+      short: "Thermo numericals",
       blurb: 'Worked problems from the numericals sheet: maximum work, work against constant pressure, ΔU, entropy changes, spontaneity, ΔG, and Carnot efficiency.',
       source: 'Numerical sheet 2, pages 2–22',
       tabs: [
