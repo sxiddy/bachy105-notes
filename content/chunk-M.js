@@ -124,6 +124,7 @@ CHUNK({
             <li>MD is <b>not an electronic structure method</b>. Covalent <b>bond breaking and bond making</b>, as opposed to conformational change, <b>cannot</b> be studied with MD programs that use this method.</li>
             <li>For chemical reactions, use forces from <b>semi-empirical, ab initio or density functional</b> methods.</li>
           </ul>
+          <div data-viz="md-sim"></div>
         ` },
         { title: 'Ab initio', html: `
           <p class="lead"><em>Ab initio</em> means "from the beginning" (Latin). These methods try to solve the Schrödinger equation from <b>first principles</b>, <b>without experimental data</b>. The equation describes the behaviour of quantum particles such as electrons in a molecule.</p>

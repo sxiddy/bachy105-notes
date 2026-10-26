@@ -167,4 +167,98 @@
       api.loop((dt) => { t += dt * 5; paint(); });
     }
   });
+
+  // ---------------------------------------------------------------- Molecular dynamics (slide 9)
+  VIZ.register('md-sim', {
+    title: 'Molecular dynamics: atoms moving over time', kind: 'Animation',
+    mount(body, api) {
+      const C = api.C, s = api.stage('0 0 640 320', body, 'Atoms joined by springs moving according to classical mechanics'), g = api.svg('g', null, s);
+      let temp = 1, time = 0;
+      const L = 70, K = 6, ctl = api.controls();
+      api.slider({ label: 'Temperature (relative)', min: 0.2, max: 3, step: 0.1, value: temp, format: (v) => v.toFixed(1) }, (v) => { temp = v; }, ctl);
+      const ro = api.readouts(), r1 = api.readout('Time', ro), r2 = api.readout('Longest bond', ro), r3 = api.readout('Bonds broken', ro);
+      api.caption('MD applies <b>Newton\'s laws</b> to every atom, step after step. Bonds are springs, so they stretch and bend (<b>conformational change</b>) but never break: MD with molecular mechanics is <b>not an electronic structure method</b>.');
+      const cx = 320, cy = 150;
+      const A = [[-L / 2, -L / 2], [L / 2, -L / 2], [L / 2, L / 2], [-L / 2, L / 2], [L * 1.4, 0], [-L * 1.4, 0]].map((p) => ({ x: cx + p[0], y: cy + p[1], vx: (Math.random() - 0.5) * 60, vy: (Math.random() - 0.5) * 60, fx: 0, fy: 0 }));
+      const B = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 4], [2, 4], [3, 5], [0, 5], [0, 2]];
+      const rest = B.map(([i, j]) => Math.hypot(A[i].x - A[j].x, A[i].y - A[j].y));
+      const trail = [];
+      function step(h) {
+        A.forEach((a) => { a.fx = 0; a.fy = 0; });
+        B.forEach(([i, j], n) => { const a = A[i], b = A[j], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1, f = K * (d - rest[n]); a.fx += f * dx / d; a.fy += f * dy / d; b.fx -= f * dx / d; b.fy -= f * dy / d; });
+        A.forEach((a) => { a.fx -= (a.x - cx) * 0.4; a.fy -= (a.y - cy) * 0.4; a.vx += a.fx * h; a.vy += a.fy * h; });
+        let ke = 0; A.forEach((a) => { ke += 0.5 * (a.vx * a.vx + a.vy * a.vy); });
+        const want = 600 * temp, sc = Math.sqrt(Math.max(0.2, Math.min(3, want / (ke || 1)))), m = 1 + (sc - 1) * 0.02;
+        A.forEach((a) => { a.vx *= m; a.vy *= m; a.x += a.vx * h; a.y += a.vy * h; });
+      }
+      function paint() {
+        clear(g);
+        let mx = 0;
+        B.forEach(([i, j], n) => { const a = A[i], b = A[j], d = Math.hypot(a.x - b.x, a.y - b.y); mx = Math.max(mx, d / rest[n]); api.svg('path', { d: `M${a.x} ${a.y}L${b.x} ${b.y}`, stroke: C.line2, 'stroke-width': 4 }, g); });
+        trail.push([A[4].x, A[4].y]); if (trail.length > 60) trail.shift();
+        path(api, g, trail, C.good, 2, { 'stroke-opacity': 0.6 });
+        A.forEach((a, i) => api.svg('circle', { cx: a.x, cy: a.y, r: i < 4 ? 14 : 11, fill: i < 4 ? C.bad : C.cat }, g));
+        r1.set((time * 10).toFixed(0) + ' fs'); r2.set((mx * 100).toFixed(0) + ' % of rest length'); r3.set('0 (not possible in MD)');
+      }
+      paint();
+      api.loop(() => { for (let k = 0; k < 6; k++) { step(0.008); time += 0.008; } paint(); });
+    }
+  });
+
+  // ---------------------------------------------------------------- Geometry optimisation (slide 36)
+  VIZ.register('geom-opt', {
+    title: 'Geometry optimisation step by step', kind: 'Animation',
+    mount(body, api) {
+      const C = api.C, s = api.stage('0 0 640 320', body, 'A point moving downhill on an energy curve until the force is zero'), g = api.svg('g', null, s);
+      let x0 = 1.5, x = x0, n = 0, acc = 0, done = false;
+      const ctl = api.controls();
+      api.slider({ label: 'Initial geometry (start)', min: -1.7, max: 1.7, step: 0.05, value: x0, format: (v) => v.toFixed(2) }, (v) => { x0 = v; x = v; n = 0; acc = 0; done = false; paint(); }, ctl);
+      const ro = api.readouts(), r1 = api.readout('Step', ro), r2 = api.readout('Energy', ro), r3 = api.readout('Force', ro), r4 = api.readout('Status', ro);
+      api.caption('<b>Calculate energy and force, nudge the atoms, repeat</b> until the force is about 0 and the energy barely changes. A different <b>initial geometry</b> can end in a different minimum, with a different energy.');
+      const E = (q) => Math.pow(q * q - 1, 2) + 0.3 * q, F = (q) => -(4 * q * (q * q - 1) + 0.3);
+      const b = { x: 60, y: 20, w: 520, h: 240 }, X = (q) => b.x + (q + 1.9) / 3.8 * b.w, Y = (v) => b.y + b.h - (v + 0.6) / 4.2 * b.h;
+      function paint() {
+        clear(g); axes(api, g, b, 'geometry', 'E');
+        const pts = []; for (let q = -1.85; q <= 1.85; q += 0.04) pts.push([X(q), Y(E(q))]);
+        path(api, g, pts, C.e, 3);
+        const f = F(x), len = Math.max(-60, Math.min(60, f * 20));
+        if (!done) api.svg('path', { d: `M${X(x)} ${Y(E(x)) - 26}H${X(x) + len}`, stroke: C.cat, 'stroke-width': 3 }, g);
+        api.svg('circle', { cx: X(x), cy: Y(E(x)) - 10, r: 9, fill: done ? C.good : C.white }, g);
+        r1.set(String(n)); r2.set(E(x).toFixed(3)); r3.set(f.toFixed(3)); r4.set(done ? 'converged: force ≈ 0' : 'optimising…');
+      }
+      paint();
+      api.loop((dt) => { if (done) return; acc += dt; if (acc < 0.12) return; acc = 0; const f = F(x); if (Math.abs(f) < 0.02) { done = true; } else { x += 0.04 * f; n++; } paint(); });
+    }
+  });
+
+  // ---------------------------------------------------------------- Intermediate and transition state (slide 41)
+  VIZ.register('ts-explorer', {
+    title: 'Intermediate or transition state?', kind: 'Animation',
+    mount(body, api) {
+      const C = api.C, s = api.stage('0 0 640 320', body, 'A point disturbed at a minimum stays near it, at a saddle point it rolls away'), g = api.svg('g', null, s);
+      const gs = (q, m, w) => Math.exp(-Math.pow((q - m) / w, 2));
+      const E = (q) => 0.6 + 1.1 * gs(q, 0.25, 0.09) + 0.9 * gs(q, 0.72, 0.09) - 0.45 * gs(q, 0.47, 0.1) - 0.5 * gs(q, 0, 0.12) - 0.7 * gs(q, 1, 0.12) - 0.1 * q;
+      const dE = (q) => (E(q + 1e-4) - E(q - 1e-4)) / 2e-4, d2E = (q) => (E(q + 2e-3) + E(q - 2e-3) - 2 * E(q)) / 4e-6;
+      const near = (a) => { let best = a; for (let q = a - 0.06; q <= a + 0.06; q += 0.001) if (Math.abs(dE(q)) < Math.abs(dE(best))) best = q; return best; };
+      const PT = { r: ['Reactants', 0.0, 'min'], t1: ['TS 1', 0.25, 'ts'], i: ['Intermediate', 0.47, 'min'], t2: ['TS 2', 0.72, 'ts'], p: ['Products', 1.0, 'min'] };
+      const pos = {}; Object.keys(PT).forEach((k) => { pos[k] = near(PT[k][1]); });
+      let key = 'i', q = pos.i + 0.012, v = 0, t = 0;
+      const ctl = api.controls();
+      api.segmented(Object.keys(PT).map((k) => ({ value: k, label: PT[k][0] })), key, (k) => { key = k; q = pos[k] + 0.012; v = 0; t = 0; }, ctl);
+      const ro = api.readouts(), r1 = api.readout('Curvature (d²E/dq²)', ro), r2 = api.readout('Imaginary frequencies', ro), r3 = api.readout('Type of point', ro);
+      api.caption('Nudge the structure at a stationary point. At a <b>minimum</b> (reactant, intermediate, product) it vibrates back: <b>zero imaginary frequencies</b>. At a <b>transition state</b> it falls off the top: <b>exactly one imaginary frequency</b>.');
+      const b = { x: 60, y: 20, w: 520, h: 240 }, X = (u) => b.x + u * b.w, Y = (e) => b.y + b.h - (e + 0.1) / 1.9 * b.h;
+      function paint() {
+        clear(g); axes(api, g, b, 'reaction coordinate', 'E');
+        const pts = []; for (let u = 0; u <= 1.0001; u += 0.01) pts.push([X(u), Y(E(u))]);
+        path(api, g, pts, C.e, 3);
+        Object.keys(PT).forEach((k) => { api.svg('circle', { cx: X(pos[k]), cy: Y(E(pos[k])), r: 5, fill: PT[k][2] === 'ts' ? C.bad : C.good }, g); });
+        api.svg('circle', { cx: X(q), cy: Y(E(q)) - 10, r: 9, fill: C.white }, g);
+        const c = d2E(pos[key]), isTs = PT[key][2] === 'ts';
+        r1.set((c > 0 ? '+' : '') + c.toFixed(1)); r2.set(isTs ? '1 (one downhill direction)' : '0'); r3.set(isTs ? 'transition state (first-order saddle point)' : key === 'i' ? 'intermediate (local minimum)' : 'minimum');
+      }
+      paint();
+      api.loop((dt) => { t += dt; const h = Math.min(dt, 0.03); v += -dE(q) * 6 * h; q += v * h; if (q < -0.1 || q > 1.1 || t > 5) { q = pos[key] + 0.012; v = 0; t = 0; } paint(); });
+    }
+  });
 })();

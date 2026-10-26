@@ -119,6 +119,7 @@ CHUNK({
             <li>Change the atom positions slightly to <b>reduce the energy</b>.</li>
             <li>Repeat until the <b>force is about 0</b> and the energy change is very small, within the pre-set tolerance.</li>
           </ol>
+          <div data-viz="geom-opt"></div>
           <div class="note heads-up"><p>The slide compares optimisations with the <b>same method</b>, the <b>same basis set</b> and <b>different initial geometries</b>. They can end with different energies for the optimised structure, because the start decides which minimum is reached.</p></div>
         ` },
         { title: 'Optimised geometry', html: `
@@ -184,6 +185,7 @@ CHUNK({
         { title: 'Intermediate and TS', html: `
           <p class="lead">Optimisation and frequency calculations together tell a <b>reaction intermediate</b> from a <b>transition state</b>.</p>
           <figure data-fig="m5-ts-vs-intermediate"></figure>
+          <div data-viz="ts-explorer"></div>
           <table class="tbl">
             <thead><tr><th>Feature</th><th>Reaction intermediate</th><th>Transition state</th></tr></thead>
             <tbody>
