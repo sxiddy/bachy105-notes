@@ -7,16 +7,6 @@ const lobe = (cx, cy, rx, ry, deg, cls) => `<ellipse cx="${cx}" cy="${cy}" rx="$
 const POS = 'dfb dsb', NEG = 'dfo dso';
 const up = (x, y) => A(`M${x} ${y}V${y - 46}`, 'w', 3), dn = (x, y) => A(`M${x} ${y - 46}V${y}`, 'w', 3);
 
-(function () { // method tree
-  let s = H('Computational chemistry methods');
-  s += box(150, 60, 300, 56, 'dfw dsw', 'Computational methods');
-  s += P('M300 116V140M160 140H440M160 140V170M440 140V170', 'ds', 3);
-  s += box(30, 170, 260, 56, 'dfb dsb', 'Quantum mechanics') + box(310, 170, 260, 56, 'dfo dso', 'Classical mechanics');
-  s += P('M160 226V246', 'ds', 3) + box(30, 250, 260, 50, 'dfb dsb', 'Ab initio', 22) + box(30, 316, 260, 50, 'dfb dsb', 'Semi-empirical', 22) + box(30, 382, 260, 50, 'dfb dsb', 'DFT', 22);
-  s += P('M440 226V246', 'ds', 3) + box(310, 250, 260, 50, 'dfo dso', 'Molecular mechanics', 22) + box(310, 316, 260, 50, 'dfo dso', 'Molecular dynamics', 22);
-  svg(460, s, 'm5-method-tree');
-})();
-
 (function () { // orbital shapes
   let s = H('Orbital shapes');
   const lab = (x, y, t) => T(x, y, t, { a: 'middle', c: 'dt', b: 1, s: 24 });

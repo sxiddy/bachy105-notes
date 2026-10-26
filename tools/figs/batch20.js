@@ -70,9 +70,3 @@ const node = (x, y) => P(`M${x} ${y - 44}V${y + 44}`, 'ds2', 2, 'stroke-dasharra
   svg(470, s, 'm5-water-normal-modes');
 })();
 
-(function () { // ML workflow
-  let s = H('Screening semiconductors with ML');
-  const items = [['Data', 'formation energy, lattice constants,', 'density, total magnetisation'], ['Train models', 'classification, regression,', 'clustering'], ['Tune', 'optimise the hyperparameters'], ['Predict', 'band gap (eV) of each material'], ['Rank', 'top semiconductors and their gaps']];
-  items.forEach((it, i) => { const y = 60 + i * 124; s += box(70, y, 460, 96, ['dfb dsb', 'dfg dsg', 'dfp dsp', 'dfo dso', 'dfy dsy'][i], it); if (i < 4) s += A(`M300 ${y + 96}V${y + 122}`, 'w', 3); });
-  svg(690, s, 'm5-ml-workflow');
-})();

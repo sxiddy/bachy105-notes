@@ -4,131 +4,101 @@ CHUNK({
   topics: [
     // ------------------------------------------------------------------
     {
-      id: 'm5-orbital-overlap',
-      title: "Orbital interactions and chemical bonding",
-      short: "Orbital interactions",
-      blurb: 'p–p and s–p overlap giving bonding and antibonding orbitals, and orbital overlap in H₂, BeH₂, BF₃, CH₄, NH₃ and ethane.',
-      source: 'Pages 47–56',
-      tabs: [
-        { title: 'p–p and s–p overlap', html: `
-          <p class="lead">When two atomic orbitals overlap, they form a <b>bonding</b> and an <b>antibonding</b> molecular orbital. The type of overlap sets the type of bond.</p>
-          <figure data-fig="m5-orbital-overlap"></figure>
-          <div class="vs">
-            <div class="side"><h4>p–p overlap</h4><p>Two p orbitals overlap to give a bonding and an antibonding orbital. Head-on overlap along the bond axis gives σ and σ*; sideways overlap gives π and π*.</p></div>
-            <div class="side"><h4>s–p overlap</h4><p>An s orbital overlapping a p orbital gives a σ bonding orbital (in-phase) and a σ* antibonding orbital (out-of-phase).</p></div>
-          </div>
-          <div class="note heads-up"><p>These slides are mostly figures (after J. D. Lee). The σ and π labels are the standard naming for the overlaps drawn.</p></div>
-        ` },
-        { title: 'Simple molecules', html: `
-          <p class="lead">The slides step up in size, using overlap of the valence orbitals to explain each shape.</p>
-          <table class="tbl">
-            <thead><tr><th>Molecule</th><th>Shape</th><th>Overlap shown</th></tr></thead>
-            <tbody>
-              <tr><td><b>H<sub>2</sub></b> (diatomic)</td><td>Linear</td><td>Two H atoms approach and an electron pair forms the bond (1s–1s)</td></tr>
-              <tr><td><b>BeH<sub>2</sub></b> (triatomic)</td><td>Linear</td><td>1s of hydrogen with 2s of beryllium</td></tr>
-              <tr><td><b>BF<sub>3</sub></b></td><td>Trigonal planar</td><td>Overlap of boron 2p/2s-derived orbitals with fluorine</td></tr>
-              <tr><td><b>CH<sub>4</sub></b></td><td>Tetrahedral</td><td>2s (hybrid) of carbon with 1s of hydrogen</td></tr>
-              <tr><td><b>NH<sub>3</sub></b></td><td>Trigonal pyramidal</td><td>2sp (hybrid) of nitrogen with 1s of hydrogen</td></tr>
-              <tr><td><b>Ethane</b></td><td>Two tetrahedral carbons</td><td>C–C bond and C–H bonds</td></tr>
-            </tbody>
-          </table>
-          <div class="note why"><p>The shape of a molecule follows from which orbitals overlap and in what direction. Four equivalent C–H overlaps point to the corners of a tetrahedron; the lone pair on nitrogen pushes NH<sub>3</sub> into a pyramid.</p></div>
-        ` }
-      ],
-      flashcards: [
-        { front: 'What forms when two atomic orbitals overlap?', back: 'A <b>bonding</b> and an <b>antibonding</b> molecular orbital.' },
-        { front: 'Shape of BeH<sub>2</sub>, BF<sub>3</sub>, CH<sub>4</sub>, NH<sub>3</sub>?', back: '<b>Linear, trigonal planar, tetrahedral, trigonal pyramidal</b>.' },
-        { front: 'Which orbitals overlap in CH<sub>4</sub>?', back: 'Carbon <b>2s (hybrid)</b> with hydrogen <b>1s</b>.' },
-        { front: 'Which orbitals overlap in BeH<sub>2</sub>?', back: 'Beryllium <b>2s</b> with hydrogen <b>1s</b>; the molecule is linear.' },
-        { front: 'What does p–p head-on overlap give?', back: 'A <b>σ</b> bonding and a <b>σ*</b> antibonding orbital.' }
-      ],
-      oneLiners: [
-        'Overlap gives a bonding and an antibonding orbital.',
-        'BeH2 linear, BF3 trigonal planar, CH4 tetrahedral, NH3 trigonal pyramidal.',
-        'In ethane the C–C bond and the C–H bonds are all formed by orbital overlap.'
-      ],
-      formulas: []
-    },
-    // ------------------------------------------------------------------
-    {
       id: 'm5-potential-energy-surface',
       title: "Potential energy curves, surfaces and electrostatic potentials",
       short: "PES & ESP",
-      blurb: 'Potential energy curve for a diatomic, harmonic and anharmonic models, surfaces and hypersurfaces, stationary points and the electrostatic potential.',
-      source: 'Pages 57–68',
+      blurb: 'Potential energy curve of a diatomic, harmonic and anharmonic bonds, the potential energy surface and its degrees of freedom, ozone and contour diagrams, stationary points and the electrostatic potential.',
+      source: 'Slides 28–35',
       tabs: [
         { title: 'Potential energy curve', html: `
-          <p class="lead">A <b>potential energy curve (PEC)</b> is the relationship between a molecule's energy and its geometry (the positions of its atoms), drawn as a graph or equation.</p>
-          <ul>
-            <li>Potential energy is the energy an object has due to its relative position. <b>Chemical potential energy</b> is energy stored in bonds.</li>
-            <li>In quantum chemistry it is the energy associated with the positions of atoms and molecules.</li>
-            <li>Uses: understanding molecular interactions and reactions, predicting reaction rate, optimising molecular structure, molecular dynamics simulations.</li>
-          </ul>
-          <h3>Diatomic molecule AB</h3>
-          <ul>
-            <li>Picture the molecule as <b>balls and a spring</b>. Stretching or compressing the bond changes the potential energy.</li>
-            <li>R<sub>e</sub> is the <b>equilibrium bond length</b>, the minimum of the curve.</li>
-            <li>A molecule can never be stationary at zero potential energy.</li>
-          </ul>
-          <div class="vs">
-            <div class="side"><h4>Harmonic oscillator</h4><p>Potential energy is a <b>parabola</b> in the displacement from equilibrium.</p><div class="eq">V = ½ k (R − R<sub>e</sub>)<sup>2</sup></div></div>
-            <div class="side"><h4>Anharmonic oscillator</h4><p>Real molecules <b>deviate from a perfect parabola</b>.</p><div class="eq">V = D<sub>e</sub> (1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup></div></div>
-          </div>
-          <p>The slides show curves for <b>H<sub>2</sub></b> and <b>HCl</b>.</p>
+          <p class="lead">A <b>potential energy curve (PEC)</b> is a graph of the potential energy of a <b>diatomic</b> molecular system against the <b>internuclear distance</b> between the two atoms.</p>
           <figure data-fig="m5-pec-diatomic"></figure>
           <div data-viz="morse-curve"></div>
-        ` },
-        { title: 'Surface & hypersurface', html: `
-          <p class="lead">A <b>potential energy surface (PES)</b> shows how energy changes with atomic positions. It looks like a terrain of <b>hills and valleys</b>.</p>
-          <figure data-fig="m5-pes-contours"></figure>
+          <p>Comparing the <b>harmonic bond approximation</b> with the exact PEC shows that <b>all real bonds are anharmonic</b>. Chemistry exists because of the anharmonicity of real chemical bonds.</p>
+          <h3>Features</h3>
           <ul>
-            <li>It helps identify <b>transition states and intermediates</b>, predict rate, find the most stable configuration and trace the energy pathway.</li>
-            <li>One variable (H<sub>2</sub>: a single bond length) gives a <b>2D curve</b>.</li>
-            <li><b>Water</b>: one O–H length (both equal) plus one bond angle = <b>two parameters</b>. This is a 2D object but needs a <b>3D graph</b> once energy is added. That graph is a PES.</li>
-            <li><b>HOF</b>: three parameters (O–H length, O–F length, H–O–F angle) need a <b>4D</b> graph, which cannot be drawn. It is a <b>potential energy hypersurface</b>, E = f(q<sub>1</sub>, q<sub>2</sub>, … q<sub>n</sub>).</li>
+            <li>The minimum is the <b>equilibrium bond distance</b>, the most stable configuration.</li>
+            <li>The <b>repulsive region</b> and the <b>attractive region</b>.</li>
+            <li>The <b>dissociation limit</b> (dissociation energy).</li>
           </ul>
-          <h3>Stationary points</h3>
-          <p>A <b>stationary point</b> is where the surface is flat. Two kinds matter: <b>energy minima</b> and <b>saddle points</b>. The lowest-energy path connecting reactant, product and the <b>transition state</b> shows the barrier (the slides use ozone and isoozone as the example).</p>
+          <h3>Importance</h3>
+          <div class="chips"><span class="chip">chemical bonding</span><span class="chip">vibrational motion of diatoms</span><span class="chip">dissociation energy</span><span class="chip">spectroscopic transitions</span><span class="chip">molecular (diatom) stability</span></div>
+        ` },
+        { title: 'Potential energy surface', html: `
+          <p class="lead">A <b>potential energy surface (PES)</b> is a <b>multidimensional surface</b> giving the potential energy of a molecular system as a function of the <b>nuclear coordinates</b>.</p>
+          <div class="eq" data-label="Mathematical form">E = f(R<sub>1</sub>, R<sub>2</sub>, R<sub>3</sub>, … R<sub>N</sub>)</div>
+          <p>R<sub>i</sub> is the i-th nuclear coordinate. A molecule of N atoms can change its energy in <b>3N ways</b>, since every atom has 3 coordinates.</p>
+          <ul>
+            <li>3 coordinates describe molecular <b>translation</b>.</li>
+            <li>3 coordinates describe molecular <b>rotation</b>.</li>
+            <li>That leaves <b>3N − 6</b> coordinates for molecular <b>vibration</b> (<b>3N − 5</b> for a linear molecule).</li>
+          </ul>
+          <p>So the PES of a non-linear polyatomic molecule is a function of <b>3N − 6</b> vibrational modes, and of <b>3N − 5</b> for a linear molecule.</p>
+        ` },
+        { title: 'Ozone and contour diagrams', html: `
+          <p class="lead">Slides 32 and 33 show how a surface is drawn for real molecules.</p>
+          <div class="worked"><div class="given"><p><b>Ozone</b> (O<sub>3</sub>) is a non-linear triatomic with N = 3.</p></div>
+          <div class="solve"><div class="eq">3(3) − 6 = 3 vibrational degrees of freedom</div></div>
+          <div class="result">For the PES shown, <b>one O–O distance is kept fixed</b> (or both O–O distances are kept the same) so that it can be drawn against the reaction coordinate.</div></div>
+          <h3>Contour diagrams</h3>
+          <p>A contour diagram is a <b>2-D representation of a 3-D surface</b>. The slides give contour diagrams for <b>NO<sub>2</sub></b> and <b>H<sub>2</sub>O</b>, and mark the <b>equilibrium structure</b> on them.</p>
+          <figure data-fig="m5-pes-contours"></figure>
+        ` },
+        { title: 'Surface features', html: `
+          <p class="lead">A PES has a few landmark points and paths.</p>
+          <div class="vs">
+            <div class="side"><h4>Features</h4><ul><li>Global minima</li><li>Local minima</li><li>Saddle points, the <b>transition states</b></li><li>Energy barrier</li><li>Reaction pathway, the <b>minimum energy path (MEP)</b></li><li>Surface curvature</li></ul></div>
+            <div class="side"><h4>Importance</h4><ul><li>Understanding chemical reactions</li><li>Reaction rate prediction</li><li>Analysis of molecular stability</li><li>Spectroscopic analysis</li><li>Molecular dynamics simulations</li><li>Drug design and materials science</li></ul></div>
+          </div>
+          <h3>Dimensions</h3>
+          <table class="tbl">
+            <thead><tr><th>System</th><th>PES</th></tr></thead>
+            <tbody>
+              <tr><td><b>Diatom</b></td><td>A <b>2-D curve</b>, a special, limiting case of the general PES</td></tr>
+              <tr><td><b>Triatomic</b></td><td>A <b>3-D surface</b></td></tr>
+              <tr><td><b>Larger molecules</b></td><td>A surface of higher dimensions, a <b>hypersurface</b></td></tr>
+            </tbody>
+          </table>
         ` },
         { title: 'Electrostatic potential', html: `
-          <p class="lead">The <b>electrostatic potential (ESP)</b> measures charge distribution. It is the energy needed to bring a unit positive charge (e.g. a proton) from infinity to a point P.</p>
+          <p class="lead">The <b>electrostatic potential</b> is the work done in bringing a <b>unit positive test charge from infinity</b> to a point in the space around a molecule, without acceleration.</p>
           <ul>
-            <li>It shows how molecules interact, which atoms attract or repel, the overall charge distribution, and the <b>reactive sites</b>.</li>
-            <li>ESP maps show <b>electron-rich and electron-poor</b> regions. In the ammonia map, <b>red is negative, blue is positive</b>.</li>
-            <li><b>Negative ESP</b> at P: a positive charge is attracted to it.</li>
-            <li><b>Positive ESP</b> at P: a positive charge is repelled.</li>
+            <li>It is the <b>potential energy per unit charge</b> at a point of the molecule.</li>
+            <li>It varies across space because of the <b>uneven charge distribution</b> in a molecule.</li>
           </ul>
-          <div class="eq" data-label="Total ESP at point P">V<sub>P</sub><sup>tot</sup> = V<sub>P</sub><sup>nuc</sup> + V<sub>P</sub><sup>el</sup> = Σ<sub>A</sub> <span class="frac"><span>Z<sub>A</sub></span><span>|r<sub>P</sub> − r<sub>A</sub>|</span></span> − ∫ <span class="frac"><span>ρ(r)</span><span>|r<sub>P</sub> − r|</span></span> dr</div>
-          <div class="kv">
-            <div><span>V</span><b>potential</b></div>
-            <div><span>P</span><b>point</b></div>
-            <div><span>Z<sub>A</sub></span><b>charge of nucleus A</b></div>
-            <div><span>r</span><b>distance</b></div>
-            <div><span>ρ</span><b>electron (charge) density</b></div>
-          </div>
-          <p>The ESP of a point is the effect of the <b>positive nuclei plus the negative electrons</b>. The slide's table shows the ESP barely changes with the theory and basis set used.</p>
+          <h3>Significance</h3>
+          <ul>
+            <li><b>Charge distribution.</b> Negative potential means <b>electron-rich</b> (a nucleophilic site); positive potential means <b>electron-deficient</b> (an electrophilic site).</li>
+            <li><b>Chemical reactivity.</b> It predicts the likely sites of electrophilic and nucleophilic attack.</li>
+            <li><b>Non-covalent interactions</b>: hydrogen bonding, dipole–dipole interaction, van der Waals forces.</li>
+            <li><b>Drug–receptor interaction</b> and molecular recognition.</li>
+          </ul>
+          <h3>MEP maps</h3>
+          <p>The potential is shown as a <b>molecular electrostatic potential (MEP) map</b>, a colour-coded surface: <b>red is negative</b> regions and <b>blue is positive</b> regions. The slide shows the map for <b>ammonia</b>.</p>
         ` }
       ],
       flashcards: [
-        { front: 'What is a potential energy curve?', back: 'Molecular <b>energy against geometry</b> (atomic positions).' },
-        { front: 'Harmonic oscillator potential?', back: '<b>V = ½k(R − R<sub>e</sub>)<sup>2</sup></b>, a parabola.' },
-        { front: 'Anharmonic (Morse-type) potential?', back: '<b>V = D<sub>e</sub>(1 − e<sup>−a(R−R<sub>e</sub>)</sup>)<sup>2</sup></b>.' },
-        { front: 'Why does water need a 3D graph for its PES?', back: 'Two parameters (O–H length, H–O–H angle) plus energy.' },
-        { front: 'What is a hypersurface?', back: 'A PES with <b>three or more</b> geometric parameters, e.g. HOF (4D).' },
-        { front: 'Two kinds of stationary point?', back: '<b>Energy minimum</b> and <b>saddle point</b> (transition state).' },
-        { front: 'Define electrostatic potential.', back: 'Energy to bring a <b>unit positive charge from infinity</b> to a point.' },
-        { front: 'Colours in an ESP map?', back: '<b>Red negative</b>, <b>blue positive</b>.' }
+        { front: 'What is a potential energy curve?', back: 'Potential energy of a <b>diatomic</b> system against <b>internuclear distance</b>.' },
+        { front: 'What does the PEC minimum represent?', back: 'The <b>equilibrium bond distance</b>, the most stable configuration.' },
+        { front: 'Why are real bonds not harmonic?', back: 'All real bonds are <b>anharmonic</b>; chemistry exists because of this.' },
+        { front: 'What is a PES?', back: 'A multidimensional surface of <b>potential energy against nuclear coordinates</b>, E = f(R<sub>1</sub> … R<sub>N</sub>).' },
+        { front: 'Split the 3N coordinates of a molecule.', back: '<b>3 translation, 3 rotation, 3N − 6 vibration</b> (3N − 5 for linear).' },
+        { front: 'Vibrational degrees of freedom of ozone?', back: '3(3) − 6 = <b>3</b>.' },
+        { front: 'PES of a diatom, triatom, larger molecule?', back: '<b>2-D curve, 3-D surface, hypersurface</b>.' },
+        { front: 'Features of a PES?', back: '<b>Global and local minima, saddle points (TS), energy barrier, minimum energy path, curvature</b>.' },
+        { front: 'Define electrostatic potential.', back: 'Work to bring a <b>unit positive test charge from infinity</b> to a point near the molecule.' },
+        { front: 'Colours in an MEP map?', back: '<b>Red negative</b> (electron-rich, nucleophilic), <b>blue positive</b> (electron-deficient, electrophilic).' }
       ],
       oneLiners: [
-        'PEC = energy vs geometry; its minimum is the equilibrium bond length Re.',
-        'Harmonic is a parabola; real molecules are anharmonic.',
-        'H2 has a 2D curve, water a 3D surface, HOF a 4D hypersurface.',
-        'Stationary points are minima or saddle points; the saddle is the transition state.',
-        'ESP shows electron-rich (negative) and electron-poor (positive) regions and reactive sites.'
+        'A PEC plots energy against internuclear distance; its minimum is the equilibrium bond distance.',
+        'All real bonds are anharmonic; the harmonic approximation only fits near the minimum.',
+        'A PES gives energy as a function of nuclear coordinates: 3N − 6 vibrations (3N − 5 if linear).',
+        'A diatom has a 2-D curve, a triatomic a 3-D surface and larger molecules a hypersurface.',
+        'Saddle points on the PES are transition states; the minimum energy path joins reactants to products.',
+        'Negative ESP (red) marks electron-rich nucleophilic sites; positive ESP (blue) marks electrophilic sites.'
       ],
       formulas: [
-        { name: 'Harmonic oscillator', html: `V = ½ k (R − R<sub>e</sub>)<sup>2</sup>`, note: '' },
-        { name: 'Anharmonic oscillator', html: `V = D<sub>e</sub> (1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup>`, note: '' }
+        { name: 'Potential energy surface', html: `E = f(R<sub>1</sub>, R<sub>2</sub>, … R<sub>N</sub>)`, note: 'R<sub>i</sub> = i-th nuclear coordinate.' }
       ]
     },
     // ------------------------------------------------------------------
@@ -136,99 +106,124 @@ CHUNK({
       id: 'm5-geometry-frequency',
       title: 'Geometry optimisation and frequency calculations',
       short: 'Geometry & frequency',
-      blurb: 'Finding stationary points, why the starting structure matters, applications, vibrational modes (3N−5 and 3N−6), frequency calculation and telling minima, transition states and hilltops apart.',
-      source: 'Pages 69–79',
+      blurb: 'The geometry optimisation workflow, vibrational frequency under the harmonic approximation, the number of modes, calculated frequencies, and telling an intermediate from a transition state.',
+      source: 'Slides 36–41',
       tabs: [
         { title: 'Geometry optimisation', html: `
-          <p class="lead">Characterising a <b>stationary point</b> on the PES is <b>geometry optimisation</b>. The stationary point can be a minimum, a transition state or a saddle point.</p>
+          <p class="lead"><b>Geometry optimisation</b> adjusts the relative positions of the atoms in a molecule to find the arrangement with <b>minimum potential energy</b> on the PES. In simple terms, it finds the most stable geometry: <b>bond lengths, bond angles and dihedral angles</b>.</p>
+          <h3>The workflow</h3>
+          <figure data-fig="m5-geometry-loop"></figure>
           <ol class="steps">
-            <li><b>Input structure</b> close to a possible stationary structure.</li>
-            <li><b>Change geometry</b>: the computer changes the geometry until it finds a stationary point.</li>
-            <li><b>Many small steps</b>: each time the bond lengths and angles change a little. It cannot be done in one step.</li>
+            <li>Start with an <b>initial guess</b> of the molecular structure.</li>
+            <li>Calculate the <b>energy and the force</b> on each atom.</li>
+            <li>Change the atom positions slightly to <b>reduce the energy</b>.</li>
+            <li>Repeat until the <b>force is about 0</b> and the energy change is very small, within the pre-set tolerance.</li>
           </ol>
-          <ul>
-            <li>It finds the <b>minimum potential energy structure</b>.</li>
-            <li>The start matters: an initial structure closer to one isomer gives that isomer. The same input does <b>not</b> always lead to the same stationary point. A good input is needed to reach the nearest <b>global minimum</b>.</li>
-            <li>Three kinds of stationary point: <b>hilltop</b> (at most a maximum), <b>transition state</b>, and <b>minimum</b> (local minimum energy). Propane conformers are the slide example of conformer analysis.</li>
-          </ul>
-          <h3>Why it is needed</h3>
-          <div class="chips"><span class="chip">accurate bond lengths, angles and dipole moments</span><span class="chip">reaction mechanism</span><span class="chip">reaction energy and activation barrier</span><span class="chip">interpreting spectra</span><span class="chip">most stable structures</span><span class="chip">transition states and intermediates</span><span class="chip">designing stable drug molecules</span></div>
+          <div class="note heads-up"><p>The slide compares optimisations with the <b>same method</b>, the <b>same basis set</b> and <b>different initial geometries</b>. They can end with different energies for the optimised structure, because the start decides which minimum is reached.</p></div>
+        ` },
+        { title: 'Optimised geometry', html: `
+          <div class="vs">
+            <div class="side"><h4>Features</h4><ul><li>The structure with <b>minimum energy</b>, a <b>stationary point</b> on the PES.</li><li>The <b>net forces on the atoms are zero</b>.</li><li>It corresponds to the stable structure, <b>sometimes the transition state</b>.</li><li>Further calculations (such as frequency) can be started from it.</li></ul></div>
+            <div class="side"><h4>Importance</h4><ul><li>Molecular structure determination.</li><li>Starting point of further calculations (frequency, spectroscopic).</li><li>Understanding stability: low energy means more stable.</li><li>Reaction mechanism: locating reactant, product and transition state.</li></ul></div>
+          </div>
         ` },
         { title: 'Frequency', html: `
-          <p class="lead"><b>Frequency</b> is the number of times a molecule vibrates per second. A frequency calculation checks what kind of stationary point optimisation found.</p>
+          <p class="lead">Atoms in a molecule are never still. They <b>vibrate continuously</b> because of thermal energy, around their <b>equilibrium positions</b>.</p>
           <ul>
-            <li>It gives <b>vibrational frequencies</b>, thermodynamic properties (<b>entropy and enthalpy</b>), structure validation, and <b>IR and Raman spectra</b>.</li>
-            <li>It identifies transition states, minima and hilltops, and helps build reaction mechanisms.</li>
-            <li><b>Normal modes:</b> all atoms move together in a synchronised way, reaching maximum and minimum displacement and passing through equilibrium at the same time. Each mode has one frequency.</li>
+            <li>Real vibrations are <b>anharmonic</b>, but can be treated as <b>harmonic</b> up to a certain limit.</li>
+            <li><b>Vibrational frequency</b> is the number of complete vibrational cycles (oscillations) the atoms of the molecule perform per unit time.</li>
           </ul>
+          <div class="eq" data-label="Harmonic approximation">ν = <span class="frac"><span>1</span><span>2π</span></span> (<span class="frac"><span>k</span><span>μ</span></span>)<sup>1/2</sup></div>
+          <div class="kv">
+            <div><span>ν</span><b>frequency (Hz)</b></div>
+            <div><span>k</span><b>force constant</b></div>
+            <div><span>μ</span><b>reduced mass</b></div>
+          </div>
+          <ul>
+            <li><b>High force constant</b>: higher frequency, stronger bond.</li>
+            <li><b>Higher reduced mass</b>: lower frequency.</li>
+            <li>Units: <b>Hz (s<sup>−1</sup>)</b>, or <b>cm<sup>−1</sup></b> for spectroscopic applications.</li>
+          </ul>
+        ` },
+        { title: 'Number of modes', html: `
           <div class="vs">
-            <div class="side"><h4>Linear molecule</h4><div class="eq">3N − 5 modes</div></div>
             <div class="side"><h4>Non-linear molecule</h4><div class="eq">3N − 6 modes</div></div>
+            <div class="side"><h4>Linear molecule</h4><div class="eq">3N − 5 modes</div></div>
           </div>
           <p>N is the number of atoms.</p>
-          <figure data-fig="m5-water-normal-modes"></figure>
-          <div data-viz="normal-modes"></div>
-          <div class="worked"><div class="given"><p>How many normal modes does water have?</p></div>
-          <div class="solve"><p>Water is non-linear with N = 3.</p><div class="eq">3(3) − 6 = 3</div></div>
-          <div class="result"><b>3 normal modes</b></div></div>
-        ` },
-        { title: 'Computing frequencies', html: `
-          <p class="lead">Frequencies come from <b>force constants and atomic masses</b>. The force constant is the <b>second derivative of energy</b> with respect to geometric position.</p>
-          <div class="eq" data-label="Diatomic molecule">ν̃ = <span class="frac"><span>1</span><span>2πc</span></span> (<span class="frac"><span>k</span><span>μ</span></span>)<sup>1/2</sup></div>
-          <div class="kv">
-            <div><span>c</span><b>velocity of light</b></div>
-            <div><span>k</span><b>vibration force constant</b></div>
-            <div><span>μ</span><b>reduced mass = m<sub>A</sub>m<sub>B</sub>/(m<sub>A</sub> + m<sub>B</sub>)</b></div>
-          </div>
-          <div class="eq" data-label="Force constant">k = d<sup>2</sup>E / dq<sup>2</sup> (the curvature, E = ½kq<sup>2</sup>)</div>
-          <ul>
-            <li>The method approximates a <b>harmonic oscillator</b> and solves the Schrödinger equation.</li>
-            <li>A <b>high k</b> means a stiffer bond.</li>
-            <li>Real molecules are polyatomic, so the full calculation handles many coupled modes.</li>
-            <li>Computed IR spectra can be compared with experiment, as done for the three normal modes of ammonia.</li>
-          </ul>
-        ` },
-        { title: 'Reading the frequencies', html: `
-          <p class="lead">Count the <b>imaginary (negative) frequencies</b> to know what you found.</p>
           <table class="tbl">
-            <thead><tr><th>Stationary point</th><th>Imaginary frequencies</th></tr></thead>
+            <thead><tr><th>Molecule</th><th>Shape</th><th>Atoms</th><th>Vibrational modes</th></tr></thead>
             <tbody>
-              <tr><td><b>Energy minimum</b></td><td><b>None</b> (all frequencies real; the structure vibrates stably)</td></tr>
-              <tr><td><b>Transition state</b></td><td><b>Exactly one</b></td></tr>
-              <tr><td><b>Hilltop</b></td><td><b>More than one</b></td></tr>
+              <tr><td><b>Water</b> (H<sub>2</sub>O)</td><td>Non-linear</td><td>3</td><td>3(3) − 6 = <b>3</b></td></tr>
+              <tr><td><b>Ammonia</b> (NH<sub>3</sub>)</td><td>Non-linear</td><td>4</td><td>3(4) − 6 = <b>6</b></td></tr>
+              <tr><td><b>Carbon dioxide</b> (CO<sub>2</sub>)</td><td>Linear</td><td>3</td><td>3(3) − 5 = <b>4</b></td></tr>
+              <tr><td><b>Methane</b> (CH<sub>4</sub>)</td><td>Non-linear</td><td>5</td><td>3(5) − 6 = <b>9</b></td></tr>
             </tbody>
           </table>
-          <h3>Criteria for a transition state</h3>
-          <ol>
-            <li>The model lies <b>between reactant and product</b>.</li>
-            <li>There is <b>only one imaginary frequency</b>.</li>
-            <li>The animation of that mode is clear (it moves the structure from reactant towards product).</li>
-            <li>Its energy is <b>higher than both</b> reactant and product.</li>
-          </ol>
-          <div class="note why"><p>A negative curvature means the surface bends down along that direction, so the structure falls away rather than vibrating. One downhill direction is the reaction path (transition state). Two or more downhill directions is a hilltop.</p></div>
+          <figure data-fig="m5-water-normal-modes"></figure>
+          <div data-viz="normal-modes"></div>
+        ` },
+        { title: 'Calculated frequencies', html: `
+          <p class="lead">Methane has 9 modes. The slide lists them from an ORCA calculation at <b>B3LYP / 6-31G*</b>.</p>
+          <table class="tbl">
+            <thead><tr><th>Mode</th><th>Type</th><th>Frequency (cm<sup>−1</sup>)</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>bending</td><td>1372.17</td></tr>
+              <tr><td>2</td><td>bending</td><td>1372.44</td></tr>
+              <tr><td>3</td><td>bending</td><td>1372.77</td></tr>
+              <tr><td>4</td><td>bending</td><td>1592.84</td></tr>
+              <tr><td>5</td><td>bending</td><td>1593.04</td></tr>
+              <tr><td>6</td><td>symmetric stretch</td><td>3050.93</td></tr>
+              <tr><td>7</td><td>asymmetric stretch</td><td>3159.36</td></tr>
+              <tr><td>8</td><td>asymmetric stretch</td><td>3159.95</td></tr>
+              <tr><td>9</td><td>asymmetric stretch</td><td>3160.16</td></tr>
+            </tbody>
+          </table>
+          <p>The major application is <b>IR spectrum</b> determination, prediction and explanation. For <b>ammonia</b> the slide shows its normal modes of vibration and compares the <b>calculated IR spectrum</b> with the <b>experimental</b> one.</p>
+        ` },
+        { title: 'Intermediate and TS', html: `
+          <p class="lead">Optimisation and frequency calculations together tell a <b>reaction intermediate</b> from a <b>transition state</b>.</p>
+          <figure data-fig="m5-ts-vs-intermediate"></figure>
+          <table class="tbl">
+            <thead><tr><th>Feature</th><th>Reaction intermediate</th><th>Transition state</th></tr></thead>
+            <tbody>
+              <tr><td>Nature of the structure</td><td>Local minimum on the PES</td><td>First-order saddle point on the PES</td></tr>
+              <tr><td>Imaginary frequencies</td><td><b>Zero</b></td><td><b>Exactly one</b></td></tr>
+              <tr><td>Sign of the frequencies</td><td>All real, positive</td><td>One imaginary, usually written as a negative frequency in cm<sup>−1</sup></td></tr>
+              <tr><td>Position on the PES</td><td>In a local energy minimum</td><td>At an energy maximum</td></tr>
+              <tr><td>Chemical significance</td><td>Relatively stable species formed during a reaction</td><td>Unstable structure at the energy barrier between reactant and product</td></tr>
+            </tbody>
+          </table>
+          <div class="vs">
+            <div class="side"><h4>Importance of optimisation</h4><ul><li>Determination of stable structures</li><li>Identification of intermediates</li><li>Identification of transition-state geometries</li><li>Analysis of bond lengths and bond angles</li><li>Energy comparison</li></ul></div>
+            <div class="side"><h4>Importance of frequency calculation</h4><ul><li>Confirmation of minima (global or local)</li><li>Identification of transition states</li><li>Identification of the reaction coordinate</li><li>Verification of optimised structures</li></ul></div>
+          </div>
         ` }
       ],
       flashcards: [
-        { front: 'What is geometry optimisation?', back: 'Adjusting atomic positions in small steps until a <b>stationary point</b> (usually a minimum) is found.' },
-        { front: 'Does the starting structure matter?', back: '<b>Yes.</b> A start near an isomer gives that isomer; a good input reaches the nearest global minimum.' },
-        { front: 'Number of normal modes?', back: '<b>3N − 5</b> (linear), <b>3N − 6</b> (non-linear).' },
-        { front: 'Normal modes of water?', back: '<b>3</b>.' },
-        { front: 'Frequency of a diatomic?', back: '<b>ν̃ = (1/2πc)√(k/μ)</b>, μ = reduced mass.' },
-        { front: 'Force constant is what derivative?', back: 'The <b>second derivative of energy</b> with position.' },
-        { front: 'Imaginary frequencies at a minimum, transition state, hilltop?', back: '<b>Zero, one, more than one</b>.' },
-        { front: 'Criteria for a transition state?', back: 'Between reactant and product, <b>one imaginary frequency</b>, clear animation, energy <b>higher than both</b>.' }
+        { front: 'What is geometry optimisation?', back: 'Adjusting atomic positions to find the arrangement of <b>minimum potential energy</b> on the PES.' },
+        { front: 'Steps of the optimisation workflow?', back: '<b>Initial guess, energy and force, move atoms, repeat</b> until force is about 0 and energy change is within tolerance.' },
+        { front: 'What is true of the forces at an optimised geometry?', back: 'The <b>net force on each atom is zero</b>: a stationary point.' },
+        { front: 'Frequency in the harmonic approximation?', back: '<b>ν = (1/2π)√(k/μ)</b>; k = force constant, μ = reduced mass.' },
+        { front: 'Effect of k and μ on frequency?', back: 'Higher <b>k</b>: higher frequency. Higher <b>μ</b>: lower frequency.' },
+        { front: 'Number of vibrational modes?', back: '<b>3N − 6</b> (non-linear), <b>3N − 5</b> (linear).' },
+        { front: 'Modes of H<sub>2</sub>O, NH<sub>3</sub>, CO<sub>2</sub>, CH<sub>4</sub>?', back: '<b>3, 6, 4, 9</b>.' },
+        { front: 'Imaginary frequencies in an intermediate and a transition state?', back: '<b>Zero</b> and <b>exactly one</b>.' },
+        { front: 'Nature of an intermediate and a transition state on the PES?', back: 'Intermediate: <b>local minimum</b>. TS: <b>first-order saddle point</b>.' },
+        { front: 'Major application of calculated frequencies?', back: '<b>IR spectra</b>: determination, prediction and explanation.' }
       ],
       oneLiners: [
-        'Optimisation finds stationary points; a frequency calculation says which kind.',
+        'Optimisation moves atoms until the force is about zero and the energy stops changing.',
+        'The result is a stationary point: usually a minimum, sometimes a transition state.',
+        'ν = (1/2π)√(k/μ): a stiffer bond vibrates faster, a heavier one slower.',
         'Linear molecules have 3N − 5 vibrational modes, non-linear 3N − 6.',
-        'ν̃ = (1/2πc)√(k/μ); a stiffer bond (larger k) vibrates faster.',
-        'Minimum: no imaginary frequency. Transition state: one. Hilltop: more than one.',
-        'A transition state lies above both reactant and product in energy.'
+        'Water 3, ammonia 6, CO2 4, methane 9 modes.',
+        'Intermediate: local minimum, no imaginary frequency. Transition state: saddle point, exactly one.',
+        'Frequencies confirm minima and transition states, and give IR spectra.'
       ],
       formulas: [
         { name: 'Vibrational modes', html: `3N − 5 (linear), 3N − 6 (non-linear)`, note: 'N = number of atoms.' },
-        { name: 'Diatomic frequency', html: `ν̃ = (1/2πc) √(k/μ)`, note: 'μ = m<sub>A</sub>m<sub>B</sub>/(m<sub>A</sub> + m<sub>B</sub>).' },
-        { name: 'Harmonic energy', html: `E = ½ k q<sup>2</sup>`, note: 'k = d²E/dq².' }
+        { name: 'Harmonic frequency', html: `ν = (1/2π) √(k/μ)`, note: 'k = force constant, μ = reduced mass.' }
       ]
     },
     // ------------------------------------------------------------------
@@ -236,80 +231,106 @@ CHUNK({
       id: 'm5-reaction-mechanisms',
       title: 'Reaction mechanisms and SN2 reactions',
       short: 'Reaction mechanisms',
-      blurb: 'What a reaction mechanism is, absolute reactivity and frontier orbitals, nucleophilic reactions, and computational insight into SN1 and SN2 in gas phase and solution.',
-      source: 'Pages 80–85',
+      blurb: 'The step-wise computational procedure for a mechanism, nucleophilic reactions, SN1 and SN2, the gas-phase SN2 surface, solvent effects and ketone enolization.',
+      source: 'Slides 42–48',
       tabs: [
         { title: 'Reaction mechanism', html: `
-          <p class="lead">A <b>reaction mechanism</b> is a step-by-step sequence of <b>elementary reactions</b> that describes how reactants convert into products. It gives insight into <b>transition states, intermediates and energy barriers</b>.</p>
-          <h3>Why study it</h3>
-          <ul>
-            <li>Predicts <b>reactivity and selectivity</b>.</li>
-            <li>Helps design <b>catalysts</b> and optimise reactions.</li>
-            <li>Computational methods (DFT, frontier orbital theory) give <b>quantitative insight</b>.</li>
-          </ul>
-        ` },
-        { title: 'Absolute reactivity', html: `
-          <p class="lead">A chemical system must overcome an <b>energetic barrier</b> before it can react.</p>
-          <ol>
-            <li><b>Energy barrier.</b> Needed to break bonds and overcome electron repulsion.</li>
-            <li><b>Frontier orbital interactions.</b> Stabilising interactions lower the barrier.</li>
-            <li><b>Symmetry.</b> Decides whether a reaction path is allowed or forbidden. If the frontier orbital overlap is zero, the reaction is <b>forbidden</b>.</li>
+          <p class="lead">Predicting <b>reaction mechanisms</b> through computational chemistry is possible and is one of the central goals of the field.</p>
+          <figure data-fig="m5-mechanism-workflow"></figure>
+          <ol class="steps">
+            <li><b>Optimise</b> the geometry of the reactants and products.</li>
+            <li><b>Propose possible steps</b> from reactants to products using chemical intuition: bonds to be broken or formed, possible intermediates, rearrangements.</li>
+            <li>Look for the <b>transition state (TS)</b>; a TS generally has <b>one imaginary frequency</b>.</li>
+            <li>Analyse the <b>intrinsic reaction coordinate (IRC)</b>: trace the path from the TS to the products and from the TS to the reactants.</li>
+            <li>Construct the <b>energy profile</b>: reactants, intermediates and TS, products. Find <b>E<sub>a</sub>, ΔE and ΔG</b>.</li>
           </ol>
-          <h3>Bimolecular reactions</h3>
-          <p>Two molecules collide to form products (for example <b>cycloadditions</b>). Energy is needed to bring the two reactants together. The reaction is allowed if the frontier orbitals (<b>HOMO and LUMO</b>) have the <b>same symmetry</b>.</p>
         ` },
         { title: 'Nucleophilic reactions', html: `
-          <p class="lead">Nucleophilic reactions involving anions are organic reactions where negatively charged species donate electron pairs to <b>electrophilic (+) carbon atoms</b>.</p>
+          <p class="lead">Nucleophilic reactions involving anions are organic reactions where negatively charged species (anions) <b>donate electron pairs</b> to <b>electrophilic (+) carbon atoms</b>.</p>
           <table class="tbl">
             <thead><tr><th>Type</th><th>What happens</th></tr></thead>
             <tbody>
               <tr><td><b>SN1 and SN2</b> (substitution)</td><td>Nucleophile attacks an <b>sp<sup>3</sup> carbon</b>. SN1: the bond breaks first, then forms. SN2: bond breaking and forming are <b>simultaneous</b>.</td></tr>
-              <tr><td><b>Addition</b></td><td>Nucleophile attacks an <b>sp<sup>2</sup> or sp carbon</b> (1,2- and 1,4-additions). The nucleophile adds, then the electrophile follows.</td></tr>
+              <tr><td><b>Addition</b></td><td>Nucleophile attacks an <b>sp<sup>2</sup> or sp carbon</b>, as in 1,2- and 1,4-additions. The nucleophile adds, then the electrophile follows.</td></tr>
               <tr><td><b>Addition–elimination</b> (at carbonyls)</td><td>Common in <b>carboxylic acid derivatives</b>. The bond forms first, then the leaving group departs.</td></tr>
             </tbody>
           </table>
         ` },
-        { title: 'SN1 and SN2 by computer', html: `
-          <p class="lead">SN1 and SN2 are the <b>first reactions taught</b> in organic chemistry and key models for mechanisms. They let you predict regioselectivity, stereoselectivity, rates and solvent effects.</p>
+        { title: 'SN1 and SN2', html: `
+          <p class="lead">Nucleophilic substitution, <b>SN1 and SN2</b>, is why these reactions matter for computation.</p>
+          <div class="vs">
+            <div class="side"><h4>Why important</h4><ul><li>The <b>first reactions taught</b> in organic chemistry.</li><li>Key models for understanding reaction mechanisms.</li></ul></div>
+            <div class="side"><h4>What we learn</h4><ul><li>Regioselectivity, stereoselectivity, reaction rates and solvent effects.</li><li>Computational models give deep insight, especially for SN2.</li></ul></div>
+          </div>
+          <h3>Gas phase against solution</h3>
           <ul>
             <li>Most quantum calculations are done in the <b>gas phase</b>.</li>
-            <li><b>SN1 is rare in the gas phase</b>: the C–X bond breaking gives a carbocation and an anion, whose strong electrostatic attraction means a <b>high energy barrier</b>.</li>
-            <li>So <b>SN2 is preferred</b> in computational studies, and the models give deep insight into it.</li>
+            <li><b>SN1 is rare in the gas phase</b> because of the ion-pair separation barrier: the C–X bond breaks to give a <b>carbocation and an anion</b>, and their strong electrostatic attraction means a <b>high energy barrier</b>.</li>
+            <li><b>SN2 is preferred</b> in computational studies.</li>
           </ul>
-          <h3>Gas-phase SN2 (Y<sup>−</sup> + RX)</h3>
+        ` },
+        { title: 'Gas-phase SN2', html: `
+          <p class="lead">What happens in a gas-phase SN2 reaction, Y<sup>−</sup> + RX:</p>
           <ol class="steps">
-            <li><b>Ion–dipole complex ID1.</b> The nucleophile and substrate come together into a stable complex.</li>
-            <li><b>Backside attack.</b> The nucleophile attacks the central carbon from the back, pushing the leaving group X<sup>−</sup> out, through a <b>single transition state (TS)</b>.</li>
-            <li><b>Exit complex ID2.</b> An exit ion–dipole complex forms before separation into products.</li>
+            <li>The nucleophile (Y<sup>−</sup>) and the substrate (RX) come together to form a stable <b>ion–dipole complex (ID1)</b>.</li>
+            <li>The nucleophile attacks the central carbon from the <b>backside</b>, pushing the leaving group (X<sup>−</sup>) out, through a <b>single transition state (TS)</b>.</li>
+            <li>An <b>exit ion–dipole complex (ID2)</b> forms before the final separation into products.</li>
           </ol>
-          <p>The PES has a <b>double-well shape</b>: two valleys (ID1 and ID2) and one peak (the TS). This shape is universal for gas-phase SN2.</p>
+          <p>The PES has a <b>double-well shape</b>: two valleys (ID1 and ID2) and one peak (the TS). This shape is universal for SN2 reactions in the gas phase.</p>
           <figure data-fig="m5-sn2-profile"></figure>
           <div data-viz="sn2-path"></div>
         ` },
-        { title: 'Solvent effect', html: `
-          <p class="lead">Solvent changes SN2 dramatically.</p>
+        { title: 'Effect of solvent', html: `
           <div class="vs">
-            <div class="side"><h4>Gas phase</h4><p>Reactions are very <b>fast</b>, with no solvent stabilisation, but hard to control and to make selective.</p></div>
-            <div class="side"><h4>In solution (e.g. water)</h4><p>The rate can drop by <b>up to 20 orders of magnitude</b>. Solvation stabilises the nucleophile (e.g. Cl<sup>−</sup>) but stabilises the TS less, so the barrier is <b>higher</b>.</p></div>
+            <div class="side"><h4>In the gas phase</h4><p>Reactions are very <b>fast</b> because there is no solvent stabilisation, but they are <b>hard to control</b> and to make selective.</p></div>
+            <div class="side"><h4>In solution (e.g. water)</h4><p>The rate can drop by <b>up to 20 orders of magnitude</b>. Solvation stabilises the nucleophile (e.g. Cl<sup>−</sup>) but does not stabilise the TS as well, so the barrier is <b>higher</b>.</p></div>
           </div>
-          <p>The slide compares calculated HF/6-31G* gas-phase energies with the potential of mean force in aqueous solution for the same reaction.</p>
+          <p>The slide figure shows calculated HF/6-31G* gas-phase energies (dashed curve) against the potential of mean force in aqueous solution (solid curve).</p>
+        ` },
+        { title: 'Ketone enolization', html: `
+          <p class="lead">Ketone enolization is the mechanism worked through computational chemistry on the slides: from the <b>keto form</b> to the <b>enol form</b>, finding the possible pathways, intermediates and transition states.</p>
+          <figure data-fig="m5-enolization"></figure>
+          <h3>What calculations contribute</h3>
+          <ul>
+            <li><b>Geometry optimisation</b> locates candidate keto, enol, ionic and proton-transfer structures.</li>
+            <li><b>Frequency analysis</b> classifies minima (zero imaginary modes) and candidate transition states (one imaginary mode).</li>
+            <li><b>IRC or pathway checks</b> connect a transition state to the intended structures.</li>
+          </ul>
+          <h3>Mechanistic questions to test</h3>
+          <ul>
+            <li>Direct intramolecular proton transfer against acid- or base-assisted routes.</li>
+            <li>Which proton-transfer steps are rate-limiting, and whether a discrete intermediate exists.</li>
+            <li>How the catalyst, molecular geometry and hydrogen bonding change the pathway.</li>
+          </ul>
+        ` },
+        { title: 'Gas and solution phase', html: `
+          <p class="lead">The same enolization can be modelled in the gas phase or in solution.</p>
+          <div class="vs">
+            <div class="side"><h4>Gas phase</h4><ul><li>A <b>baseline</b> without bulk-solvent stabilisation.</li><li>Reveals <b>intrinsic proton-transfer pathways</b> and conformational effects.</li><li>Charge-separated structures may be relatively costly; results depend on whether a catalyst or explicit molecule is included.</li></ul></div>
+            <div class="side"><h4>Solution phase</h4><ul><li>Model the bulk solvent with an <b>implicit model</b> (SMD or PCM); add <b>explicit solvent molecules</b> when specific H-bonds or proton shuttles matter.</li><li>Solvation can stabilise ions and polar transition states, changing relative barriers and pathway preference.</li><li>Solvent effects are system-dependent; the barrier does not always decrease.</li></ul></div>
+          </div>
         ` }
       ],
       flashcards: [
-        { front: 'What is a reaction mechanism?', back: 'A step-by-step sequence of <b>elementary reactions</b> from reactants to products.' },
-        { front: 'Three factors in absolute reactivity?', back: '<b>Energy barrier, frontier orbital interactions, symmetry</b>.' },
-        { front: 'When is a reaction forbidden?', back: 'When frontier orbital overlap is <b>zero</b>.' },
-        { front: 'SN1 vs SN2 bond breaking?', back: 'SN1: <b>breaks first, then forms</b>. SN2: <b>simultaneous</b>.' },
+        { front: 'Steps to compute a reaction mechanism?', back: '<b>Optimise reactants and products, propose steps, find the TS, trace the IRC, build the energy profile</b>.' },
+        { front: 'How do you recognise a transition state computationally?', back: 'It generally has <b>one imaginary frequency</b>.' },
+        { front: 'What does the IRC trace?', back: 'The path from the <b>TS to the products</b> and from the <b>TS to the reactants</b>.' },
+        { front: 'Quantities read from the energy profile?', back: '<b>E<sub>a</sub>, ΔE and ΔG</b>.' },
+        { front: 'SN1 vs SN2 bond breaking and forming?', back: 'SN1: <b>breaks first, then forms</b>. SN2: <b>simultaneous</b>.' },
         { front: 'Why is SN1 rare in the gas phase?', back: 'Separating carbocation and anion has a <b>high barrier</b> (strong electrostatic attraction).' },
         { front: 'Shape of the gas-phase SN2 PES?', back: '<b>Double well</b>: ID1 and ID2 valleys, one TS peak.' },
-        { front: 'Effect of water on SN2 rate?', back: 'Can drop by <b>up to 20 orders of magnitude</b>, since solvation stabilises the nucleophile more than the TS.' }
+        { front: 'Effect of water on SN2 rate?', back: 'Can drop by <b>up to 20 orders of magnitude</b>: solvation stabilises the nucleophile more than the TS.' },
+        { front: 'Keto and enol forms?', back: 'Keto: <b>R–CO–CH<sub>2</sub>R′</b>. Enol: <b>R–C(OH)=CHR′</b>, interconverting with H<sup>+</sup> or base.' },
+        { front: 'How is solvent modelled in solution?', back: '<b>Implicit</b> models (SMD, PCM), plus <b>explicit</b> solvent molecules when H-bonds or proton shuttles matter.' }
       ],
       oneLiners: [
-        'A mechanism is a sequence of elementary steps with transition states and intermediates.',
-        'Reactivity needs an energy barrier to be crossed, favourable frontier orbitals and allowed symmetry.',
+        'Mechanism workflow: optimise, propose steps, find the TS, trace the IRC, build the energy profile.',
+        'A transition state generally has one imaginary frequency; the IRC links it to reactants and products.',
+        'Nucleophilic reactions: substitution (SN1, SN2), addition, and addition–elimination.',
         'SN2 is the preferred computational model; SN1 is rare in the gas phase.',
         'Gas-phase SN2: ion–dipole complex, single transition state, exit complex (double-well PES).',
-        'Solvent can slow SN2 by up to 20 orders of magnitude.'
+        'Solvent can slow SN2 by up to 20 orders of magnitude.',
+        'Enolization is studied by optimising structures, calculating frequencies, checking the IRC and comparing energies.'
       ],
       formulas: []
     },
@@ -318,65 +339,110 @@ CHUNK({
       id: 'm5-ai-ml-screening',
       title: "Application of AI to screen semiconductors",
       short: "AI & ML screening",
-      blurb: 'AI and ML basics, supervised and unsupervised learning, applications in chemistry and the workflow for predicting band gaps of semiconductor materials.',
-      source: 'Pages 86–90',
+      blurb: 'How AI and machine learning combine with computational chemistry, AI-driven screening, the properties used for semiconductors and the six-step workflow.',
+      source: 'Slides 49–51',
       tabs: [
-        { title: 'AI and ML', html: `
-          <p class="lead"><b>Artificial intelligence</b> is the simulation of human intelligence in machines that are programmed to think. <b>Machine learning</b> is a subset of AI that lets systems <b>learn from data</b> and improve over time without being explicitly programmed.</p>
+        { title: 'Computational chemistry and AI/ML', html: `
+          <p class="lead">Physics-based computational chemistry and data-driven AI/ML complement each other.</p>
+          <table class="tbl">
+            <thead><tr><th>Approach</th><th>How it works</th><th>Character</th></tr></thead>
+            <tbody>
+              <tr><td><b>Computational chemistry</b></td><td>Physics-based methods to investigate chemical systems</td><td>High accuracy but slow</td></tr>
+              <tr><td><b>AI/ML</b></td><td>Data-driven: learns patterns and makes predictions</td><td>Fast but data dependent</td></tr>
+              <tr><td><b>Combined</b></td><td>Both together</td><td><b>Accuracy with speed</b></td></tr>
+            </tbody>
+          </table>
+          <h3>What AI/ML adds to computational chemistry</h3>
           <ul>
-            <li>ML makes <b>predictions or decisions</b> based on data.</li>
-            <li><b>Supervised learning</b> uses <b>labelled</b> data.</li>
-            <li><b>Unsupervised learning</b> uses <b>unlabelled</b> data.</li>
+            <li>Faster prediction of molecular properties (energy, spectra, geometry).</li>
+            <li>Faster reaction pathway analysis, giving efficient molecular dynamics simulations.</li>
+            <li>Drug discovery and material design, prediction of biological activity.</li>
+            <li>Acceleration of quantum chemistry methods: prediction of wavefunctions or electron densities.</li>
           </ul>
         ` },
-        { title: 'Applications', html: `
-          <div class="chips"><span class="chip">predicting material properties such as conductivity and stability</span><span class="chip">classifying huge numbers of materials against a requirement</span><span class="chip">accelerating drug design</span><span class="chip">generative models for novel compounds</span><span class="chip">reaction prediction and optimisation</span><span class="chip">spectroscopy and structural analysis</span><span class="chip">pollutant behaviour and degradation</span></div>
+        { title: 'AI-driven screening', html: `
+          <p class="lead"><b>AI-driven screening</b> uses existing <b>materials data</b> and trained <b>machine-learning models</b> to predict the properties of potential new materials. AI/ML makes the process faster and more systematic.</p>
+          <div class="chips"><span class="chip">Data</span><span class="chip">AI model</span><span class="chip">Decision / prediction</span></div>
+          <h3>Properties used in semiconductor screening</h3>
+          <table class="tbl">
+            <thead><tr><th>Property</th><th>Significance</th></tr></thead>
+            <tbody>
+              <tr><td><b>Band gap</b></td><td>Minimum photon energy needed to excite electrons between bands</td></tr>
+              <tr><td><b>Band-edge positions</b></td><td>Whether the material suits electronic contacts, photocatalysis or solar-energy conversion</td></tr>
+              <tr><td><b>Carrier mobility</b></td><td>How readily electrons or holes move through the material</td></tr>
+              <tr><td><b>Optical absorption</b></td><td>How well the material absorbs light at different wavelengths</td></tr>
+              <tr><td><b>Structural stability</b></td><td>Whether the crystal structure is energetically or dynamically viable</td></tr>
+              <tr><td><b>Defect properties</b></td><td>How vacancies, impurities and dopants affect electronic behaviour</td></tr>
+              <tr><td><b>Thermal stability</b></td><td>Whether the material keeps its properties under operating conditions</td></tr>
+              <tr><td><b>Elemental abundance and toxicity</b></td><td>Cost, availability and environmental suitability</td></tr>
+            </tbody>
+          </table>
         ` },
-        { title: 'Screening semiconductors', html: `
-          <p class="lead">The aim is to <b>screen and identify the optimal semiconductor material</b> from a large database.</p>
+        { title: 'The workflow', html: `
+          <p class="lead">Screening follows six steps, from the goal to checking the result.</p>
           <figure data-fig="m5-ml-workflow"></figure>
           <ol class="steps">
-            <li><b>Data.</b> Formation energy, lattice constants, density and total magnetisation.</li>
-            <li><b>Target.</b> Band gap (eV).</li>
-            <li><b>Train</b> models for classification, regression and clustering.</li>
-            <li><b>Tune.</b> Hyperparameters are optimised to get the best model.</li>
-            <li><b>Predict.</b> The top semiconductors, with their band gaps, are listed.</li>
+            <li><b>Object or goal defining.</b> Select the required application and properties.</li>
+            <li><b>Data collection.</b> Obtain reliable material structures and properties from databases, publications or computational calculations.</li>
+            <li><b>Data preparation.</b> Remove duplicates, standardise units, deal with missing values and prepare suitable material descriptors.</li>
+            <li><b>Model training.</b> Use known examples to teach the model how composition and structure relate to properties.</li>
+            <li><b>Candidate screening.</b> Predict properties for materials not yet examined and rank them against the screening criteria.</li>
+            <li><b>Validation of prediction.</b> Run high-level theoretical or computational calculations where appropriate, and experimental measurements, before drawing conclusions.</li>
           </ol>
-          <p>The slide shows a feature-importance plot for an <b>XGBoost</b> model and the predicted top ten materials.</p>
+          <h3>Common methods</h3>
+          <div class="chips"><span class="chip">linear regression</span><span class="chip">random forest</span><span class="chip">gradient boosting</span><span class="chip">neural networks</span><span class="chip">graph neural networks</span><span class="chip">active learning</span></div>
+          <h3>Advantages</h3>
+          <div class="chips"><span class="chip">speed</span><span class="chip">reduced computational cost</span><span class="chip">efficient exploration</span></div>
         ` }
       ],
       flashcards: [
-        { front: 'Define machine learning.', back: 'A subset of AI where systems <b>learn from data</b> and improve without explicit programming.' },
-        { front: 'Supervised vs unsupervised learning?', back: '<b>Labelled</b> data vs <b>unlabelled</b> data.' },
-        { front: 'Inputs and target in semiconductor screening?', back: 'Inputs: <b>formation energy, lattice constants, density, total magnetisation</b>. Target: <b>band gap (eV)</b>.' },
-        { front: 'Which model appears in the slide?', back: '<b>XGBoost</b>, with a feature-importance plot.' }
+        { front: 'Computational chemistry vs AI/ML?', back: 'Computational chemistry: physics-based, <b>accurate but slow</b>. AI/ML: data-driven, <b>fast but data dependent</b>.' },
+        { front: 'Benefit of combining them?', back: '<b>Accuracy with speed</b>.' },
+        { front: 'What is AI-driven screening?', back: 'Using existing <b>materials data</b> and trained <b>ML models</b> to predict properties of potential new materials.' },
+        { front: 'Why does band gap matter for a semiconductor?', back: 'It sets the <b>minimum photon energy</b> needed for electronic excitation between bands.' },
+        { front: 'What do band-edge positions tell you?', back: 'Suitability for <b>electronic contacts, photocatalysis or solar-energy conversion</b>.' },
+        { front: 'Six steps of the screening workflow?', back: '<b>Goal, data collection, data preparation, model training, candidate screening, validation</b>.' },
+        { front: 'What happens in data preparation?', back: 'Remove duplicates, <b>standardise units</b>, address missing values, prepare <b>descriptors</b>.' },
+        { front: 'How should predictions be validated?', back: 'High-level <b>theoretical or computational calculations</b> and <b>experimental measurements</b>.' },
+        { front: 'Name common ML methods for screening.', back: '<b>Linear regression, random forest, gradient boosting, neural networks, graph neural networks, active learning</b>.' }
       ],
       oneLiners: [
-        'ML is a subset of AI that learns from data.',
-        'Supervised uses labelled data; unsupervised uses unlabelled data.',
-        'Semiconductor screening predicts band gap from formation energy, lattice constants, density and magnetisation.'
+        'Computational chemistry is accurate but slow; AI/ML is fast but data dependent; together they give accuracy with speed.',
+        'AI-driven screening predicts properties of new materials from existing data with trained models.',
+        'Semiconductor screening looks at band gap, band edges, mobility, absorption, stability, defects and abundance.',
+        'Workflow: goal, data, preparation, training, screening, validation.',
+        'Advantages: speed, lower computational cost, efficient exploration.'
       ],
       formulas: []
     }
   ],
   figures: [
-    { id: 'm5-orbital-overlap', src: null, crop: null,
-      caption: 'Overlap of two orbitals gives a bonding and an antibonding MO. Head-on p-p overlap gives sigma and sigma-star, sideways p-p overlap gives pi and pi-star, and s-p overlap gives sigma and sigma-star. Blue and orange are opposite signs.',
-      alt: 'Three rows of lobe drawings, each with a bonding picture on the left where same-sign lobes merge and an antibonding picture on the right with a dashed node between opposite-sign lobes.' },
     { id: 'm5-pec-diatomic', src: null, crop: null,
       caption: 'Potential energy against bond length for a diatomic AB: the minimum is at the equilibrium bond length Re, De is the well depth, and the harmonic parabola matches the real curve only near the minimum.',
       alt: 'A U-shaped curve of potential energy against R with its minimum at Re, rising steeply on the left and levelling off to a dashed line on the right with the depth De marked, and a dashed parabola hugging the minimum.' },
     { id: 'm5-pes-contours', src: null, crop: null,
       caption: 'A PES seen from above as contours: two valleys (reactant and product minima) joined by a pass, the saddle point, which is the transition state.',
       alt: 'Contour map with concentric rings around a reactant and a product on the left and right, curved contour lines above and below the centre, and a dashed arrow along the path through the saddle point.' },
-    { id: 'm5-sn2-profile', src: null, crop: null,
-      caption: 'Gas-phase SN2 profile with two ion-dipole wells (ID1, ID2) and one transition state, compared with the single much higher barrier the reaction has in water.',
-      alt: 'Energy against reaction coordinate: a blue curve with a well, a small peak labelled TS and a second well, and a dashed orange curve with one high peak over the same range.' },
+    { id: 'm5-geometry-loop', src: null, crop: null,
+      caption: 'The geometry optimisation loop: guess a structure, calculate energy and force, move the atoms, and repeat until the force is about zero and the energy change is within tolerance.',
+      alt: 'Flow chart: Initial structure guess, Energy and force on atoms, Move atoms to lower energy, then a decision box asking whether force is about zero; yes leads to Optimised geometry, no loops back up to the energy and force box.' },
     { id: 'm5-water-normal-modes', src: null, crop: null,
       caption: 'The three normal modes of water: symmetric stretch, bend and asymmetric stretch. All atoms move together at one frequency in each mode.',
       alt: 'Three small water molecules with orange arrows on the hydrogens: both moving outward, both moving up, and one moving outward while the other moves inward.' },
+    { id: 'm5-ts-vs-intermediate', src: null, crop: null,
+      caption: 'A two-step reaction profile: each peak is a transition state (one imaginary frequency, a saddle point) and the dip between them is an intermediate (no imaginary frequency, a local minimum).',
+      alt: 'Energy against reaction coordinate curve with two peaks labelled TS and a valley between them labelled Intermediate, starting at Reactants and ending at Products.' },
+    { id: 'm5-mechanism-workflow', src: null, crop: null,
+      caption: 'Computing a mechanism: optimise reactants and products, propose steps, find the transition state, trace the IRC, then build the energy profile.',
+      alt: 'Five stacked boxes joined by downward arrows: Optimise, Propose steps, Find the transition state, Trace the IRC, Build the energy profile.' },
+    { id: 'm5-sn2-profile', src: null, crop: null,
+      caption: 'Gas-phase SN2 profile with two ion-dipole wells (ID1, ID2) and one transition state, compared with the single much higher barrier the reaction has in water.',
+      alt: 'Energy against reaction coordinate: a blue curve with a well, a small peak labelled TS and a second well, and a dashed orange curve with one high peak over the same range.' },
+    { id: 'm5-enolization', src: null, crop: null,
+      caption: 'Keto and enol forms interconvert with acid or base; the typical workflow proposes structures, optimises them, calculates frequencies, verifies the TS connectivity and compares energies.',
+      alt: 'Two boxes, R-CO-CH2R-prime and R-C(OH)=CHR-prime, joined by a double arrow labelled H plus or base, with a five-step workflow list below.' },
     { id: 'm5-ml-workflow', src: null, crop: null,
-      caption: 'Screening workflow: collect data, train models, tune them, predict the band gap of each material, and rank the best semiconductors.',
-      alt: 'Five stacked boxes joined by downward arrows: Data, Train models, Tune, Predict and Rank.' }
+      caption: 'AI-driven screening workflow: define the goal, collect data, prepare data, train the model, screen candidates, and validate the predictions.',
+      alt: 'Six stacked boxes joined by downward arrows: Define the goal, Collect data, Prepare data, Train the model, Screen candidates and Validate.' }
   ]
 });
