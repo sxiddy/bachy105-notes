@@ -1,0 +1,150 @@
+{
+ "modules": [
+  {
+   "id": "m1",
+   "num": "01",
+   "title": "Thermodynamics & Kinetics",
+   "free": true,
+   "topics": 13,
+   "questions": 16
+  },
+  {
+   "id": "m2",
+   "num": "02",
+   "title": "Energy Devices",
+   "free": true,
+   "topics": 13,
+   "questions": 15
+  },
+  {
+   "id": "m3",
+   "num": "03",
+   "title": "Functional Materials",
+   "free": true,
+   "topics": 20,
+   "questions": 22
+  },
+  {
+   "id": "m4",
+   "num": "04",
+   "title": "Spectroscopy & Diffraction",
+   "free": true,
+   "topics": 9,
+   "questions": 12
+  },
+  {
+   "id": "m5",
+   "num": "05",
+   "title": "Computational Chemistry",
+   "free": true,
+   "topics": 10,
+   "questions": 15
+  }
+ ],
+ "papers": [
+  {
+   "id": "cat2-b1tb1",
+   "kind": "actual",
+   "title": "CAT-2 · Slot B1+TB1 · 28-09-2026",
+   "sub": "Actual paper · Fall 2026–27",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat2-b2tb2",
+   "kind": "actual",
+   "title": "CAT-2 · Slot B2+TB2 · 28-09-2026",
+   "sub": "Actual paper · Fall 2026–27",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-b1tb1-2026",
+   "kind": "actual",
+   "title": "CAT-1 · Slot B1+TB1 · 10-08-2026",
+   "sub": "Actual paper · Fall 2026–27",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-b2tb2-2026",
+   "kind": "actual",
+   "title": "CAT-1 · Slot B2+TB2 · 10-08-2026",
+   "sub": "Actual paper · Fall 2026–27",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-d1td1-2026",
+   "kind": "actual",
+   "title": "CAT-1 · Slot D1+TD1 · 12-08-2026",
+   "sub": "Actual paper · Fall 2026–27",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat2-g1tg1-2025",
+   "kind": "actual",
+   "title": "CAT-2 · Slot G1+TG1 · 11-10-2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-g1tg1-2025",
+   "kind": "actual",
+   "title": "CAT-1 · Slot G1+TG1 · 23-08-2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-g2tg2-2025",
+   "kind": "actual",
+   "title": "CAT-1 · Slot G2+TG2 · 23-08-2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-d2td2-2025",
+   "kind": "actual",
+   "title": "CAT-1 · Slot D2+TD2 · 20-08-2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-d1td1-2025",
+   "kind": "actual",
+   "title": "CAT-1 · Slot D1+TD1 · 20-08-2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 5,
+   "access": "free"
+  },
+  {
+   "id": "cat1-f1tf1-2025w",
+   "kind": "actual",
+   "title": "CAT-1 · Slot F1+TF1 · January 2026",
+   "sub": "Actual paper · Winter 2025–26",
+   "questions": 9,
+   "access": "free"
+  },
+  {
+   "id": "fat-g1tg1-2025",
+   "kind": "actual",
+   "title": "FAT · Slot G1+TG1 · Nov 2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 10,
+   "access": "free"
+  },
+  {
+   "id": "fat-f1tf1-2025",
+   "kind": "actual",
+   "title": "FAT · Slot F1+TF1 · Nov/Dec 2025",
+   "sub": "Actual paper · Fall 2025–26",
+   "questions": 12,
+   "access": "free"
+  }
+ ]
+}
