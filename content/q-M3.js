@@ -21,8 +21,8 @@ QUESTIONS({
     {
       id: 'm3-q-03', module: 'm3', topic: 'm3-nano-gold', type: 'predict', level: 1,
       q: `<p>A jeweller solders two gold pieces at 1000 °C. A materials lab wants to sinter <b>gold nanoparticles</b> into a film. Will the lab need a higher or lower temperature than the jeweller, and why?</p>`,
-      options: ['Higher, nano gold melts near 1300 °C', 'Lower, nano gold melts around 940 °C versus about 1080 °C for bulk', 'The same, melting point is a fixed property', 'Nano gold does not melt'],
-      correct: 1,
+      options: ['Higher, nano gold melts near 1300 °C', 'The same, melting point is a fixed property', 'Nano gold does not melt', 'Lower, nano gold melts around 940 °C versus about 1080 °C for bulk'],
+      correct: 3,
       answer: `<p><b>Lower.</b> The slides give ~940 °C for nano gold against ~1080 °C for bulk gold.</p>`,
       explain: `<p>In a nanoparticle a large fraction of atoms sit at the surface, where they have fewer neighbours holding them in place. Less energy is needed to disorder them, so the melting point drops. This is one of the property changes the slides list in the bulk vs nano gold table.</p>`,
       points: ['Bulk Au ~1080 °C (slide), nano Au ~940 °C', 'Surface atoms are less tightly bound', 'Properties are size dependent at the nanoscale']
@@ -38,8 +38,8 @@ QUESTIONS({
     {
       id: 'm3-q-05', module: 'm3', topic: 'm3-synthesis', type: 'decide', level: 2,
       q: `<p>Two orders arrive: (1) a tonne of nano-alloy powder for a car-parts plant, where cost and output matter most; (2) a few grams of uniform, monosized TiO<sub>2</sub> nanoparticles for a research solar cell. Which synthesis route fits each?</p>`,
-      options: ['Sol–gel for both', 'Mechanical milling for (1), sol–gel for (2)', 'Sol–gel for (1), mechanical milling for (2)', 'Mechanical milling for both'],
-      correct: 1,
+      options: ['Mechanical milling for (1), sol–gel for (2)', 'Sol–gel for both', 'Sol–gel for (1), mechanical milling for (2)', 'Mechanical milling for both'],
+      correct: 0,
       answer: `<p><b>Milling (top-down) for the tonne of alloy, sol–gel (bottom-up) for the uniform TiO<sub>2</sub>.</b></p>`,
       explain: `<p>Mechanical milling is cost-effective with high production rates and is used for nanoalloys and nanocomposites, but it struggles to hit a precise size and picks up contamination. Sol–gel builds metal oxides from metal alkoxides at low temperature and can give monosized particles, but its production rate is very slow. Each method's weakness is the other's strength.</p>`,
       points: ['Milling: top-down, high production rate, cheap', 'Milling cons: hard to reach target size, contamination', 'Sol–gel: bottom-up, metal oxides, monosized particles, low temperature', 'Sol–gel con: very slow production']
@@ -63,8 +63,8 @@ QUESTIONS({
     {
       id: 'm3-q-08', module: 'm3', topic: 'm3-quantum-dots', type: 'predict', level: 2,
       q: `<p>A display maker needs a CdSe quantum dot that glows <b>blue</b>, but the current batch glows red. Should the next batch be grown larger or smaller, and what happens to the band gap?</p>`,
-      options: ['Larger dots, smaller band gap', 'Smaller dots, larger band gap', 'Larger dots, larger band gap', 'Size does not matter, change the element instead'],
-      correct: 1,
+      options: ['Larger dots, smaller band gap', 'Larger dots, larger band gap', 'Size does not matter, change the element instead', 'Smaller dots, larger band gap'],
+      correct: 3,
       answer: `<p><b>Smaller.</b> A smaller dot has a wider band gap, so it emits higher-energy (bluer) light.</p>`,
       explain: `<p>In a quantum dot the electrons are confined, so the energy levels become discrete and the gap widens as the dot shrinks. Emitted photon energy is E = hc/λ, so a bigger gap means a shorter wavelength. The notes: 2–3 nm dots give blue/violet, 5–6 nm dots give red/orange; the band gap decreases and emission red-shifts as size increases.</p>`,
       points: ['Quantum confinement → discrete levels', 'Smaller dot → larger gap → shorter λ (blue)', 'Larger dot → smaller gap → red shift', '2–3 nm blue/violet, 5–6 nm red/orange']

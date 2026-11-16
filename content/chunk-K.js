@@ -416,6 +416,7 @@ CHUNK({
           <div class="eq" data-label="Hc depends on temperature">H<sub>c</sub>(T) = H<sub>0</sub> [1 − (T/T<sub>c</sub>)<sup>2</sup>]</div>
           <p>H<sub>0</sub> is the critical field at 0 K. H<sub>c</sub> is largest at 0 K and falls to <b>zero at T<sub>c</sub></b>, so the colder the sample, the stronger the field (and the larger the current) it can take.</p>
           <div class="note why"><p>J<sub>c</sub> and H<sub>c</sub> are linked: a current in a wire makes a magnetic field around it. Push enough current and that self-field alone reaches H<sub>c</sub>. That is why a superconducting magnet coil has a maximum current as well as a maximum field.</p></div>
+          <figure data-fig="m3-hc-temperature"></figure>
           <h3>Resistance below T<sub>c</sub> is exactly zero</h3>
           <div class="worked">
             <div class="given"><p>A lead superconductor has T<sub>c</sub> = 7.2 K. Its resistance just above T<sub>c</sub> is 1.2 µΩ. Find its resistance at 4.2 K.</p></div>
@@ -467,6 +468,7 @@ CHUNK({
               <tr><td>Above H<sub>c</sub> (Type I) or H<sub>c2</sub> (Type II)</td><td>Normal metal, field passes through</td><td>Normal state, field passes through</td></tr>
             </tbody>
           </table>
+          <figure data-fig="m3-type1-type2"></figure>
           <h3>Superconductivity and critical magnetic field (Fall deck table)</h3>
           <table class="tbl">
             <thead><tr><th>Material</th><th>T<sub>c</sub> (K)</th><th>Type</th></tr></thead>
@@ -578,6 +580,12 @@ CHUNK({
     }
   ],
   figures: [
+    { id: 'm3-hc-temperature', src: null, crop: null,
+      caption: 'Critical field against temperature: Hc = H₀[1 − (T/Tc)²] is largest at 0 K and falls to zero at Tc. Below the curve the material is superconducting; above it, normal.',
+      alt: 'A downward parabola from H0 on the vertical axis to Tc on the temperature axis, with the region under it shaded and labelled superconducting and the region above labelled normal state.' },
+    { id: 'm3-type1-type2', src: null, crop: null,
+      caption: 'Magnetisation (−M) against applied field. Type I: −M rises linearly (complete Meissner effect) and drops to zero at one field Hc. Type II: field fully expelled up to Hc1, then −M falls gradually through the mixed (vortex) state to zero at Hc2.',
+      alt: 'Two stacked graphs of minus magnetisation against applied field; the Type I line rises straight and drops vertically at Hc; the Type II line rises to Hc1 and then curves down to zero at Hc2, with the region between labelled mixed vortex state.' },
     { id: 'm3-resistivity-geometry', src: null, crop: null,
       caption: 'A wire of length l and cross-sectional area A: resistance grows with length and shrinks with area, while resistivity is a property of the material alone.',
       alt: 'A cylindrical wire with current arrows at both ends, its length l marked below and its end-face area A labelled, with the formula R equals rho l over A.' },

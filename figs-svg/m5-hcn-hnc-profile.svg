@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfw"/></marker>
+  </defs>
+  <path d="M60 410V50" class="ds2" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="76" y="46" font-size="22" class="dt2">E / kJ mol⁻¹</text>
+  <path d="M110.0 400.0 L200.0 400.0 L270.0 108.0 L370.0 108.0 L440.0 330.4 L540.0 330.4" fill="none" class="dsb" stroke-width="3.5"/>
+  <path d="M110.0 400.0 L200.0 400.0 L270.0 130.7 L370.0 130.7 L440.0 333.7 L540.0 333.7" fill="none" class="dsr" stroke-width="3.5" stroke-dasharray="8 6"/>
+  <text x="155" y="434" text-anchor="middle" font-size="24" font-weight="700" class="dt">HCN (0)</text>
+  <text x="320" y="94" text-anchor="middle" font-size="22" class="dtb">219</text>
+  <text x="320" y="161" text-anchor="middle" font-size="22" class="dtr">202</text>
+  <text x="320" y="191" text-anchor="middle" font-size="24" font-weight="700" class="dt">TS</text>
+  <text x="490" y="316" text-anchor="middle" font-size="22" class="dtb">52.2</text>
+  <text x="490" y="364" text-anchor="middle" font-size="22" class="dtr">49.7</text>
+  <text x="490" y="394" text-anchor="middle" font-size="24" font-weight="700" class="dt">HNC</text>
+  <path d="M40 470H80" class="dsb" stroke-width="3.5"/><text x="92" y="478" font-size="22" class="dt">raw ab initio energies</text>
+  <path d="M40 506H80" class="dsr" stroke-width="3.5" stroke-dasharray="8 6"/><text x="92" y="514" font-size="22" class="dt">ZPE-corrected energies</text>
+</svg>

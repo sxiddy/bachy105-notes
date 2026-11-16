@@ -356,6 +356,7 @@ CHUNK({
             <div><span>Feed</span><b>H<sub>2</sub> at anode, O<sub>2</sub> at cathode</b></div>
             <div><span>Gas pressure</span><b>About 50 atm</b></div>
           </div>
+          <figure data-fig="m2-afc-diagram"></figure>
           <p>The gases diffuse into their electrodes, and hydrogen is oxidised by oxygen to give nothing but water.</p>
           <div class="eq" data-label="Overall">2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</div>
           <div class="note why"><p>The electrodes are porous because the reaction needs gas, electrolyte and catalyst to meet at the same spot. Pores create a huge number of those three-way contact points.</p></div>
@@ -649,6 +650,9 @@ CHUNK({
   ],
 
   figures: [
+    { id: 'm2-afc-diagram', src: null, crop: null,
+      caption: 'Alkaline H₂–O₂ fuel cell: H₂ is oxidised at the porous anode, O₂ reduced at the porous cathode; electrons go through the external load, OH⁻ ions go back through the KOH electrolyte.',
+      alt: 'Vessel of KOH solution between two porous electrodes, H2 fed to the left anode and O2 to the right cathode, electrons flowing left to right through a load above, OH- ions moving right to left through the electrolyte, and the anode, cathode and overall reactions below.' },
     { id: 'm2-cell-differences-table', src: 'm2/images/s42_9ffdd11e.png', crop: null,
       caption: 'Primary, secondary and fuel cells compared row by row: role, reversibility, recharging, life, examples and uses. The fuel-cell reaction runs one way while fresh fuel is fed in (the course slide called it reversible).',
       alt: 'Three-column table headed Primary, Secondary and Fuel cells with numbered rows of differences, examples and uses.' },

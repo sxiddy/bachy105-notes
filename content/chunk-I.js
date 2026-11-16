@@ -138,6 +138,28 @@ CHUNK({
           <div class="note exam"><p>Temperatures in the efficiency formula must be in <b>kelvin</b>. Efficiency is never 1 unless T<sub>c</sub> = 0 K.</p></div>
           <div data-viz="carnot-engine"></div>
         ` },
+        { title: 'Carnot theorem & limits', html: `
+          <p class="lead"><b>Carnot theorem:</b> no engine working between two given temperatures can be more efficient than a reversible (Carnot) engine working between the same two temperatures, and <b>all reversible engines working between the same two temperatures have the same efficiency</b>, whatever the working substance.</p>
+          <h3>Proof by contradiction (outline)</h3>
+          <ol>
+            <li>Suppose an engine X between T<sub>h</sub> and T<sub>c</sub> is more efficient than a reversible Carnot engine C between the same reservoirs.</li>
+            <li>Because C is reversible, it can be run backwards as a refrigerator. Let X drive C: X takes heat q<sub>h</sub>′ from the hot reservoir and gives work W, and C uses this same W to pump heat q<sub>h</sub> back into the hot reservoir.</li>
+            <li>Since X is more efficient, it needs less heat for the same work, so q<sub>h</sub>′ &lt; q<sub>h</sub>. The pair together delivers a net amount of heat (q<sub>h</sub> − q<sub>h</sub>′) to the hot reservoir and takes the same amount from the cold reservoir, with no work supplied from outside.</li>
+            <li>That means heat flows from a cold body to a hot body as the only result, which the <b>Clausius statement</b> forbids. So X cannot be more efficient than C.</li>
+            <li>Applying the same argument with two reversible engines in each order shows neither can beat the other, so all reversible engines between the same T<sub>h</sub> and T<sub>c</sub> have the same efficiency, η = 1 − T<sub>c</sub>/T<sub>h</sub>.</li>
+          </ol>
+          <h3>Why efficiency can never be 100%</h3>
+          <p>η = 1 − T<sub>c</sub>/T<sub>h</sub> equals 1 only if T<sub>c</sub> = 0 K. Absolute zero cannot be reached (third law), so some heat q<sub>c</sub> must always be rejected to the cold sink and η &lt; 1. Real engines are also irreversible (friction, heat leaks, fast strokes), so they fall below even the Carnot value.</p>
+          <h3>How to make η as large as possible</h3>
+          <ul>
+            <li><b>Raise T<sub>h</sub></b>, the temperature at which heat is taken in (hotter combustion, superheated steam), limited by what the materials can stand.</li>
+            <li><b>Lower T<sub>c</sub></b>, the temperature at which heat is rejected (better cooling, colder exhaust sink).</li>
+            <li>Make the cycle as close to <b>reversible</b> as possible: cut friction, heat leaks and sudden pressure drops.</li>
+          </ul>
+          <h3>Perpetual motion machine of the second kind</h3>
+          <p>A <b>perpetual motion machine of the second kind</b> is an imagined machine that takes heat from a single reservoir and turns all of it into work in a cycle, with nothing rejected to a colder body (for example, a ship driven only by heat drawn from sea water). It does not break the first law, because energy is conserved, but it breaks the <b>Kelvin–Planck statement</b> of the second law, so it is impossible. (A machine of the <b>first kind</b> would create work from nothing and breaks the first law.)</p>
+          <div class="note exam"><p>"State and prove Carnot theorem": write the statement, the five-step contradiction argument above, and end with η = 1 − T<sub>c</sub>/T<sub>h</sub> depending only on the two temperatures. Add one line on why η &lt; 1 and how to raise it.</p></div>
+        ` },
         { title: 'Uses & temperature scale', html: `
           <p class="lead">The efficiency of a Carnot cycle is <b>independent of the working substance</b>. Any reversible cycle that absorbs heat at one temperature and rejects it at another has the Carnot efficiency.</p>
           <h3>Applications</h3>
@@ -160,7 +182,12 @@ CHUNK({
         { front: 'Clausius statement?', back: 'Heat cannot by itself flow from a <b>cooler to a warmer</b> body as the sole result of a process.' },
         { front: 'Does Carnot efficiency depend on the working substance?', back: '<b>No.</b> It depends only on T<sub>h</sub> and T<sub>c</sub>.' },
         { front: 'What is a refrigerator thermodynamically?', back: 'A heat engine <b>run in reverse</b>: work moves heat from cold to hot.' },
-        { front: 'Kelvin scale fixed point?', back: 'Triple point of water = <b>273.16 K</b> exactly.' }
+        { front: 'Kelvin scale fixed point?', back: 'Triple point of water = <b>273.16 K</b> exactly.' },
+        { front: 'State Carnot theorem.', back: 'No engine between two temperatures beats a reversible engine between them; <b>all reversible engines between the same T<sub>h</sub> and T<sub>c</sub> have the same efficiency</b>.' },
+        { front: 'How is Carnot theorem proved?', back: 'By contradiction: a more efficient engine driving a reversed Carnot engine would move heat from cold to hot with no work, breaking the <b>Clausius statement</b>.' },
+        { front: 'Why can η never be 100%?', back: 'η = 1 only if <b>T<sub>c</sub> = 0 K</b>, which cannot be reached; real engines are also irreversible.' },
+        { front: 'How do you maximise engine efficiency?', back: '<b>Raise T<sub>h</sub>, lower T<sub>c</sub></b>, and make the cycle as close to reversible as possible.' },
+        { front: 'Perpetual motion machine of the second kind?', back: 'Turns heat from <b>one reservoir</b> fully into work; obeys the first law but breaks the <b>Kelvin–Planck statement</b>.' }
       ],
       oneLiners: [
         'Carnot cycle: isothermal expansion, adiabatic expansion, isothermal compression, adiabatic compression.',
@@ -168,7 +195,10 @@ CHUNK({
         'qh/Th + qc/Tc = 0 around a Carnot cycle, so ∮dS = 0.',
         'No engine reaches 100% efficiency (Kelvin); heat does not flow cold to hot unaided (Clausius).',
         'Refrigerators and heat pumps are heat engines in reverse.',
-        'Tc = (1 − η)Th defines the thermodynamic temperature; water triple point = 273.16 K.'
+        'Tc = (1 − η)Th defines the thermodynamic temperature; water triple point = 273.16 K.',
+        'Carnot theorem: all reversible engines between the same two temperatures have the same efficiency.',
+        'η < 1 because Tc = 0 K is unattainable; raise Th and lower Tc to raise η.',
+        'Perpetual motion machine of the second kind breaks the second law, not the first.'
       ],
       formulas: [
         { name: 'Thermal efficiency', html: `η = W / q<sub>h</sub> = 1 − q<sub>c</sub>/q<sub>h</sub>`, note: '' },
@@ -296,6 +326,10 @@ CHUNK({
             <li>ΔH &lt; 0 and ΔS &lt; 0: decreasing T makes ΔG more negative.</li>
           </ul>
           <div class="mnemonic">Same signs: temperature decides. Opposite signs: the answer never changes.</div>
+          <h3>Worked case: adsorption of a gas on a solid</h3>
+          <p>When a gas is adsorbed on a solid surface, the free-moving gas molecules become held in place on the surface, so their freedom of motion falls and <b>ΔS &lt; 0</b>. Even so, adsorption happens on its own. The reason is that adsorption is strongly <b>exothermic (ΔH &lt; 0)</b>, because bonds or attractive forces form between the gas and the surface. In ΔG = ΔH − TΔS the term −TΔS is positive, but at ordinary temperatures it is smaller than the large negative ΔH, so ΔG &lt; 0 and the process is spontaneous.</p>
+          <p>This is the "ΔH negative, ΔS negative" row of the table: adsorption is favoured at <b>low temperature</b>. As T rises, TΔS grows until it cancels ΔH, which is why gases desorb on heating and why adsorption falls as temperature increases.</p>
+          <div class="note exam"><p>"Adsorption is spontaneous though entropy decreases. Explain." Answer: ΔS &lt; 0, but ΔH is large and negative, so |ΔH| &gt; |TΔS| and ΔG = ΔH − TΔS &lt; 0; hence favoured at low T.</p></div>
           <div data-viz="gibbs-temperature"></div>
           <figure data-fig="m1-gibbs-four-cases"></figure>
         ` },
@@ -314,6 +348,13 @@ CHUNK({
           <p>At T = 0, W = 1, so S = k ln 1 = <b>0</b>.</p>
           <figure data-fig="m1-entropy-temperature"></figure>
           <div class="note why"><p>If zero entropy is given to elements in their perfect crystalline form at 0 K, then all perfect crystalline <b>compounds</b> also have zero entropy at 0 K. This is why absolute entropies S° can be tabulated.</p></div>
+          <h3>Absolute entropy from the third law</h3>
+          <p>Because S = 0 at 0 K, the entropy of a substance at any temperature T can be found as an absolute value, not just as a change. Heating at constant pressure adds dS = dq<sub>rev</sub>/T = C<sub>p</sub> dT/T, so integrating from 0 K gives:</p>
+          <div class="eq" data-label="Absolute entropy">S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> <span class="frac"><span>C<sub>p</sub></span><span>T</span></span> dT = ∫<sub>0</sub><sup>T</sup> C<sub>p</sub> d(ln T)</div>
+          <p>If the substance melts or boils on the way up to T, the entropy of each phase change, ΔH<sub>trans</sub>/T<sub>trans</sub>, is added at that temperature:</p>
+          <div class="eq">S<sub>T</sub> = ∫<sub>0</sub><sup>T<sub>f</sub></sup> <span class="frac"><span>C<sub>p</sub>(s)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>fus</sub></span><span>T<sub>f</sub></span></span> + ∫<sub>T<sub>f</sub></sub><sup>T<sub>b</sub></sup> <span class="frac"><span>C<sub>p</sub>(l)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>vap</sub></span><span>T<sub>b</sub></span></span> + ∫<sub>T<sub>b</sub></sub><sup>T</sup> <span class="frac"><span>C<sub>p</sub>(g)</span><span>T</span></span> dT</div>
+          <p>In practice C<sub>p</sub> is measured down to a few kelvin, C<sub>p</sub>/T is plotted against T (or C<sub>p</sub> against ln T), and the area under the curve gives the entropy. These values are the standard absolute entropies S° listed in tables at 298 K.</p>
+          <div class="note exam"><p>"How does the third law help to find absolute entropy?" Answer: it fixes S = 0 at 0 K for a perfect crystal, so S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup>(C<sub>p</sub>/T)dT plus ΔH/T for each phase change gives the absolute entropy.</p></div>
         ` }
       ],
       flashcards: [
@@ -324,6 +365,8 @@ CHUNK({
         { front: 'ΔH &lt; 0 and ΔS &lt; 0: when is it spontaneous?', back: 'At <b>low</b> temperature.' },
         { front: 'Third law of thermodynamics?', back: 'The entropy of a <b>perfect crystalline</b> substance is <b>zero at 0 K</b>.' },
         { front: 'Statistical definition of entropy?', back: '<b>S = k ln W</b>, W = number of microstates; W = 1 at 0 K.' },
+        { front: 'Why is adsorption of a gas spontaneous though ΔS < 0?', back: 'It is strongly <b>exothermic</b>; |ΔH| > |TΔS| at low T, so <b>ΔG = ΔH − TΔS < 0</b>. Favoured at low temperature.' },
+        { front: 'Absolute entropy from the third law?', back: 'S = 0 at 0 K, so <b>S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> (C<sub>p</sub>/T) dT</b> plus ΔH/T at each phase change.' },
         { front: 'What does the Gibbs–Helmholtz equation lead to?', back: 'The <b>van\'t Hoff equation</b> for K against T.' }
       ],
       oneLiners: [
@@ -331,11 +374,14 @@ CHUNK({
         'Same signs of ΔH and ΔS: temperature decides spontaneity. Opposite signs: always or never.',
         'ΔH+ ΔS+ spontaneous at high T; ΔH− ΔS− spontaneous at low T.',
         'Third law: perfect crystal, S = 0 at 0 K.',
-        'S = k ln W, and W = 1 at absolute zero.'
+        'S = k ln W, and W = 1 at absolute zero.',
+        'Adsorption: ΔS < 0 but ΔH strongly negative, so spontaneous at low T.',
+        'Absolute entropy: S_T = ∫ Cp/T dT from 0 K, plus ΔH/T for each phase change.'
       ],
       formulas: [
         { name: 'Gibbs–Helmholtz', html: `ΔG = ΔH − TΔS`, note: 'Spontaneous if ΔG &lt; 0.' },
-        { name: 'Boltzmann entropy', html: `S = k ln W`, note: 'W = number of microstates; S = 0 when W = 1.' }
+        { name: 'Boltzmann entropy', html: `S = k ln W`, note: 'W = number of microstates; S = 0 when W = 1.' },
+        { name: 'Absolute entropy', html: `S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> (C<sub>p</sub>/T) dT + Σ ΔH<sub>trans</sub>/T<sub>trans</sub>`, note: 'Third law: S = 0 at 0 K for a perfect crystal.' }
       ]
     },
     // ------------------------------------------------------------------

@@ -43,8 +43,8 @@ QUESTIONS({
     {
       id: 'm2-q-05', module: 'm2', topic: 'm2-semiconductors', type: 'predict', level: 2,
       q: `<p>An engineer takes one piece of pure silicon and one piece of copper and heats both from room temperature to 150 °C while measuring their resistance. Predict how each resistance changes and explain the difference.</p>`,
-      options: ['Both resistances rise', 'Silicon resistance falls, copper resistance rises', 'Silicon resistance rises, copper resistance falls', 'Neither changes much'],
-      correct: 1,
+      options: ['Both resistances rise', 'Silicon resistance rises, copper resistance falls', 'Silicon resistance falls, copper resistance rises', 'Neither changes much'],
+      correct: 2,
       answer: `<p><b>Silicon's resistance falls; copper's rises.</b></p>`,
       explain: `<p>Silicon is a semiconductor: a nearly full valence band, an empty conduction band and a small gap (≈ 1 eV). Heat promotes more electrons across the gap, creating free electrons and holes, so conductivity rises and resistivity falls. At 0 K none are promoted and silicon behaves as an insulator. Copper already has overlapping bands full of free electrons. Heating adds no carriers, it only makes the lattice vibrate harder and scatter them, so its resistance goes up.</p>`,
       points: ['Semiconductor: small band gap', 'Temperature promotes electrons VB → CB, more carriers', 'Resistivity of semiconductor decreases with temperature', 'Metal: carriers fixed, scattering increases']
@@ -60,8 +60,8 @@ QUESTIONS({
     {
       id: 'm2-q-07', module: 'm2', topic: 'm2-semiconductor-purification', type: 'explain', level: 2,
       q: `<p>A silicon ingot has just been zone refined to 99.9999% purity, yet the chip maker still rejects it and sends it for Czochralski pulling. What is still wrong with the zone-refined ingot?</p>`,
-      options: ['It still contains too many impurities', 'It is polycrystalline, with randomly oriented crystals of different sizes', 'It is amorphous and has no crystal structure at all', 'Zone refining leaves it n-type'],
-      correct: 1,
+      options: ['It still contains too many impurities', 'It is amorphous and has no crystal structure at all', 'Zone refining leaves it n-type', 'It is polycrystalline, with randomly oriented crystals of different sizes'],
+      correct: 3,
       answer: `<p>It is pure but <b>polycrystalline</b>. Devices need one continuous single crystal.</p>`,
       explain: `<p>Zone refining works because impurities prefer the molten zone, so a moving heater sweeps them to one end. It says nothing about crystal order, and the product is polycrystalline: many crystals of different sizes with no regularity. In the Czochralski method a single-crystal seed is dipped into the melt and slowly pulled up while rotating, so atoms copy the seed's arrangement and grow one large single crystal (up to 300 mm across and over 250 kg).</p>`,
       points: ['Zone refining = purification (impurities stay in the melt)', 'Product is polycrystalline', 'Czochralski: seed crystal, pull + rotate', 'Gives a single crystal with uniform atomic arrangement']
@@ -129,8 +129,8 @@ QUESTIONS({
     {
       id: 'm2-q-14', module: 'm2', topic: 'm2-dssc', type: 'decide', level: 1,
       q: `<p>An architect wants power-generating <b>coloured, see-through windows</b> for an office tower and accepts moderate efficiency to keep cost and environmental impact low. PV, PEC or DSSC?</p>`,
-      options: ['Silicon PV', 'DSSC', 'None of them can be transparent', 'PV, because it has the lowest environmental impact'],
-      correct: 1,
+      options: ['DSSC', 'Silicon PV', 'None of them can be transparent', 'PV, because it has the lowest environmental impact'],
+      correct: 0,
       answer: `<p><b>DSSC.</b> It is transparent, cheap and low-impact, with normal efficiency.</p>`,
       explain: `<p>From the comparison table: PV cells are opaque, high cost, high efficiency and high environmental impact. PEC and DSSC cells are transparent, low cost, normal efficiency and low impact. A DSSC uses thin films on FTO/ITO glass with coloured dyes, so it doubles as tinted glazing.</p>`,
       points: ['PV: opaque, high cost, high efficiency, high impact', 'DSSC: transparent, low cost, normal efficiency, low impact', 'Built on transparent conducting glass (FTO/ITO)']

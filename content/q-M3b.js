@@ -12,8 +12,8 @@ QUESTIONS({
     {
       id: 'm3-q-e02', module: 'm3', topic: 'm3-conducting-materials', type: 'decide', level: 2,
       q: `<p>A utility must string a long <b>overhead transmission line</b> across hills. Weight and cost matter, and the span needs mechanical strength. Which conductor from the notes fits best, and why not plain copper?</p>`,
-      options: ['Annealed copper: highest conductivity and softest', 'ACSR: aluminium wires around a steel core, light but strong', 'Hard-drawn silver: lowest resistivity', 'Glass-insulated wire'],
-      correct: 1,
+      options: ['ACSR: aluminium wires around a steel core, light but strong', 'Annealed copper: highest conductivity and softest', 'Hard-drawn silver: lowest resistivity', 'Glass-insulated wire'],
+      correct: 0,
       answer: `<p><b>ACSR</b> (Aluminium Conductor Steel Reinforced).</p>`,
       explain: `<p>Aluminium has low density (2.70 g/cm<sup>3</sup> against 8.96 for copper), good conductivity and corrosion resistance, but is soft. The <b>steel core</b> of ACSR carries the mechanical load while the aluminium carries the current. Copper is heavier and costlier, and silver is far too expensive for overhead lines.</p>`,
       points: ['Aluminium: low density, ductile, corrosion resistant', 'Steel core gives strength', 'Overhead lines and bus bars use aluminium']
@@ -29,8 +29,8 @@ QUESTIONS({
     {
       id: 'm3-q-e04', module: 'm3', topic: 'm3-semiconductor-types-uses', type: 'decide', level: 1,
       q: `<p>A chip designer dopes pure silicon with <b>boron</b>. Which type of semiconductor results, what is the dopant called, and what carries most of the current?</p>`,
-      options: ['n-type; donor; electrons', 'p-type; acceptor; holes', 'p-type; donor; holes', 'n-type; acceptor; electrons'],
-      correct: 1,
+      options: ['n-type; donor; electrons', 'p-type; donor; holes', 'n-type; acceptor; electrons', 'p-type; acceptor; holes'],
+      correct: 3,
       answer: `<p><b>p-type</b>, boron is an <b>acceptor</b>, and <b>holes</b> are the majority carriers.</p>`,
       explain: `<p>Boron is trivalent, one electron short of silicon's four. It accepts an electron from the lattice and leaves a hole, becoming a negatively ionised atom. The crystal as a whole stays neutral. Phosphorus, arsenic or antimony would give n-type instead.</p>`,
       points: ['Trivalent impurity gives p-type', 'Acceptor atom becomes negatively ionised', 'Holes are majority carriers']
@@ -46,8 +46,8 @@ QUESTIONS({
     {
       id: 'm3-q-e06', module: 'm3', topic: 'm3-superconductors', type: 'interpret', level: 2,
       q: `<p>In a demonstration, a small magnet is placed on a disc that is then cooled in liquid nitrogen. Above a certain temperature the magnet sits on the disc; after cooling, it floats above it. What effect is shown, and what happens to the field inside the disc?</p>`,
-      options: ['Ferromagnetism; the field inside grows', 'Meissner effect; the magnetic field is expelled from the interior', 'Paramagnetism; the field aligns with the magnet', 'Hysteresis; the field is stored'],
-      correct: 1,
+      options: ['Ferromagnetism; the field inside grows', 'Paramagnetism; the field aligns with the magnet', 'Hysteresis; the field is stored', 'Meissner effect; the magnetic field is expelled from the interior'],
+      correct: 3,
       answer: `<p>The <b>Meissner effect</b>: the field is expelled from the superconductor.</p>`,
       explain: `<p>Below its transition temperature the disc excludes magnetic flux from its interior, so the field lines bend around it and the magnet is repelled and floats. This is a property of the superconducting state (the Meissner state), not just zero resistance.</p>`,
       points: ['Flux exclusion below Tc', 'Levitation demonstrates the effect', 'Found by Meissner and Ochsenfeld, 1933']
@@ -73,8 +73,8 @@ QUESTIONS({
     {
       id: 'm3-q-m03', module: 'm3', topic: 'm3-hysteresis-storage', type: 'design', level: 3,
       q: `<p>An engineer must choose magnetic materials for two jobs: (a) the <b>core of a transformer</b> reversing its field 50 times a second, and (b) a <b>permanent magnet</b> in a loudspeaker. Using the hysteresis loop, choose a type of material for each and justify the choice.</p>`,
-      options: ['(a) hard magnet, (b) soft magnet', '(a) soft magnet with a small loop, (b) hard magnet with a large loop', 'Both soft magnets', 'Both hard magnets'],
-      correct: 1,
+      options: ['(a) hard magnet, (b) soft magnet', 'Both soft magnets', 'Both hard magnets', '(a) soft magnet with a small loop, (b) hard magnet with a large loop'],
+      correct: 3,
       answer: `<p>(a) <b>Soft</b>, small loop (e.g. ferrous-nickel alloy). (b) <b>Hard</b>, large loop (e.g. Alnico).</p>`,
       explain: `<p>The area of the hysteresis loop is the energy wasted each cycle. A transformer core is magnetised and demagnetised constantly, so it needs a thin loop and <b>low coercivity</b> to waste little energy. A permanent magnet must keep its magnetisation and resist being demagnetised, so it needs high remanence and a wide loop with <b>high coercivity</b>.</p>`,
       points: ['Loop area = energy loss per cycle', 'Soft magnets: small loop, cores', 'Hard magnets: large loop, permanent magnets']

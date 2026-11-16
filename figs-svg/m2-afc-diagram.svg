@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <marker id="b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 10 5 0 10z" class="dfb"/></marker>
+    <marker id="o" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 10 5 0 10z" class="dfo"/></marker>
+    <marker id="w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 10 5 0 10z" class="dfw"/></marker>
+  </defs>
+  <!-- external circuit with load -->
+  <path d="M170 130V60H250M350 60H430V130" fill="none" class="ds" stroke-width="3"/>
+  <rect x="250" y="38" width="100" height="44" rx="8" class="dfr" fill-opacity=".25"/>
+  <rect x="250" y="38" width="100" height="44" rx="8" fill="none" class="dsr" stroke-width="3"/>
+  <text x="300" y="68" text-anchor="middle" font-size="22" font-weight="700" class="dt">load</text>
+  <path d="M190 34H238" class="dsb" stroke-width="3" marker-end="url(#b)"/>
+  <path d="M362 34H410" class="dsb" stroke-width="3" marker-end="url(#b)"/>
+  <text x="214" y="24" text-anchor="middle" font-size="22" class="dtb">e⁻</text>
+  <text x="386" y="24" text-anchor="middle" font-size="22" class="dtb">e⁻</text>
+  <!-- vessel -->
+  <rect x="190" y="150" width="220" height="250" class="dfb" fill-opacity=".22"/>
+  <rect x="60" y="150" width="480" height="270" fill="none" class="ds2" stroke-width="3"/>
+  <!-- porous electrodes -->
+  <rect x="150" y="130" width="40" height="270" class="dfd" fill-opacity=".55"/>
+  <rect x="410" y="130" width="40" height="270" class="dfd" fill-opacity=".55"/>
+  <path d="M158 160V390M170 160V390M182 160V390M418 160V390M430 160V390M442 160V390" class="ds3" stroke-width="2" stroke-dasharray="4 8"/>
+  <text x="300" y="196" text-anchor="middle" font-size="26" font-weight="700" class="dtb">KOH (aq)</text>
+  <text x="300" y="226" text-anchor="middle" font-size="22" class="dt2">electrolyte</text>
+  <!-- OH- migrates cathode to anode -->
+  <path d="M398 300H204" class="dso" stroke-width="4" marker-end="url(#o)"/>
+  <text x="300" y="286" text-anchor="middle" font-size="26" font-weight="700" class="dto">OH⁻</text>
+  <text x="300" y="340" text-anchor="middle" font-size="22" class="dt2">porous C + Pt / Ag</text>
+  <!-- gases -->
+  <text x="105" y="290" text-anchor="middle" font-size="30" font-weight="700" class="dt">H₂</text>
+  <text x="495" y="290" text-anchor="middle" font-size="30" font-weight="700" class="dt">O₂</text>
+  <path d="M105 96V168" class="ds" stroke-width="3.5" marker-end="url(#w)"/>
+  <text x="105" y="84" text-anchor="middle" font-size="22" class="dt">H₂ in</text>
+  <path d="M495 96V168" class="ds" stroke-width="3.5" marker-end="url(#w)"/>
+  <text x="495" y="84" text-anchor="middle" font-size="22" class="dt">O₂ in</text>
+  <path d="M105 404V470" class="ds" stroke-width="3.5" marker-end="url(#w)"/>
+  <text x="20" y="496" font-size="22" class="dt2">H₂O + excess H₂ out</text>
+  <text x="170" y="446" text-anchor="middle" font-size="22" font-weight="700" class="dt">anode (−)</text>
+  <text x="430" y="446" text-anchor="middle" font-size="22" font-weight="700" class="dt">cathode (+)</text>
+  <!-- reactions -->
+  <text x="20" y="532" font-size="22" class="dt mono">Anode: 2H₂ + 4OH⁻ → 4H₂O + 4e⁻</text>
+  <text x="20" y="562" font-size="22" class="dt mono">Cathode: O₂ + 2H₂O + 4e⁻ → 4OH⁻</text>
+  <text x="20" y="592" font-size="22" font-weight="700" class="dt mono">Overall: 2H₂ + O₂ → 2H₂O</text>
+</svg>

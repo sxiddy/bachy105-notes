@@ -30,6 +30,7 @@ CHUNK({
             <div class="side"><h4>Harmonic oscillator</h4><div class="eq">V = ½k(R − R<sub>e</sub>)<sup>2</sup></div><ul><li>k is the <b>force constant</b>, R the bond length, R<sub>e</sub> the equilibrium bond length.</li><li>The curve is a <b>symmetrical parabola</b>.</li><li>It works well only for <b>small displacements</b> around R<sub>e</sub>.</li><li>A larger k means a bond that is <b>harder to stretch</b>.</li></ul></div>
             <div class="side"><h4>Anharmonic (Morse) oscillator</h4><div class="eq">V = D<sub>e</sub>(1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup></div><ul><li><b>D<sub>e</sub></b> is the <b>depth of the well</b>, the energy needed to break the bond measured from the minimum; <b>a</b> sets how wide or narrow the curve is.</li><li>Real bonds are not perfect springs; on large stretching the curve stops being a parabola.</li><li>It gives a <b>more realistic</b> description of real vibrations and of the approach to <b>dissociation</b>.</li><li>At large R it differs strongly from the harmonic model: it levels off at D<sub>e</sub> instead of rising for ever.</li></ul></div>
           </div>
+          <figure data-fig="m5-morse-harmonic"></figure>
           <h3>Calculated curves: H<sub>2</sub> and HCl</h3>
           <p>A program changes the bond length step by step (the <b>scan coordinate</b>, in Å) and calculates the total energy at each step (in Hartree; 1 Hartree ≈ 2626 kJ mol<sup>−1</sup>). For a diatomic the bond length is the only geometric variable, so the result is a <b>2-D curve</b>.</p>
           <table class="tbl">
@@ -345,6 +346,7 @@ CHUNK({
             <li><b>HNC</b> is another minimum, higher in energy than HCN.</li>
             <li>Frequencies confirm this: HCN and HNC have <b>no imaginary frequency</b>; the TS has <b>one</b>, the motion of H from C toward N.</li>
           </ul>
+          <figure data-fig="m5-hcn-hnc-profile"></figure>
           <h3>Zero-point energy (ZPE) correction</h3>
           <p>Even at 0 K a molecule keeps its lowest vibrational energy, the ZPE, which the frequency calculation gives. The profile is drawn twice: with the <b>raw ab initio energies</b> and with <b>ZPE-corrected</b> energies. Energies are in Hartree; to convert, <b>multiply by 2626</b> (1 Hartree ≈ 2625.5 kJ mol<sup>−1</sup>).</p>
           <div class="worked">
@@ -593,6 +595,12 @@ CHUNK({
     }
   ],
   figures: [
+    { id: 'm5-morse-harmonic', src: null, crop: null,
+      caption: 'Potential energy against bond length: the Morse curve (steep repulsive wall, minimum at Rₑ, levelling off at the dissociation energy Dₑ) against the symmetric harmonic parabola, which matches it only near Rₑ.',
+      alt: 'A Morse potential curve with a steep wall at short distance, a minimum at Re and a flat approach to a dashed dissociation line a height De above the minimum, overlaid with a dashed symmetric parabola touching the same minimum.' },
+    { id: 'm5-hcn-hnc-profile', src: null, crop: null,
+      caption: 'HCN → HNC energy profile, HCN taken as zero: raw ab initio barrier 219 and HNC 52.2 kJ mol⁻¹; after ZPE correction the barrier is 202 and HNC 49.7 kJ mol⁻¹.',
+      alt: 'Energy level diagram with three steps, HCN at zero, the transition state high in the middle and HNC slightly above HCN, drawn twice: solid for raw energies 219 and 52.2, dashed for ZPE-corrected 202 and 49.7.' },
     { id: 'm5-pec-diatomic', src: null, crop: null,
       caption: 'Potential energy against bond length for a diatomic AB: the minimum is at the equilibrium bond length Re, De is the well depth, and the harmonic parabola matches the real curve only near the minimum.',
       alt: 'A U-shaped curve of potential energy against R with its minimum at Re, rising steeply on the left and levelling off to a dashed line on the right with the depth De marked, and a dashed parabola hugging the minimum.' },

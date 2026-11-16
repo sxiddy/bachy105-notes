@@ -6,7 +6,7 @@
    "title": "Thermodynamics & Kinetics",
    "free": true,
    "topics": 14,
-   "questions": 16
+   "questions": 24
   },
   {
    "id": "m2",
@@ -135,6 +135,14 @@
    "kind": "actual",
    "title": "FAT · Slot G1+TG1 · Nov 2025",
    "sub": "Actual paper · Fall 2025–26",
+   "questions": 10,
+   "access": "free"
+  },
+  {
+   "id": "fat-b1tb1-2026",
+   "kind": "actual",
+   "title": "FAT · Slot B1+TB1 · Nov 2026",
+   "sub": "Actual paper · Fall 2026–27",
    "questions": 10,
    "access": "free"
   },

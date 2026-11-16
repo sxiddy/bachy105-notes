@@ -272,6 +272,7 @@ CHUNK({
             <li>It then falls away in a <b>long tail</b> to high energy, so the curve is not symmetric.</li>
             <li>Draw a vertical line at <b>E<sub>a</sub></b>. Only the molecules in the tail to the right of it have enough energy to react; the <b>area beyond E<sub>a</sub></b> is the fraction that can react.</li>
           </ul>
+          <figure data-fig="m1-maxwell-boltzmann"></figure>
           <h3>What changes at a higher temperature T<sub>2</sub></h3>
           <table class="tbl">
             <thead><tr><th>Feature</th><th>T<sub>2</sub> compared with T<sub>1</sub></th><th>Reason</th></tr></thead>
@@ -672,6 +673,9 @@ CHUNK({
     }
   ],
   figures: [
+    { id: 'm1-maxwell-boltzmann', src: null, crop: null,
+      caption: 'Maxwell–Boltzmann distribution at T₁ and a higher T₂: the peak is lower and shifted right, the total area is the same, and the shaded area beyond Eₐ (molecules that can react) is much larger.',
+      alt: 'Two skewed curves of fraction of molecules against kinetic energy; the higher-temperature curve is flatter with its peak further right; a dashed vertical line marks Ea and the tail areas beyond it are shaded, larger for the higher temperature.' },
     { id: 'm1-order-conc-time', src: null, crop: null,
       caption: 'Concentration against time for the three orders with the same starting concentration and starting rate: zero order falls in a straight line to zero, first order decays exponentially, second order slows most and has the longest tail.',
       alt: 'Graph of concentration of A against time with three curves from the same starting point: a straight green line reaching zero, a blue exponential decay, and an orange curve that flattens most.' },

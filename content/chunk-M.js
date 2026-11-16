@@ -510,6 +510,7 @@ CHUNK({
           <div class="note heads-up"><p>The slide only shows the diagrams. The bond-order rule above is the standard one, and is what the interactive builder uses.</p></div>
           <h3>Worked: O<sub>2</sub></h3>
           <p>Each O atom has 8 electrons (1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup>), so O<sub>2</sub> has 16. For O<sub>2</sub> the σ2p<sub>z</sub> level lies <b>below</b> the two π2p levels. Levels from top to bottom:</p>
+          <figure data-fig="m5-mo-o2"></figure>
           <table class="tbl">
             <thead><tr><th>MO</th><th>Type</th><th>Electrons</th></tr></thead>
             <tbody>
@@ -637,6 +638,9 @@ CHUNK({
     }
   ],
   figures: [
+    { id: 'm5-mo-o2', src: null, crop: null,
+      caption: 'MO diagram of O₂ (valence shell): 8 bonding and 4 antibonding electrons give bond order 2, and the two unpaired electrons in π*2p make O₂ paramagnetic.',
+      alt: 'Energy level diagram with the 2s and 2p levels of each O atom at the sides and, in the centre from the bottom, sigma 2s, sigma-star 2s, sigma 2p, the pair of pi 2p levels, the pair of pi-star 2p levels with one electron each, and an empty sigma-star 2p level.' },
     { id: 'm5-method-tree', src: null, crop: null,
       caption: 'Classification of computational methods: quantum mechanics (ab initio, DFT, semi-empirical), classical mechanics (molecular mechanics, molecular dynamics) and the hybrid QM/MM.',
       alt: 'A tree with Computational methods at the top and three branches: Quantum mechanics with Ab initio, DFT and Semi-empirical boxes below it, Classical mechanics with Molecular mechanics and Molecular dynamics, and Hybrid QM/MM.' },

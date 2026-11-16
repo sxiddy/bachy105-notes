@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfw"/></marker>
+  </defs>
+  <text x="20" y="46" font-size="26" font-weight="700" class="dt">Type I</text>
+  <path d="M70 300H570" class="ds" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M70 300V60" class="ds" stroke-width="3" marker-end="url(#a)"/>
+  <text x="570" y="364" text-anchor="end" font-size="22" class="dt2">applied field, H</text>
+  <text x="84" y="68" font-size="22" class="dt2">−M</text>
+  <path d="M70 300 L323.0 130 V300 H530" fill="none" class="dsb" stroke-width="4"/>
+  <text x="323" y="334" text-anchor="middle" font-size="22" font-weight="700" class="dt">H<tspan dy="6" font-size="18">c</tspan></text>
+  <text x="76" y="128" font-size="22" class="dtb">Meissner</text>
+  <text x="443" y="270" text-anchor="middle" font-size="22" class="dt2">normal</text>
+  <text x="20" y="416" font-size="26" font-weight="700" class="dt">Type II</text>
+  <path d="M70 670H570" class="ds" stroke-width="3" marker-end="url(#a)"/>
+  <path d="M70 670V430" class="ds" stroke-width="3" marker-end="url(#a)"/>
+  <text x="570" y="734" text-anchor="end" font-size="22" class="dt2">applied field, H</text>
+  <text x="84" y="438" font-size="22" class="dt2">−M</text>
+  <path d="M70.0 670.0 L208.0 520.0 L208.0 520.0 L213.1 525.9 L218.1 531.8 L223.2 537.5 L228.2 543.0 L233.3 548.5 L238.4 553.8 L243.4 559.1 L248.5 564.2 L253.5 569.1 L258.6 574.0 L263.7 578.7 L268.7 583.4 L273.8 587.9 L278.8 592.2 L283.9 596.5 L289.0 600.6 L294.0 604.7 L299.1 608.6 L304.1 612.3 L309.2 616.0 L314.3 619.5 L319.3 623.0 L324.4 626.3 L329.4 629.4 L334.5 632.5 L339.6 635.4 L344.6 638.3 L349.7 641.0 L354.7 643.5 L359.8 646.0 L364.9 648.3 L369.9 650.6 L375.0 652.7 L380.0 654.6 L385.1 656.5 L390.2 658.2 L395.2 659.9 L400.3 661.4 L405.3 662.7 L410.4 664.0 L415.5 665.1 L420.5 666.2 L425.6 667.1 L430.6 667.8 L435.7 668.5 L440.8 669.0 L445.8 669.5 L450.9 669.8 L455.9 669.9 L461.0 670.0 H530" fill="none" class="dsr" stroke-width="4"/>
+  <path d="M208 670V520" class="ds3" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="208" y="704" text-anchor="middle" font-size="22" font-weight="700" class="dt">H<tspan dy="6" font-size="18">c1</tspan></text>
+  <text x="461" y="704" text-anchor="middle" font-size="22" font-weight="700" class="dt">H<tspan dy="6" font-size="18">c2</tspan></text>
+  <text x="76" y="498" font-size="22" class="dtr">Meissner</text>
+  <text x="355" y="560" text-anchor="middle" font-size="22" class="dtr">mixed (vortex) state</text>
+</svg>

@@ -76,6 +76,13 @@ PAPERS({
       exam: 'fat'
     },
     {
+      id: 'fat-b1tb1-2026',
+      kind: 'actual',
+      title: 'FAT · Slot B1+TB1 · Nov 2026',
+      sub: 'Actual paper · Fall 2026–27',
+      exam: 'fat'
+    },
+    {
       id: 'fat-f1tf1-2025',
       kind: 'actual',
       title: 'FAT · Slot F1+TF1 · Nov/Dec 2025',
@@ -110,7 +117,7 @@ PAPERS({
 <li>Very high energy conversion (75–82%) with no combustion, so less fuel has to be carried for the same energy.</li>
 <li>No moving parts: very quiet, low maintenance and highly reliable.</li>
 <li>Extra: the H<sub>2</sub> and O<sub>2</sub> are already on board as rocket propellants.</li></ul>
-<p><b>Diagram to draw:</b> a container of KOH solution with two porous graphite electrodes (Pt or Ag catalyst). H<sub>2</sub> enters at the anode (−) on the left, O<sub>2</sub> at the cathode (+) on the right, both at about 50 atm. Water and excess H<sub>2</sub> leave on the anode side. An external wire with a load joins the electrodes. Arrows: e<sup>−</sup> from anode to cathode through the wire; OH<sup>−</sup> from cathode to anode through the electrolyte.</p>
+<figure data-fig="m2-afc-diagram"></figure>
 <p><b>Construction:</b> both electrodes are porous graphite with a Pt, Ag or metal-oxide catalyst. The pores let gas, electrolyte and catalyst meet at many three-way contact points. The electrolyte is aqueous KOH (or NaOH).</p>
 <p><b>Working:</b> H<sub>2</sub> diffuses into the anode and is oxidised by OH<sup>−</sup> to water, releasing electrons. The electrons cannot pass through the electrolyte, so they travel through the external circuit to the cathode; that flow is the current. At the cathode O<sub>2</sub> takes up the electrons and water to form OH<sup>−</sup>, which migrates back through the KOH to the anode.</p>
 <div class="eq">Anode: 2H<sub>2</sub> + 4OH<sup>−</sup> → 4H<sub>2</sub>O + 4e<sup>−</sup></div>
@@ -126,7 +133,8 @@ PAPERS({
 <div class="eq">= 1.05 − 0.02955 × 3.699 = 1.05 − 0.109 = <b>0.94 V</b></div>
 <div class="note trap"><p>Forgetting to square [Ag<sup>+</sup>]: the balanced reaction has 2Ag<sup>+</sup>, so the quotient is [Ni<sup>2+</sup>]/[Ag<sup>+</sup>]<sup>2</sup>. Leaving it unsquared gives 1.05 − 0.02955 × log 50 = 1.00 V, which is wrong. Also, n = 2, not 1.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) the diagram with both arrows (e<sup>−</sup> through the wire, OH<sup>−</sup> through the KOH) and the three reactions carry most of the marks. In (b) show E°, the Nernst expression with the right quotient, and the final 0.94 V with its unit.</p></div>`,
-          topics: ['m2-fuel-cells', 'm2-electrochemical-cells']
+          topics: ['m2-fuel-cells', 'm2-electrochemical-cells'],
+          notes: ['m2-fuel-cells.3', 'm2-fuel-cells.4', 'm2-electrochemical-cells.3', 'm2-electrochemical-cells.4']
         },
         {
           n: '2',
@@ -154,7 +162,8 @@ PAPERS({
 <li><b>Small structural change:</b> the layers only expand and contract slightly as Li<sup>+</sup> enters and leaves, so the electrodes do not crack.</li>
 <li><b>Fast diffusion:</b> the open 2D gaps let the small Li<sup>+</sup> ion move quickly, which supports high power.</li>
 <li><b>High energy density:</b> lithium is very light (high energy per kg), and Li<sup>+</sup> has a very negative reduction potential, so each cell gives about 3.6–3.7 V, nearly three times a Ni–Cd cell (high energy per litre). Low self-discharge and no memory effect suit EVs and grid storage.</li></ul>`,
-          topics: ['m2-li-ion', 'm2-batteries']
+          topics: ['m2-li-ion', 'm2-batteries'],
+          notes: ['m2-li-ion.3', 'm2-li-ion.4', 'm2-li-ion.5']
         },
         {
           n: '3',
@@ -185,7 +194,8 @@ PAPERS({
 <li><b>Limits:</b> the liquid electrolyte has temperature stability problems and volatile solvents, and Ru dyes and Pt are costly.</li></ul>
 <div class="note trap"><p>Writing a plain silicon PV cell or an LJSC here misses the point: the question names a <b>photosensitizer</b>, so the answer is the DSSC. The dyed TiO<sub>2</sub> plate is the anode (−) and the counter electrode the cathode (+).</p></div>
 <div class="note exam"><p>Ten marks: roughly the diagram, the five components with their jobs, the numbered sequence with the equations, and a short critical part (why it is efficient plus its limits).</p></div>`,
-          topics: ['m2-dssc', 'm2-pec-cells']
+          topics: ['m2-dssc', 'm2-pec-cells'],
+          notes: ['m2-dssc.0', 'm2-dssc.1', 'm2-pec-cells.0']
         },
         {
           n: '4',
@@ -222,7 +232,8 @@ PAPERS({
 <li>Very slow production rate of nanopowders. Extra: alkoxide precursors are costly.</li></ul>
 <div class="note trap"><p>Ball milling is top-down, not bottom-up. And write the condensation equations as they are: the –OH + HO– condensation gives off H<sub>2</sub>O, the –OR + HO– one gives off ROH.</p></div>
 <div class="note exam"><p>Ten marks, two halves: the reasons nano differs from bulk (surface area, quantum confinement, with an example), then the sol–gel route (equations, five steps, size control, pros and cons).</p></div>`,
-          topics: ['m3-why-nano', 'm3-synthesis', 'm3-sol-gel']
+          topics: ['m3-why-nano', 'm3-synthesis', 'm3-sol-gel'],
+          notes: ['m3-why-nano.0', 'm3-why-nano.1', 'm3-sol-gel.3', 'm3-sol-gel.5']
         },
         {
           n: '5',
@@ -264,7 +275,8 @@ PAPERS({
 <li>Instrument broadening and strain were not subtracted, so β is an overestimate and the true crystallite size is at least 10.5 nm.</li></ul>
 <div class="note trap"><p>The two classic slips: using 2θ (44.60°) in cos θ instead of θ (22.30°), and leaving β in degrees. Also keep λ in nm so D comes out in nm, and use k = 0.9 as given, not 0.94.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) name both chromophores (–N=N– in Congo red, the conjugated phenothiazinium ring in methylene blue), the auxochromes, the π → π* transition, the absorbed band and the colour seen. In (b) show λ = hc/E, the Scherrer working and the comment.</p></div>`,
-          topics: ['m4-uv-vis', 'm4-scherrer', 'm4-xrays']
+          topics: ['m4-uv-vis', 'm4-scherrer', 'm4-xrays'],
+          notes: ['m4-uv-vis.5', 'm4-uv-vis.7', 'm4-scherrer.3', 'm4-scherrer.1']
         }
       ]
     },
@@ -306,7 +318,8 @@ PAPERS({
 <div class="eq">= 1.56 − 0.02955 × log 0.1 = 1.56 + 0.0296 = <b>1.59 V</b></div>
 <div class="note trap"><p>Square [Ag<sup>+</sup>]: the balanced reaction has 2Ag<sup>+</sup>. Without the square, log(0.001/0.1) = −2 and you get 1.62 V, which is wrong. And n = 2, not 1.</p></div>
 <div class="note exam"><p>Five marks each part. In (a): name the SOFC, the labelled three-layer diagram with the O<sup>2−</sup> arrow, and the three reactions. In (b): half reactions, net reaction, E°, the Nernst step and 1.59 V with its unit.</p></div>`,
-          topics: ['m2-sofc', 'm2-electrochemical-cells']
+          topics: ['m2-sofc', 'm2-electrochemical-cells'],
+          notes: ['m2-sofc.1', 'm2-sofc.2', 'm2-electrochemical-cells.3']
         },
         {
           n: '2',
@@ -327,7 +340,8 @@ PAPERS({
 <p><b>Applications:</b> building-integrated windows and facades, indoor and low-light electronics (sensors, calculators), portable chargers, decorative panels.</p>
 <div class="note trap"><p>The dyed TiO<sub>2</sub> side is the anode (−), not the cathode. And the dye is regenerated by I<sup>−</sup>, not by the counter electrode directly.</p></div>
 <div class="note exam"><p>Ten marks: naming the DSSC, the labelled diagram, the five-step mechanism with equations, the principle and a few applications.</p></div>`,
-          topics: ['m2-dssc', 'm2-pec-cells']
+          topics: ['m2-dssc', 'm2-pec-cells'],
+          notes: ['m2-dssc.0', 'm2-dssc.1', 'm2-dssc.6']
         },
         {
           n: '3',
@@ -347,7 +361,8 @@ PAPERS({
 <p><b>Applications:</b> phones, laptops and cameras (LCO), power tools and medical devices (LMO, LFP, NMC), electric vehicles and grid storage (NCA).</p>
 <div class="note trap"><p>"Anode" and "cathode" swap between charging and discharging; "positive" (LiCoO<sub>2</sub>) and "negative" (graphite) never do. Label the plates by polarity to stay safe.</p></div>
 <div class="note exam"><p>Ten marks: the name, the diagram, charge and discharge mechanism with reactions, one advantage, one disadvantage and applications.</p></div>`,
-          topics: ['m2-li-ion']
+          topics: ['m2-li-ion'],
+          notes: ['m2-li-ion.5', 'm2-li-ion.3', 'm2-li-ion.7', 'm2-li-ion.6']
         },
         {
           n: '4',
@@ -372,7 +387,8 @@ PAPERS({
 <p><b>Disadvantages:</b> hard to control growth and stop agglomeration; hard to ensure complete reaction, so residues may stay; growth aids must be fully removed; very slow production of nanopowders.</p>
 <div class="note trap"><p>Don't mix the two condensations: –OH + HO– gives off H<sub>2</sub>O, –OR + HO– gives off ROH.</p></div>
 <div class="note exam"><p>Ten marks: naming sol–gel, the hydrolysis and condensation equations, the five steps, and the pros and cons.</p></div>`,
-          topics: ['m3-sol-gel', 'm3-synthesis']
+          topics: ['m3-sol-gel', 'm3-synthesis'],
+          notes: ['m3-sol-gel.1', 'm3-sol-gel.2', 'm3-sol-gel.5']
         },
         {
           n: '5',
@@ -401,7 +417,8 @@ PAPERS({
 <p>About 18.7 nm, so the gold is nanocrystalline (1–100 nm).</p>
 <div class="note trap"><p>Using 38.2° in cos θ instead of 19.1° gives 22.5 nm, which is wrong. Convert the FWHM to radians before dividing.</p></div>
 <div class="note exam"><p>Five marks each part. In (a): name XRD, Bragg's law and what each form of silicon looks like. In (b): θ, β in radians, the Scherrer step and D with its unit.</p></div>`,
-          topics: ['m4-xrd-patterns', 'm4-bragg', 'm4-scherrer']
+          topics: ['m4-xrd-patterns', 'm4-bragg', 'm4-scherrer'],
+          notes: ['m4-bragg.2', 'm4-bragg.3', 'm4-xrd-patterns.4', 'm4-scherrer.2']
         }
       ]
     },
@@ -435,7 +452,8 @@ PAPERS({
 <p>Diagram: on the same axes the adiabat PV<sup>γ</sup> = constant is steeper than the isotherm, because T also falls. Starting from the same point and ending at the same V<sub>2</sub>, the area under the adiabat is smaller, so less work is obtained than from the isothermal path.</p>
 <div class="note trap"><p>Do not put ΔU = 0 for the adiabatic case: ΔU = 0 belongs to the isothermal process. Use C<sub>v</sub>ΔT for adiabatic work and keep the negative sign for expansion.</p></div>
 <div class="note exam"><p>Ten marks: both expressions, both curves on one PV diagram with the labelled area, and the statement that the adiabatic work is smaller.</p></div>`,
-          topics: ['m1-expansion-work']
+          topics: ['m1-expansion-work'],
+          notes: ['m1-expansion-work.0', 'm1-expansion-work.1']
         },
         {
           n: '2',
@@ -456,7 +474,8 @@ PAPERS({
 <p>So η depends only on the two temperatures (in kelvin), not on the working substance, and is never 1 unless T<sub>c</sub> = 0 K. Equivalent entropy form: q<sub>h</sub>/T<sub>h</sub> + q<sub>c</sub>/T<sub>c</sub> = 0.</p>
 <div class="note trap"><p>Show the step V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> from the adiabats; without it the logarithms do not cancel. Use kelvin in the final formula.</p></div>
 <div class="note exam"><p>Ten marks: the diagram, the four strokes with heat terms, the adiabat step V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>, the work and η = 1 − T<sub>c</sub>/T<sub>h</sub>.</p></div>`,
-          topics: ['m1-carnot-cycle']
+          topics: ['m1-carnot-cycle'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2']
         },
         {
           n: '3',
@@ -475,7 +494,8 @@ PAPERS({
 <p>Entropy falls: the compression to 7 atm outweighs the rise in T.</p>
 <div class="note trap"><p>Using C<sub>v</sub> ln(T<sub>2</sub>/T<sub>1</sub>) here would be wrong, since the variables are P and T; the matching formula carries C<sub>p</sub>. Also R must be in cal (1.987) because C<sub>v</sub> is in cal. With C<sub>p</sub> taken exactly as 6.987 the answer is −2.53 as well.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) all four quantities with units (the zeros count as answers). In (b) the correct C<sub>p</sub> form of ΔS, C<sub>p</sub> = 7 cal, and −2.53 cal mol<sup>−1</sup> K<sup>−1</sup>.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-second-law-entropy', 'm1-enthalpy-heat-capacity', 'm1-thermo-numericals']
+          topics: ['m1-expansion-work', 'm1-second-law-entropy', 'm1-enthalpy-heat-capacity', 'm1-thermo-numericals'],
+          notes: ['m1-thermo-numericals.0', 'm1-thermo-numericals.2', 'm1-second-law-entropy.3']
         },
         {
           n: '4',
@@ -496,7 +516,8 @@ PAPERS({
 <p>Check: 80% needs about 2.32 half-lives (log 5/log 2), 2.32 × 15 = 34.8 min.</p>
 <div class="note trap"><p>Use [A]<sub>0</sub>/[A] = 100/20 = 5, not 100/80. 80% completed means 20% is left.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) the Arrhenius equation plus the Maxwell–Boltzmann diagram with the shaded area beyond E<sub>a</sub>. In (b) k = 0.0462 min<sup>−1</sup> and t = 34.8 min with the working.</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-integrated-rate']
+          topics: ['m1-collision-arrhenius', 'm1-integrated-rate'],
+          notes: ['m1-collision-arrhenius.3', 'm1-collision-arrhenius.4', 'm1-kinetics-numericals.0', 'm1-kinetics-numericals.1']
         },
         {
           n: '5',
@@ -517,7 +538,8 @@ PAPERS({
 <p>Whichever plot is a straight line gives the order, and k is the magnitude of its slope. The intercept gives [A]<sub>0</sub> (or its ln or reciprocal). Half-lives: [A]<sub>0</sub>/2k, 0.693/k, 1/(k[A]<sub>0</sub>).</p>
 <div class="note trap"><p>Slopes for zero and first order are −k, so k is the positive value of the slope; only the second-order slope is +k.</p></div>
 <div class="note exam"><p>Ten marks: the three differential equations with examples (about 4 marks) and the three linear plots with slopes (about 6 marks).</p></div>`,
-          topics: ['m1-integrated-rate', 'm1-rate-law']
+          topics: ['m1-integrated-rate', 'm1-rate-law'],
+          notes: ['m1-integrated-rate.1', 'm1-integrated-rate.2']
         }
       ]
     },
@@ -554,7 +576,8 @@ PAPERS({
 <li>The same expression gives the work needed to compress a gas isothermally (compressors need at least this much).</li></ul>
 <div class="note trap"><p>Keep the sign: an expanding gas does work on the surroundings, so w is negative in ΔU = q + w. Quote the result as w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>), not the magnitude only.</p></div>
 <div class="note exam"><p>Ten marks: the statement with ΔU = q + w and its sign convention, the integral with P = nRT/V carried through to −nRT ln(V<sub>2</sub>/V<sub>1</sub>), and a line on maximum work and its uses.</p></div>`,
-          topics: ['m1-zeroth-first-law', 'm1-expansion-work']
+          topics: ['m1-zeroth-first-law', 'm1-expansion-work'],
+          notes: ['m1-zeroth-first-law.2', 'm1-expansion-work.0']
         },
         {
           n: '2',
@@ -574,7 +597,8 @@ PAPERS({
 <figure data-fig="m1-gibbs-four-cases"></figure>
 <div class="note trap"><p>Spontaneous does not mean fast. ΔG gives the direction only; graphite to diamond has ΔG &lt; 0 at room temperature, but the rate is negligible. Also, for the (−, −) and (+, +) cases say which temperature range works, not just "depends".</p></div>
 <div class="note exam"><p>Ten marks: the formula ΔG = ΔH − TΔS, the entropy argument for the endothermic case, and the four-case table with one example in each row.</p></div>`,
-          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law']
+          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law'],
+          notes: ['m1-free-energy.2', 'm1-gibbs-helmholtz-third-law.1']
         },
         {
           n: '3',
@@ -591,7 +615,8 @@ PAPERS({
 <div class="eq">η = W/q<sub>h</sub> = 300/800 = 0.375 = <b>37.5%</b></div>
 <div class="note trap"><p>In (a) the usual slip is mixing units: ΔH in kJ and ΔS in J. Convert one of them. In (b) use heat absorbed in the denominator, not heat rejected.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) show the unit conversion, the number and the verdict with a reason. In (b) write W = q<sub>h</sub> − q<sub>c</sub> and η = W/q<sub>h</sub> with the answers 300 J and 37.5%.</p></div>`,
-          topics: ['m1-free-energy', 'm1-carnot-cycle', 'm1-thermo-numericals']
+          topics: ['m1-free-energy', 'm1-carnot-cycle', 'm1-thermo-numericals'],
+          notes: ['m1-thermo-numericals.3', 'm1-thermo-numericals.4']
         },
         {
           n: '4',
@@ -605,7 +630,8 @@ PAPERS({
 <div class="eq">t<sub>1/2</sub> = 0.693 / (4.5 × 10<sup>−3</sup> s<sup>−1</sup>) = <b>154 s</b> (about 2.57 min)</div>
 <div class="note trap"><p>First-order t<sub>1/2</sub> is independent of the starting concentration. Do not use the second-order form 1/(k[A]<sub>0</sub>) here, and the unit of k (s<sup>−1</sup>) tells you the order is first.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) give the collision argument and mention the zero-order exception; in (b) the formula t<sub>1/2</sub> = 0.693/k and the value 154 s with its unit.</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-integrated-rate']
+          topics: ['m1-collision-arrhenius', 'm1-integrated-rate'],
+          notes: ['m1-collision-arrhenius.0', 'm1-kinetics-numericals.0']
         },
         {
           n: '5',
@@ -629,7 +655,8 @@ PAPERS({
 <li>SO<sub>2</sub>Cl<sub>2</sub> → SO<sub>2</sub> + Cl<sub>2</sub> is unimolecular, first order.</li></ul>
 <div class="note trap"><p>For an elementary step order equals molecularity; for a multi-step reaction they can differ. The balanced equation alone cannot give the order.</p></div>
 <div class="note exam"><p>Ten marks: four definitions (about one mark each plus the equations), then the comparison of order with molecularity with at least two examples.</p></div>`,
-          topics: ['m1-rate-law']
+          topics: ['m1-rate-law'],
+          notes: ['m1-rate-law.1', 'm1-rate-law.2', 'm1-rate-law.3', 'm1-rate-law.4']
         }
       ]
     },
@@ -670,7 +697,8 @@ PAPERS({
 <div class="result">Even 90% needs a 50 K sink; 100% would need 0 K.</div></div>
 <div class="note trap"><p>Cent-percent efficiency does not mean there is no friction or loss in a real engine. Even a loss-free reversible engine cannot reach it unless T<sub>c</sub> = 0 K. Temperatures must be in kelvin.</p></div>
 <div class="note exam"><p>Ten marks: four strokes (4), a labelled P–V loop (2), efficiency formula and significance (2), the T<sub>c</sub> = 0 K condition (2).</p></div>`,
-          topics: ['m1-carnot-cycle']
+          topics: ['m1-carnot-cycle'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.3']
         },
         {
           n: '2',
@@ -695,7 +723,8 @@ PAPERS({
 <div class="result">The gas does 1.73 kJ of work and absorbs the same heat.</div></div>
 <div class="note trap"><p>ΔG &lt; 0 comes from the second law applied at constant T and P. It does not mean the reaction is fast. The criterion ΔG &lt; 0 holds only at constant T and P.</p></div>
 <div class="note exam"><p>Ten marks: first law (2), second law (2), isothermal work derivation (3), ΔG for spontaneity with the link to ΔS<sub>total</sub> (3).</p></div>`,
-          topics: ['m1-zeroth-first-law', 'm1-second-law-entropy', 'm1-expansion-work', 'm1-free-energy']
+          topics: ['m1-zeroth-first-law', 'm1-second-law-entropy', 'm1-expansion-work', 'm1-free-energy'],
+          notes: ['m1-zeroth-first-law.2', 'm1-second-law-entropy.0', 'm1-expansion-work.0', 'm1-free-energy.1']
         },
         {
           n: '3',
@@ -715,7 +744,8 @@ PAPERS({
 <p>ΔG is negative, so the reaction is <b>spontaneous</b> at 25 °C. It is endothermic (ΔH positive) but driven by the entropy increase. The crossover temperature is T = ΔH/ΔS = 30000/110 = 272.7 K (about −0.4 °C). Above this the reaction is spontaneous; below it, it is not. At 25 °C, TΔS = 32.8 kJ/mol just outweighs ΔH = 30 kJ/mol.</p>
 <div class="note trap"><p>ΔH is in kJ and ΔS in J. Convert one of them before subtracting. Forgetting this gives ΔG of about 30 − 32800 kJ, nonsense.</p></div>
 <div class="note exam"><p>Five marks each. In (a) show the kelvin conversion, η and W with its unit. In (b) show the unit conversion, the sign of ΔG and the verdict, with the crossover temperature as a bonus.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-free-energy', 'm1-thermo-numericals']
+          topics: ['m1-carnot-cycle', 'm1-free-energy', 'm1-thermo-numericals'],
+          notes: ['m1-thermo-numericals.4', 'm1-thermo-numericals.3']
         },
         {
           n: '4',
@@ -742,7 +772,8 @@ PAPERS({
 <p>Check by half-lives: 80% needs ln 5/ln 2 = 2.32 half-lives, and 2.32 × 7 = 16.25 h. The result lies between two half-lives (14 h, 75%) and three (21 h, 87.5%), as it should.</p>
 <div class="note trap"><p>For 80% completion the fraction left is 0.20, not 0.80. Using ln(1/0.8) gives only 1.56 h, which is wrong.</p></div>
 <div class="note exam"><p>Five marks each. In (a) the differential rate law, the integration steps and the cancellation of [A]<sub>0</sub> are the marks. In (b) show k, ln 5 and the final time with its unit.</p></div>`,
-          topics: ['m1-rate-law', 'm1-integrated-rate']
+          topics: ['m1-rate-law', 'm1-integrated-rate'],
+          notes: ['m1-integrated-rate.1', 'm1-kinetics-numericals.1']
         },
         {
           n: '5',
@@ -770,7 +801,8 @@ PAPERS({
 <div class="result">A 10 kJ/mol drop in E<sub>a</sub> speeds the reaction by about 55 times at room temperature.</div></div>
 <div class="note trap"><p>A catalyst changes E<sub>a</sub>, not ΔH. Draw the reactant and product levels at the same height in both curves, and only the hump lower.</p></div>
 <div class="note exam"><p>Ten marks: labelled energy profile with E<sub>a</sub> and transition state (3), the representative reaction and activated complex (3), temperature effect (2), catalyst effect (2).</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-catalysis']
+          topics: ['m1-collision-arrhenius', 'm1-catalysis'],
+          notes: ['m1-collision-arrhenius.2', 'm1-catalysis.1']
         }
       ]
     },
@@ -807,7 +839,8 @@ PAPERS({
 <li>The solid host keeps reactant and product in place (no crossover or self-discharge through the solution), and Li<sup>+</sup> diffuses quickly through the open 2D gaps.</li></ul>
 <div class="note trap"><p>The positive plate is always LiCoO<sub>2</sub>; "anode" and "cathode" swap between charge and discharge, so label by + and −. Do not write metallic Li as the anode material.</p></div>
 <div class="note exam"><p>Ten marks: a labelled diagram with both electrodes and the Li<sup>+</sup> path, the four equations, and two reasons why intercalation outlasts dissolution and plating.</p></div>`,
-          topics: ['m2-li-ion', 'm2-batteries']
+          topics: ['m2-li-ion', 'm2-batteries'],
+          notes: ['m2-li-ion.3', 'm2-li-ion.4', 'm2-li-ion.5']
         },
         {
           n: '2',
@@ -827,7 +860,8 @@ PAPERS({
 <p>The nanoporous film gives a huge dye-covered area, so a thin layer absorbs most of the light, and the absorbing dye and the conducting TiO<sub>2</sub> are separate phases, which slows recombination. Natural dyes are cheap, non-toxic and easy to extract, though less stable and less efficient than Ru dyes.</p>
 <div class="note trap"><p>Do not draw a plain Si p–n cell: the question is about a pigment on a semiconductor, which is the DSSC. The dyed TiO<sub>2</sub> plate is the negative electrode.</p></div>
 <div class="note exam"><p>Ten marks: the sandwich diagram with all five parts labelled, the numbered events with equations, and one reason for each (why dye, why nanoporous TiO<sub>2</sub>, why the electrolyte).</p></div>`,
-          topics: ['m2-dssc', 'm2-pec-cells']
+          topics: ['m2-dssc', 'm2-pec-cells'],
+          notes: ['m2-dssc.0', 'm2-dssc.1', 'm2-dssc.5']
         },
         {
           n: '3',
@@ -849,7 +883,8 @@ PAPERS({
 <p><b>Size control:</b> the water : alkoxide ratio, catalyst (base such as NH<sub>3</sub> gives separate spheres, acid gives chain networks), temperature, precursor concentration and aging time. Slow, controlled hydrolysis forms many small nuclei that stay small (bottom-up growth from molecules), whereas fast growth gives large particles. Extra: a capping or stabilising agent stops agglomeration.</p>
 <div class="note trap"><p>Ball milling is top-down, so it does not answer (b). Condensation gives off H<sub>2</sub>O or ROH, not Si(OH)<sub>4</sub>.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) surface area and quantum confinement with an example; in (b) hydrolysis and condensation equations, the steps, and at least two size-control factors.</p></div>`,
-          topics: ['m3-why-nano', 'm3-synthesis', 'm3-sol-gel']
+          topics: ['m3-why-nano', 'm3-synthesis', 'm3-sol-gel'],
+          notes: ['m3-why-nano.0', 'm3-why-nano.1', 'm3-sol-gel.3']
         },
         {
           n: '4',
@@ -867,7 +902,8 @@ PAPERS({
 <figure data-fig="m4-shift-diagram"></figure>
 <div class="note trap"><p>Colour seen is the complement of the colour absorbed: a yellow compound absorbs violet-blue, not yellow. Name the auxochrome (–OH) and the chromophore (–NO<sub>2</sub>), not just "conjugation".</p></div>
 <div class="note exam"><p>Ten marks: the principle (hν = ΔE and the transitions), a labelled sketch of the instrument, then each of the three compounds with the structural reason for its colour.</p></div>`,
-          topics: ['m4-uv-vis', 'm4-spectroscopy']
+          topics: ['m4-uv-vis', 'm4-spectroscopy'],
+          notes: ['m4-uv-vis.0', 'm4-uv-vis-instrument.1', 'm4-uv-vis.7']
         },
         {
           n: '5',
@@ -889,7 +925,8 @@ PAPERS({
 <p><b>Comment:</b> D is below 100 nm (below 10 nm), so the material is nanocrystalline, which explains the broad peak. A large fraction of atoms is at the surface, so expect high surface area, reactivity and possible size-dependent optical or electronic properties. Scherrer gives crystallite size (coherent domains), which can be smaller than the particle or grain size; instrument broadening and strain are ignored, so the true crystallite size is at least this value.</p>
 <div class="note trap"><p>Use θ (18.25°) in cos θ, not 2θ, and convert FWHM to radians. In (a) square [Ag<sup>+</sup>] and note that the quotient has Zn<sup>2+</sup> on top because the lower E means Zn is the anode. The printed E°(Zn<sup>2+</sup>/Zn) = −0.76 V and E°(Ag<sup>+</sup>/Ag) = 0.8 V (rounded from 0.80 V); the answer is the same.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) E° = 1.56 V, the squared Ag<sup>+</sup> term and 1.07 M. In (b) θ = 18.25°, β in radians, D = 9.8 nm and the nanocrystalline comment.</p></div>`,
-          topics: ['m2-electrochemical-cells', 'm4-scherrer']
+          topics: ['m2-electrochemical-cells', 'm4-scherrer'],
+          notes: ['m2-electrochemical-cells.3', 'm4-scherrer.2']
         }
       ]
     },
@@ -926,7 +963,8 @@ PAPERS({
 <p><b>Proof that every reversible engine has the same efficiency.</b> Suppose engine X has efficiency greater than the Carnot engine C, both between T<sub>h</sub> and T<sub>c</sub>. Run X forward and drive C backwards as a refrigerator using X's work output. For the same heat q<sub>h</sub> drawn from the source, X would give more work than C needs, so the pair would deliver net work with no net heat taken from the surroundings, or would move heat from cold to hot with no work. Either result violates the second law (Kelvin–Planck or Clausius). So η<sub>X</sub> cannot exceed η<sub>C</sub>. The same argument with the roles swapped (C forward, X reversed, possible because X is reversible) shows η<sub>C</sub> cannot exceed η<sub>X</sub>. Hence η<sub>X</sub> = η<sub>C</sub> = 1 − T<sub>c</sub>/T<sub>h</sub>, which depends only on the two temperatures and not on the working substance.</p>
 <div class="note trap"><p>The proof needs <b>reversibility</b> of both engines: it is what lets you run one backwards. An irreversible engine is always less efficient, never more. Also use Kelvin temperatures in η.</p></div>
 <div class="note exam"><p>Ten marks: the labelled P-V diagram with the four steps and their heat and work terms carries about half. Then the derivation of V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> and η = 1 − T<sub>c</sub>/T<sub>h</sub>, and the second-law argument (run one engine backwards) for the proof.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-second-law-entropy']
+          topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-carnot-cycle.3']
         },
         {
           n: '2',
@@ -947,7 +985,8 @@ PAPERS({
 <div class="eq">Example: ΔH = −40 kJ/mol, ΔS = −100 J/mol/K gives ΔG<sub>300</sub> = −40 000 + 300 × 100 = −10 000 J/mol (spontaneous); T<sub>lim</sub> = 40 000/100 = 400 K.</div>
 <div class="note trap"><p>Do not say a negative ΔS makes a process non-spontaneous. The surroundings gain entropy (ΔS<sub>surr</sub> = −ΔH/T &gt; 0 for an exothermic step), and the total entropy still rises. Also keep ΔH in kJ and ΔS in J, so convert before subtracting.</p></div>
 <div class="note exam"><p>Write ΔG = ΔH − TΔS, give the sign table, then spend the second half on adsorption: ΔH negative, ΔS negative, spontaneous below T = ΔH/ΔS. A short numeric example earns the application mark.</p></div>`,
-          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law']
+          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law'],
+          notes: ['m1-gibbs-helmholtz-third-law.0', 'm1-gibbs-helmholtz-third-law.1']
         },
         {
           n: '3',
@@ -964,7 +1003,8 @@ PAPERS({
 <div class="eq">ΔS = nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) = 1 × 2.5 × 8.314 × ln(1000/400) = 20.785 × 0.9163 = <b>19.05 J/K</b></div>
 <div class="note trap"><p>In (a), the sign of w depends on convention. If your class writes w = +nRT ln(V<sub>2</sub>/V<sub>1</sub>) for work done by the gas, say so and give +3458 J, with q = +3458 J too. Use ln, not log<sub>10</sub>, and Kelvin.</p></div>
 <div class="note exam"><p>Part (a) gives w, q, ΔU, ΔH in Joules with signs and units; part (b) needs C<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) with the number 19.05 J/K. State R = 8.314 and show the substitution.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity']
+          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity'],
+          notes: ['m1-thermo-numericals.0', 'm1-thermo-numericals.2']
         },
         {
           n: '4',
@@ -983,7 +1023,8 @@ PAPERS({
 <div class="eq">t<sub>1/2</sub> = 0.693/k = 0.6931/0.1535 = <b>4.52 min</b></div>
 <div class="note trap"><p>The 80 °C is only the condition; it is not used in the arithmetic. Do not convert to Kelvin here. If seconds are wanted: k = 2.56 × 10<sup>−3</sup> s<sup>−1</sup>.</p></div>
 <div class="note exam"><p>Part (a): the diagram with two humps and the same ΔH, plus the sentence linking lower E<sub>a</sub> to larger k. Part (b): the first-order formula, k = 0.1535 min<sup>−1</sup> and t<sub>1/2</sub> = 4.52 min with units.</p></div>`,
-          topics: ['m1-catalysis', 'm1-integrated-rate']
+          topics: ['m1-catalysis', 'm1-integrated-rate'],
+          notes: ['m1-catalysis.1', 'm1-kinetics-numericals.2']
         },
         {
           n: '5',
@@ -1000,7 +1041,8 @@ PAPERS({
 <p><b>Example.</b> Take E<sub>a</sub> = 50 kJ/mol. The fraction of energetic molecules is e<sup>−50000/(8.314 × 300)</sup> = 2.0 × 10<sup>−9</sup> at 300 K and 3.8 × 10<sup>−9</sup> at 310 K. A 10 K rise therefore raises k by a factor of about 1.9, which is the familiar rule that the rate roughly doubles per 10 °C. Everyday case: milk spoils faster at room temperature than in a fridge.</p>
 <div class="note trap"><p>The temperature effect is not mainly more collisions: collision frequency rises only about 1.6% for 10 K near 300 K, while the energetic fraction nearly doubles. Also, E<sub>a</sub> itself does not change with T.</p></div>
 <div class="note exam"><p>Draw the two Maxwell–Boltzmann curves with the area beyond E<sub>a</sub> shaded, write k = A e<sup>−E<sub>a</sub>/RT</sup> with each term defined, and give one worked example showing the rate roughly doubling for a 10 K rise.</p></div>`,
-          topics: ['m1-collision-arrhenius']
+          topics: ['m1-collision-arrhenius'],
+          notes: ['m1-collision-arrhenius.0', 'm1-collision-arrhenius.3', 'm1-collision-arrhenius.4']
         }
       ]
     },
@@ -1033,7 +1075,8 @@ PAPERS({
 <p><b>Internal energy:</b> for an ideal gas U depends only on T (no intermolecular forces), so for an isothermal process <b>ΔU = 0</b> and q = −w. The heat absorbed equals the work done by the gas, and more heat is absorbed on the reversible path.</p>
 <div class="note trap"><p>Both paths join the same two states, so ΔU, ΔH and ΔS of the gas are the same. Only q and w differ, because they are path functions.</p></div>
 <div class="note exam"><p>Draw the isotherm with the full area shaded for reversible and a rectangle for irreversible. State w<sub>rev</sub> and w<sub>irr</sub> and end with ΔU = 0 for an ideal gas at constant T.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-zeroth-first-law']
+          topics: ['m1-expansion-work', 'm1-zeroth-first-law'],
+          notes: ['m1-expansion-work.0', 'm1-thermo-basics.3']
         },
         {
           n: '2',
@@ -1056,7 +1099,8 @@ PAPERS({
 <div class="eq">Example: T<sub>h</sub> = 600 K, T<sub>c</sub> = 300 K gives η = 0.50. Raising T<sub>h</sub> to 900 K gives 0.667; lowering T<sub>c</sub> to 200 K at T<sub>h</sub> = 600 K gives 0.667.</div>
 <div class="note trap"><p>Efficiency never reaches 1, since that needs T<sub>c</sub> = 0 K (or T<sub>h</sub> infinite). Use Kelvin throughout.</p></div>
 <div class="note exam"><p>The four labelled steps on the PV diagram and the efficiency derivation take most marks. The last part is answered with the two points: higher T<sub>h</sub> and lower T<sub>c</sub>, plus keeping the engine reversible.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-second-law-entropy']
+          topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-carnot-cycle.3']
         },
         {
           n: '3',
@@ -1072,7 +1116,8 @@ PAPERS({
 <div class="eq">ΔS = nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) = 5 × 2.5 × 8.314 × ln(800/350) = 103.925 × 0.8267 = <b>85.9 J/K</b></div>
 <div class="note trap"><p>The question gives C<sub>v</sub> but the process is at constant P, so convert to C<sub>p</sub>. Using C<sub>v</sub> directly gives 51.5 J/K, which is wrong. The ratio of pressures, not volumes, appears in (a); the question gives pressures.</p></div>
 <div class="note exam"><p>Part (a): w = −1729 J with the formula shown. Part (b): convert to C<sub>p</sub> = 5R/2 and give 85.9 J/K. The conversion step is the mark that is usually lost.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity']
+          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity'],
+          notes: ['m1-thermo-numericals.0', 'm1-thermo-numericals.2']
         },
         {
           n: '4',
@@ -1091,7 +1136,8 @@ PAPERS({
 <div class="eq">k = 0.6931/30 min = <b>0.0231 min<sup>−1</sup></b> (= 3.85 × 10<sup>−4</sup> s<sup>−1</sup>)</div>
 <div class="note trap"><p>This formula holds only for first order, where t<sub>1/2</sub> does not depend on concentration. The question does not state the order, so say you are assuming first (pseudo-first) order for an ester hydrolysis.</p></div>
 <div class="note exam"><p>Part (a): list the factors, give the Arrhenius form and the two-temperature version. Part (b): k = 0.0231 min<sup>−1</sup> with the assumption of first order stated.</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-integrated-rate', 'm1-rate-law']
+          topics: ['m1-collision-arrhenius', 'm1-integrated-rate', 'm1-rate-law'],
+          notes: ['m1-rate-law.0', 'm1-collision-arrhenius.4', 'm1-kinetics-numericals.0']
         },
         {
           n: '5',
@@ -1110,7 +1156,8 @@ PAPERS({
 <li>2SO<sub>2</sub>(g) + O<sub>2</sub>(g) →(V<sub>2</sub>O<sub>5</sub>(s)) 2SO<sub>3</sub>(g) (contact process); or C<sub>2</sub>H<sub>4</sub>(g) + H<sub>2</sub>(g) →(Ni(s)) C<sub>2</sub>H<sub>6</sub>(g)</li></ul>
 <div class="note trap"><p>Do not write that a catalyst makes a non-spontaneous reaction go. If ΔG &gt; 0 a catalyst cannot help. It only speeds a thermodynamically feasible reaction.</p></div>
 <div class="note exam"><p>Energy diagram with E<sub>a</sub> and E<sub>a</sub>' and equal ΔH, a sentence on lowering E<sub>a</sub>, then four balanced equations with the catalyst written above the arrow, two for each type.</p></div>`,
-          topics: ['m1-catalysis']
+          topics: ['m1-catalysis'],
+          notes: ['m1-catalysis.1', 'm1-catalysis.2']
         }
       ]
     },
@@ -1145,7 +1192,8 @@ PAPERS({
 <p><b>Equilibrium:</b> ΔG = 0 gives ΔH = TΔS, so T<sub>eq</sub> = ΔH/ΔS. Example: ice at 273 K, ΔH<sub>fus</sub> = 6010 J/mol, ΔS = 22 J/mol/K, ΔG = 6010 − 273 × 22 = 4 J/mol, about 0. Also ΔG° = −RT ln K links ΔG to the equilibrium constant.</p>
 <div class="note trap"><p>ΔG &lt; 0 predicts feasibility, not speed. A spontaneous reaction (diamond to graphite) can be extremely slow. Also ΔH in kJ and ΔS in J must be matched before computing TΔS.</p></div>
 <div class="note exam"><p>State ΔG = ΔH − TΔS, the three conditions (ΔG &lt; 0, = 0, &gt; 0) and all four ΔH/ΔS sign cases with one example each, including T<sub>eq</sub> = ΔH/ΔS for equilibrium.</p></div>`,
-          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law']
+          topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law'],
+          notes: ['m1-free-energy.1', 'm1-free-energy.2', 'm1-gibbs-helmholtz-third-law.1']
         },
         {
           n: '2',
@@ -1163,7 +1211,8 @@ PAPERS({
 <div class="eq">Example: T<sub>h</sub> = 500 K, T<sub>c</sub> = 300 K gives η = 1 − 300/500 = 0.40 (40%).</div>
 <div class="note trap"><p>Temperatures must be in Kelvin. Using 27 °C and 227 °C directly would give 1 − 27/227 = 0.88, which is wrong.</p></div>
 <div class="note exam"><p>Derive η = 1 − T<sub>c</sub>/T<sub>h</sub> from the cycle, point out that the volume ratios cancel, and give both reasons it cannot reach 1 (third law and the second law).</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-second-law-entropy']
+          topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
+          notes: ['m1-carnot-cycle.2', 'm1-carnot-cycle.3']
         },
         {
           n: '3',
@@ -1181,7 +1230,8 @@ PAPERS({
 <div class="eq">= 1.5 × 8.314 × ln(350/250) + 8.314 × ln(40/25) = 12.471 × 0.3365 + 8.314 × 0.4700 = 4.196 + 3.908 = <b>8.10 J/K</b></div>
 <div class="note trap"><p>In (a), 25 kJ against 80 J: not converting units gives 25 − 298 × 80, nonsense. In (b) the process is reversible, so ΔS<sub>total</sub> is the system's ΔS plus ΔS<sub>surr</sub> = −ΔS, which sums to zero; the 8.10 J/K is for the gas. The question's "total change in entropy" means the sum of the T and V terms.</p></div>
 <div class="note exam"><p>Part (a): ΔG<sub>298</sub> = +1.16 kJ/mol, ΔG<sub>500</sub> = −15.0 kJ/mol, with the units converted, and the comment on the crossover at 312.5 K. Part (b): both terms and 8.10 J/K.</p></div>`,
-          topics: ['m1-free-energy', 'm1-thermo-numericals', 'm1-second-law-entropy']
+          topics: ['m1-free-energy', 'm1-thermo-numericals', 'm1-second-law-entropy'],
+          notes: ['m1-thermo-numericals.3', 'm1-thermo-numericals.2']
         },
         {
           n: '4',
@@ -1205,7 +1255,8 @@ PAPERS({
 <div class="eq">t<sub>1/2</sub> = 0.6931/0.02310 = <b>30 min</b></div>
 <div class="note trap"><p>The concentration fell by a factor of 4, which is exactly two half-lives, so t<sub>1/2</sub> = 60/2 = 30 min is a quick check. Time is in minutes, so k is in min<sup>−1</sup>; k = 3.85 × 10<sup>−4</sup> s<sup>−1</sup>.</p></div>
 <div class="note exam"><p>Part (a): the comparison table and the three plots. Part (b): k = 0.0231 min<sup>−1</sup> and t<sub>1/2</sub> = 30 min, with the two-half-lives check.</p></div>`,
-          topics: ['m1-integrated-rate', 'm1-rate-law']
+          topics: ['m1-integrated-rate', 'm1-rate-law'],
+          notes: ['m1-integrated-rate.1', 'm1-integrated-rate.2', 'm1-kinetics-numericals.2']
         },
         {
           n: '5',
@@ -1222,7 +1273,8 @@ PAPERS({
 <p><b>Importance:</b> E<sub>a</sub> sets how fast the reaction goes: a high barrier means slow reaction even though ΔH is negative (acetonitrile is more stable, yet CH<sub>3</sub>NC is stable at room temperature and rearranges noticeably only on heating, around 200 °C). A larger E<sub>a</sub> also makes k more sensitive to temperature, and a catalyst works by lowering it.</p>
 <div class="note trap"><p>E<sub>a</sub> is not ΔH. E<sub>a</sub> is the forward barrier; ΔH is the difference between product and reactant levels. The ΔH value quoted is the commonly given figure from textbooks (about −42 kJ/mol), so state it as approximate if you quote it.</p></div>
 <div class="note exam"><p>State the Arrhenius equation with terms, the effect of T, define E<sub>a</sub> and draw the methyl isonitrile profile with E<sub>a</sub> and ΔH marked and the transition state labelled.</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-catalysis']
+          topics: ['m1-collision-arrhenius', 'm1-catalysis'],
+          notes: ['m1-collision-arrhenius.4', 'm1-collision-arrhenius.2']
         }
       ]
     },
@@ -1270,7 +1322,8 @@ PAPERS({
 <div class="result">The adiabatic expansion does less work (1384 J against 1729 J) and the gas cools by 111 K.</div></div>
 <div class="note trap"><p>Do not write ΔU = 0 for the adiabatic case: that is the isothermal result. Also keep the sign convention consistent: work done by the gas is negative when ΔU = q + w.</p></div>
 <div class="note exam"><p>Ten marks: about 3 for each process (definition, q, w, ΔU), and 2 for the two labelled P–V diagrams. State the sign convention you use.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-zeroth-first-law']
+          topics: ['m1-expansion-work', 'm1-zeroth-first-law'],
+          notes: ['m1-expansion-work.0', 'm1-expansion-work.1']
         },
         {
           n: '2',
@@ -1298,7 +1351,8 @@ PAPERS({
 <div class="result">At most 50% of the heat absorbed can become work.</div></div>
 <div class="note trap"><p>Using °C in 1 − T<sub>c</sub>/T<sub>h</sub> is the commonest slip. Convert to kelvin first. Also label the stroke curves correctly: the steeper curves are the adiabats.</p></div>
 <div class="note exam"><p>Ten marks: the four strokes (4), a labelled P–V loop with the enclosed area marked as net work (3), and η = 1 − T<sub>c</sub>/T<sub>h</sub> with its significance (3).</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-second-law-entropy']
+          topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2']
         },
         {
           n: '3',
@@ -1318,7 +1372,8 @@ PAPERS({
 <div class="eq">W = η × q<sub>h</sub> = 0.40 × 600 = <b>240 J</b></div>
 <p>The heat rejected to the cold reservoir is 600 − 240 = 360 J.</p>
 <div class="note exam"><p>Five marks each. In (a) show the unit conversion, the sign of ΔG and the verdict. In (b) give η as a fraction or percentage and W with its unit.</p></div>`,
-          topics: ['m1-free-energy', 'm1-carnot-cycle', 'm1-thermo-numericals']
+          topics: ['m1-free-energy', 'm1-carnot-cycle', 'm1-thermo-numericals'],
+          notes: ['m1-thermo-numericals.3', 'm1-thermo-numericals.4']
         },
         {
           n: '4',
@@ -1342,7 +1397,8 @@ PAPERS({
 <div class="eq">t = (1/k) ln 10 = 2.303 / 0.1003 = <b>22.95 h ≈ 23 h</b></div>
 <div class="note trap"><p>Use the fraction remaining, not the fraction reacted, inside the logarithm. Putting 0.70 in place of 0.30 gives a wrong k. Check: 23 h is greater than 12 h, as it must be for a higher conversion.</p></div>
 <div class="note exam"><p>In (a) the key words are experimental against theoretical, overall against elementary step, with one fractional and one zero-order example. In (b) show k, then t with its unit.</p></div>`,
-          topics: ['m1-rate-law', 'm1-integrated-rate']
+          topics: ['m1-rate-law', 'm1-integrated-rate'],
+          notes: ['m1-rate-law.4', 'm1-kinetics-numericals.1']
         },
         {
           n: '5',
@@ -1368,7 +1424,8 @@ PAPERS({
 <div class="result">E<sub>a</sub> ≈ 54 kJ/mol. This is only an illustration of the rule; the measured value for CH<sub>3</sub>NC isomerisation is considerably higher (about 160 kJ/mol), so its rate is more sensitive to temperature than a doubling per 10 °C.</div></div>
 <div class="note trap"><p>Two common slips: plotting ln k against T instead of 1/T, and forgetting the negative sign, so that E<sub>a</sub> comes out negative. Use kelvin throughout.</p></div>
 <div class="note exam"><p>Ten marks: the collision reason for the rise with T (3), the equation and its log form (3), the plot with slope = −E<sub>a</sub>/R (3), and the methyl isonitrile reference (1).</p></div>`,
-          topics: ['m1-collision-arrhenius', 'm1-integrated-rate']
+          topics: ['m1-collision-arrhenius', 'm1-integrated-rate'],
+          notes: ['m1-collision-arrhenius.4', 'm1-kinetics-numericals.4']
         }
       ]
     },
@@ -1400,7 +1457,8 @@ PAPERS({
 <p><b>Justification:</b> in the Daniell cell E°<sub>cell</sub> is positive and ΔG° = −nFE° = −2 × 96485 × 1.10 = −212 kJ/mol, so it can drive a load. For NaCl the sign is reversed, so an external voltage larger than this magnitude has to be applied.</p>
 <div class="note trap"><p>The sign labels of the electrodes swap between the two cells (anode negative in galvanic, positive in electrolytic), but oxidation always happens at the anode.</p></div>
 <div class="note exam"><p>Five marks: a comparison table with at least four rows (2), one example each with half reactions (2), and the ΔG justification (1).</p></div>`,
-          topics: ['m2-electrochemical-cells', 'm2-electrolysis']
+          topics: ['m2-electrochemical-cells', 'm2-electrolysis'],
+          notes: ['m2-electrochemical-cells.0', 'm2-electrolysis.0']
         },
         {
           n: '1b',
@@ -1420,7 +1478,8 @@ PAPERS({
 <p>On a graph of resistivity against T, the metal curve slopes upward and the semiconductor curve slopes downward.</p>
 <div class="note trap"><p>Do not say semiconductors have fewer collisions at high T. The point is that carrier number rises faster than mobility falls. At very high T a doped semiconductor becomes intrinsic.</p></div>
 <div class="note exam"><p>Five marks: the opposite trends (1), the mechanism for metals (2) and for semiconductors (2). A small sketch of resistivity against T for both earns the diagram mark.</p></div>`,
-          topics: ['m3-ohm-resistivity', 'm3-band-theory']
+          topics: ['m3-ohm-resistivity', 'm3-band-theory'],
+          notes: ['m3-ohm-resistivity.1', 'm3-band-theory.2', 'm2-semiconductors.1']
         },
         {
           n: '2a',
@@ -1443,7 +1502,8 @@ PAPERS({
 <div class="result">Si absorbs visible and near-infrared light up to about 1130 nm.</div></div>
 <div class="note trap"><p>A bigger bandgap does not mean a better cell. It raises the voltage but cuts the current, so the optimum is in the middle.</p></div>
 <div class="note exam"><p>Five marks: p–n junction and photon absorption steps with a neat diagram (3), the effect of too large and too small a gap with the optimum (2).</p></div>`,
-          topics: ['m2-photovoltaics']
+          topics: ['m2-photovoltaics'],
+          notes: ['m2-photovoltaics.0', 'm2-photovoltaics.4', 'm2-photovoltaics.6']
         },
         {
           n: '2b',
@@ -1467,7 +1527,8 @@ PAPERS({
 <p>The iodide in the electrolyte donates an electron to the oxidised dye, restoring it to the neutral ground state. The iodide is oxidised to triiodide, which diffuses to the counter electrode and is reduced back to iodide with the electrons that have travelled through the load. Nothing is consumed overall.</p>
 <div class="note trap"><p>The electron does not pass through the dye to the electrolyte directly. It goes from the dye into TiO<sub>2</sub> and round the external circuit; the dye gets its replacement electron from I<sup>−</sup>.</p></div>
 <div class="note exam"><p>Five marks: each of the five components with its role (3) and the regeneration reactions I<sup>−</sup> to I<sub>3</sub><sup>−</sup> to I<sup>−</sup> (2).</p></div>`,
-          topics: ['m2-dssc']
+          topics: ['m2-dssc'],
+          notes: ['m2-dssc.2', 'm2-dssc.3', 'm2-dssc.4', 'm2-dssc.1']
         },
         {
           n: '3a',
@@ -1489,7 +1550,8 @@ PAPERS({
 <li><b>Solid electrolyte</b>: no leakage, no membrane to keep wet, so no water management problem. A PEMFC membrane must stay hydrated.</li></ul>
 <div class="note trap"><p>In an SOFC the mobile ion is O<sup>2−</sup> and water forms at the <b>anode</b>. In a PEMFC the mobile ion is H<sup>+</sup> and water forms at the cathode. A good drawback to mention: the high temperature means slow start-up and material stress.</p></div>
 <div class="note exam"><p>Five marks: the two electrode reactions (2) and three or more advantages with reasons (3).</p></div>`,
-          topics: ['m2-sofc', 'm2-pemfc']
+          topics: ['m2-sofc', 'm2-pemfc'],
+          notes: ['m2-sofc.2', 'm2-sofc.4']
         },
         {
           n: '3b',
@@ -1511,7 +1573,8 @@ PAPERS({
 <li>SQUID magnetometers for very weak fields.</li></ul>
 <div class="note trap"><p>Zero resistance and the Meissner effect are two separate properties. Zero resistance alone does not explain field expulsion.</p></div>
 <div class="note exam"><p>Five marks: definition with T<sub>c</sub> (1), Meissner effect with a field-line diagram (3), applications (1).</p></div>`,
-          topics: ['m3-superconductors']
+          topics: ['m3-superconductors'],
+          notes: ['m3-superconductors.0', 'm3-superconductors.2', 'm3-superconductors.6']
         },
         {
           n: '4',
@@ -1532,7 +1595,8 @@ PAPERS({
 <li>The ordered types lose order at T<sub>C</sub> (Curie) or T<sub>N</sub> (Néel) and become paramagnetic.</li></ul>
 <div class="note trap"><p>Ferrimagnets and antiferromagnets both have antiparallel neighbours. The difference is whether the opposing moments are equal (cancel, antiferromagnet) or unequal (net moment, ferrimagnet).</p></div>
 <div class="note exam"><p>Ten marks: about 2 for each type, 2 for correct spin-arrow sketches in the absence and presence of a field. A compact table plus arrow rows is the quickest way to score.</p></div>`,
-          topics: ['m3-magnetic-classes']
+          topics: ['m3-magnetic-classes'],
+          notes: ['m3-magnetic-classes.2', 'm3-magnetic-classes.3', 'm3-magnetic-classes.4', 'm3-magnetic-classes.5', 'm3-magnetic-classes.6']
         },
         {
           n: '5a',
@@ -1553,7 +1617,8 @@ PAPERS({
 <tr><td>Hard (alnico, NdFeB)</td><td>Wide, high H<sub>c</sub> and M<sub>r</sub></td><td>Permanent magnets, data storage</td></tr></tbody></table>
 <div class="note trap"><p>Retentivity is the M value on the vertical axis at H = 0, and coercivity is the H value on the horizontal axis at M = 0. Do not swap the intercepts.</p></div>
 <div class="note exam"><p>Five marks: a properly labelled loop with M<sub>s</sub>, M<sub>r</sub>, H<sub>c</sub> (3), explanation of the lag and the loop area (1), soft against hard (1).</p></div>`,
-          topics: ['m3-hysteresis-storage']
+          topics: ['m3-hysteresis-storage'],
+          notes: ['m3-hysteresis-storage.1']
         },
         {
           n: '5b',
@@ -1575,7 +1640,8 @@ PAPERS({
 <p>A practical choice is water with glycol and corrosion inhibitors in a closed cold-plate loop; nanofluids (nanoparticles in water) raise k further, and dielectric fluids suit direct contact with the electronics.</p>
 <div class="note trap"><p>Water is the best at carrying heat, but it conducts electricity (when impure) and corrodes metals, so on its own it fails the safety checks. Mention inhibitors or a dielectric fluid.</p></div>
 <div class="note exam"><p>Five marks: definition with unit (2) and at least four reasoned coolant properties (3).</p></div>`,
-          topics: ['m3-coolants']
+          topics: ['m3-coolants'],
+          notes: ['m3-coolants.2', 'm3-coolants.5']
         }
       ]
     },
@@ -1610,7 +1676,8 @@ PAPERS({
 <p><b>Example:</b> steam at 300 °C (573 K) rejecting heat at 20 °C (293 K): η = 1 − 293/573 = 0.489, i.e. 48.9%.</p>
 <div class="note trap"><p>Use kelvin in the formula. Putting 300 and 20 in directly gives a meaningless value. The result does not depend on the working substance or on the volumes.</p></div>
 <div class="note exam"><p>Ten marks: P–V diagram with the four labelled strokes, the heat expression for each isotherm, the V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> step, and the final η with the statement that it depends only on the two temperatures.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-second-law-entropy']
+          topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-carnot-cycle.3']
         },
         {
           n: '2',
@@ -1632,7 +1699,8 @@ PAPERS({
 <p><b>Disadvantages:</b> the liquid electrolyte can leak, evaporate or freeze; the dye degrades under UV and heat; efficiency (about 10–12% for the best Ru cells, much lower with natural dyes) is below silicon; sealing and long-term stability are difficult.</p>
 <div class="note trap"><p>The electron is injected from the excited dye into TiO<sub>2</sub>. TiO<sub>2</sub> itself absorbs only UV, so it is not the visible-light absorber.</p></div>
 <div class="note exam"><p>Name the device, draw the labelled cell with the electron path, give the five-step working, then two or three points each for advantages and disadvantages.</p></div>`,
-          topics: ['m2-dssc', 'm2-pec-cells']
+          topics: ['m2-dssc', 'm2-pec-cells'],
+          notes: ['m2-dssc.0', 'm2-dssc.1', 'm2-dssc.6']
         },
         {
           n: '3',
@@ -1649,7 +1717,8 @@ PAPERS({
 <p><b>Five applications:</b> (1) MRI and NMR magnets; (2) maglev trains and frictionless magnetic bearings, using levitation; (3) lossless power transmission cables; (4) SQUID magnetometers that detect very small fields; (5) fault-current limiters, compact motors and generators, and microwave filters.</p>
 <div class="note trap"><p>93 K is "high" only compared with metals such as Pb (7.2 K) and Nb (9.2 K). It is far below room temperature, so cooling is still needed.</p></div>
 <div class="note exam"><p>Give T<sub>c</sub> = 93 K with the liquid-nitrogen point, two or three structural or magnetic characteristics, and five distinct applications.</p></div>`,
-          topics: ['m3-superconductors']
+          topics: ['m3-superconductors'],
+          notes: ['m3-superconductors.4', 'm3-superconductors.6']
         },
         {
           n: '4',
@@ -1664,7 +1733,8 @@ PAPERS({
 <p><b>Use in identification:</b> the λ<sub>max</sub> and ε point to the chromophore. A strong band near 250–280 nm suggests a π → π* transition of a benzene ring; a weak band near 280–300 nm suggests n → π* of a carbonyl. Longer conjugation moves λ<sub>max</sub> to longer wavelength (red shift); auxochromes such as –OH and –NH<sub>2</sub> add a red shift and raise ε. A compound with only σ bonds shows no band above 200 nm.</p>
 <div class="note trap"><p>Beer-Lambert holds for dilute solutions (A below about 1) and monochromatic light. Do not mix up the two carbonyl bands: n → π* is weak and at longer wavelength, π → π* is strong and at shorter wavelength.</p></div>
 <div class="note exam"><p>Five marks for principle with A = εcl and its terms; five for the four transitions with examples and how the band position and intensity identify the chromophore.</p></div>`,
-          topics: ['m4-uv-vis', 'm4-beer-lambert']
+          topics: ['m4-uv-vis', 'm4-beer-lambert'],
+          notes: ['m4-beer-lambert.0', 'm4-uv-vis.2', 'm4-uv-vis.3']
         },
         {
           n: '5',
@@ -1686,7 +1756,8 @@ PAPERS({
 <p>For a homonuclear diatomic (H<sub>AA</sub> = H<sub>BB</sub> = α, H<sub>AB</sub> = β, overlap S) the roots are E<sub>±</sub> = (α ± β)/(1 ± S). The in-phase combination ψ<sub>b</sub> = φ<sub>A</sub> + φ<sub>B</sub> is lower in energy (bonding, electron density between the nuclei); the out-of-phase combination ψ<sub>a</sub> = φ<sub>A</sub> − φ<sub>B</sub> is higher (antibonding, a node between the nuclei). Electrons fill the MOs by the Aufbau, Pauli and Hund rules, and bond order = (N<sub>b</sub> − N<sub>a</sub>)/2. For H<sub>2</sub>: σ1s<sup>2</sup>, bond order 1, so the bond forms.</p>
 <div class="note trap"><p>A bond forms only when the bonding electrons outnumber the antibonding ones. In He<sub>2</sub> both MOs are full, bond order 0, no bond. The antibonding MO rises more than the bonding MO falls, because of the overlap term in the denominator.</p></div>
 <div class="note exam"><p>(a) five distinct merits. (b) Ĥψ = Eψ, the LCAO form, the two energies E<sub>±</sub>, and the bonding/antibonding picture with bond order.</p></div>`,
-          topics: ['m5-comp-intro', 'm5-molecular-orbitals']
+          topics: ['m5-comp-intro', 'm5-molecular-orbitals'],
+          notes: ['m5-comp-intro.1', 'm5-molecular-orbitals.2']
         },
         {
           n: '6',
@@ -1706,7 +1777,8 @@ PAPERS({
 <div class="eq">D ≈ <b>95.8 Å ≈ 9.6 nm</b></div>
 <div class="note trap"><p>The printed peak position is 2θ, so use θ = 12.805° in cos θ. The FWHM must be in radians. Using 25.61° inside the cosine gives 10.6 nm, which is wrong.</p></div>
 <div class="note exam"><p>Diagram with labels (tube, sample, goniometer, detector) and nλ = 2d sin θ for about half the marks; the rest for θ, β in radians and D with unit.</p></div>`,
-          topics: ['m4-bragg', 'm4-scherrer', 'm4-xrd-patterns']
+          topics: ['m4-bragg', 'm4-scherrer', 'm4-xrd-patterns'],
+          notes: ['m4-xrd-patterns.0', 'm4-bragg.4', 'm4-scherrer.2']
         },
         {
           n: '7',
@@ -1723,7 +1795,8 @@ PAPERS({
 <p><b>Applications:</b> (1) transformer and motor cores (soft magnets); (2) permanent magnets in loudspeakers, motors and generators (hard magnets such as Nd–Fe–B); (3) data storage on hard disks and magnetic tape; (4) MRI magnets and contrast agents; (5) magnetic separation, sensors and ferrite-core devices.</p>
 <div class="note trap"><p>Ferromagnets become paramagnetic above the Curie temperature. Paramagnetism is not permanent; only the aligned domains of a ferromagnet keep their magnetisation.</p></div>
 <div class="note exam"><p>Five marks for a table with at least four comparison rows and examples; five marks for five named applications.</p></div>`,
-          topics: ['m3-magnetic-classes', 'm3-magnetic-basics']
+          topics: ['m3-magnetic-classes', 'm3-magnetic-basics'],
+          notes: ['m3-magnetic-classes.6', 'm3-hysteresis-storage.2']
         },
         {
           n: '8',
@@ -1741,7 +1814,8 @@ PAPERS({
 <div class="eq">t ≈ <b>53.2 min</b> (about 6.64 half-lives)</div>
 <div class="note trap"><p>In (a) the work is not nRT ln(V<sub>2</sub>/V<sub>1</sub>); that is the reversible path and would give −1.70 kJ. Irreversible expansion against a fixed pressure uses −P<sub>ex</sub>ΔV. In (b), 1% means [A]/[A]<sub>0</sub> = 0.01.</p></div>
 <div class="note exam"><p>(a) the formula, the dm<sup>3</sup> atm to J conversion, and the reason ΔU = ΔH = 0. (b) k from the half-life, then the first-order integrated form.</p></div>`,
-          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-integrated-rate']
+          topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-integrated-rate'],
+          notes: ['m1-thermo-numericals.0', 'm1-kinetics-numericals.1']
         },
         {
           n: '9',
@@ -1768,7 +1842,8 @@ PAPERS({
 <p><b>Advantages:</b> high energy density (about 150–250 Wh/kg), about 3.6 V per cell, low self-discharge, no memory effect, hundreds to thousands of cycles. <b>Disadvantages:</b> cost (Co), overheating or thermal runaway if damaged, capacity fade with age, needs a protection circuit.</p>
 <div class="note trap"><p>In the SOFC the mobile ion is O<sup>2−</sup>, moving cathode to anode, the opposite direction to H<sup>+</sup> in a PEMFC. Answer only one of 9.a or 9.b.</p></div>
 <div class="note exam"><p>Labelled diagram, both electrode reactions and the overall reaction for 6 of the 10 marks; the rest for advantages (SOFC) or the advantage/disadvantage lists (Li-ion).</p></div>`,
-          topics: ['m2-sofc', 'm2-fuel-cells', 'm2-li-ion']
+          topics: ['m2-sofc', 'm2-fuel-cells', 'm2-li-ion'],
+          notes: ['m2-sofc.1', 'm2-sofc.3', 'm2-li-ion.3', 'm2-li-ion.7']
         },
         {
           n: '10',
@@ -1793,7 +1868,8 @@ PAPERS({
 <p>Particle size is tuned by the water:TEOS ratio, catalyst, temperature and solvent. Advantages: low temperature, high purity, good size control. Disadvantages: costly precursors, shrinkage and cracking on drying.</p>
 <div class="note trap"><p>Hydrolysis comes before condensation. Answer only one of 10.a or 10.b.</p></div>
 <div class="note exam"><p>10.a: schematic (jar, balls, motion arrows), mechanism, and at least four limitations. 10.b: the five steps in order with the hydrolysis and condensation equations.</p></div>`,
-          topics: ['m3-milling', 'm3-synthesis', 'm3-sol-gel']
+          topics: ['m3-milling', 'm3-synthesis', 'm3-sol-gel'],
+          notes: ['m3-milling.2', 'm3-milling.3', 'm3-sol-gel.1', 'm3-sol-gel.3']
         }
       ]
     },
@@ -1821,7 +1897,8 @@ PAPERS({
 <p><b>Effect of temperature:</b> a higher T raises molecular speed, so collisions are slightly more frequent (Z ∝ √T, a small effect). The large effect is on <b>effectiveness</b>: the fraction of molecules with E ≥ E<sub>a</sub>, e<sup>−E<sub>a</sub>/RT</sup>, grows exponentially, so the rate roughly doubles for a 10 °C rise.</p>
 <div class="note trap"><p>Most collisions fail. Do not say the faster rate at high T is mainly due to more frequent collisions; it is mainly due to more collisions being energetic enough.</p></div>
 <div class="note exam"><p>Three factors, the k = A e<sup>−E<sub>a</sub>/RT</sup> equation, and the split between frequency (small effect) and effectiveness (large effect).</p></div>`,
-          topics: ['m1-collision-arrhenius']
+          topics: ['m1-collision-arrhenius'],
+          notes: ['m1-collision-arrhenius.0', 'm1-collision-arrhenius.1', 'm1-collision-arrhenius.3']
         },
         {
           n: '2',
@@ -1838,7 +1915,8 @@ PAPERS({
 <div class="eq">R(4.2 K) = <b>0 Ω</b></div>
 <div class="note trap"><p>Do not scale the 1.2 μΩ with temperature as for a normal metal. The fall at T<sub>c</sub> is a sharp transition to exactly zero, so the given 1.2 μΩ is a distractor.</p></div>
 <div class="note exam"><p>One mark per definition, with the idea of "destroys superconductivity" for H<sub>c</sub> and J<sub>c</sub>; (b) 0 Ω with the reason (T below T<sub>c</sub>).</p></div>`,
-          topics: ['m3-superconductors']
+          topics: ['m3-superconductors'],
+          notes: ['m3-superconductors.1', 'm3-superconductors.0']
         },
         {
           n: '3',
@@ -1855,7 +1933,8 @@ PAPERS({
 <p>Size is tuned by the water:TEOS ratio, pH, temperature and the amount of ammonia. Advantages: low temperature, purity, size control. Drawback: costly precursors and shrinkage on drying.</p>
 <div class="note trap"><p>Hydrolysis before condensation; the by-products are ethanol and water, not alcohol alone.</p></div>
 <div class="note exam"><p>List the steps in order with the two key equations; one line on size control earns the last mark.</p></div>`,
-          topics: ['m3-sol-gel', 'm3-synthesis']
+          topics: ['m3-sol-gel', 'm3-synthesis'],
+          notes: ['m3-sol-gel.3', 'm3-sol-gel.1']
         },
         {
           n: '4',
@@ -1872,7 +1951,8 @@ PAPERS({
 <tr><td>Performance</td><td>Quick start, high power density, 40–60% efficient; vehicles and portable use</td><td>Slow start, about 60% (over 80% with heat recovery); stationary power plants</td></tr></tbody></table>
 <div class="note trap"><p>The ions move in opposite directions: H<sup>+</sup> from anode to cathode in the PEMFC, O<sup>2−</sup> from cathode to anode in the SOFC.</p></div>
 <div class="note exam"><p>A table covering the three asked headings (temperature, materials, performance) is enough for full marks.</p></div>`,
-          topics: ['m2-pemfc', 'm2-sofc', 'm2-fuel-cells']
+          topics: ['m2-pemfc', 'm2-sofc', 'm2-fuel-cells'],
+          notes: ['m2-sofc.4']
         },
         {
           n: '5',
@@ -1888,7 +1968,8 @@ PAPERS({
 <p>The excited dye injects an electron into TiO<sub>2</sub>; it flows through the external circuit to the Pt electrode and reduces I<sub>3</sub><sup>−</sup> to I<sup>−</sup>, and I<sup>−</sup> regenerates the dye. There is no net chemical change; light becomes current.</p>
 <div class="note trap"><p>The dye, not TiO<sub>2</sub>, absorbs the visible light.</p></div>
 <div class="note exam"><p>Labelled picture with the electron path (2 marks), components (1.5), working steps (1.5).</p></div>`,
-          topics: ['m2-dssc']
+          topics: ['m2-dssc'],
+          notes: ['m2-dssc.0', 'm2-dssc.1']
         },
         {
           n: '6',
@@ -1903,7 +1984,8 @@ PAPERS({
 <div class="eq">D ≈ <b>28.8 Å ≈ 2.88 nm</b></div>
 <div class="note trap"><p>Use θ = 10.905°, not 21.81°, in cos θ. No instrumental broadening is given, so it is ignored. A 2.81° FWHM is very broad, which fits a tiny crystallite of under 3 nm.</p></div>
 <div class="note exam"><p>Two marks for the definition contrast; three for θ, β in radians and D with unit.</p></div>`,
-          topics: ['m4-scherrer', 'm4-bragg']
+          topics: ['m4-scherrer', 'm4-bragg'],
+          notes: ['m4-scherrer.0', 'm4-scherrer.2']
         },
         {
           n: '7',
@@ -1911,13 +1993,15 @@ PAPERS({
           co: '4',
           bl: '4',
           prompt: `<p>Draw the molecular orbital energy diagram for O<sub>2</sub> and predict its bond order and magnetic property.</p>`,
-          answer: `<p>Diagram to draw: the 2s and 2p atomic orbitals of the two O atoms on the sides, the molecular orbitals in the centre. For O<sub>2</sub> the valence MOs from the bottom are σ2s, σ*2s, σ2p<sub>z</sub>, π2p<sub>x</sub> = π2p<sub>y</sub>, π*2p<sub>x</sub> = π*2p<sub>y</sub>, σ*2p<sub>z</sub> (the σ2p orbital lies above the π2p pair only for B<sub>2</sub>, C<sub>2</sub> and N<sub>2</sub>).</p>
+          answer: `<figure data-fig="m5-mo-o2"></figure>
+<p>Draw the 2s and 2p levels of each O atom at the sides and the molecular orbitals in the centre, as above. For O<sub>2</sub> the valence MOs from the bottom are σ2s, σ*2s, σ2p<sub>z</sub>, π2p<sub>x</sub> = π2p<sub>y</sub>, π*2p<sub>x</sub> = π*2p<sub>y</sub>, σ*2p<sub>z</sub> (the σ2p orbital lies above the π2p pair only for B<sub>2</sub>, C<sub>2</sub> and N<sub>2</sub>).</p>
 <div class="eq">σ1s<sup>2</sup> σ*1s<sup>2</sup> σ2s<sup>2</sup> σ*2s<sup>2</sup> σ2p<sub>z</sub><sup>2</sup> π2p<sub>x</sub><sup>2</sup> π2p<sub>y</sub><sup>2</sup> π*2p<sub>x</sub><sup>1</sup> π*2p<sub>y</sub><sup>1</sup></div>
 <div class="eq">Bond order = (N<sub>b</sub> − N<sub>a</sub>)/2 = (10 − 6)/2 = <b>2</b></div>
 <p>The two π* electrons are unpaired (Hund's rule, parallel spins), so O<sub>2</sub> is <b>paramagnetic</b> with two unpaired electrons, as seen when liquid oxygen is held by a magnet.</p>
 <div class="note trap"><p>Count all 16 electrons (or only the 12 valence electrons: 8 bonding, 4 antibonding, same bond order). Putting the last two electrons paired in one π* orbital would wrongly predict diamagnetism.</p></div>
 <div class="note exam"><p>The diagram with the right ordering and electron filling (3 marks), bond order 2 (1), paramagnetic with the reason (1).</p></div>`,
-          topics: ['m5-molecular-orbitals']
+          topics: ['m5-molecular-orbitals'],
+          notes: ['m5-molecular-orbitals.3']
         },
         {
           n: '8',
@@ -1940,7 +2024,8 @@ PAPERS({
 <div class="eq">ΔH = C<sub>p</sub>ΔT = 2.5 × 8.314 × (−155.8) = <b>−3238 J</b></div>
 <div class="note trap"><p>The exponent is R/C<sub>v</sub> = 2/3 (that is, γ − 1 for γ = 5/3), and the volume ratio is V<sub>i</sub>/V<sub>f</sub>. Taking ΔH = ΔU is wrong because C<sub>p</sub> = C<sub>v</sub> + R.</p></div>
 <div class="note exam"><p>(a) diagram, q<sub>h</sub> and q<sub>c</sub>, W = R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>) and the comment on the T difference. (b) T<sub>f</sub> first, then each quantity with a sign and unit.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-expansion-work', 'm1-thermo-numericals']
+          topics: ['m1-carnot-cycle', 'm1-expansion-work', 'm1-thermo-numericals'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-thermo-numericals.1']
         },
         {
           n: '9',
@@ -1963,7 +2048,8 @@ PAPERS({
 <div class="eq">ΔG = −nFE = −2 × 96485 × 2.96 = −5.71 × 10<sup>5</sup> J = <b>−571 kJ</b></div>
 <div class="note trap"><p>The printed E° = 3.17 V is for 1 M solutions. The question asks for ΔG of the cell as given, so use E (2.96 V), not E°; with E° you get the standard ΔG° = −612 kJ. Square [Ag<sup>+</sup>].</p></div>
 <div class="note exam"><p>(a) three reasons for lithium, the picture, and both reactions on charge and discharge. (b) the notation (2 marks), the Nernst step with the squared term, and ΔG = −nFE with unit.</p></div>`,
-          topics: ['m2-li-ion', 'm2-electrochemical-cells']
+          topics: ['m2-li-ion', 'm2-electrochemical-cells'],
+          notes: ['m2-li-ion.1', 'm2-li-ion.3', 'm2-electrochemical-cells.3']
         },
         {
           n: '10',
@@ -1983,7 +2069,8 @@ PAPERS({
 <p>Diagram: resistivity ρ on the y-axis, T on the x-axis. A normal metal falls smoothly and levels off at a small residual value. A superconductor follows the metal curve down to T<sub>c</sub>, then drops vertically to zero and stays at zero (for example Hg at 4.2 K, Pb at 7.2 K, YBCO at 93 K).</p>
 <div class="note trap"><p>Antiferromagnets cancel exactly; ferrimagnets cancel only partly. That difference is the point of the question.</p></div>
 <div class="note exam"><p>(a) a spin-arrow sketch for each of the four types, with net moment and example. (b) definition, the sharp drop at T<sub>c</sub> on a labelled graph.</p></div>`,
-          topics: ['m3-magnetic-classes', 'm3-superconductors']
+          topics: ['m3-magnetic-classes', 'm3-superconductors'],
+          notes: ['m3-magnetic-classes.6', 'm3-superconductors.0']
         },
         {
           n: '11',
@@ -1992,7 +2079,8 @@ PAPERS({
           bl: '3',
           prompt: `<p><b>a)</b> Explain the various transitions occurring in the UV-vis electronic spectroscopy with proper illustration and examples. (5 marks)</p>
 <p><b>b)</b> Describe the working principles and instrumentation of UV-visible spectroscopy and XRD. (10 marks)</p>`,
-          answer: `<p><b>(a)</b> Draw an MO ladder: σ, π and n (non-bonding) filled; σ* and π* empty, with arrows for the four jumps.</p>
+          answer: `<p><b>(a)</b> Draw the orbital ladder: σ, π and n (non-bonding) filled; σ* and π* empty, with an arrow for each of the four jumps.</p>
+<figure data-fig="m4-mo-ladder"></figure>
 <ul><li><b>σ → σ*:</b> largest gap, below 200 nm (CH<sub>4</sub>, ethane).</li>
 <li><b>n → σ*:</b> about 150–250 nm (H<sub>2</sub>O, alcohols, amines).</li>
 <li><b>π → π*:</b> 200–300 nm, longer with conjugation, strong (ethene 175 nm, butadiene 217 nm, benzene 255 nm).</li>
@@ -2005,7 +2093,8 @@ PAPERS({
 <p>Instrument: X-ray tube (Cu Kα, 1.5406 Å) with filter and slits → powder sample on a rotating stage (goniometer) → detector moved at 2θ → intensity against 2θ pattern. Peak positions give d and identify the phase; peak width gives the crystallite size by Scherrer: D = kλ/(β cos θ).</p>
 <div class="note trap"><p>UV-Vis measures absorption by electrons (needs a chromophore); XRD measures scattering from the lattice (needs a crystal). Use quartz, not glass, cuvettes for UV.</p></div>
 <div class="note exam"><p>Allocate time: 5 marks for transitions, then about 5 each for the two techniques (principle, block diagram with labels, output).</p></div>`,
-          topics: ['m4-uv-vis', 'm4-beer-lambert', 'm4-bragg', 'm4-scherrer']
+          topics: ['m4-uv-vis', 'm4-beer-lambert', 'm4-bragg', 'm4-scherrer'],
+          notes: ['m4-uv-vis.2', 'm4-uv-vis-instrument.1', 'm4-bragg.3', 'm4-xrd-patterns.0']
         },
         {
           n: '12',
@@ -2025,12 +2114,286 @@ PAPERS({
 <li>Check with a frequency calculation: all real frequencies means a minimum; one imaginary frequency means a transition state.</li></ol>
 <div class="note trap"><p>Zero gradient only says the point is stationary. The frequency check separates a minimum from a saddle point. The optimiser finds the nearest local minimum, which may not be the global one.</p></div>
 <div class="note exam"><p>(a) definition, a sketch with minima and saddle point labelled, and three or four uses. (b) the loop of energy, gradient, step and convergence, plus the frequency check.</p></div>`,
-          topics: ['m5-potential-energy-surface', 'm5-geometry-frequency']
+          topics: ['m5-potential-energy-surface', 'm5-geometry-frequency'],
+          notes: ['m5-potential-energy-surface.2', 'm5-potential-energy-surface.4', 'm5-geometry-frequency.0']
+        }
+      ]
+    },
+    {
+      id: 'fat-b1tb1-2026',
+      kind: 'actual',
+      exam: 'fat',
+      title: 'FAT · Slot B1+TB1 · Nov 2026',
+      short: 'B1+TB1 FAT',
+      sub: 'Actual paper · Fall 2026–27',
+      meta: [['Slot', 'B1+TB1'], ['Date', 'November 2026'], ['Duration', '3 hours'], ['Max marks', '100'], ['Programme', 'B.Tech.']],
+      instructions: `<b>General instructions:</b> Part A: 10 × 10 = 100 marks, answer all questions (Q9 and Q10 have an internal choice). BL – Blooms Taxonomy Level (1 – Remember, 2 – Understand, 3 – Apply, 4 – Analyse, 5 – Evaluate, 6 – Create).<br><b>Course Outcomes:</b> CO1: Apply the concepts of thermodynamics and kinetics. CO2: Use chemical concepts for the advancement of materials in electrical, magnetic, and energy domains. CO3: Demonstrate UV Visible spectroscopic and X-ray diffraction techniques. CO4: Discuss molecular orbitals and its energies through computational chemistry. CO5: Apply instrumental, wet-chemical, and computational methods to analyze materials, molecules, and ions.`,
+      questions: [
+        {
+          n: '1',
+          marks: '5+5',
+          co: '1',
+          bl: '3',
+          prompt: `<p><b>(a)</b> Discuss the practical importance of zeroth law of thermodynamics.</p>
+<p><b>(b)</b> A second-order reaction behaves as a first-order reaction when one of the reactants is present in large excess. Explain with appropriate example.</p>`,
+          answer: `<p><b>(a) Zeroth law:</b> if two bodies A and B are each in thermal equilibrium with a third body C, then A and B are in thermal equilibrium with each other. Thermal equilibrium is transitive, which is what makes temperature a measurable property.</p>
+<ul><li><b>Thermometry:</b> the thermometer (C) is brought into contact with the object (A) until no more heat flows; it then has the object's temperature, so its reading is the object's temperature. Every thermometer reading rests on this law.</li>
+<li><b>Calibration:</b> several thermometers placed in the same bath reach equilibrium with it, so they must all show the same value; this is how probes are calibrated against a standard.</li>
+<li><b>Thermal control:</b> in spacecraft, electronics and air conditioning, every part in equilibrium with the thermostat is at the thermostat's temperature, so one sensor controls the whole system.</li>
+<li>It allows a <b>temperature scale</b> to be defined (fixed points such as the triple point of water, 273.16 K).</li></ul>
+<p><b>(b) Pseudo-first-order reaction:</b> a second-order (bimolecular) reaction A + B → products has rate = k[A][B]. If B is present in very large excess (or held constant), [B] hardly changes during the reaction, so k[B] is effectively a constant k′ and rate = k′[A]. The reaction then follows first-order kinetics in A.</p>
+<p><b>Example: acid hydrolysis of ethyl acetate</b></p>
+<div class="eq">CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub> + H<sub>2</sub>O → CH<sub>3</sub>COOH + C<sub>2</sub>H<sub>5</sub>OH (H<sup>+</sup>)</div>
+<p>True rate = k[ester][H<sub>2</sub>O], but water is the solvent (about 55 M) and its concentration barely changes, so rate = k′[ester] with k′ = k[H<sub>2</sub>O].</p>
+<div class="eq">ln[A]<sub>t</sub> = −k′t + ln[A]<sub>0</sub>, t<sub>½</sub> = 0.693/k′ (unit of k′: s<sup>−1</sup>)</div>
+<p>Other example: inversion of cane sugar, C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> + H<sub>2</sub>O → glucose + fructose, first order in sucrose.</p>
+<div class="note exam"><p>Five marks each: in (a) give the statement and at least three applications; in (b) give the definition, the rate law before and after (k′ = k[B]) and one balanced example.</p></div>`,
+          topics: ['m1-zeroth-first-law', 'm1-integrated-rate'],
+          notes: ['m1-zeroth-first-law.0', 'm1-zeroth-first-law.1', 'm1-integrated-rate.3']
+        },
+        {
+          n: '2',
+          marks: 10,
+          co: '2',
+          bl: '2',
+          prompt: `<p>Explain the construction and working of Solid Oxide Fuel Cell (SOFC) with a neat diagram. Write the cell reactions, advantage and disadvantage of these cells.</p>`,
+          answer: `<figure data-fig="m2-sofc-diagram"></figure>
+<p><b>Construction:</b> all components are solid ceramics.</p>
+<ul><li><b>Electrolyte:</b> yttria-stabilised zirconia (YSZ), a dense ceramic that conducts O<sup>2−</sup> ions at high temperature (about 800–1000 °C).</li>
+<li><b>Anode (fuel side, −):</b> porous Ni–ZrO<sub>2</sub> cermet.</li>
+<li><b>Cathode (air side, +):</b> porous strontium-doped LaMnO<sub>3</sub> (LSM).</li>
+<li>Fuel (H<sub>2</sub>, CO or reformed hydrocarbons) is fed to the anode and air to the cathode; an external circuit joins the electrodes.</li></ul>
+<p><b>Working:</b> at the cathode O<sub>2</sub> takes up electrons and becomes O<sup>2−</sup>. The oxide ions move through the hot ceramic electrolyte to the anode, where they oxidise the fuel and release electrons. The electrons flow through the external load back to the cathode, giving the current. Products (H<sub>2</sub>O, CO<sub>2</sub>) leave on the fuel side.</p>
+<div class="eq">Cathode: O<sub>2</sub> + 4e<sup>−</sup> → 2O<sup>2−</sup></div>
+<div class="eq">Anode: H<sub>2</sub> + CO + 2O<sup>2−</sup> → H<sub>2</sub>O + CO<sub>2</sub> + 4e<sup>−</sup></div>
+<div class="eq">Overall: H<sub>2</sub> + CO + O<sub>2</sub> → H<sub>2</sub>O + CO<sub>2</sub></div>
+<p><b>Advantages</b></p>
+<ul><li>All parts solid: no electrolyte loss and no electrode corrosion.</li>
+<li>High temperature makes the electrode reactions fast without a platinum catalyst and tolerates fuel impurities (CO is a fuel, not a poison).</li>
+<li>High efficiency, and the hot exhaust can drive a turbine (cogeneration).</li>
+<li>Very low emissions.</li></ul>
+<p><b>Disadvantages</b></p>
+<ul><li>High operating temperature (500–1000 °C): slow start-up, thermal-expansion mismatch and reactions between layers.</li>
+<li>Expensive, complex fabrication of the ceramic layers.</li></ul>
+<div class="note exam"><p>Marks go to the labelled diagram (O<sup>2−</sup> moving cathode → anode, e<sup>−</sup> through the wire), the three reactions, and at least two advantages and two disadvantages.</p></div>`,
+          topics: ['m2-sofc'],
+          notes: ['m2-sofc.1', 'm2-sofc.2', 'm2-sofc.3']
+        },
+        {
+          n: '3',
+          marks: 10,
+          co: '2',
+          bl: '2',
+          prompt: `<p>Explain the top-down approach for preparing nanomaterials with a suitable diagram. Mention its limitations.</p>`,
+          answer: `<p><b>Top-down approach:</b> a bulk material is broken down into nanosized particles by mechanical or physical means. The standard method is <b>mechanical (ball) milling</b>.</p>
+<figure data-fig="m3-milling-principle"></figure>
+<p><b>Process</b></p>
+<ul><li>The bulk powder is sealed in a hardened vial with hard balls (steel, tungsten carbide or zirconia), usually under inert gas.</li>
+<li>The vial rotates or shakes (in a planetary mill the vials also spin on a rotating disc), so the balls repeatedly strike the powder.</li>
+<li>Each impact transfers kinetic energy and fractures the particles; repeated fracture and cold welding reduce them to the nanometre range over many hours.</li>
+<li>Speed, ball-to-powder ratio, milling time and atmosphere control the final size.</li></ul>
+<p><b>Advantages:</b> simple, cheap, high production rate, works for metals, alloys and ceramics.</p>
+<p><b>Limitations</b></p>
+<ul><li>Severe plastic deformation and local heating (100–200 °C at the contact points) change the structure.</li>
+<li>Hard to reach a narrow, uniform particle size; shape is poorly controlled.</li>
+<li>Contamination from the milling tools (Fe 1–2%) and the atmosphere (trace O<sub>2</sub>, N<sub>2</sub>, about 300 ppm); long runs (30 h) raise tool contamination to about 10%.</li>
+<li>Needs inert conditions (glove box) and protective coatings, which add cost.</li></ul>
+<div class="note exam"><p>Draw the vial with balls and powder, describe the impacts, then list the limitations with the numbers (100–200 °C, Fe 1–2%, 300 ppm, 30 h → 10%).</p></div>`,
+          topics: ['m3-milling', 'm3-synthesis'],
+          notes: ['m3-synthesis.0', 'm3-milling.1', 'm3-milling.2', 'm3-milling.3']
+        },
+        {
+          n: '4',
+          marks: 10,
+          co: '3',
+          bl: '2',
+          prompt: `<p>Enumerate the working principle of the UV-Visible spectroscopy technique using the Beer-Lambert's Law. Discuss the importance of various electronic transitions in UV-Visible spectroscopy to identify the bonding type in organic chromophores.</p>`,
+          answer: `<p><b>Principle:</b> molecules absorb UV (200–400 nm) and visible (400–800 nm) radiation when the photon energy hν equals the gap between a filled and an empty molecular orbital, promoting an electron. The amount absorbed at a wavelength depends on the concentration of the absorbing species (Beer–Lambert law), and the wavelength depends on the type of bond.</p>
+<div class="eq">A = log(I<sub>0</sub>/I) = εcl</div>
+<p>A is absorbance, ε the molar absorptivity (L mol<sup>−1</sup> cm<sup>−1</sup>), c the concentration (mol L<sup>−1</sup>) and l the path length (cm). A is proportional to c, so a calibration plot of A against c gives the unknown concentration.</p>
+<figure data-fig="m4-double-beam"></figure>
+<p><b>Instrument (double beam):</b> deuterium/tungsten source → monochromator → beam splitter into sample and reference cuvettes → detector compares I and I<sub>0</sub> → spectrum of A against λ.</p>
+<figure data-fig="m4-mo-ladder"></figure>
+<p><b>Electronic transitions and what they reveal</b></p>
+<ul><li><b>σ → σ*</b> (below 200 nm): only single bonds, e.g. CH<sub>4</sub>, ethane; no absorption in the normal UV range shows a saturated compound.</li>
+<li><b>n → σ*</b> (about 150–250 nm): saturated compounds with lone pairs (O, N, S, halogen), e.g. CH<sub>3</sub>OH, CH<sub>3</sub>Cl, amines.</li>
+<li><b>π → π*</b> (about 170–200 nm isolated, longer with conjugation; strong, ε about 10<sup>4</sup>): C=C, C≡C, aromatic rings; the band shifts to longer λ as conjugation grows, so it shows the extent of conjugation.</li>
+<li><b>n → π*</b> (about 270–300 nm, weak, ε below 100): groups with both a π bond and a lone pair, e.g. C=O in acetone and HCHO, N=O, C=N.</li></ul>
+<p>So the position (λ<sub>max</sub>) and intensity (ε) of a band identify the chromophore: a weak band near 280 nm points to a carbonyl (n → π*), a strong band that moves to longer λ points to a conjugated π system. Auxochromes (−OH, −NH<sub>2</sub>) cause red (bathochromic) shifts and help identify substituents.</p>
+<div class="note exam"><p>Give the law with every term and unit, the instrument outline, then all four transitions with an example and λ range each.</p></div>`,
+          topics: ['m4-uv-vis', 'm4-beer-lambert', 'm4-uv-vis-instrument'],
+          notes: ['m4-beer-lambert.0', 'm4-uv-vis-instrument.1', 'm4-uv-vis.2', 'm4-uv-vis.5']
+        },
+        {
+          n: '5',
+          marks: 10,
+          co: '4',
+          bl: '4',
+          prompt: `<p>Write a short note on potential energy curve and surface with suitable examples.</p>`,
+          answer: `<p><b>Potential energy curve (PEC):</b> a 2-D plot of a molecule's energy against a single geometric parameter. For a diatomic molecule the only variable is the internuclear distance R, so its energy is a curve.</p>
+<figure data-fig="m5-morse-harmonic"></figure>
+<ul><li>At short R the energy rises steeply (nuclear repulsion, the repulsive wall).</li>
+<li>The minimum is at the equilibrium bond length R<sub>e</sub>, where attraction and repulsion balance.</li>
+<li>At large R the curve levels off at the dissociation energy D<sub>e</sub>: the atoms no longer interact.</li>
+<li>Near R<sub>e</sub> it is roughly a harmonic parabola V = ½k(R − R<sub>e</sub>)<sup>2</sup>; the real curve is anharmonic, the Morse potential V = D<sub>e</sub>(1 − e<sup>−a(R−R<sub>e</sub>)</sup>)<sup>2</sup>.</li>
+<li>Examples: H<sub>2</sub> (minimum about 0.74 Å) and HCl (about 1.3 Å, flat at long R as the bond breaks).</li></ul>
+<p><b>Potential energy surface (PES):</b> the energy of a molecule as a function of two or more geometric parameters. With two parameters it is a 3-D surface (often drawn as a contour map); with more it is a hypersurface that cannot be drawn and is searched by computer.</p>
+<figure data-fig="m5-pes-contours"></figure>
+<ul><li><b>Example, H<sub>2</sub>O:</b> q<sub>1</sub> = O–H bond length and q<sub>2</sub> = H–O–H angle; the minimum is at 0.958 Å and 104.5°.</li>
+<li><b>Example, ozone:</b> the surface shows the open (bent) O<sub>3</sub> minimum, the higher-energy ring isomer (isoozone) and the transition state between them.</li>
+<li><b>Stationary points:</b> minima are stable molecules (global minimum = most stable); a first-order saddle point is a transition state; the lowest path between minima is the reaction coordinate.</li></ul>
+<table class="tbl"><thead><tr><th></th><th>PEC</th><th>PES</th></tr></thead><tbody>
+<tr><td>Variables</td><td>one (bond length)</td><td>two or more</td></tr>
+<tr><td>Plot</td><td>2-D curve</td><td>3-D surface or hypersurface</td></tr>
+<tr><td>Stationary points</td><td>one minimum at R<sub>e</sub></td><td>global and local minima, saddle points</td></tr></tbody></table>
+<div class="note exam"><p>Draw one labelled curve (wall, R<sub>e</sub>, D<sub>e</sub>) and one contour surface, give one example of each, and end with the comparison table.</p></div>`,
+          topics: ['m5-potential-energy-surface'],
+          notes: ['m5-potential-energy-surface.0', 'm5-potential-energy-surface.1', 'm5-potential-energy-surface.2', 'm5-potential-energy-surface.6']
+        },
+        {
+          n: '6',
+          marks: '5+5',
+          co: '3',
+          bl: '1',
+          prompt: `<p><b>(a)</b> Explain in detail the working principle of X-ray diffraction (XRD) technique based on Bragg's equation and explain how various microstructures of solid materials like silica can be distinguished using XRD technique.</p>
+<p><b>(b)</b> Determine the crystallite size of the given nanomaterial using powder X-Ray diffraction (XRD) technique data: Peak position 2θ = 26.43°, FWHM of sample = 2.685°, k = 0.9 and λ = 1.5406 Å (Degree to radian = Degree × π/180).</p>`,
+          answer: `<p><b>(a) Principle:</b> a crystal is a stack of parallel atomic planes a distance d apart. X-rays (λ comparable to d) reflected from successive planes travel extra path 2d sin θ. They interfere constructively, giving a diffraction peak, only when this path difference is a whole number of wavelengths:</p>
+<div class="eq">nλ = 2d sin θ (Bragg's law)</div>
+<figure data-fig="m4-diffractometer-layout"></figure>
+<p>In a diffractometer, monochromatic X-rays (Cu Kα, 1.5406 Å) strike the powder sample; the detector moves through 2θ and records intensity. Each set of planes gives a peak at its own 2θ, so the pattern (peak positions and intensities) is a fingerprint of the crystal structure, matched against a database.</p>
+<p><b>Distinguishing microstructures of silica (SiO<sub>2</sub>):</b></p>
+<ul><li><b>Crystalline</b> (quartz, cristobalite): long-range order, many sharp peaks; quartz and cristobalite have different d values, so peaks at different 2θ.</li>
+<li><b>Polycrystalline:</b> ordered only within grains; sharp peaks (rings), broadened when the crystallites are very small.</li>
+<li><b>Amorphous</b> (silica glass): no long-range order, so no sharp peaks, only one broad hump.</li></ul>
+<p>Chemical analysis gives "SiO<sub>2</sub>" for all three; only XRD tells them apart.</p>
+<p><b>(b) Scherrer equation</b></p>
+<div class="eq">D = Kλ / (β cos θ)</div>
+<div class="eq">θ = 26.43°/2 = 13.215°, cos θ = 0.9735</div>
+<div class="eq">β = 2.685 × π/180 = 0.04686 rad</div>
+<div class="eq">D = (0.9 × 1.5406) / (0.04686 × 0.9735) = 1.3865 / 0.04562 = 30.4 Å = <b>3.04 nm</b></div>
+<div class="note trap"><p>Use θ, not 2θ, in cos θ, and β in radians. Using 2θ gives the wrong answer.</p></div>`,
+          topics: ['m4-bragg', 'm4-xrd-patterns', 'm4-scherrer'],
+          notes: ['m4-bragg.3', 'm4-bragg.4', 'm4-bragg.2', 'm4-scherrer.1', 'm4-scherrer.2']
+        },
+        {
+          n: '7',
+          marks: 10,
+          co: '2',
+          bl: '1',
+          prompt: `<p>Define superconductors and Meissner effect. Provide examples and list any four applications.</p>`,
+          answer: `<p><b>Superconductor:</b> a material whose electrical resistance drops abruptly to <b>exactly zero</b> when it is cooled below a critical temperature T<sub>c</sub> (provided the magnetic field and current density stay below H<sub>c</sub> and J<sub>c</sub>).</p>
+<p><b>Meissner effect:</b> when a superconductor is cooled below T<sub>c</sub> in a magnetic field, it expels the magnetic flux from its interior (B = 0 inside); it behaves as a perfect diamagnet (χ = −1). This is why a magnet levitates above a cooled superconductor.</p>
+<figure data-fig="m3-meissner-effect"></figure>
+<p><b>Examples</b></p>
+<ul><li>Type I (pure metals): Hg (T<sub>c</sub> 4.2 K), Pb (7.2 K), Al.</li>
+<li>Type II (alloys and ceramics): Nb (9.2 K), NbTi (10 K), Nb<sub>3</sub>Sn (18 K), YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub> (YBCO, 92 K, cooled by liquid N<sub>2</sub>).</li></ul>
+<p><b>Applications (any four)</b></p>
+<ul><li><b>MRI</b> scanners: superconducting magnets give strong, stable fields.</li>
+<li><b>Maglev trains:</b> levitation and propulsion with no friction.</li>
+<li><b>Particle accelerators</b> (LHC) and fusion reactors: magnets that bend and confine beams and plasma.</li>
+<li><b>SQUIDs:</b> extremely sensitive magnetic-field sensors (brain scans, MEG).</li>
+<li>Loss-free <b>power cables</b>, motors and generators.</li></ul>`,
+          topics: ['m3-superconductors'],
+          notes: ['m3-superconductors.0', 'm3-superconductors.2', 'm3-superconductors.5', 'm3-superconductors.6']
+        },
+        {
+          n: '8',
+          marks: 10,
+          co: '4',
+          bl: '2',
+          prompt: `<p>What is geometry optimization? Explain its workflow process and applications to predict the reaction mechanism with appropriate example.</p>`,
+          answer: `<p><b>Geometry optimisation</b> adjusts the positions of the atoms in a molecule until it reaches the arrangement of <b>minimum potential energy</b> on the PES: the most stable bond lengths, bond angles and dihedral angles.</p>
+<figure data-fig="m5-geometry-loop"></figure>
+<p><b>Workflow</b></p>
+<ol><li>Build an initial guess of the structure (from a drawing or a known geometry).</li>
+<li>Choose the method and basis set and calculate the energy and the force (energy gradient) on each atom.</li>
+<li>Move the atoms slightly in the direction that lowers the energy.</li>
+<li>Repeat until the forces are about zero and the energy change is below the set tolerance (converged).</li>
+<li>Run a <b>frequency calculation</b>: no imaginary frequency confirms a minimum; exactly one imaginary frequency means a transition state.</li></ol>
+<p>The optimisation reaches the minimum nearest the starting structure, so different starting geometries (conformers) can give different minima; several starts are tried to find the global minimum.</p>
+<p><b>Use in predicting a reaction mechanism</b></p>
+<ul><li>Optimise the reactants, products and any intermediates (minima) and the transition states (saddle points) that join them.</li>
+<li>Confirm each with frequencies, then compare energies to get the activation barrier and reaction energy, and so the most likely path.</li></ul>
+<p><b>Example: HCN → HNC isomerisation.</b> HCN and HNC are optimised as minima; the bent transition state (H moving from C to N) has one imaginary frequency. Raw energies give a barrier of 219 kJ mol<sup>−1</sup> and HNC 52.2 kJ mol<sup>−1</sup> above HCN; after zero-point-energy correction, 202 and 49.7 kJ mol<sup>−1</sup>.</p>
+<figure data-fig="m5-hcn-hnc-profile"></figure>
+<p>Another example: a gas-phase S<sub>N</sub>2 reaction (halide ion + methyl halide), where optimisation finds the two ion–dipole complexes (wells) and the trigonal-bipyramidal transition state between them.</p>`,
+          topics: ['m5-geometry-frequency', 'm5-reaction-mechanisms'],
+          notes: ['m5-geometry-frequency.0', 'm5-geometry-frequency.3', 'm5-geometry-frequency.7', 'm5-reaction-mechanisms.0']
+        },
+        {
+          n: '9',
+          marks: 10,
+          co: '1',
+          bl: '3',
+          prompt: `<p><b>(a)</b> (i) 10 moles of an ideal gas expands reversibly from a volume of 1 dm<sup>3</sup> and temperature 25 °C to a volume of 2 dm<sup>3</sup> and temperature 50 °C. Assume C<sub>v</sub> = 3/2 R. Calculate the entropy change for the process. (R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>) (5 marks)<br>(ii) The half-life period of first order reaction is 15 minutes. Calculate the rate constant and the time taken to complete 80% of the reaction. (5 marks)</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> (i) Calculate the maximum work done (w), heat absorbed (q) and change in internal energy (ΔU) when 0.5 mol of a gas expands isothermally and reversibly from a volume of 2 L to 5 L at 27 °C. (R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>) (5 marks)<br>(ii) The rate constant for a first-order reaction is 3.2 × 10<sup>−5</sup> s<sup>−1</sup> at 70 °C. What percentage of reactants will remain on heating for 1.5 hour? (5 marks)</p>`,
+          answer: `<p><b>(a)(i)</b> T<sub>1</sub> = 298.15 K, T<sub>2</sub> = 323.15 K, V<sub>2</sub>/V<sub>1</sub> = 2, n = 10 mol, C<sub>v</sub> = 1.5 × 8.314 = 12.471 J K<sup>−1</sup> mol<sup>−1</sup>.</p>
+<div class="eq">ΔS = nC<sub>v</sub> ln(T<sub>2</sub>/T<sub>1</sub>) + nR ln(V<sub>2</sub>/V<sub>1</sub>)</div>
+<div class="eq">= 10 × 12.471 × ln(323.15/298.15) + 10 × 8.314 × ln 2</div>
+<div class="eq">= 124.71 × 0.08052 + 83.14 × 0.6931 = 10.04 + 57.63 = <b>67.7 J K<sup>−1</sup></b></div>
+<p><b>(a)(ii)</b></p>
+<div class="eq">k = 0.693 / t<sub>½</sub> = 0.693 / 15 = <b>0.0462 min<sup>−1</sup></b></div>
+<div class="eq">t = (2.303/k) log[100/(100 − 80)] = (2.303/0.0462) × log 5 = 49.85 × 0.699 = <b>34.8 min</b></div>
+<p><b>(OR)</b></p>
+<p><b>(b)(i)</b> T = 300.15 K, n = 0.5 mol.</p>
+<div class="eq">w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −0.5 × 8.314 × 300.15 × ln(5/2) = −1247.7 × 0.9163 = <b>−1143 J</b></div>
+<div class="eq">ΔU = 0 (isothermal, ideal gas), so q = −w = <b>+1143 J</b></div>
+<p>The gas does 1143 J of work on the surroundings and absorbs the same heat.</p>
+<p><b>(b)(ii)</b> t = 1.5 h = 5400 s.</p>
+<div class="eq">kt = 3.2 × 10<sup>−5</sup> × 5400 = 0.1728</div>
+<div class="eq">[A]/[A]<sub>0</sub> = e<sup>−kt</sup> = e<sup>−0.1728</sup> = 0.841, so <b>84.1% remains</b> (15.9% has reacted)</div>
+<div class="note trap"><p>Convert 1.5 h to seconds to match k in s<sup>−1</sup>; and use kelvin (298.15 K and 323.15 K) for the temperature ratio.</p></div>`,
+          topics: ['m1-thermo-numericals', 'm1-kinetics-numericals', 'm1-second-law-entropy', 'm1-expansion-work'],
+          notes: ['m1-second-law-entropy.3', 'm1-thermo-numericals.2', 'm1-kinetics-numericals.0', 'm1-kinetics-numericals.1', 'm1-thermo-numericals.0', 'm1-kinetics-numericals.2']
+        },
+        {
+          n: '10',
+          marks: 10,
+          co: '2',
+          bl: '1',
+          prompt: `<p><b>(a)</b> Differentiate ferromagnetic and anti-ferromagnetic materials. Write any two applications of magnetic materials.</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> Give a detailed account of the construction and working principle of the energy device constructed using natural organic dyes. Discuss its advantages and disadvantages in real-time applications.</p>`,
+          answer: `<p><b>(a)</b></p>
+<figure data-fig="m3-spin-arrangements"></figure>
+<table class="tbl"><thead><tr><th></th><th>Ferromagnetic</th><th>Antiferromagnetic</th></tr></thead><tbody>
+<tr><td>Spin alignment</td><td>Neighbouring spins parallel (exchange interaction favours alignment), in domains</td><td>Neighbouring spins antiparallel and equal, so they cancel</td></tr>
+<tr><td>Net magnetisation</td><td>Large, permanent; persists without a field</td><td>Zero (or very small) net moment</td></tr>
+<tr><td>Susceptibility χ</td><td>Very large and positive (Fe about 100 000)</td><td>Small and positive (Cr 3.6 × 10<sup>−6</sup>)</td></tr>
+<tr><td>Temperature</td><td>Becomes paramagnetic above the Curie temperature T<sub>C</sub>; χ = C/(T − T<sub>C</sub>)</td><td>χ rises to a maximum at the Néel temperature T<sub>N</sub>, then falls; paramagnetic above T<sub>N</sub></td></tr>
+<tr><td>Hysteresis</td><td>Shows a hysteresis loop</td><td>No hysteresis</td></tr>
+<tr><td>Examples</td><td>Fe, Co, Ni, Gd</td><td>MnO, NiO, Cr</td></tr></tbody></table>
+<p><b>Applications of magnetic materials:</b> soft ferromagnets for transformer, motor and generator cores and electromagnets; hard ferromagnets (Alnico, NdFeB) for permanent magnets; magnetic data storage (hard disks, tapes); MRI and sensors.</p>
+<p><b>(OR)</b></p>
+<p><b>(b) Dye-sensitised solar cell (DSSC, Grätzel cell) with natural dyes</b> (anthocyanin from hibiscus, blackberry or pomegranate; betanin from beetroot; chlorophyll).</p>
+<figure data-fig="m2-dssc-schematic"></figure>
+<p><b>Construction</b></p>
+<ul><li><b>Working electrode:</b> glass coated with a transparent conducting oxide (FTO or ITO) carrying a nanoporous TiO<sub>2</sub> film; the film is soaked in the dye, which adsorbs as a monolayer.</li>
+<li><b>Electrolyte:</b> I<sup>−</sup>/I<sub>3</sub><sup>−</sup> redox couple in a solvent.</li>
+<li><b>Counter electrode:</b> FTO glass coated with Pt or graphite (pencil carbon in the hibiscus-tea cell).</li></ul>
+<p><b>Working</b></p>
+<ol><li>The dye absorbs visible light: S + hν → S*.</li>
+<li>The excited dye injects an electron into the TiO<sub>2</sub> conduction band: S* → S<sup>+</sup> + e<sup>−</sup>(TiO<sub>2</sub>).</li>
+<li>Electrons travel through TiO<sub>2</sub> and the external load to the counter electrode (current).</li>
+<li>The oxidised dye is regenerated by iodide: 2S<sup>+</sup> + 3I<sup>−</sup> → 2S + I<sub>3</sub><sup>−</sup>.</li>
+<li>I<sub>3</sub><sup>−</sup> is reduced at the counter electrode: I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup>. Nothing is consumed overall.</li></ol>
+<p><b>Advantages:</b> cheap, non-toxic natural dyes and simple fabrication with no high-purity silicon; works in diffuse and low light; can be made semi-transparent and coloured for windows; flexible substrates possible.</p>
+<p><b>Disadvantages:</b> low efficiency, below synthetic ruthenium dyes and well below silicon PV; natural dyes fade (photodegradation); the liquid electrolyte can leak, evaporate and is corrosive; shorter lifetime than silicon cells.</p>`,
+          topics: ['m3-magnetic-classes', 'm3-hysteresis-storage', 'm2-dssc'],
+          notes: ['m3-magnetic-classes.3', 'm3-magnetic-classes.4', 'm3-hysteresis-storage.2', 'm2-dssc.1', 'm2-dssc.5', 'm2-dssc.6']
         }
       ]
     }
   ],
   asked: {
+    'm1-kinetics-numericals': [
+      {
+        where: 'Q9, 10 marks',
+        what: 'first-order k, t for 80%, and % remaining numericals',
+        paper: 'fat-b1tb1-2026'
+      }
+    ],
     'm2-fuel-cells': [
       {
         where: 'Q1(a), 5 marks',
@@ -2132,6 +2495,11 @@ PAPERS({
         where: 'Q5, 5 marks',
         what: 'draw the dye sensitized solar cell, its components and working',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q10(b), 10 marks',
+        what: 'natural-dye DSSC construction, working, pros and cons',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm2-pec-cells': [
@@ -2242,6 +2610,11 @@ PAPERS({
         where: 'Q11, 15 marks',
         what: 'UV-Vis transitions with examples, and UV-Vis and XRD principle and instrumentation',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q4, 10 marks',
+        what: 'UV-Vis principle with Beer–Lambert law and electronic transitions',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm4-xrays': [
@@ -2281,6 +2654,11 @@ PAPERS({
         where: 'Q11(b), 10 marks',
         what: 'peak width and crystallite size in XRD',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q6(b), 5 marks',
+        what: 'crystallite size from p-XRD data (Scherrer)',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm2-sofc': [
@@ -2303,6 +2681,11 @@ PAPERS({
         where: 'Q4, 5 marks',
         what: 'PEMFC against SOFC: temperature, materials, performance',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q2, 10 marks',
+        what: 'SOFC construction, working, reactions, pros and cons',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm4-xrd-patterns': [
@@ -2337,6 +2720,11 @@ PAPERS({
         where: 'Q11(b), 10 marks',
         what: 'XRD working principle and instrumentation',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q6(a), 5 marks',
+        what: 'XRD principle from the Bragg law; silica microstructures',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm1-carnot-cycle': [
@@ -2569,6 +2957,11 @@ PAPERS({
         where: 'Q1, 10 marks',
         what: 'state the first law and derive isothermal reversible work',
         paper: 'cat1-b2tb2-2026'
+      },
+      {
+        where: 'Q1(a), 5 marks',
+        what: 'practical importance of the zeroth law',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm1-enthalpy-heat-capacity': [
@@ -2633,6 +3026,11 @@ PAPERS({
         where: 'Q8(b), 7 marks',
         what: 'adiabatic expansion final temperature and energy changes',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q9, 10 marks',
+        what: 'entropy change and isothermal work numericals',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm1-catalysis': [
@@ -2702,6 +3100,11 @@ PAPERS({
         where: 'Q8(b), 5 marks',
         what: 'first-order SO2Cl2 decomposition with half-life 8 min: time to fall to 1 percent',
         paper: 'fat-g1tg1-2025'
+      },
+      {
+        where: 'Q1(b), 5 marks',
+        what: 'pseudo-first-order reaction with an example',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm1-rate-law': [
@@ -2838,6 +3241,11 @@ PAPERS({
         where: 'Q10(b), 5 marks',
         what: 'define a superconductor and sketch resistivity against temperature',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q7, 10 marks',
+        what: 'superconductors and Meissner effect, examples, four applications',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm3-magnetic-classes': [
@@ -2855,6 +3263,11 @@ PAPERS({
         where: 'Q10(a), 10 marks',
         what: 'para, ferro, antiferro and ferrimagnetism from spin arrangement',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q10(a), 10 marks',
+        what: 'ferromagnetic vs antiferromagnetic, two applications',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm3-hysteresis-storage': [
@@ -2897,6 +3310,11 @@ PAPERS({
         where: 'Q10(a), 10 marks',
         what: 'ball milling as the mechanical route to nanomaterials, schematic and limitations',
         paper: 'fat-g1tg1-2025'
+      },
+      {
+        where: 'Q3, 10 marks',
+        what: 'top-down approach (ball milling) with diagram and limitations',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm4-beer-lambert': [
@@ -2909,6 +3327,11 @@ PAPERS({
         where: 'Q11(b), 10 marks',
         what: 'UV-Vis working principle',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q4, 10 marks',
+        what: 'Beer–Lambert law in the UV-Vis working principle',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm5-comp-intro': [
@@ -2935,6 +3358,11 @@ PAPERS({
         where: 'Q12(a), 7 marks',
         what: 'define the potential energy surface and its significance for reactions',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q5, 10 marks',
+        what: 'short note on potential energy curve and surface',
+        paper: 'fat-b1tb1-2026'
       }
     ],
     'm5-geometry-frequency': [
@@ -2942,6 +3370,11 @@ PAPERS({
         where: 'Q12(b), 8 marks',
         what: 'how geometry optimization finds the minimum energy structure',
         paper: 'fat-f1tf1-2025'
+      },
+      {
+        where: 'Q8, 10 marks',
+        what: 'geometry optimisation workflow and use in reaction mechanisms',
+        paper: 'fat-b1tb1-2026'
       }
     ]
   }

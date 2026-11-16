@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 690">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfw"/></marker>
+  </defs>
+  <!-- energy axis -->
+  <path d="M16 570V40" class="ds2" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="34" y="44" font-size="22" class="dt2">E</text>
+  <!-- connectors -->
+  <g class="ds3" stroke-width="2" stroke-dasharray="6 6" fill="none">
+    <path d="M140 210L260 70M140 210L220 150M140 210L220 270M140 210L260 330"/>
+    <path d="M460 210L340 70M460 210L380 150M460 210L380 270M460 210L340 330"/>
+    <path d="M124 480L260 430M124 480L260 530M476 480L340 430M476 480L340 530"/>
+  </g>
+  <!-- atomic levels: left O -->
+  <g class="ds" stroke-width="3">
+    <path d="M44 210H72M78 210H106M112 210H140M60 480H124"/>
+    <path d="M460 210H488M494 210H522M528 210H556M476 480H540"/>
+  </g>
+  <g font-size="24" text-anchor="middle" class="dt">
+    <text x="58" y="203">↑↓</text><text x="92" y="203">↑</text><text x="126" y="203">↑</text>
+    <text x="474" y="203">↑↓</text><text x="508" y="203">↑</text><text x="542" y="203">↑</text>
+    <text x="92" y="473">↑↓</text><text x="508" y="473">↑↓</text>
+  </g>
+  <g font-size="22" text-anchor="middle" class="dt2">
+    <text x="92" y="236">2p</text><text x="508" y="236">2p</text>
+    <text x="92" y="506">2s</text><text x="508" y="506">2s</text>
+  </g>
+  <!-- molecular orbitals -->
+  <g class="ds" stroke-width="3.5">
+    <path d="M260 70H340"/>
+    <path d="M220 150H290M310 150H380"/>
+    <path d="M220 270H290M310 270H380"/>
+    <path d="M260 330H340"/>
+    <path d="M260 430H340"/>
+    <path d="M260 530H340"/>
+  </g>
+  <g font-size="24" text-anchor="middle" class="dt">
+    <text x="255" y="143">↑</text><text x="345" y="143">↑</text>
+    <text x="255" y="263">↑↓</text><text x="345" y="263">↑↓</text>
+    <text x="300" y="323">↑↓</text>
+    <text x="300" y="423">↑↓</text>
+    <text x="300" y="523">↑↓</text>
+  </g>
+  <g font-size="22" text-anchor="middle">
+    <text x="300" y="96" class="dtr">σ*2p (empty)</text>
+    <text x="300" y="176" class="dtr">π*2p (x, y)</text>
+    <text x="300" y="296" class="dtb">π2p (x, y)</text>
+    <text x="300" y="356" class="dtb">σ2p</text>
+    <text x="300" y="456" class="dtr">σ*2s</text>
+    <text x="300" y="556" class="dtb">σ2s</text>
+  </g>
+  <!-- footer -->
+  <g font-size="24" font-weight="700" text-anchor="middle" class="dt">
+    <text x="92" y="604">O atom</text><text x="300" y="604">O₂</text><text x="508" y="604">O atom</text>
+  </g>
+  <text x="300" y="642" text-anchor="middle" font-size="22" class="dt">Bond order = (8 − 4) / 2 = 2</text>
+  <text x="300" y="674" text-anchor="middle" font-size="22" class="dt">2 unpaired e⁻ in π* → paramagnetic</text>
+</svg>
