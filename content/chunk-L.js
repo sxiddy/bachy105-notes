@@ -33,6 +33,31 @@ CHUNK({
           <div class="worked"><div class="given"><p>Spin-only moment of an ion with 5 unpaired electrons (e.g. Cr, Mn in the 3d table).</p></div>
           <div class="solve"><div class="eq">µ = √[n(n+2)] = √(5 × 7) = √35</div></div>
           <div class="result">≈ <b>5.92 BM</b></div></div>
+          <ul>
+            <li><b>All materials are magnetic to some extent.</b> Their magnetic properties are decided mainly by their <b>electron configurations</b>, especially the number of <b>unpaired electrons</b>.</li>
+            <li>The <b>magnetic dipole moment</b> is a <b>vector</b>: it has a magnitude and a direction. The net atomic moment is the vector sum of the orbital and spin contributions.</li>
+          </ul>
+          <h3>Worked: Ti<sup>3+</sup> and Fe<sup>2+</sup></h3>
+          <p>Method: write the configuration of the atom, remove electrons from <b>4s first</b>, then from 3d, fill the 3d box one electron per orbital before pairing (Hund's rule), count unpaired electrons n, and put n into µ = √[n(n+2)].</p>
+          <div class="worked">
+            <div class="given"><p>Spin-only magnetic moment of <b>Ti<sup>3+</sup></b> (Z = 22).</p></div>
+            <div class="solve">
+              <p>Ti: [Ar] 3d<sup>2</sup> 4s<sup>2</sup>. Remove 3 electrons (two 4s, one 3d): Ti<sup>3+</sup> = [Ar] <b>3d<sup>1</sup></b>.</p>
+              <p>3d box: ↑ _ _ _ _, so <b>n = 1</b>.</p>
+              <div class="eq">µ = √[n(n+2)] = √[1 × (1+2)] = √3</div>
+            </div>
+            <div class="result"><p>µ ≈ <b>1.73 BM</b></p></div>
+          </div>
+          <div class="worked">
+            <div class="given"><p>Spin-only magnetic moment of <b>Fe<sup>2+</sup></b> (Z = 26).</p></div>
+            <div class="solve">
+              <p>Fe: [Ar] 3d<sup>6</sup> 4s<sup>2</sup>. Remove the two 4s electrons: Fe<sup>2+</sup> = [Ar] <b>3d<sup>6</sup></b>.</p>
+              <p>3d box: ↑↓ ↑ ↑ ↑ ↑, so <b>n = 4</b>.</p>
+              <div class="eq">µ = √[n(n+2)] = √[4 × (4+2)] = √24</div>
+            </div>
+            <div class="result"><p>µ ≈ <b>4.90 BM</b></p></div>
+          </div>
+          <div class="note trap"><p>Transition-metal ions lose their <b>4s electrons first</b>. Fe<sup>2+</sup> is 3d<sup>6</sup>, not 3d<sup>4</sup>4s<sup>2</sup>; taking electrons from 3d would give n = 4 here by luck but goes wrong for other ions (Fe<sup>3+</sup> is 3d<sup>5</sup>, n = 5, 5.92 BM).</p></div>
         ` },
         { title: '3d and 4s spins', html: `
           <p class="lead">The number of unpaired electrons in the 3d and 4s orbitals of the first transition series sets how magnetic the atom is.</p>
@@ -73,6 +98,7 @@ CHUNK({
         { front: 'What is a magnetic dipole?', back: 'Two <b>opposite poles</b> separated by a finite distance.' },
         { front: 'What is the Bohr magneton?', back: 'The strength of the magnetic moment of an electron due to its <b>spin</b>.' },
         { front: 'Spin-only magnetic moment formula?', back: '<b>µ = √[n(n+2)] BM</b>, n = number of unpaired electrons.' },
+        { front: 'Spin-only moments of Ti<sup>3+</sup> and Fe<sup>2+</sup>?', back: 'Ti<sup>3+</sup> 3d<sup>1</sup>, n = 1: <b>1.73 BM</b>. Fe<sup>2+</sup> 3d<sup>6</sup>, n = 4: <b>4.90 BM</b>.' },
         { front: 'Moment with orbital contribution?', back: '<b>µ = √[L(L+1) + 4S(S+1)]</b>.' },
         { front: 'Define permeability.', back: '<b>µ = B/H</b>: how easily magnetic flux lines flow through a material.' },
         { front: 'Relative permeability?', back: '<b>µ<sub>r</sub> = µ/µ<sub>0</sub> = B/B<sub>0</sub></b>.' },

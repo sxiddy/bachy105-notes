@@ -579,6 +579,33 @@ CHUNK({
           <div class="note heads-up"><p>On slide 27 the two silicon examples sit under the wrong generic equations: the one under the ROH-releasing condensation actually gives off H<sub>2</sub>O, and the one under the H<sub>2</sub>O-releasing condensation gives off R–OH. The pairing above is the chemically consistent one.</p></div>
           <div class="note exam"><p>Tell the two condensations apart by the <b>by-product</b>: M–OH + RO–M gives <b>alcohol</b>, M–OH + HO–M gives <b>water</b>. Either way the new bond is <b>M–O–M</b>.</p></div>
         ` },
+        { title: 'SiO₂ from TEOS', html: `
+          <p class="lead">The standard worked case is <b>silica (SiO<sub>2</sub>) nanoparticles</b> from <b>TEOS</b>, tetraethyl orthosilicate, Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub>. Here R = C<sub>2</sub>H<sub>5</sub>, so the alcohol given off is <b>ethanol</b>.</p>
+          <ol class="steps">
+            <li><b>Mixing</b> TEOS is dissolved in ethanol (so it mixes with water) and water is added with an acid or base (often ammonia) as catalyst.</li>
+            <li><b>Hydrolysis</b> each Si–OC<sub>2</sub>H<sub>5</sub> group is replaced by Si–OH, releasing ethanol, which gives the sol.</li>
+            <li><b>Condensation</b> two Si–OH groups (or Si–OH and Si–OC<sub>2</sub>H<sub>5</sub>) join to make a <b>Si–O–Si</b> (siloxane) bridge, releasing water (or ethanol). Repeating this builds particles and then a gel network.</li>
+            <li><b>Aging</b> the gel is left in its liquid so condensation continues and the network strengthens.</li>
+            <li><b>Drying</b> water and ethanol are removed.</li>
+            <li><b>Calcination</b> heating removes remaining –OH and organic groups and gives SiO<sub>2</sub> nanoparticles.</li>
+          </ol>
+          <div class="eq" data-label="Hydrolysis">Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4C<sub>2</sub>H<sub>5</sub>OH</div>
+          <div class="eq" data-label="Condensation, water out">≡Si–OH + HO–Si≡ → ≡Si–O–Si≡ + H<sub>2</sub>O</div>
+          <div class="eq" data-label="Condensation, alcohol out">≡Si–OC<sub>2</sub>H<sub>5</sub> + HO–Si≡ → ≡Si–O–Si≡ + C<sub>2</sub>H<sub>5</sub>OH</div>
+          <div class="eq" data-label="Overall">Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub> + 2H<sub>2</sub>O → SiO<sub>2</sub> + 4C<sub>2</sub>H<sub>5</sub>OH</div>
+          <h3>What controls the particle size</h3>
+          <table class="tbl">
+            <thead><tr><th>Factor</th><th>Effect on the particles</th></tr></thead>
+            <tbody>
+              <tr><td><b>pH and catalyst</b></td><td>Base (ammonia) speeds up condensation, so discrete spherical particles form and grow; more ammonia gives larger particles. Acid speeds up hydrolysis but slows condensation, giving chain-like polymers and a fine gel rather than separate spheres.</td></tr>
+              <tr><td><b>Water : alkoxide ratio</b></td><td>More water per TEOS makes hydrolysis more complete and faster; this changes how many nuclei form and so the final size. Too little water leaves unreacted –OC<sub>2</sub>H<sub>5</sub> groups.</td></tr>
+              <tr><td><b>Temperature</b></td><td>Higher temperature speeds up both reactions; more nuclei form at once, so particles usually come out smaller and the gel sets faster.</td></tr>
+              <tr><td><b>Ageing time</b></td><td>Longer ageing lets small particles dissolve and redeposit on larger ones, so particles grow and the network stiffens.</td></tr>
+              <tr><td><b>Precursor concentration and solvent</b></td><td>The amount of TEOS and the alcohol used change how fast nuclei form and how much material each particle can grab.</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>For "sol–gel synthesis of SiO<sub>2</sub> nanoparticles": name TEOS and the catalyst, write the hydrolysis and the two condensation equations, list the five steps (hydrolysis, condensation, aging, drying, calcination), then give the factors that control size (pH or catalyst, water : TEOS ratio, temperature, ageing).</p></div>
+        ` },
         { title: 'Films or ceramic', html: `
           <p class="lead">From one <b>sol</b> you can go two ways: coat it onto a substrate to make a <b>dense film</b>, or let it gel in bulk and heat it into a <b>dense ceramic</b>.</p>
           <figure data-fig="m3-sol-gel-routes"></figure>

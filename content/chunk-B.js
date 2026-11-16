@@ -187,6 +187,22 @@ CHUNK({
           <div class="note trap"><p>"The anode is graphite" is true only on discharge. During charging the slides call <b>LiCoO<sub>2</sub> the anode</b>, because cobalt is oxidised there. Polarity stays put; the names follow the reaction.</p></div>
           <div class="note exam"><p>Write all three lines for each process with the electrode named, then add one sentence saying LiCoO<sub>2</sub> is oxidised on charging, since the electrode names swap.</p></div>
         ` },
+        { title: 'Intercalation', html: `
+          <p class="lead">The working principle of a Li-ion cell is <b>intercalation</b>: the reversible insertion of Li<sup>+</sup> ions into the gaps of a layered host solid, and their removal again, without destroying the host.</p>
+          <p>Both electrodes are <b>intercalation hosts</b>. Graphite is a stack of carbon sheets, and Li<sup>+</sup> slips in between the sheets to give Li<sub>n</sub>C<sub>6</sub>. LiCoO<sub>2</sub> is a stack of cobalt oxide layers, and Li<sup>+</sup> sits in the spaces between those layers. Charging pulls Li<sup>+</sup> out of the oxide layers and into the graphite layers (de-intercalation from LiCoO<sub>2</sub>, intercalation into graphite). Discharging does the reverse.</p>
+          <ul>
+            <li><b>Host stays intact</b>: only the guest Li<sup>+</sup> moves in and out. The carbon sheets and the cobalt oxide layers keep their structure, apart from a small swelling of the gap between layers.</li>
+            <li><b>No dissolving, no re-plating</b>: the electrode is not eaten away into the electrolyte and then rebuilt as metal on every cycle, so its shape and surface do not degrade quickly. The same host can be refilled hundreds of times (500–1000 cycles).</li>
+            <li><b>Charge is balanced inside the host</b>: as Li<sup>+</sup> leaves LiCoO<sub>2</sub>, Co<sup>3+</sup> is oxidised toward Co<sup>4+</sup>; as Li<sup>+</sup> enters graphite, the carbon sheets take up the electrons. The redox happens in the solid, not by forming a new phase.</li>
+            <li><b>Only one ion shuttles</b>: Li<sup>+</sup> is small and light, so it moves easily between the layers and through the electrolyte. This is why Li-ion is also called a "rocking-chair" battery.</li>
+          </ul>
+          <div class="vs">
+            <div class="side"><h4>Intercalation electrode (Li-ion)</h4><p>Li<sup>+</sup> is <b>stored inside a solid host</b> and moved between two hosts. The electrode keeps its structure, so the reaction is easily reversed and the cell lasts many cycles.</p></div>
+            <div class="side"><h4>Solution redox electrode (e.g. Daniell, Leclanché)</h4><p>The electrode metal <b>dissolves into the electrolyte</b> as ions, or a new solid forms on its surface. Recharging would need the metal to plate back evenly, which it does poorly (rough deposits, dendrites, lost material), so cycle life is short or the cell is not rechargeable at all.</p></div>
+          </div>
+          <div class="note why"><p>Lithium metal anodes were dropped for exactly this reason: plating Li back on charge grows dendrites that short the cell. Parking Li<sup>+</sup> between graphite sheets avoids plating altogether.</p></div>
+          <div class="note exam"><p>For "why are intercalation materials used for energy storage": define intercalation, name the two hosts (graphite and LiCoO<sub>2</sub>), say the host structure is unchanged so the process is reversible and gives a long cycle life, add the charge and discharge reactions, and draw the cell with Li<sup>+</sup> moving between the layers.</p></div>
+        ` },
         { title: 'Variants & uses', html: `
           <p class="lead">Change the cathode material and you get a different Li-ion chemistry. Only <b>LiCoO<sub>2</sub> (LCO)</b> is rated high capacity. LMO, LFP and NMC are listed as lower capacity, and <b>NCA</b> is the one named for electric vehicles and grid storage.</p>
           <table class="tbl">

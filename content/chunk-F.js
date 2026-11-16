@@ -113,6 +113,57 @@ CHUNK({
           </div>
           <div class="note trap"><p>Scattering and refraction both change the light's direction. Refraction is a clean bend at the boundary between two transparent media. Scattering throws the energy out in many directions from inside the sample.</p></div>
           <div class="note exam"><p>UV-Vis, the rest of this module, measures absorption by comparing the light going in with the light transmitted. Fluorescence and phosphorescence measure emission. XRD, later in the module, relies on diffraction of X-rays.</p></div>
+        ` },
+        { title: 'Over chemical methods', html: `
+          <p class="lead">Classical chemical (wet) methods identify and measure a substance by reacting it: titrations, precipitation and weighing, colour tests. Spectroscopic methods read the sample's response to radiation instead, and that gives them several <b>advantages over chemical methods</b>.</p>
+          <table class="tbl">
+            <thead><tr><th>Advantage</th><th>What it means and why</th></tr></thead>
+            <tbody>
+              <tr><td><b>Small sample</b></td><td>Only milligrams or micrograms (a few drops of solution) are needed, because the instrument measures a light signal, not a weighable product.</td></tr>
+              <tr><td><b>Fast</b></td><td>A spectrum is recorded in seconds to minutes, whereas a wet analysis may need reagents, heating, filtering and weighing over hours.</td></tr>
+              <tr><td><b>Non-destructive</b></td><td>In most techniques (UV-Vis, IR, NMR, XRD) the sample is not used up or changed, so it can be recovered and used for other tests.</td></tr>
+              <tr><td><b>Structural information</b></td><td>The spectrum shows which groups and bonds are present (chromophores in UV-Vis, functional groups in IR, crystal structure in XRD), not just how much of an element there is.</td></tr>
+              <tr><td><b>Highly sensitive</b></td><td>Very low concentrations (ppm or less) can be detected and measured, for example by Beer–Lambert absorbance.</td></tr>
+              <tr><td><b>Accurate and reproducible</b></td><td>The instrument gives the same reading for the same sample, with less dependence on the analyst's skill in handling reagents.</td></tr>
+              <tr><td><b>Fewer reagents, easy to automate</b></td><td>Little or no chemicals are consumed and less waste is made; instruments can run many samples in a row and record the data digitally.</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>For "define spectroscopy and give four advantages over chemical methods": the definition (interaction of electromagnetic radiation with matter), then any four rows above, each with its reason. Small sample, fast, non-destructive and structural information are the safest four.</p></div>
+        ` },
+        { title: 'Units & photon numericals', html: `
+          <p class="lead">Spectroscopy questions mix four length units. Learn the ladder once: <b>1 nm = 10<sup>−7</sup> cm = 10 Å</b>.</p>
+          <table class="tbl">
+            <thead><tr><th>Unit</th><th>In metres</th><th>In centimetres</th><th>Other units</th></tr></thead>
+            <tbody>
+              <tr><td>1 micrometre (µm, also written µ)</td><td>10<sup>−6</sup> m</td><td>10<sup>−4</sup> cm</td><td>1000 nm = 10<sup>4</sup> Å</td></tr>
+              <tr><td>1 nanometre (nm)</td><td>10<sup>−9</sup> m</td><td><b>10<sup>−7</sup> cm</b></td><td><b>10 Å</b></td></tr>
+              <tr><td>1 ångström (Å)</td><td>10<sup>−10</sup> m</td><td>10<sup>−8</sup> cm</td><td>0.1 nm</td></tr>
+            </tbody>
+          </table>
+          <div class="eq" data-label="Wavenumber">ν̄ = <span class="frac"><span>1</span><span>λ</span></span> (λ in cm gives ν̄ in cm<sup>−1</sup>)</div>
+          <div class="eq" data-label="Frequency and energy">ν = <span class="frac"><span>c</span><span>λ</span></span>, E = hν = <span class="frac"><span>hc</span><span>λ</span></span></div>
+          <div class="worked">
+            <div class="given"><p><b>Problem 1.</b> Calculate the wavenumber and frequency of radiation of wavelength <b>5 µm</b>. Take c = 3.00 × 10<sup>8</sup> m s<sup>−1</sup>.</p></div>
+            <div class="solve">
+              <p>Convert: λ = 5 µm = 5 × 10<sup>−6</sup> m = 5 × 10<sup>−4</sup> cm.</p>
+              <div class="eq">ν̄ = <span class="frac"><span>1</span><span>λ</span></span> = <span class="frac"><span>1</span><span>5 × 10<sup>−4</sup> cm</span></span> = 2000 cm<sup>−1</sup></div>
+              <div class="eq">ν = <span class="frac"><span>c</span><span>λ</span></span> = <span class="frac"><span>3.00 × 10<sup>8</sup> m s<sup>−1</sup></span><span>5 × 10<sup>−6</sup> m</span></span> = 6.00 × 10<sup>13</sup> s<sup>−1</sup></div>
+              <p>(Check: ν = c ν̄ = 3.00 × 10<sup>10</sup> cm s<sup>−1</sup> × 2000 cm<sup>−1</sup> = 6.00 × 10<sup>13</sup> s<sup>−1</sup>.) This lies in the <b>infrared</b>.</p>
+            </div>
+            <div class="result"><p>ν̄ = <b>2000 cm<sup>−1</sup></b> (2 × 10<sup>5</sup> m<sup>−1</sup>); ν = <b>6.00 × 10<sup>13</sup> Hz</b></p></div>
+          </div>
+          <div class="worked">
+            <div class="given"><p><b>Problem 2.</b> Calculate the energy of a photon of wavelength <b>450 nm</b>. Take h = 6.626 × 10<sup>−34</sup> J s, c = 3.00 × 10<sup>8</sup> m s<sup>−1</sup>, 1 eV = 1.602 × 10<sup>−19</sup> J, N<sub>A</sub> = 6.022 × 10<sup>23</sup> mol<sup>−1</sup>.</p></div>
+            <div class="solve">
+              <p>Convert: λ = 450 nm = 450 × 10<sup>−9</sup> m = 4.50 × 10<sup>−7</sup> m.</p>
+              <div class="eq">E = <span class="frac"><span>hc</span><span>λ</span></span> = <span class="frac"><span>6.626 × 10<sup>−34</sup> J s × 3.00 × 10<sup>8</sup> m s<sup>−1</sup></span><span>4.50 × 10<sup>−7</sup> m</span></span> = 4.42 × 10<sup>−19</sup> J</div>
+              <div class="eq">E (eV) = <span class="frac"><span>4.42 × 10<sup>−19</sup> J</span><span>1.602 × 10<sup>−19</sup> J eV<sup>−1</sup></span></span> = 2.76 eV</div>
+              <div class="eq">Per mole: 4.42 × 10<sup>−19</sup> J × 6.022 × 10<sup>23</sup> mol<sup>−1</sup> = 2.66 × 10<sup>5</sup> J mol<sup>−1</sup></div>
+              <p>450 nm is <b>blue</b> visible light.</p>
+            </div>
+            <div class="result"><p>E = <b>4.42 × 10<sup>−19</sup> J</b> per photon = <b>2.76 eV</b> (≈ 266 kJ mol<sup>−1</sup>)</p></div>
+          </div>
+          <div class="note trap"><p>Convert λ before dividing: metres for ν and E, centimetres for ν̄ in cm<sup>−1</sup>. Using 5 instead of 5 × 10<sup>−6</sup> is the usual way marks are lost.</p></div>
         ` }
       ],
       flashcards: [
@@ -397,6 +448,21 @@ CHUNK({
           <div class="note exam"><p>A compound with only σ bonds absorbs below 200 nm and shows nothing in an ordinary UV-Vis scan. That is the basis of the "conjugated or not" application later on.</p></div>
           <div class="note heads-up"><p>The slide numbers n → π* as transition 3 and π → π* as transition 4, but in energy order π → π* comes first. Two textbook points: n → π* is really a weak, symmetry-forbidden band (low ε) even though the slide calls all four "allowed", and an isolated C=C absorbs below 200 nm, so the 200–700 nm range describes conjugated and aromatic systems. Use the slide ranges in the exam.</p></div>
         ` },
+        { title: 'Transitions in given molecules', html: `
+          <p class="lead">To name the transitions a molecule can show, list the electrons it has: <b>σ bonds</b> always give σ → σ*; <b>lone pairs</b> (O, N, S, halogen) add n → σ*; a <b>π bond</b> adds π → π*; a lone pair <b>on an atom of a π bond</b> (as in C=O) adds n → π*.</p>
+          <table class="tbl">
+            <thead><tr><th>Molecule</th><th>Electrons present</th><th>Transitions possible</th></tr></thead>
+            <tbody>
+              <tr><td><b>Methane</b>, CH<sub>4</sub></td><td>Only C–H σ bonds; no lone pairs, no π bonds.</td><td><b>σ → σ*</b> only, deep in the vacuum UV (about 125 nm), so methane is transparent in an ordinary UV-Vis scan.</td></tr>
+              <tr><td><b>Chloromethane</b>, CH<sub>3</sub>Cl</td><td>C–H and C–Cl σ bonds, plus three lone pairs on Cl.</td><td><b>σ → σ*</b> and <b>n → σ*</b> (Cl lone pair into the C–Cl σ*), both below 200 nm.</td></tr>
+              <tr><td><b>Ethanol</b>, CH<sub>3</sub>CH<sub>2</sub>OH</td><td>C–H, C–C, C–O, O–H σ bonds, plus two lone pairs on O; no π bond.</td><td><b>σ → σ*</b> and <b>n → σ*</b>. Both lie below about 210 nm, which is why ethanol is a common solvent for UV-Vis.</td></tr>
+              <tr><td><b>Formaldehyde</b>, HCHO</td><td>C–H σ bonds, a C=O with one σ and one π bond, and two lone pairs on O.</td><td>All four: <b>σ → σ*</b>, <b>n → σ*</b>, <b>π → π*</b> and <b>n → π*</b> (the weak, longest-wavelength band of the C=O group).</td></tr>
+              <tr><td><b>Acetone</b>, CH<sub>3</sub>COCH<sub>3</sub></td><td>C–H and C–C σ bonds, a C=O (σ + π), two lone pairs on O.</td><td>All four: <b>σ → σ*</b>, <b>n → σ*</b>, <b>π → π*</b>, <b>n → π*</b>. The weak n → π* band near 280 nm is the one seen in a normal scan.</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>For "name the transitions when UV light is absorbed by HCHO, CH<sub>4</sub>, CH<sub>3</sub>Cl, acetone, ethanol": for each molecule, state the electrons it has (σ, n, π), then list the transitions that follow. Saturated with no lone pair → σ → σ* only; saturated with a lone pair → add n → σ*; carbonyl → all four.</p></div>
+          <div class="note trap"><p>Ethanol and CH<sub>3</sub>Cl have lone pairs but <b>no π bond</b>, so they cannot show n → π* or π → π*. Those need a multiple bond.</p></div>
+        ` },
         { title: 'Band intensity', html: `
           <p class="lead">How tall a band is depends on how <b>likely</b> the transition is. That probability is measured by <b>ε</b>, the molar absorption coefficient, and it sorts bands into four classes.</p>
           <table class="tbl">
@@ -494,6 +560,17 @@ CHUNK({
           <div class="note why"><p>Your eye receives white light minus the absorbed band. Take orange-red out of white light and what reaches you looks blue. Both dyes also have long conjugated structures (below), and that extended π system is what brings the π → π* gap down into the visible range.</p></div>
           <figure data-fig="m4-dye-structures"></figure>
           <div class="note trap"><p>The colour you see is not the colour absorbed. A blue solution absorbs orange-red, so you measure it at around 600–700 nm, not in the blue.</p></div>
+          <h3>Benzene, nitrobenzene and 4-nitrophenol</h3>
+          <p>These three show how <b>conjugation</b> and an <b>auxochrome</b> push absorption from the UV into the visible, which is what makes a compound coloured.</p>
+          <table class="tbl">
+            <thead><tr><th>Compound</th><th>What is attached</th><th>Absorption</th><th>Colour</th></tr></thead>
+            <tbody>
+              <tr><td><b>Benzene</b></td><td>The ring alone: six π electrons, no auxochrome.</td><td>Its π → π* bands lie in the UV (strongest near 200 nm, weak band near 255 nm); nothing is absorbed between 400 and 700 nm.</td><td><b>Colourless</b></td></tr>
+              <tr><td><b>Nitrobenzene</b></td><td>A –NO<sub>2</sub> <b>chromophore</b> conjugated with the ring, which extends the π system.</td><td>The bands move to longer wavelength (bathochromic shift); the tail of the absorption just reaches the violet edge near 400 nm.</td><td><b>Pale yellow</b></td></tr>
+              <tr><td><b>4-Nitrophenol</b></td><td>–NO<sub>2</sub> plus an –OH <b>auxochrome</b> opposite it (para position).</td><td>The O lone pair pushes electron density through the ring toward –NO<sub>2</sub>, so conjugation is longer still: a further red shift and a more intense band (hyperchromic). It absorbs violet-blue light strongly, and in basic solution the phenolate ion absorbs near 400 nm.</td><td><b>Intense yellow</b></td></tr>
+            </tbody>
+          </table>
+          <div class="note why"><p>Each step lengthens the conjugated path, so the gap between the highest filled and lowest empty π levels shrinks and λ<sub>max</sub> grows. Once the band reaches the violet-blue end of the visible, the compound looks yellow, the complementary colour.</p></div>
           <div class="note heads-up"><p>The methylene blue structure on the slide has CH<sub>2</sub> at the bottom of the middle ring. Real methylene blue has a sulfur atom there: it is a phenothiazinium dye, with N and S in the central ring.</p></div>
         ` }
       ],

@@ -25,6 +25,42 @@ CHUNK({
           </table>
           <div class="note why"><p>The most common word across the definitions is <b>computer</b>.</p></div>
         ` },
+        { title: 'Why computational chemistry', html: `
+          <p class="lead">Many chemical questions are <b>difficult, expensive, dangerous or impossible</b> to answer by experiment. Computational chemistry answers them with theory and computer calculations instead of only lab work.</p>
+          <h3>What it draws on</h3>
+          <ul>
+            <li><b>Quantum mechanics</b> is used when electronic structure matters, for example when bonds form or break.</li>
+            <li><b>Classical mechanics</b> describes molecular structure and motion without treating the electrons explicitly.</li>
+            <li><b>Statistical mechanics</b> links the behaviour of single molecules to bulk properties such as temperature and pressure.</li>
+            <li><b>Numerical methods and computing</b> make it possible to solve the complex equations for realistic molecules.</li>
+          </ul>
+          <h3>Merits over conventional (experimental) chemistry</h3>
+          <ol>
+            <li><b>Lower cost.</b> Large numbers of molecules can be screened on a computer before anything is made, so only the promising ones are synthesised. Calculations keep getting cheaper while experiments keep getting more expensive.</li>
+            <li><b>Saves time.</b> Computational screening narrows down promising structures or reaction pathways faster than trying each one in the lab.</li>
+            <li><b>Safety.</b> Unstable, toxic, explosive or highly reactive species can be studied without anyone handling them, so there is no explosion risk and no toxic exposure.</li>
+            <li><b>Easy to perform.</b> A calculation only needs a structure and a method, whereas the matching experiment may need difficult synthesis and equipment.</li>
+            <li><b>Works on any chemical system.</b> Experiments are limited to what can be made and measured; a calculation can be done on any structure you can write down.</li>
+            <li><b>Inaccessible species.</b> Short-lived intermediates and transition states, which live too briefly to measure, can be examined directly.</li>
+            <li><b>Molecular-level information.</b> Calculations show electron distribution, bonding, orbital interactions and reaction pathways, which experiments only infer.</li>
+            <li><b>Direct information.</b> A calculation gives the property directly, while interpreting an experimental observation is often uncertain.</li>
+            <li><b>Isolated molecules.</b> Calculations give fundamental information about a single molecule <b>without complicating solvents</b>; solvent can be added later on purpose.</li>
+            <li><b>Prediction.</b> Properties of molecules or materials that have <b>not yet been synthesised</b> can be estimated, which helps new material and drug design.</li>
+            <li><b>Interpretation of experiments.</b> Results explain <b>why</b> an experimentally observed trend occurs.</li>
+          </ol>
+          <div class="note trap"><p>Computational chemistry does <b>not replace experiment</b>. It is most useful when it supports, predicts, interprets or complements experimental results. Its accuracy depends on the <b>theoretical method, the approximations, the model and the quality of the input structure</b>.</p></div>
+          <table class="tbl">
+            <thead><tr><th>Point</th><th>Computational chemistry</th><th>Conventional chemistry</th></tr></thead>
+            <tbody>
+              <tr><td>How it works</td><td>Solves mathematical models of molecules on a computer</td><td>Makes and measures real samples in a laboratory</td></tr>
+              <tr><td>Cost and time</td><td>Cheap per molecule and quick to repeat for many candidates</td><td>Chemicals, instruments and synthesis make each test slow and costly</td></tr>
+              <tr><td>Hazard</td><td>No risk, even for toxic or explosive species</td><td>Dangerous species need special handling</td></tr>
+              <tr><td>Short-lived species</td><td>Transition states and intermediates can be located and studied</td><td>Usually too short-lived to observe directly</td></tr>
+              <tr><td>Reliability</td><td>Depends on the method, basis set and model chosen</td><td>Gives the real behaviour, including solvent and impurities</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>"Merits of computational chemistry compared to conventional chemistry" (5 marks): one line on what it is, then 6–8 merits each with a reason (cost, time, safety, inaccessible species, molecular-level information, prediction, interpretation, isolated molecules without solvent, direct information), then one line that it complements experiment and its accuracy depends on the method.</p></div>
+        ` },
         { title: 'Scope and applications', html: `
           <p class="lead">Computational studies cover fourteen areas, each with a typical example.</p>
           <table class="tbl">
@@ -82,9 +118,13 @@ CHUNK({
         { front: 'Name four molecular dynamics programs.', back: '<b>GROMACS, LAMMPS, AMBER, NAMD</b>.' },
         { front: 'Visualisation software?', back: '<b>GaussView, Avogadro, VMD, XCrySDen, Jmol</b>.' },
         { front: 'Preferred programming languages?', back: '<b>Fortran, Python, C/C++</b>.' },
-        { front: 'Which application area uses HOMO and LUMO analysis?', back: '<b>Electronic structure analysis</b>.' }
+        { front: 'Which application area uses HOMO and LUMO analysis?', back: '<b>Electronic structure analysis</b>.' },
+        { front: 'Four merits of computational over conventional chemistry?', back: '<b>Lower cost, saves time, safe for toxic or explosive species, studies short-lived intermediates and transition states</b> (also prediction, interpretation, isolated molecules without solvent).' },
+        { front: 'Four fields computational chemistry draws on?', back: '<b>Quantum mechanics, classical mechanics, statistical mechanics, numerical methods and computing</b>.' },
+        { front: 'What does the accuracy of a calculation depend on?', back: 'The <b>theoretical method, approximations, model and quality of the input structure</b>.' }
       ],
       oneLiners: [
+        'Computational chemistry is cheaper, faster and safer than experiment and can study transition states and unmade molecules, but it complements experiment rather than replacing it.',
         'Computational chemistry uses mathematical models and computer simulation to study structures, properties and reactions.',
         'The most common word in its definitions is computer.',
         'It covers structure, energy, spectra, mechanisms, thermodynamics, kinetics and electronic structure, plus biology, industry, environment, catalysis, materials and drugs.',
@@ -394,7 +434,7 @@ CHUNK({
       id: 'm5-molecular-orbitals',
       title: 'Molecular orbital theory and LCAO',
       short: 'Molecular orbitals',
-      blurb: 'MO theory, linear combination of atomic orbitals and its conditions, MO diagrams, the HOMO and LUMO of methane, and atomic against molecular orbitals.',
+      blurb: 'MO theory, LCAO and its conditions, the Schrödinger treatment with α, β and S, MO diagrams including O₂, heteronuclear diatomics, the Hückel method, HOMO and LUMO, and atomic against molecular orbitals.',
       source: 'Slides 24–27',
       tabs: [
         { title: 'MO theory', html: `
@@ -418,6 +458,45 @@ CHUNK({
             <li><b>Proper (effective) overlap and orientation.</b> The right orientation gives effective overlap.</li>
           </ol>
         ` },
+        { title: 'Schrödinger treatment', html: `
+          <p class="lead">The MO treatment of a diatomic molecule solves the <b>time-independent Schrödinger equation</b> for the molecule with the LCAO wavefunction. The answer is two MOs and their two energies.</p>
+          <div class="eq" data-label="TISE">ĤΨ = EΨ</div>
+          <ul>
+            <li><b>Ĥ, the Hamiltonian</b>, is the operator for the <b>total energy</b> (kinetic plus potential) of the system. It is a <b>Hermitian operator</b>, which guarantees that the energies it gives are <b>real numbers</b> and so physically meaningful.</li>
+            <li><b>Ψ, the wavefunction</b>, describes the quantum state of the electron. <b>|Ψ|²</b> is the <b>probability density</b> of finding the electron in a region of space.</li>
+            <li>A valid Ψ must be <b>normalised</b>: the total probability of finding the electron somewhere is 1, ∫|Ψ|²dτ = 1.</li>
+          </ul>
+          <h3>Procedure</h3>
+          <ol class="steps">
+            <li><b>Fix the nuclei</b> at a chosen distance from each other.</li>
+            <li><b>Write the TISE</b> for the molecule and integrate over all space: ⟨Ψ|Ĥ|Ψ⟩ = E⟨Ψ|Ψ⟩, which gives the energy E.</li>
+            <li><b>Use the LCAO form</b> Ψ = c<sub>1</sub>φ<sub>1</sub> + c<sub>2</sub>φ<sub>2</sub>, where φ<sub>1</sub> and φ<sub>2</sub> are the atomic orbital wavefunctions and c<sub>1</sub>, c<sub>2</sub> are coefficients giving each AO's contribution to the MO.</li>
+            <li><b>Solve the secular equation</b> that results, giving two allowed energies and two MOs.</li>
+          </ol>
+          <h3>The three integrals</h3>
+          <table class="tbl">
+            <thead><tr><th>Integral</th><th>Expression</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><b>Coulomb integral α</b></td><td>α = ∫φ<sub>A</sub>Ĥφ<sub>A</sub>dτ</td><td>Approximate energy of an electron in the AO of the isolated atom. Always negative; larger in magnitude for more electronegative atoms.</td></tr>
+              <tr><td><b>Resonance integral β</b></td><td>β = ∫φ<sub>A</sub>Ĥφ<sub>B</sub>dτ</td><td>Measures how strongly the two AOs interact. A larger |β| means a stronger interaction and a stronger A–B bond.</td></tr>
+              <tr><td><b>Overlap integral S</b></td><td>S = ∫φ<sub>A</sub>φ<sub>B</sub>dτ</td><td>How much the two AOs share the same region of space; near zero when they do not overlap.</td></tr>
+            </tbody>
+          </table>
+          <h3>Secular equation and energies</h3>
+          <div class="eq" data-label="Secular equation">(α<sub>A</sub> − E)(α<sub>B</sub> − E) − (β − ES)<sup>2</sup> = 0</div>
+          <p>For a <b>homonuclear</b> molecule α<sub>A</sub> = α<sub>B</sub> = α, so (α − E) = ±(β − ES), which gives:</p>
+          <div class="eq" data-label="Bonding">E<sub>1</sub> = <span class="frac"><span>α + β</span><span>1 + S</span></span>   Ψ<sub>1</sub> = <span class="frac"><span>1</span><span>√[2(1 + S)]</span></span> (φ<sub>1</sub> + φ<sub>2</sub>)</div>
+          <div class="eq" data-label="Antibonding">E<sub>2</sub> = <span class="frac"><span>α − β</span><span>1 − S</span></span>   Ψ<sub>2</sub> = <span class="frac"><span>1</span><span>√[2(1 − S)]</span></span> (φ<sub>1</sub> − φ<sub>2</sub>)</div>
+          <ul>
+            <li>β is negative, so <b>E<sub>1</sub> lies below α</b>: Ψ<sub>1</sub> is the in-phase, <b>bonding</b> MO with more electron density between the nuclei.</li>
+            <li><b>E<sub>2</sub> lies above α</b>: Ψ<sub>2</sub> is the out-of-phase, <b>antibonding</b> MO with a node between the nuclei.</li>
+            <li>Because of the (1 − S) denominator, the antibonding MO is <b>raised more</b> than the bonding MO is lowered. So a molecule's stability depends on how many electrons sit in each: with three electrons, two are stabilised in Ψ<sub>1</sub> and one is destabilised in Ψ<sub>2</sub>.</li>
+            <li>E<sub>1</sub> and E<sub>2</sub> are the <b>only energies</b> allowed; electrons fill them by the <b>Aufbau, Pauli and Hund</b> rules.</li>
+          </ul>
+          <div class="note example"><p><b>H<sub>2</sub>:</b> 1s<sub>A</sub> + 1s<sub>B</sub> → σ1s + σ*1s. Both electrons go into σ1s with opposite spins, so H<sub>2</sub> = (σ1s)<sup>2</sup> and bond order = (2 − 0)/2 = <b>1</b>. H<sub>2</sub> is more stable than two separate H atoms.</p></div>
+          <div class="note heads-up"><p>One older slide prints the antibonding MO as 1/√[2(1 + S)](φ<sub>1</sub> − φ<sub>2</sub>). The normalisation factor for the minus combination is <b>1/√[2(1 − S)]</b>, as in the newer notes.</p></div>
+          <div class="note exam"><p>"MO treatment of diatomic bond formation using the TISE" (5–10 marks): write ĤΨ = EΨ and say Ĥ is Hermitian (real energies); write the LCAO Ψ = c<sub>1</sub>φ<sub>1</sub> + c<sub>2</sub>φ<sub>2</sub>; define α, β and S; give the secular equation and E = (α ± β)/(1 ± S) with the two MOs; draw the H<sub>2</sub> MO diagram and work out bond order 1.</p></div>
+        ` },
         { title: 'MO diagrams', html: `
           <p class="lead">An MO diagram shows the bonding and antibonding MOs formed from the atomic orbitals. The slides give one for a <b>homonuclear</b> and one for a <b>heteronuclear</b> diatomic.</p>
           <h3>Homonuclear diatomic</h3>
@@ -429,6 +508,72 @@ CHUNK({
           <p>Two different atoms. The two atomic levels sit at different energies, and the MOs still lie one below and one above them.</p>
           <figure data-fig="m5-mo-heteronuclear"></figure>
           <div class="note heads-up"><p>The slide only shows the diagrams. The bond-order rule above is the standard one, and is what the interactive builder uses.</p></div>
+          <h3>Worked: O<sub>2</sub></h3>
+          <p>Each O atom has 8 electrons (1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup>), so O<sub>2</sub> has 16. For O<sub>2</sub> the σ2p<sub>z</sub> level lies <b>below</b> the two π2p levels. Levels from top to bottom:</p>
+          <table class="tbl">
+            <thead><tr><th>MO</th><th>Type</th><th>Electrons</th></tr></thead>
+            <tbody>
+              <tr><td>σ*2p<sub>z</sub></td><td>antibonding</td><td>empty</td></tr>
+              <tr><td>π*2p<sub>x</sub>, π*2p<sub>y</sub></td><td>antibonding, a degenerate pair</td><td><b>↑ and ↑</b>, one each, unpaired (Hund's rule)</td></tr>
+              <tr><td>π2p<sub>x</sub>, π2p<sub>y</sub></td><td>bonding, a degenerate pair</td><td>↑↓ and ↑↓</td></tr>
+              <tr><td>σ2p<sub>z</sub></td><td>bonding</td><td>↑↓</td></tr>
+              <tr><td>σ*2s</td><td>antibonding</td><td>↑↓</td></tr>
+              <tr><td>σ2s</td><td>bonding</td><td>↑↓</td></tr>
+              <tr><td>σ1s, σ*1s</td><td>inner (KK) shell</td><td>↑↓, ↑↓</td></tr>
+            </tbody>
+          </table>
+          <div class="eq" data-label="Configuration">O<sub>2</sub>: KK (σ2s)<sup>2</sup> (σ*2s)<sup>2</sup> (σ2p<sub>z</sub>)<sup>2</sup> (π2p<sub>x</sub>)<sup>2</sup> (π2p<sub>y</sub>)<sup>2</sup> (π*2p<sub>x</sub>)<sup>1</sup> (π*2p<sub>y</sub>)<sup>1</sup></div>
+          <div class="eq" data-label="Bond order">Bond order = (10 − 6)/2 = <b>2</b></div>
+          <p>Counting all 16 electrons: 10 bonding and 6 antibonding (or 8 and 4 if you count only the valence shell, same answer). O<sub>2</sub> has a <b>double bond</b> and, with <b>two unpaired electrons</b> in π*2p, it is <b>paramagnetic</b>. Valence bond theory pairs every electron and wrongly predicts O<sub>2</sub> to be diamagnetic; MO theory explains the observed paramagnetism.</p>
+          <div class="note heads-up"><p>O<sub>2</sub> is not worked on the slides, but it has been asked in a final exam ("draw the MO diagram of O<sub>2</sub>, predict bond order and magnetic property"). This is the standard textbook treatment.</p></div>
+        ` },
+        { title: 'Heteronuclear diatomic', html: `
+          <p class="lead">A <b>heteronuclear diatomic</b> molecule has two different atoms A and B, so their AOs have <b>different energies</b> (α<sub>A</sub> ≠ α<sub>B</sub>) and contribute <b>unequally</b> to the MOs.</p>
+          <div class="eq" data-label="Bonding">Ψ<sub>bonding</sub> = c<sub>A</sub>φ<sub>A</sub> + c<sub>B</sub>φ<sub>B</sub></div>
+          <div class="eq" data-label="Antibonding">Ψ<sub>antibonding</sub> = c′<sub>A</sub>φ<sub>A</sub> − c′<sub>B</sub>φ<sub>B</sub></div>
+          <p>Take <b>α<sub>A</sub> &lt; α<sub>B</sub></b>, so φ<sub>A</sub> is the lower AO (A is the more electronegative atom). Putting this LCAO into the TISE gives the same secular equation, (α<sub>A</sub> − E)(α<sub>B</sub> − E) − (β − ES)<sup>2</sup> = 0, now with two different α values.</p>
+          <ul>
+            <li>The bonding MO Ψ<sub>1</sub> lies <b>below α<sub>A</sub></b> and is mostly <b>φ<sub>A</sub></b>, with a small in-phase share of φ<sub>B</sub>. Its electrons spend more time near atom A.</li>
+            <li>The antibonding MO Ψ<sub>2</sub> lies <b>above α<sub>B</sub></b> and is mostly <b>φ<sub>B</sub></b>, with a small out-of-phase share of φ<sub>A</sub>.</li>
+            <li>The destabilisation of Ψ<sub>2</sub> relative to α<sub>B</sub> is always <b>larger</b> than the stabilisation of Ψ<sub>1</sub> relative to α<sub>A</sub>.</li>
+          </ul>
+          <div class="eq" data-label="Stabilisation of Ψ1 (approx.)">α<sub>A</sub> − E<sub>1</sub> ≈ <span class="frac"><span>(β − α<sub>A</sub>S)<sup>2</sup></span><span>α<sub>B</sub> − α<sub>A</sub></span></span></div>
+          <h3>Effect of the AO energy gap Δα</h3>
+          <div class="vs">
+            <div class="side"><h4>Small Δα</h4><p>Similar AO energies give <b>strong mixing</b> and a strong interaction. Both MOs move far from the AO levels.</p></div>
+            <div class="side"><h4>Large Δα</h4><p>Very different AO energies give <b>weak mixing</b>. Each MO looks almost like one of the original AOs and the bond is weaker.</p></div>
+          </div>
+          <p>The gap sits in the denominator above, so the stabilisation of Ψ<sub>1</sub> and the destabilisation of Ψ<sub>2</sub> both <b>increase as the α<sub>A</sub>–α<sub>B</sub> gap decreases</b>. Effective mixing needs <b>similar energy, correct symmetry and good overlap</b>.</p>
+          <h3>Mulliken population analysis</h3>
+          <p>Once the MOs are filled, <b>Mulliken population analysis</b> divides the electron population among the atoms. It gives approximate <b>electron populations on each atom, atomic charges</b> and the electron-rich and electron-poor regions: MO calculation → electron distribution → Mulliken population → approximate atomic charge. The charges are only rough and change with the method and basis set.</p>
+          <div class="note exam"><p>"Apply the TISE to a heteronuclear diatomic MO": write the two LCAO MOs with unequal coefficients, the secular equation, the diagram with α<sub>A</sub> &lt; α<sub>B</sub> (bonding mostly A, antibonding mostly B), and the Δα rule.</p></div>
+        ` },
+        { title: 'Hückel method', html: `
+          <p class="lead">The <b>Hückel molecular orbital (HMO) method</b>, introduced by Hückel in <b>1931</b>, is a simplified quantum method for <b>conjugated π-electron systems</b>. It keeps the <b>σ framework fixed</b> and treats only the delocalised <b>π electrons</b> explicitly.</p>
+          <h3>Approximations</h3>
+          <table class="tbl">
+            <thead><tr><th>Term</th><th>Value</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>H<sub>ii</sub></td><td><b>α</b></td><td>Energy of an electron in a carbon p orbital, the same for every carbon</td></tr>
+              <tr><td>H<sub>ij</sub>, neighbours</td><td><b>β</b></td><td>Interaction between p orbitals on bonded neighbouring atoms</td></tr>
+              <tr><td>H<sub>ij</sub>, non-neighbours</td><td><b>0</b></td><td>Atoms that are not bonded are assumed not to interact</td></tr>
+              <tr><td>S<sub>ij</sub> (i ≠ j)</td><td><b>0</b></td><td>Overlap between different orbitals is neglected</td></tr>
+              <tr><td>S<sub>ii</sub></td><td><b>1</b></td><td>Each orbital is normalised</td></tr>
+            </tbody>
+          </table>
+          <h3>Why use it</h3>
+          <ul>
+            <li>It gives a quick <b>"back of an envelope"</b> answer without a full quantum calculation, which is often all an experimentalist needs.</li>
+            <li>Its formalism is closely <b>analogous to perturbation methods</b>.</li>
+            <li>Modern Hückel programs take the <b>molecular structure as input</b>.</li>
+            <li>It gives qualitative <b>π-MO energies, electron distribution, delocalisation, bond order</b> and the <b>relative stability</b> of conjugated molecules.</li>
+            <li>Main advantage: <b>simplicity and low computational effort</b>.</li>
+          </ul>
+          <h3>Heteroatoms</h3>
+          <p>Any non-hydrogen atom is a <b>heavy atom</b>, and any heavy atom other than carbon (N, O …) is a <b>heteroatom</b>. Hückel theory treats all carbons alike, so their α and β never change. A heteroatom X has a different orbital energy and a different interaction with carbon, so the parameters are modified:</p>
+          <div class="eq" data-label="Heteroatom X">α<sub>X</sub> = α + kβ</div>
+          <div class="eq" data-label="C–X bond">β<sub>CX</sub> = hβ</div>
+          <p><b>k</b> adjusts the orbital energy of the heteroatom and <b>h</b> adjusts the carbon–heteroatom interaction.</p>
         ` },
         { title: 'HOMO and LUMO', html: `
           <p class="lead">The <b>HOMO</b> is the highest occupied molecular orbital and the <b>LUMO</b> is the lowest unoccupied molecular orbital. The slide shows both for <b>methane</b>.</p>
@@ -460,17 +605,34 @@ CHUNK({
         { front: 'Homonuclear vs heteronuclear diatomic?', back: 'Two <b>identical</b> atoms (H<sub>2</sub>) vs two <b>different</b> atoms.' },
         { front: 'What are HOMO and LUMO?', back: '<b>Highest occupied</b> and <b>lowest unoccupied</b> molecular orbitals.' },
         { front: 'Method and basis set for the methane MOs on the slide?', back: '<b>B3LYP / 6-31G*</b>.' },
-        { front: 'Atomic orbital vs molecular orbital: scope?', back: 'AO: <b>individual atoms</b>, localised. MO: <b>molecules</b>, delocalised LCAO.' }
+        { front: 'Atomic orbital vs molecular orbital: scope?', back: 'AO: <b>individual atoms</b>, localised. MO: <b>molecules</b>, delocalised LCAO.' },
+        { front: 'Why must the Hamiltonian be Hermitian?', back: 'A Hermitian operator gives <b>real energies</b>, so the results are physically meaningful.' },
+        { front: 'Define α, β and S.', back: '<b>α</b> = ∫φ<sub>A</sub>Ĥφ<sub>A</sub>dτ, energy of an electron in the AO; <b>β</b> = ∫φ<sub>A</sub>Ĥφ<sub>B</sub>dτ, strength of AO interaction; <b>S</b> = ∫φ<sub>A</sub>φ<sub>B</sub>dτ, extent of overlap.' },
+        { front: 'Energies of the bonding and antibonding MOs of a homonuclear diatomic?', back: '<b>E = (α + β)/(1 + S)</b> and <b>E = (α − β)/(1 − S)</b>.' },
+        { front: 'O<sub>2</sub>: bond order and magnetism?', back: 'Bond order <b>2</b>; two unpaired π* electrons, so <b>paramagnetic</b>.' },
+        { front: 'Heteronuclear diatomic with α<sub>A</sub> &lt; α<sub>B</sub>: which AO dominates each MO?', back: 'Bonding MO mostly <b>φ<sub>A</sub></b> (lower AO); antibonding MO mostly <b>φ<sub>B</sub></b>.' },
+        { front: 'Effect of a large AO energy gap Δα?', back: '<b>Weak mixing</b>: each MO looks almost like one original AO.' },
+        { front: 'Hückel approximations?', back: 'H<sub>ii</sub> = <b>α</b>, H<sub>ij</sub> = <b>β</b> for neighbours and <b>0</b> otherwise, S<sub>ij</sub> = <b>0</b>, S<sub>ii</sub> = <b>1</b>; σ framework fixed, π electrons only.' },
+        { front: 'Hückel parameters for a heteroatom X?', back: '<b>α<sub>X</sub> = α + kβ</b> and <b>β<sub>CX</sub> = hβ</b>.' },
+        { front: 'What does Mulliken population analysis give?', back: 'Approximate <b>electron population and atomic charge</b> on each atom.' }
       ],
       oneLiners: [
         'MO theory (Hund and Mulliken) builds molecular orbitals as LCAOs.',
         'Constructive interference gives a bonding MO, destructive interference an antibonding MO.',
         'AOs combine only if they have similar energy, the same symmetry about the axis and good overlap.',
         'The HOMO is the highest occupied and the LUMO the lowest unoccupied MO.',
-        'Atomic orbitals are localised on one atom; molecular orbitals are delocalised over the molecule.'
+        'Atomic orbitals are localised on one atom; molecular orbitals are delocalised over the molecule.',
+        'The Hamiltonian is Hermitian, so its energies are real; the secular equation gives E = (α ± β)/(1 ± S) for a homonuclear diatomic.',
+        'O2 has bond order 2 and two unpaired π* electrons, so it is paramagnetic.',
+        'In a heteronuclear diatomic the bonding MO is mostly the lower-energy AO; a large Δα means weak mixing.',
+        'Hückel theory treats only π electrons and uses α + kβ and hβ for heteroatoms.'
       ],
       formulas: [
-        { name: 'Bond order', html: `(N<sub>b</sub> − N<sub>a</sub>) / 2`, note: 'N<sub>b</sub> bonding, N<sub>a</sub> antibonding electrons.' }
+        { name: 'Bond order', html: `(N<sub>b</sub> − N<sub>a</sub>) / 2`, note: 'N<sub>b</sub> bonding, N<sub>a</sub> antibonding electrons.' },
+        { name: 'LCAO', html: `Ψ = c<sub>1</sub>φ<sub>1</sub> + c<sub>2</sub>φ<sub>2</sub>`, note: 'c = contribution of each atomic orbital.' },
+        { name: 'Secular equation (two orbitals)', html: `(α<sub>A</sub> − E)(α<sub>B</sub> − E) − (β − ES)<sup>2</sup> = 0`, note: 'α Coulomb, β resonance, S overlap integral.' },
+        { name: 'Homonuclear MO energies', html: `E<sub>±</sub> = (α ± β)/(1 ± S)`, note: '+ bonding, − antibonding.' },
+        { name: 'Hückel heteroatom parameters', html: `α<sub>X</sub> = α + kβ;  β<sub>CX</sub> = hβ`, note: 'k adjusts orbital energy, h the C–X interaction.' }
       ]
     }
   ],

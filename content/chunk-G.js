@@ -490,6 +490,28 @@ CHUNK({
           <p>Try it: load the Scherrer preset, then switch K between 0.9 and 0.94 to see where 3.22 nm and 3.36 nm come from. The Bragg side reruns the 0.9 Å, 7° problem from Bragg's law.</p>
           <div data-viz="xrd-calc"></div>
           <div class="note exam"><p>3.22 nm is well inside the nano range, which fits such a broad 2.51° peak. Write the formula, the converted θ and β, the substitution, then D with its unit.</p></div>
+        ` },
+        { title: 'λ from X-ray energy', html: `
+          <p class="lead">Sometimes the question gives the <b>X-ray energy</b> (in keV) instead of the wavelength. Find λ first from <b>λ = hc/E</b>, then use it in the Scherrer equation.</p>
+          <div class="eq" data-label="Wavelength from photon energy">λ = <span class="frac"><span>hc</span><span>E</span></span>, with E (J) = E (eV) × 1.602 × 10<sup>−19</sup></div>
+          <div class="worked">
+            <div class="given"><p>A crystalline material gives a diffraction peak at <b>2θ = 44.60°</b> with <b>FWHM = 0.95°</b>, using X-rays of energy <b>6.93 keV</b>. Take k = 0.9, h = 6.626 × 10<sup>−34</sup> J s, c = 3.00 × 10<sup>8</sup> m s<sup>−1</sup>, 1 eV = 1.602 × 10<sup>−19</sup> J. Find λ and the crystallite size D, and comment on it.</p></div>
+            <div class="solve">
+              <p><b>Step 1: energy in joules.</b></p>
+              <div class="eq">E = 6.93 × 10<sup>3</sup> eV × 1.602 × 10<sup>−19</sup> J eV<sup>−1</sup> = 1.110 × 10<sup>−15</sup> J</div>
+              <p><b>Step 2: wavelength.</b></p>
+              <div class="eq">λ = <span class="frac"><span>6.626 × 10<sup>−34</sup> J s × 3.00 × 10<sup>8</sup> m s<sup>−1</sup></span><span>1.110 × 10<sup>−15</sup> J</span></span> = <span class="frac"><span>1.988 × 10<sup>−25</sup> J m</span><span>1.110 × 10<sup>−15</sup> J</span></span> = 1.79 × 10<sup>−10</sup> m</div>
+              <p>λ = <b>1.79 Å = 0.179 nm</b> (this matches Co Kα radiation).</p>
+              <p><b>Step 3: θ and β.</b></p>
+              <div class="eq">θ = 44.60° / 2 = 22.30°, cos 22.30° = 0.9252</div>
+              <div class="eq">β = 0.95° × <span class="frac"><span>π</span><span>180</span></span> = 0.01658 rad</div>
+              <p><b>Step 4: Scherrer.</b></p>
+              <div class="eq">D = <span class="frac"><span>kλ</span><span>β cos θ</span></span> = <span class="frac"><span>0.9 × 0.179 nm</span><span>0.01658 × 0.9252</span></span> = <span class="frac"><span>0.1611 nm</span><span>0.01534</span></span></div>
+            </div>
+            <div class="result"><p>λ ≈ <b>1.79 Å (0.179 nm)</b>; D ≈ <b>10.5 nm</b></p></div>
+          </div>
+          <div class="note exam"><p>Comment: 10.5 nm lies inside the 1–100 nm range, so the material is <b>nanocrystalline</b>. At this size a large fraction of atoms sit at surfaces and grain boundaries, so it has a high surface-to-volume ratio and properties (reactivity, melting point, optical and magnetic behaviour) that differ from the bulk. D is the crystallite size only; particles seen by TEM may be larger, built from several crystallites.</p></div>
+          <div class="note trap"><p>Convert keV to J (× 10<sup>3</sup> × 1.602 × 10<sup>−19</sup>) before dividing. A handy check: λ (Å) ≈ 12.4 / E (keV), and 12.4 / 6.93 = 1.79 Å.</p></div>
         ` }
       ],
       flashcards: [

@@ -246,6 +246,25 @@ CHUNK({
             <figure data-fig="m2-pv-tco-gap-table"></figure>
           </details>
         ` },
+        { title: 'Band gap & efficiency', html: `
+          <p class="lead">The band gap E<sub>g</sub> decides which photons a PV cell can use and how much of each photon's energy ends up as electricity. Too small or too large a gap both waste sunlight, so the best single-junction cells use a gap of about <b>1.1–1.5 eV</b>.</p>
+          <ul>
+            <li><b>Photons below E<sub>g</sub> are not absorbed</b>: a photon with less energy than the gap cannot lift an electron from the valence band to the conduction band, so it passes through the cell and gives no current. For Si (about 1.1 eV) this is light longer than about <b>1100 nm</b> (E = 1240/λ, with λ in nm).</li>
+            <li><b>Excess energy above E<sub>g</sub> is lost as heat</b>: a photon with more energy than the gap makes one electron–hole pair, and the extra energy is shed as heat (lattice vibrations) as the electron drops to the bottom of the conduction band. A 2.5 eV blue photon in Si still gives only about 1.1 eV of useful energy; the other 1.4 eV warms the cell.</li>
+            <li><b>The gap sets the voltage</b>: the cell voltage can never be more than about E<sub>g</sub>/e, so a very small gap absorbs a lot of light but gives a low voltage.</li>
+            <li><b>Best range about 1.1–1.5 eV</b>: this balances the two losses. A smaller gap wastes more energy as heat and gives lower voltage; a larger gap lets more of the spectrum pass straight through. Si (<b>1.1 eV</b>), GaAs (1.42 eV) and CdTe (1.45–1.5 eV) all sit in this window, which is why they are the main PV materials.</li>
+          </ul>
+          <table class="tbl">
+            <thead><tr><th>Gap</th><th>What happens to sunlight</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Too small (e.g. 0.5 eV)</td><td>Almost every photon is absorbed, but most of each blue or green photon's energy turns into heat.</td><td>High current, very low voltage, low efficiency</td></tr>
+              <tr><td>About 1.1–1.5 eV (Si, GaAs, CdTe)</td><td>Visible and near-IR light is absorbed and the heat loss per photon is moderate.</td><td>Best balance of current and voltage, highest efficiency</td></tr>
+              <tr><td>Too large (e.g. 3 eV)</td><td>Only violet and UV photons are absorbed; red, orange, yellow and IR light pass through.</td><td>Good voltage but tiny current, low efficiency</td></tr>
+            </tbody>
+          </table>
+          <div class="note why"><p>Even with the ideal gap, a single p–n junction under sunlight can convert at most about one-third of the energy (around 33%, reached near 1.3–1.4 eV), because these two losses can be balanced but never removed. That is why real panels sit at 14–25%.</p></div>
+          <div class="note exam"><p>For "significance of band gap in PV efficiency": define band gap, then write the two losses (below-gap photons not absorbed; above-gap excess lost as heat), state the optimum range 1.1–1.5 eV, and give Si 1.1 eV as the example.</p></div>
+        ` },
         { title: 'Disadvantages', html: `
           <p class="lead">PV is clean while it runs, but it has six weak points the slides want you to be able to list.</p>
           <table class="tbl">

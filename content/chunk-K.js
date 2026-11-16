@@ -260,6 +260,28 @@ CHUNK({
           <p class="lead">Semiconductors sit inside most modern electronics.</p>
           <div class="chips"><span class="chip">temperature sensors</span><span class="chip">3D printing machines</span><span class="chip">microchips</span><span class="chip">self-driving cars</span><span class="chip">calculators</span><span class="chip">solar plates</span><span class="chip">computers</span><span class="chip">transistors</span><span class="chip">MOSFETs</span></div>
           <p>Transistors and <b>MOSFETs</b> (metal-oxide-semiconductor field-effect transistors) are used as <b>switches</b> in circuits.</p>
+          <h3>Devices and materials (Fall 2026-27 deck)</h3>
+          <table class="tbl">
+            <thead><tr><th>Area</th><th>Device</th><th>What it is used for</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="3"><b>Electronics</b></td><td>Diodes</td><td>Let current pass one way only, so they act as <b>rectifiers</b> (AC to DC) and voltage regulators.</td></tr>
+              <tr><td>Transistors</td><td>Work as <b>amplifiers</b> and switches.</td></tr>
+              <tr><td>Integrated circuits (ICs)</td><td>Millions of transistors on one Si chip, making <b>microprocessors and memory chips</b>.</td></tr>
+              <tr><td><b>Power devices</b></td><td>SCR (silicon controlled rectifier), IGBT (insulated gate bipolar transistor), power MOSFET</td><td><b>Power control</b> in converters, inverters and motor drives.</td></tr>
+              <tr><td rowspan="3"><b>Optoelectronics</b></td><td>LEDs (<b>GaAs</b>)</td><td>Light sources in displays and indicators.</td></tr>
+              <tr><td>Laser diodes (<b>GaAs</b>)</td><td><b>Optical communication</b> and CD/DVD players.</td></tr>
+              <tr><td>Photodiodes, solar cells</td><td>Photodiodes turn light into a current for <b>light detection</b>; solar cells do the same for renewable energy.</td></tr>
+              <tr><td rowspan="2"><b>Communication and computing</b></td><td>GaAs and <b>InP</b> chips</td><td>High-speed computers and <b>5G/6G</b> communication devices.</td></tr>
+              <tr><td>Semiconductor sensors</td><td>Sense temperature, pressure, infrared and biological signals (biosensors).</td></tr>
+              <tr><td><b>Everyday use</b></td><td>Consumer electronics</td><td>Mobile phones, computers, televisions, digital cameras and smart appliances.</td></tr>
+            </tbody>
+          </table>
+          <h3>Intrinsic and compound semiconductors</h3>
+          <ul>
+            <li>In an <b>intrinsic</b> (pure) semiconductor such as pure Si or Ge, conductivity arises <b>only from thermally generated electron–hole pairs</b>: heat lifts a few electrons across the gap, each leaving a hole. At 0 K it is an insulator; at room temperature it conducts a little.</li>
+            <li><b>Compound semiconductors</b> are made from two or more elements and are used in high-frequency and optoelectronic devices. <b>Gallium arsenide (GaAs)</b> goes into LEDs, laser diodes and microwave ICs; <b>indium phosphide (InP)</b> into high-speed electronics and optical communication.</li>
+          </ul>
+          <div class="note why"><p>GaAs has a direct band gap (1.42 eV), so an electron dropping across the gap gives out its energy as a photon efficiently. Si has an indirect gap and mostly gives heat instead, which is why LEDs and laser diodes use GaAs, not Si.</p></div>
         ` }
       ],
       flashcards: [
@@ -299,6 +321,43 @@ CHUNK({
           <div class="note why"><p>In domestic wiring, insulation <b>protects us from shock</b> and prevents leakage current. Insulators play an important part in all electrical and electronic circuits.</p></div>
           <h3>Examples</h3>
           <div class="chips"><span class="chip">asbestos and asbestos products</span><span class="chip">glass</span><span class="chip">insulating resins and their products</span><span class="chip">laminates</span><span class="chip">adhesives</span><span class="chip">enamels</span></div>
+        ` },
+        { title: 'Materials & applications', html: `
+          <p class="lead">The Fall 2026-27 deck defines <b>insulators</b> as materials that do not allow electric current to pass through easily. The valence band is full, the conduction band empty, and the gap is <b>very large (typically &gt; 5 eV)</b>, so valence electrons cannot reach the conduction band under normal conditions.</p>
+          <h3>Band gap values</h3>
+          <div class="kv">
+            <div><span>Diamond</span><b>~5.5 eV (excellent insulator)</b></div>
+            <div><span>Glass</span><b>~9 eV</b></div>
+            <div><span>PVC, rubber</span><b>very high, ≫ 6 eV</b></div>
+          </div>
+          <h3>Properties</h3>
+          <ul>
+            <li><b>Very high resistivity</b>, 10<sup>8</sup>–10<sup>16</sup> Ω m, so conductivity is negligible under normal conditions.</li>
+            <li><b>Negative temperature coefficient of resistance</b>: heating frees a few more carriers, so resistance falls slightly as temperature rises.</li>
+            <li>They give <b>electrical isolation</b> between conducting parts.</li>
+            <li>Generally <b>strong dielectrics</b>: they withstand high voltages without breakdown.</li>
+          </ul>
+          <h3>Common insulating materials</h3>
+          <table class="tbl">
+            <thead><tr><th>Group</th><th>Materials</th></tr></thead>
+            <tbody>
+              <tr><td>Non-metals</td><td>Rubber, glass, plastic, wood, <b>mica</b></td></tr>
+              <tr><td>Ceramics</td><td><b>Porcelain</b>, alumina, silicon dioxide</td></tr>
+              <tr><td>Others</td><td><b>PVC</b> (polyvinyl chloride), <b>Bakelite</b>, and <b>paper impregnated with oil</b> for cables</td></tr>
+            </tbody>
+          </table>
+          <h3>Applications</h3>
+          <table class="tbl">
+            <thead><tr><th>Where</th><th>Insulator used</th><th>Why it suits</th></tr></thead>
+            <tbody>
+              <tr><td>Electrical wiring insulation</td><td>Plastic coatings, <b>PVC</b>, rubber</td><td>Flexible coatings that stop shocks and leakage between wires.</td></tr>
+              <tr><td>Transmission lines</td><td><b>Porcelain or glass</b> insulators on pylons</td><td>Hard, weatherproof and able to hold off very high voltages between the line and the tower.</td></tr>
+              <tr><td>Transformers and capacitors</td><td><b>Mica</b>, ceramics, impregnated paper</td><td>Good dielectrics that separate windings or plates and stand up to heat.</td></tr>
+              <tr><td>Printed circuit boards (PCBs)</td><td><b>Epoxy resins, fibreglass</b></td><td>A rigid insulating board that holds the copper tracks apart.</td></tr>
+              <tr><td>High-voltage equipment</td><td>Ceramic insulators, vacuum, or <b>SF<sub>6</sub> gas</b> as the insulating medium</td><td>Withstand very high fields without breaking down or arcing.</td></tr>
+            </tbody>
+          </table>
+          <div class="note heads-up"><p>The older slides draw the insulator gap as 15 eV; the Fall deck says "typically &gt; 5 eV" and gives diamond 5.5 eV and glass 9 eV. For a definition, write "very large, more than about 5 eV".</p></div>
         ` }
       ],
       flashcards: [
@@ -335,6 +394,39 @@ CHUNK({
             <div class="side"><h4>Normal metal</h4><p>Resistivity falls as T falls but levels off at a <b>finite value</b> as T → 0.</p></div>
             <div class="side"><h4>Superconductor</h4><p>Resistivity <b>drops sharply to zero</b> at T<sub>c</sub>.</p></div>
           </div>
+          <h3>From the Fall 2026-27 deck</h3>
+          <ul>
+            <li>A <b>superconductor</b> is a material that, when cooled below a certain critical temperature (T<sub>c</sub>), <b>loses all electrical resistance</b> and lets current flow <b>without any energy loss</b>.</li>
+            <li>Kamerlingh Onnes was the first to <b>liquefy helium</b>, cooling it to near <b>1.5 K</b>, the coldest temperature reached on Earth at the time. Using liquid helium to study solid mercury, he found in 1911 that its resistance vanishes at <b>4.2 K</b>.</li>
+            <li>In <b>1933</b> Meissner found that superconductors <b>expel a magnetic field</b>; the magnetic repulsion can levitate them.</li>
+            <li><b>High-temperature superconductors (HTS)</b> were discovered in <b>1986</b> by <b>Bednorz and Müller</b>, with T<sub>c</sub> above <b>77 K</b> (liquid nitrogen temperature). Both won the <b>Nobel Prize in Physics in 1987</b>. Modern research focuses on these.</li>
+          </ul>
+          <div class="note heads-up"><p>The older slides round mercury's T<sub>c</sub> to 4 K; the Fall 2026-27 deck gives <b>4.2 K</b>, which is the standard value. Write 4.2 K unless a question quotes 4 K.</p></div>
+        ` },
+        { title: 'Critical field & current', html: `
+          <p class="lead">Superconductivity survives only inside three limits: temperature below <b>T<sub>c</sub></b>, magnetic field below <b>H<sub>c</sub></b>, and current density below <b>J<sub>c</sub></b>. Cross any one and the material returns to its normal, resistive state.</p>
+          <table class="tbl">
+            <thead><tr><th>Quantity</th><th>Definition</th><th>Unit</th></tr></thead>
+            <tbody>
+              <tr><td><b>Critical temperature, T<sub>c</sub></b></td><td>The temperature below which the material is superconducting (zero resistance) and above which it behaves as a normal conductor.</td><td>K</td></tr>
+              <tr><td><b>Critical magnetic field, H<sub>c</sub></b></td><td>The maximum external magnetic field a superconductor can withstand at a given temperature and still stay superconducting. A stronger field destroys superconductivity even below T<sub>c</sub>.</td><td>A m<sup>−1</sup> (or as B<sub>c</sub> in tesla)</td></tr>
+              <tr><td><b>Critical current density, J<sub>c</sub></b></td><td>The maximum current per unit cross-sectional area a superconductor can carry with zero resistance. A larger current makes its own magnetic field exceed H<sub>c</sub> at the surface, so superconductivity is lost.</td><td>A m<sup>−2</sup> (often A cm<sup>−2</sup>)</td></tr>
+            </tbody>
+          </table>
+          <div class="eq" data-label="Hc depends on temperature">H<sub>c</sub>(T) = H<sub>0</sub> [1 − (T/T<sub>c</sub>)<sup>2</sup>]</div>
+          <p>H<sub>0</sub> is the critical field at 0 K. H<sub>c</sub> is largest at 0 K and falls to <b>zero at T<sub>c</sub></b>, so the colder the sample, the stronger the field (and the larger the current) it can take.</p>
+          <div class="note why"><p>J<sub>c</sub> and H<sub>c</sub> are linked: a current in a wire makes a magnetic field around it. Push enough current and that self-field alone reaches H<sub>c</sub>. That is why a superconducting magnet coil has a maximum current as well as a maximum field.</p></div>
+          <h3>Resistance below T<sub>c</sub> is exactly zero</h3>
+          <div class="worked">
+            <div class="given"><p>A lead superconductor has T<sub>c</sub> = 7.2 K. Its resistance just above T<sub>c</sub> is 1.2 µΩ. Find its resistance at 4.2 K.</p></div>
+            <div class="solve">
+              <p>Compare the temperature with T<sub>c</sub>: 4.2 K &lt; 7.2 K, so lead is in the superconducting state at 4.2 K (assuming no field or current above the critical values).</p>
+              <p>In the superconducting state the resistance does not just fall a little; it drops sharply to zero at T<sub>c</sub> and stays zero below it. The 1.2 µΩ value applies only to the normal state above T<sub>c</sub>.</p>
+            </div>
+            <div class="result"><p>R (4.2 K) = <b>0 Ω</b></p></div>
+          </div>
+          <div class="note trap"><p>Do not scale the 1.2 µΩ down with temperature as you would for a normal metal. Below T<sub>c</sub> the answer is zero, not a smaller number.</p></div>
+          <div class="note exam"><p>For "define T<sub>c</sub>, H<sub>c</sub> and J<sub>c</sub>": one full sentence each, with units, then add that exceeding any one of them destroys superconductivity, and sketch H<sub>c</sub> against T falling to zero at T<sub>c</sub>.</p></div>
         ` },
         { title: 'Meissner effect', html: `
           <p class="lead">The <b>Meissner effect</b> is the <b>exclusion of magnetic flux</b> (ejection of lines of magnetic induction) from the interior of a bulk superconductor when it is cooled below its transition temperature.</p>
@@ -346,6 +438,72 @@ CHUNK({
             <li>Above T<sub>c</sub> the field lines pass straight through the sample. Below T<sub>c</sub> they bend around it.</li>
           </ul>
           <div class="note example"><p>The classic demonstration: a magnet <b>levitates</b> above a superconductor cooled by <b>liquid nitrogen</b> in a foam container.</p></div>
+        ` },
+        { title: 'Type I vs Type II', html: `
+          <p class="lead">Superconductors are split into two types by how they respond to a rising magnetic field. <b>Type I</b> expels the field completely and then fails all at once at one critical field. <b>Type II</b> lets the field in gradually between two critical fields, <b>H<sub>c1</sub></b> and <b>H<sub>c2</sub></b>.</p>
+          <div class="vs">
+            <div class="side"><h4>Type I (soft superconductors)</h4>
+              <ul>
+                <li>Show the <b>complete Meissner effect</b>: no flux inside at all while superconducting.</li>
+                <li><b>Sharp transition</b> between the normal and superconducting states at a single field H<sub>c</sub>.</li>
+                <li><b>Low critical field</b>, so even a modest magnet kills superconductivity; not useful for strong magnets.</li>
+                <li>Examples: <b>Pb, Hg, Al</b> (pure metals).</li>
+              </ul>
+            </div>
+            <div class="side"><h4>Type II (hard superconductors)</h4>
+              <ul>
+                <li><b>Partial penetration of flux</b> as thin tubes called <b>vortices</b>, while the rest stays superconducting.</li>
+                <li><b>Two critical fields</b>: at <b>H<sub>c1</sub></b> flux starts penetrating; at <b>H<sub>c2</sub></b> superconductivity is destroyed.</li>
+                <li><b>High current-carrying capacity</b> and very high H<sub>c2</sub>, so they make the strong magnets in MRI, maglev and accelerators.</li>
+                <li>Examples: <b>NbTi, Nb<sub>3</sub>Sn, YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub></b> (YBCO, also called Y123).</li>
+              </ul>
+            </div>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>Field range</th><th>Type I</th><th>Type II</th></tr></thead>
+            <tbody>
+              <tr><td>Below H<sub>c</sub> (Type I) or H<sub>c1</sub> (Type II)</td><td>Superconducting, field fully expelled (Meissner state)</td><td>Superconducting, field fully expelled (Meissner state)</td></tr>
+              <tr><td>Between H<sub>c1</sub> and H<sub>c2</sub></td><td>Does not exist for Type I</td><td><b>Mixed (vortex) state</b>: flux threads through in vortices, current still flows with zero resistance</td></tr>
+              <tr><td>Above H<sub>c</sub> (Type I) or H<sub>c2</sub> (Type II)</td><td>Normal metal, field passes through</td><td>Normal state, field passes through</td></tr>
+            </tbody>
+          </table>
+          <h3>Superconductivity and critical magnetic field (Fall deck table)</h3>
+          <table class="tbl">
+            <thead><tr><th>Material</th><th>T<sub>c</sub> (K)</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td>Mercury (Hg)</td><td><b>4.2</b></td><td>I</td></tr>
+              <tr><td>Lead (Pb)</td><td><b>7.2</b></td><td>I</td></tr>
+              <tr><td>Niobium (Nb)</td><td>9.2</td><td>II</td></tr>
+              <tr><td>NbTi alloy</td><td>10</td><td>II</td></tr>
+              <tr><td>Nb<sub>3</sub>Sn</td><td>18</td><td>II</td></tr>
+              <tr><td>YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub> (YBCO)</td><td><b>92</b></td><td>II (HTS)</td></tr>
+              <tr><td>Bi<sub>2</sub>Sr<sub>2</sub>Ca<sub>2</sub>Cu<sub>3</sub>O<sub>10</sub> (BSCCO)</td><td>~110</td><td>II (HTS)</td></tr>
+            </tbody>
+          </table>
+          <div class="note heads-up"><p>The two decks differ slightly: the older table gives Nb 9.5 K and YBCO 93 K, the Fall deck 9.2 K and 92 K. The standard values are about 9.2 K for Nb and 92–93 K for YBCO, so either YBCO figure is accepted.</p></div>
+          <div class="note exam"><p>For "Type I vs Type II": draw magnetisation against applied field. Type I falls straight to zero at H<sub>c</sub>; Type II drops slowly between H<sub>c1</sub> and H<sub>c2</sub>. Then give the four contrasts (Meissner complete or partial, one or two critical fields, low or high field, examples).</p></div>
+        ` },
+        { title: 'YBCO', html: `
+          <p class="lead"><b>YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub></b> (yttrium barium copper oxide, YBCO or Y123) is a <b>ceramic high-temperature superconductor</b> with T<sub>c</sub> ≈ <b>92 K</b>. It was the first material to superconduct above 77 K, so it can be cooled with cheap liquid nitrogen instead of liquid helium.</p>
+          <h3>Characteristics</h3>
+          <ul>
+            <li><b>Ceramic copper oxide (cuprate)</b>: a layered, oxygen-deficient perovskite structure. The current flows mainly in the <b>CuO<sub>2</sub> planes</b>.</li>
+            <li><b>T<sub>c</sub> ≈ 92 K</b>, above the boiling point of liquid nitrogen (77 K), so cooling is cheap and simple.</li>
+            <li><b>Type II</b> superconductor with a very high upper critical field H<sub>c2</sub>, so it keeps superconducting in strong magnetic fields.</li>
+            <li><b>Oxygen content controls it</b>: the formula is often written YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7−δ</sub>. Near O<sub>7</sub> it superconducts; as oxygen is lost (δ toward 1) T<sub>c</sub> falls and it stops superconducting.</li>
+            <li><b>Anisotropic</b>: it carries current much better along the CuO<sub>2</sub> planes than across them.</li>
+            <li><b>Brittle</b> like other ceramics, so it is hard to draw into wires; it is used as thin films and coated tapes.</li>
+            <li>Above T<sub>c</sub> it behaves as a <b>poor metal</b>; below T<sub>c</sub> resistance falls vertically to zero.</li>
+          </ul>
+          <h3>Five applications</h3>
+          <ol>
+            <li><b>Power cables</b>: YBCO-coated tapes carry large currents with no resistive loss, cooled only by liquid nitrogen.</li>
+            <li><b>Fault current limiters</b>: a surge pushes the YBCO above J<sub>c</sub>, it turns resistive instantly and limits the current, protecting the grid.</li>
+            <li><b>Magnetic levitation</b>: a magnet floats over a YBCO pellet (the Meissner and flux-pinning demo); the same idea underlies maglev and frictionless bearings.</li>
+            <li><b>SQUIDs</b>: YBCO SQUIDs work at 77 K and detect extremely weak magnetic fields, for brain mapping (MEG) and mineral exploration.</li>
+            <li><b>High-field magnets and motors</b>: compact magnets for MRI, research magnets and ship-propulsion motors, because YBCO tolerates strong fields.</li>
+          </ol>
+          <div class="note why"><p>Liquid nitrogen costs far less than liquid helium and is much easier to handle. Moving T<sub>c</sub> above 77 K is what turned superconductors from a lab curiosity into usable devices.</p></div>
         ` },
         { title: 'Materials and Tc', html: `
           <table class="tbl">
@@ -372,6 +530,28 @@ CHUNK({
             </tbody>
           </table>
           <div class="note example"><p>In a maglev, superconducting magnets in the train body sit above a track of electromagnets. Matching poles repel and opposite poles attract, which lifts and guides the train.</p></div>
+          <h3>Full list from the Fall 2026-27 deck</h3>
+          <table class="tbl">
+            <thead><tr><th>Area</th><th>Device</th><th>What it does and where</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="4"><b>Power and energy</b></td><td>Superconducting power cables</td><td>Carry huge currents without losses; used in cities such as <b>Essen (Germany)</b> and in near-grid demonstrations.</td></tr>
+              <tr><td>Generators and motors</td><td>Smaller and more efficient than conventional machines; used in <b>naval propulsion</b> and industrial machinery.</td></tr>
+              <tr><td>Fault current limiters (FCLs)</td><td>Protect power grids by <b>limiting surge currents instantly</b>.</td></tr>
+              <tr><td>Superconducting magnetic energy storage (SMES)</td><td>Stores electrical energy <b>in the form of magnetic fields</b> in a superconducting coil and gives instant back-up power.</td></tr>
+              <tr><td rowspan="2"><b>Medical</b></td><td>MRI</td><td>Superconducting magnets create strong, stable magnetic fields; they have <b>replaced older resistive magnets</b> in hospitals.</td></tr>
+              <tr><td>NMR spectroscopy</td><td>A research tool for working out <b>molecular structure</b>, using the same kind of magnet.</td></tr>
+              <tr><td rowspan="2"><b>Transportation</b></td><td>Maglev trains</td><td>Superconducting magnets <b>levitate and propel</b> the train; Japan's <b>SCMaglev</b> has passed <b>600 km/h</b> in tests.</td></tr>
+              <tr><td>Space</td><td>Compact superconducting magnets are being considered for <b>spacecraft propulsion</b>.</td></tr>
+              <tr><td rowspan="3"><b>Electronics and computing</b></td><td>Josephson junctions</td><td>Superfast switches made of <b>two superconductors separated by a thin insulator</b>; used in RSFQ (rapid single flux quantum) logic circuits.</td></tr>
+              <tr><td>SQUIDs (superconducting quantum interference devices)</td><td>Ultra-sensitive magnetometers that detect <b>femto-tesla</b> fields; used for brain mapping (<b>MEG</b>), mineral exploration and detecting submarines.</td></tr>
+              <tr><td>Quantum computing</td><td><b>Superconducting qubits</b> form the basis of many quantum computers.</td></tr>
+              <tr><td rowspan="3"><b>Scientific research</b></td><td>Particle accelerators</td><td>The <b>LHC at CERN</b> uses superconducting magnets to guide protons; superconducting RF cavities accelerate particles efficiently.</td></tr>
+              <tr><td>Fusion reactors (tokamaks, ITER)</td><td>Superconducting magnets <b>confine plasma</b> at millions of degrees.</td></tr>
+              <tr><td>Sensitive detectors</td><td>Infrared detectors and detectors in astronomical telescopes.</td></tr>
+              <tr><td><b>Demonstrations and military</b></td><td>Levitation demos, radar, ship propulsion</td><td>Magnets floating on <b>YBCO pellets</b>; compact, high-power radar and naval ship propulsion.</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>For "applications of superconductors", pick five from different areas (cables, MRI, maglev, SQUID/MEG, LHC or fusion magnets) and give one line each on what the superconductor does: zero-loss current, strong stable field, levitation, or detecting tiny fields.</p></div>
         ` }
       ],
       flashcards: [
@@ -382,7 +562,10 @@ CHUNK({
         { front: 'Who found the Meissner effect and with what samples?', back: '<b>Meissner and Ochsenfeld, 1933</b>, tin and lead.' },
         { front: 'T<sub>c</sub> of YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub>?', back: '<b>93 K</b>.' },
         { front: 'Name four applications of superconductors.', back: '<b>Maglev trains, MRI, power cables and storage, quantum computers</b>.' },
-        { front: 'Resistivity of a normal metal as T → 0?', back: 'Levels off at a <b>finite value</b>. A superconductor drops to <b>zero</b> at T<sub>c</sub>.' }
+        { front: 'Resistivity of a normal metal as T → 0?', back: 'Levels off at a <b>finite value</b>. A superconductor drops to <b>zero</b> at T<sub>c</sub>.' },
+        { front: 'Define critical magnetic field H<sub>c</sub> and critical current density J<sub>c</sub>.', back: 'H<sub>c</sub>: the <b>largest field</b> a superconductor can stand and stay superconducting. J<sub>c</sub>: the <b>largest current per unit area</b> it can carry with zero resistance.' },
+        { front: 'Type I vs Type II superconductors?', back: 'Type I: <b>complete Meissner effect</b>, one low H<sub>c</sub> (Pb, Hg, Al). Type II: <b>flux vortices</b>, two fields H<sub>c1</sub> and H<sub>c2</sub>, high current (NbTi, Nb<sub>3</sub>Sn, YBCO).' },
+        { front: 'Pb has T<sub>c</sub> = 7.2 K and R = 1.2 µΩ just above it. R at 4.2 K?', back: '<b>Zero</b>: 4.2 K is below T<sub>c</sub>, so lead is superconducting.' }
       ],
       oneLiners: [
         'Superconductors lose all resistance below the critical temperature Tc.',

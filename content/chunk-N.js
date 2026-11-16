@@ -24,6 +24,25 @@ CHUNK({
           <h3>Importance</h3>
           <div class="chips"><span class="chip">chemical bonding</span><span class="chip">vibrational motion of diatoms</span><span class="chip">dissociation energy</span><span class="chip">spectroscopic transitions</span><span class="chip">molecular (diatom) stability</span></div>
         ` },
+        { title: 'Harmonic and Morse', html: `
+          <p class="lead">A bond behaves roughly like a <b>spring</b> joining two atoms. Squeezing or stretching it away from R<sub>e</sub> raises the potential energy, and the shape of that rise is modelled in two ways.</p>
+          <div class="vs">
+            <div class="side"><h4>Harmonic oscillator</h4><div class="eq">V = ½k(R − R<sub>e</sub>)<sup>2</sup></div><ul><li>k is the <b>force constant</b>, R the bond length, R<sub>e</sub> the equilibrium bond length.</li><li>The curve is a <b>symmetrical parabola</b>.</li><li>It works well only for <b>small displacements</b> around R<sub>e</sub>.</li><li>A larger k means a bond that is <b>harder to stretch</b>.</li></ul></div>
+            <div class="side"><h4>Anharmonic (Morse) oscillator</h4><div class="eq">V = D<sub>e</sub>(1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup></div><ul><li><b>D<sub>e</sub></b> is the <b>depth of the well</b>, the energy needed to break the bond measured from the minimum; <b>a</b> sets how wide or narrow the curve is.</li><li>Real bonds are not perfect springs; on large stretching the curve stops being a parabola.</li><li>It gives a <b>more realistic</b> description of real vibrations and of the approach to <b>dissociation</b>.</li><li>At large R it differs strongly from the harmonic model: it levels off at D<sub>e</sub> instead of rising for ever.</li></ul></div>
+          </div>
+          <h3>Calculated curves: H<sub>2</sub> and HCl</h3>
+          <p>A program changes the bond length step by step (the <b>scan coordinate</b>, in Å) and calculates the total energy at each step (in Hartree; 1 Hartree ≈ 2626 kJ mol<sup>−1</sup>). For a diatomic the bond length is the only geometric variable, so the result is a <b>2-D curve</b>.</p>
+          <table class="tbl">
+            <thead><tr><th>Feature</th><th>H<sub>2</sub></th><th>HCl</th></tr></thead>
+            <tbody>
+              <tr><td>Minimum (equilibrium bond length)</td><td>About <b>0.74 Å</b></td><td>About <b>1.3 Å</b></td></tr>
+              <tr><td>Short distances</td><td>Energy rises steeply because the two nuclei repel each other</td><td>Energy rises very steeply for the same reason</td></tr>
+              <tr><td>Long distances</td><td>Energy rises as the bond is stretched and broken</td><td>Curve becomes almost flat: H and Cl no longer interact, so the bond is broken (dissociation)</td></tr>
+              <tr><td>Lesson</td><td>The minimum marks the preferred internuclear distance</td><td>The curve is not symmetric, so only the anharmonic Morse form can describe it</td></tr>
+            </tbody>
+          </table>
+          <div class="note exam"><p>"Define reaction coordinate and discuss the potential energy of H<sub>2</sub> (or HCl) along it": the <b>reaction coordinate</b> is the geometric parameter (or path) along which the energy is followed; for a diatomic it is the <b>internuclear distance R</b>. Sketch the curve and mark the repulsive wall (nuclear repulsion), the minimum at R<sub>e</sub> (attraction and repulsion balanced, most stable), the well depth D<sub>e</sub> and the flat dissociation limit. Add the harmonic and Morse equations and say why real bonds are anharmonic.</p></div>
+        ` },
         { title: 'Potential energy surface', html: `
           <p class="lead">A <b>potential energy surface (PES)</b> is a <b>multidimensional surface</b> giving the potential energy of a molecular system as a function of the <b>nuclear coordinates</b>.</p>
           <div class="eq" data-label="Mathematical form">E = f(R<sub>1</sub>, R<sub>2</sub>, R<sub>3</sub>, … R<sub>N</sub>)</div>
@@ -60,6 +79,45 @@ CHUNK({
             </tbody>
           </table>
         ` },
+        { title: 'Water, HOF and ozone', html: `
+          <p class="lead">A PES is like a <b>map of hills and valleys</b>: valleys (minima) are stable structures, ridges and passes are higher-energy regions and reaction barriers. Three examples show how the dimension grows with the number of geometric parameters.</p>
+          <h3>Water: a 3-D surface</h3>
+          <p>With both O–H bonds kept equal, water needs two parameters: <b>q<sub>1</sub> = O–H bond length</b> and <b>q<sub>2</sub> = H–O–H bond angle</b>. With energy as the third axis this gives a 3-D surface, where each point is the energy of one possible geometry. The lowest point, <b>P<sub>min</sub></b>, is at <b>q<sub>1</sub> = 0.958 Å</b> and <b>q<sub>2</sub> = 104.5°</b>, the equilibrium geometry of water.</p>
+          <h3>HOF: a hypersurface</h3>
+          <p>HOF needs three independent parameters: the <b>O–H length, O–F length and H–O–F angle</b>. With energy that makes four axes, which cannot be drawn, so it is a <b>potential energy hypersurface</b>. A computer can still calculate and search it mathematically.</p>
+          <div class="eq" data-label="General">E = f(q<sub>1</sub>, q<sub>2</sub>, q<sub>3</sub>, …, q<sub>n</sub>)</div>
+          <ul>
+            <li><b>One</b> changing coordinate gives a potential energy <b>curve</b>.</li>
+            <li><b>Two</b> coordinates give a potential energy <b>surface</b>.</li>
+            <li><b>Three or more</b> give a <b>hypersurface</b>; bigger molecules simply need more coordinates.</li>
+          </ul>
+          <h3>Ozone → isoozone</h3>
+          <p><b>Ozone</b> is a bent O<sub>3</sub> (O–O–O angle about <b>120°</b>); <b>isoozone</b> is a triangle of three O atoms (angle <b>60°</b>). On the surface plotted against the O–O–O angle and the O–O bond length:</p>
+          <ul>
+            <li>Ozone sits in the deepest valley, the <b>global minimum</b>.</li>
+            <li>Isoozone sits in a higher valley, a <b>local (relative) minimum</b>, so ozone is more stable.</li>
+            <li>The <b>transition state</b> is the <b>saddle point</b> between them, like a mountain pass: a maximum along the path but a minimum in the other direction.</li>
+            <li>The lowest-energy route, the <b>intrinsic reaction coordinate (IRC)</b>, runs ozone → transition state → isoozone; the energy rises to a maximum at the TS, then falls to isoozone.</li>
+            <li>All three are <b>stationary points</b>, where the surface is flat.</li>
+          </ul>
+          <div class="note exam"><p>"What is a hypersurface? Discuss with an example": define PES, say a molecule with three or more geometric parameters needs a 4-D or higher plot, use HOF (O–H, O–F, H–O–F), write E = f(q<sub>1</sub> … q<sub>n</sub>), and contrast with H<sub>2</sub> (curve) and water (surface, P<sub>min</sub> 0.958 Å, 104.5°).</p></div>
+        ` },
+        { title: 'PEC vs PES', html: `
+          <p class="lead">A PES is the extension of a PEC to molecules whose geometry cannot be described by <b>one coordinate</b>.</p>
+          <table class="tbl">
+            <thead><tr><th>Point</th><th>Potential energy curve (PEC)</th><th>Potential energy surface (PES)</th></tr></thead>
+            <tbody>
+              <tr><td>Definition</td><td>Shows how the energy changes when <b>one</b> geometric parameter changes</td><td>Shows how the energy changes when <b>two or more</b> geometric parameters change</td></tr>
+              <tr><td>Systems</td><td>Diatomic molecules such as H<sub>2</sub> and HCl, where bond length is the only variable</td><td>Polyatomic molecules such as H<sub>2</sub>O and O<sub>3</sub>; larger ones need a hypersurface</td></tr>
+              <tr><td>Variables</td><td>E = f(R), with R the internuclear distance</td><td>E = f(q<sub>1</sub>, q<sub>2</sub>, …, q<sub>n</sub>), with 3N − 6 (or 3N − 5) vibrational coordinates</td></tr>
+              <tr><td>Plot</td><td>A 2-D graph, energy against bond length</td><td>A 3-D surface for two parameters; 4-D or more cannot be drawn and is searched by computer</td></tr>
+              <tr><td>Stationary points</td><td>Only one minimum, the equilibrium bond length R<sub>e</sub></td><td>Global and local minima plus saddle points (transition states)</td></tr>
+              <tr><td>Reactions</td><td>Shows only bond dissociation into atoms</td><td>Shows reaction paths, barriers, intermediates and the minimum energy path between minima</td></tr>
+              <tr><td>Example result</td><td>H<sub>2</sub> minimum at about 0.74 Å</td><td>Water minimum at 0.958 Å and 104.5°</td></tr>
+            </tbody>
+          </table>
+          <div class="note why"><p>The PEC is the special, limiting case of the PES for one coordinate. The idea is the same in every case: <b>energy depends on geometry</b>.</p></div>
+        ` },
         { title: 'Electrostatic potential', html: `
           <p class="lead">The <b>electrostatic potential</b> is the work done in bringing a <b>unit positive test charge from infinity</b> to a point in the space around a molecule, without acceleration.</p>
           <ul>
@@ -87,7 +145,13 @@ CHUNK({
         { front: 'PES of a diatom, triatom, larger molecule?', back: '<b>2-D curve, 3-D surface, hypersurface</b>.' },
         { front: 'Features of a PES?', back: '<b>Global and local minima, saddle points (TS), energy barrier, minimum energy path, curvature</b>.' },
         { front: 'Define electrostatic potential.', back: 'Work to bring a <b>unit positive test charge from infinity</b> to a point near the molecule.' },
-        { front: 'Colours in an MEP map?', back: '<b>Red negative</b> (electron-rich, nucleophilic), <b>blue positive</b> (electron-deficient, electrophilic).' }
+        { front: 'Colours in an MEP map?', back: '<b>Red negative</b> (electron-rich, nucleophilic), <b>blue positive</b> (electron-deficient, electrophilic).' },
+        { front: 'Morse potential?', back: '<b>V = D<sub>e</sub>(1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup></b>; D<sub>e</sub> = well depth, a = width of the curve.' },
+        { front: 'Harmonic potential and its limit?', back: '<b>V = ½k(R − R<sub>e</sub>)<sup>2</sup></b>; good only for small displacements around R<sub>e</sub>.' },
+        { front: 'Equilibrium bond lengths on the calculated H<sub>2</sub> and HCl curves?', back: 'H<sub>2</sub> about <b>0.74 Å</b>; HCl about <b>1.3 Å</b>.' },
+        { front: 'Minimum of the water PES?', back: '<b>q<sub>1</sub> = 0.958 Å</b> (O–H), <b>q<sub>2</sub> = 104.5°</b> (H–O–H).' },
+        { front: 'Why is HOF described by a hypersurface?', back: 'It needs <b>three parameters</b> (O–H, O–F, H–O–F), so with energy it needs <b>four axes</b>.' },
+        { front: 'Ozone and isoozone on the PES?', back: 'Ozone (120°) is the <b>global minimum</b>, isoozone (60°) a <b>local minimum</b>, joined through a <b>saddle point</b> TS.' }
       ],
       oneLiners: [
         'A PEC plots energy against internuclear distance; its minimum is the equilibrium bond distance.',
@@ -95,9 +159,13 @@ CHUNK({
         'A PES gives energy as a function of nuclear coordinates: 3N − 6 vibrations (3N − 5 if linear).',
         'A diatom has a 2-D curve, a triatomic a 3-D surface and larger molecules a hypersurface.',
         'Saddle points on the PES are transition states; the minimum energy path joins reactants to products.',
-        'Negative ESP (red) marks electron-rich nucleophilic sites; positive ESP (blue) marks electrophilic sites.'
+        'Negative ESP (red) marks electron-rich nucleophilic sites; positive ESP (blue) marks electrophilic sites.',
+        'Harmonic V = ½k(R − Re)² fits only near the minimum; the Morse curve levels off at De and describes dissociation.',
+        'One coordinate gives a curve (H2), two a surface (water, 0.958 Å and 104.5°), three or more a hypersurface (HOF).'
       ],
       formulas: [
+        { name: 'Harmonic potential', html: `V = ½k(R − R<sub>e</sub>)<sup>2</sup>`, note: 'k = force constant, R<sub>e</sub> = equilibrium bond length.' },
+        { name: 'Morse potential', html: `V = D<sub>e</sub>(1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup>`, note: 'D<sub>e</sub> = well depth, a = curve width.' },
         { name: 'Potential energy surface', html: `E = f(R<sub>1</sub>, R<sub>2</sub>, … R<sub>N</sub>)`, note: 'R<sub>i</sub> = i-th nuclear coordinate.' }
       ]
     },
@@ -106,7 +174,7 @@ CHUNK({
       id: 'm5-geometry-frequency',
       title: 'Geometry optimisation and frequency calculations',
       short: 'Geometry & frequency',
-      blurb: 'The geometry optimisation workflow, vibrational frequency under the harmonic approximation, the number of modes, calculated frequencies, and telling an intermediate from a transition state.',
+      blurb: 'The geometry optimisation workflow, why the starting structure matters, vibrational frequency and force constants, normal modes of water, calculated frequencies, minima, transition states and hilltops, and the HCN → HNC profile.',
       source: 'Slides 36–41',
       tabs: [
         { title: 'Geometry optimisation', html: `
@@ -128,6 +196,36 @@ CHUNK({
             <div class="side"><h4>Importance</h4><ul><li>Molecular structure determination.</li><li>Starting point of further calculations (frequency, spectroscopic).</li><li>Understanding stability: low energy means more stable.</li><li>Reaction mechanism: locating reactant, product and transition state.</li></ul></div>
           </div>
         ` },
+        { title: 'Starting structure', html: `
+          <p class="lead">An optimisation does not search the whole PES. It changes bond lengths and angles step by step and stops at the <b>nearest stationary point</b> it can reach, so the answer depends on the <b>starting geometry</b>.</p>
+          <div class="vs">
+            <div class="side"><h4>Local minimum</h4><p>Lower in energy than all the geometries <b>immediately around it</b>, though another minimum elsewhere may be lower.</p></div>
+            <div class="side"><h4>Global minimum</h4><p>The <b>lowest-energy</b> structure among all the minima considered: the most stable structure.</p></div>
+          </div>
+          <p>A calculation started in one valley moves down into that valley; it does not cross a barrier to look at other regions. So <b>several starting structures</b> may have to be optimised before the most stable one is found.</p>
+          <h3>Example: propen-2-ol</h3>
+          <p>Propen-2-ol, CH<sub>2</sub>=C(OH)CH<sub>3</sub>, is the enol form of acetone. Rotating its O–H and CH<sub>3</sub> groups gives <b>six stationary points</b>:</p>
+          <table class="tbl">
+            <thead><tr><th>Structure</th><th>Energy (kJ mol<sup>−1</sup>)</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><b>0</b></td><td>Minimum, the global minimum and most stable</td></tr>
+              <tr><td>3</td><td><b>7.9</b></td><td>Minimum, a local minimum</td></tr>
+              <tr><td>2, 4, 5</td><td>about 5.8, 11.6 and 14.4</td><td>Transition states, one imaginary frequency each</td></tr>
+              <tr><td>6</td><td>18.3</td><td>Hilltop with <b>two imaginary frequencies</b></td></tr>
+            </tbody>
+          </table>
+          <p>An optimisation started near structure 3 usually <b>stops at 3</b>, even though structure 1 is more stable. Different starting geometries → different pathways → different stationary points.</p>
+          <h3>Conformer analysis: propane</h3>
+          <p>Rotation about single bonds gives conformations of different energy; <b>more eclipsing interactions mean higher energy</b>. Rotating the two CH<sub>3</sub> groups of propane gives three stationary points:</p>
+          <ul>
+            <li><b>A, hilltop:</b> both CH<sub>3</sub> groups eclipsed, <b>6 eclipsing interactions</b>, highest energy.</li>
+            <li><b>B, transition state:</b> one group eclipsed and one staggered, <b>3 eclipsing interactions</b>, intermediate energy.</li>
+            <li><b>C, minimum:</b> both groups staggered, <b>no eclipsing</b>, the most stable conformer.</li>
+          </ul>
+          <p>Conformer analysis finds the stable conformations, the <b>rotational barriers</b> and the lowest-energy arrangement.</p>
+          <div class="note exam"><p>"Two methods used in optimising geometry": the slides do not name two. Build the answer from the notes: (1) <b>molecular mechanics optimisation</b>, where a force field (balls and springs) gives the energy, fast and suited to large molecules but blind to electrons; (2) <b>quantum mechanical optimisation</b> (semi-empirical, ab initio or DFT with a chosen basis set), where energy and forces come from the electronic structure, slower but able to handle bond breaking and transition states. In both the loop is the same: energy and forces, a small move downhill, repeat until the forces are about zero. Add that the starting structure decides which minimum is reached.</p></div>
+          <div class="note heads-up"><p>Some answers read "two methods" as the two kinds of search instead: <b>minimisation</b> to a minimum and a <b>transition-state search</b> to a saddle point. The notes support this too, since optimisation can also be used to search for transition states. If you have space, mention both readings.</p></div>
+        ` },
         { title: 'Frequency', html: `
           <p class="lead">Atoms in a molecule are never still. They <b>vibrate continuously</b> because of thermal energy, around their <b>equilibrium positions</b>.</p>
           <ul>
@@ -144,6 +242,17 @@ CHUNK({
             <li><b>High force constant</b>: higher frequency, stronger bond.</li>
             <li><b>Higher reduced mass</b>: lower frequency.</li>
             <li>Units: <b>Hz (s<sup>−1</sup>)</b>, or <b>cm<sup>−1</sup></b> for spectroscopic applications.</li>
+          </ul>
+          <h3>Wavenumber, reduced mass and force constant</h3>
+          <p>A diatomic is treated as two masses joined by a spring (harmonic oscillator). In wavenumbers:</p>
+          <div class="eq" data-label="Wavenumber">ν̃ = <span class="frac"><span>1</span><span>2πc</span></span> (<span class="frac"><span>k</span><span>μ</span></span>)<sup>1/2</sup></div>
+          <div class="eq" data-label="Reduced mass">μ = <span class="frac"><span>m<sub>A</sub>m<sub>B</sub></span><span>m<sub>A</sub> + m<sub>B</sub></span></span></div>
+          <p>c is the speed of light and m<sub>A</sub>, m<sub>B</sub> are the atomic masses. The <b>force constant k</b> measures bond <b>stiffness</b>, how strongly the bond resists stretching or compression. It is set by the <b>curvature</b> (second derivative) of the energy at the minimum:</p>
+          <div class="eq" data-label="Force constant">d<sup>2</sup>E/dq<sup>2</sup> = 2k   (for E = k(q − q<sub>e</sub>)<sup>2</sup>)</div>
+          <ul>
+            <li>The factor 2 comes only from how the energy is written; with V = ½k(R − R<sub>e</sub>)<sup>2</sup> the second derivative is simply k.</li>
+            <li>A <b>steep</b> energy curve means a <b>stiff bond</b> (high k, greater resistance to deformation); low k means the bond stretches or compresses easily.</li>
+            <li>For <b>polyatomic</b> molecules one stretching equation is not enough: the program uses all the <b>atomic masses and force constants</b> to get every normal mode, in which several atoms move together at one frequency.</li>
           </ul>
         ` },
         { title: 'Number of modes', html: `
@@ -163,6 +272,18 @@ CHUNK({
           </table>
           <figure data-fig="m5-water-normal-modes"></figure>
           <div data-viz="normal-modes"></div>
+          <p>A <b>normal mode</b> is one independent pattern of vibration in which all the atoms move in a coordinated way with the <b>same frequency</b>, reaching maximum displacement and passing through equilibrium together. Translations and rotations move or turn the whole molecule without changing its shape, so they are not vibrations.</p>
+          <h3>Water's three modes</h3>
+          <table class="tbl">
+            <thead><tr><th>Mode</th><th>What the atoms do</th><th>Calculated frequency</th></tr></thead>
+            <tbody>
+              <tr><td><b>Bending</b></td><td>The H–O–H angle opens and closes</td><td><b>1595 cm<sup>−1</sup></b></td></tr>
+              <tr><td><b>Symmetric stretch</b></td><td>Both O–H bonds lengthen and shorten together</td><td><b>3652 cm<sup>−1</sup></b></td></tr>
+              <tr><td><b>Asymmetric stretch</b></td><td>One O–H bond lengthens while the other shortens</td><td><b>3756 cm<sup>−1</sup></b></td></tr>
+            </tbody>
+          </table>
+          <p>Bending needs less energy than stretching, so it appears at a much lower wavenumber. For CO<sub>2</sub> (linear, 3(3) − 5 = 4) the bend is <b>counted twice</b> because it can happen in two perpendicular planes, alongside the symmetric and asymmetric stretches.</p>
+          <div class="note exam"><p>"Number of normal modes of water and how they are found computationally": 3N − 6 = 3; name and describe the three modes with 1595, 3652 and 3756 cm<sup>−1</sup>. Then the method: optimise the geometry, run a frequency calculation (masses and force constants give the normal modes), check there is no imaginary frequency, animate each mode to assign it, and compare the calculated IR spectrum with experiment.</p></div>
         ` },
         { title: 'Calculated frequencies', html: `
           <p class="lead">Methane has 9 modes. The slide lists them from an ORCA calculation at <b>B3LYP / 6-31G*</b>.</p>
@@ -200,6 +321,44 @@ CHUNK({
             <div class="side"><h4>Importance of optimisation</h4><ul><li>Determination of stable structures</li><li>Identification of intermediates</li><li>Identification of transition-state geometries</li><li>Analysis of bond lengths and bond angles</li><li>Energy comparison</li></ul></div>
             <div class="side"><h4>Importance of frequency calculation</h4><ul><li>Confirmation of minima (global or local)</li><li>Identification of transition states</li><li>Identification of the reaction coordinate</li><li>Verification of optimised structures</li></ul></div>
           </div>
+          <h3>Reading the frequency output</h3>
+          <p>Optimisation alone does not say <b>what kind</b> of stationary point was found, so a frequency calculation is run after it. Programs print an imaginary frequency as a <b>negative number</b>.</p>
+          <ul>
+            <li><b>Minimum:</b> zero negative frequencies. No vibrational direction lowers the energy, so the optimisation is validated.</li>
+            <li><b>Transition state:</b> exactly one negative frequency, and its motion must match the expected movement along the reaction coordinate.</li>
+            <li><b>Hilltop</b> (higher-order stationary point): <b>more than one</b> negative frequency. It is unstable in more than one direction, so it is neither a minimum nor a true first-order TS.</li>
+          </ul>
+          <h3>Criteria for a transition state</h3>
+          <ol>
+            <li>The structure lies <b>between reactant and product</b>.</li>
+            <li>It has <b>only one imaginary frequency</b>.</li>
+            <li><b>Animating</b> that mode clearly shows the expected bond-breaking or bond-forming motion.</li>
+            <li>Its energy is <b>higher than both reactant and product</b>.</li>
+          </ol>
+          <p>Finding a high-energy structure is not enough; the imaginary mode must be chemically meaningful. Frequencies also give <b>thermodynamic quantities (entropy, enthalpy)</b> and <b>IR and Raman spectra</b>.</p>
+        ` },
+        { title: 'HCN → HNC profile', html: `
+          <p class="lead">The isomerisation of <b>HCN (H–C≡N)</b> to <b>HNC (H–N≡C)</b> shows optimisation, frequency calculation and energy correction used together. The H atom moves from carbon to nitrogen through a high-energy bent transition state.</p>
+          <ul>
+            <li><b>HCN</b> is a minimum and the more stable structure; it is taken as the <b>zero of energy</b>.</li>
+            <li>The <b>transition state</b> is the highest-energy structure between HCN and HNC.</li>
+            <li><b>HNC</b> is another minimum, higher in energy than HCN.</li>
+            <li>Frequencies confirm this: HCN and HNC have <b>no imaginary frequency</b>; the TS has <b>one</b>, the motion of H from C toward N.</li>
+          </ul>
+          <h3>Zero-point energy (ZPE) correction</h3>
+          <p>Even at 0 K a molecule keeps its lowest vibrational energy, the ZPE, which the frequency calculation gives. The profile is drawn twice: with the <b>raw ab initio energies</b> and with <b>ZPE-corrected</b> energies. Energies are in Hartree; to convert, <b>multiply by 2626</b> (1 Hartree ≈ 2625.5 kJ mol<sup>−1</sup>).</p>
+          <div class="worked">
+            <div class="given"><p>ZPE(HCN) = 0.01798 Hartree; ZPE(TS) = 30.49 kJ mol<sup>−1</sup>; raw barrier 219 kJ mol<sup>−1</sup>; raw E(HNC) = 52.2 kJ mol<sup>−1</sup>.</p></div>
+            <div class="solve">
+              <div class="eq">ZPE(HCN) = 0.01798 × 2626 = 47.22 kJ mol<sup>−1</sup></div>
+              <div class="eq">Corrected ΔE = raw ΔE − [ZPE(HCN) − ZPE(X)]</div>
+              <div class="eq">Barrier = 219 − (47.22 − 30.49) = 219 − 16.73 = 202.3 ≈ 202 kJ mol<sup>−1</sup></div>
+              <p>The TS has a smaller ZPE than HCN (one vibration has turned into the imaginary reaction-coordinate motion), so the correction <b>lowers the barrier</b>.</p>
+            </div>
+            <div class="result">Barrier <b>219 → 202 kJ mol<sup>−1</sup></b>; HNC <b>52.2 → 49.7 kJ mol<sup>−1</sup></b> above HCN.</div>
+          </div>
+          <div class="note heads-up"><p>The HNC drop of 2.5 kJ mol<sup>−1</sup> means ZPE(HNC) ≈ 47.22 − 2.5 = 44.7 kJ mol<sup>−1</sup>; this value is worked back from the source numbers, not printed in the text. Using 2625.5 instead of 2626 gives 47.21 instead of 47.22 kJ mol<sup>−1</sup> and does not change the rounded answers.</p></div>
+          <div class="eq" data-label="Path">HCN (minimum) → transition state → HNC (minimum)</div>
         ` }
       ],
       flashcards: [
@@ -212,9 +371,21 @@ CHUNK({
         { front: 'Modes of H<sub>2</sub>O, NH<sub>3</sub>, CO<sub>2</sub>, CH<sub>4</sub>?', back: '<b>3, 6, 4, 9</b>.' },
         { front: 'Imaginary frequencies in an intermediate and a transition state?', back: '<b>Zero</b> and <b>exactly one</b>.' },
         { front: 'Nature of an intermediate and a transition state on the PES?', back: 'Intermediate: <b>local minimum</b>. TS: <b>first-order saddle point</b>.' },
-        { front: 'Major application of calculated frequencies?', back: '<b>IR spectra</b>: determination, prediction and explanation.' }
+        { front: 'Major application of calculated frequencies?', back: '<b>IR spectra</b>: determination, prediction and explanation.' },
+        { front: 'Why can an optimisation miss the most stable structure?', back: 'It stops at the <b>nearest minimum</b> (a local minimum) reachable from the starting geometry.' },
+        { front: 'Propen-2-ol stationary points?', back: 'Minima <b>1 (0)</b> and <b>3 (7.9 kJ mol<sup>−1</sup>)</b>, TSs 2, 4, 5, hilltop 6 (18.3, two imaginary frequencies).' },
+        { front: 'Propane conformers A, B, C?', back: 'A hilltop (<b>6 eclipsing</b>), B TS (<b>3 eclipsing</b>), C minimum (<b>staggered</b>).' },
+        { front: 'Water mode frequencies?', back: 'Bend <b>1595</b>, symmetric stretch <b>3652</b>, asymmetric stretch <b>3756 cm<sup>−1</sup></b>.' },
+        { front: 'Negative frequencies of a minimum, TS and hilltop?', back: '<b>0, 1, more than 1</b>.' },
+        { front: 'Force constant from the energy curve?', back: '<b>d<sup>2</sup>E/dq<sup>2</sup> = 2k</b> for E = k(q − q<sub>e</sub>)<sup>2</sup>; high k = stiff bond.' },
+        { front: 'HCN → HNC: effect of ZPE correction?', back: 'Barrier <b>219 → 202 kJ mol<sup>−1</sup></b>; HNC <b>52.2 → 49.7 kJ mol<sup>−1</sup></b>.' },
+        { front: 'Hartree to kJ mol<sup>−1</sup>?', back: 'Multiply by <b>2626</b> (2625.5).' }
       ],
       oneLiners: [
+        'Optimisation reaches the nearest minimum, not always the global one, so try several starting structures.',
+        'Water modes: bend 1595, symmetric stretch 3652, asymmetric stretch 3756 cm⁻¹.',
+        'Minimum 0, transition state 1, hilltop more than 1 imaginary (negative) frequency.',
+        'ZPE correction lowers the HCN → HNC barrier from 219 to 202 kJ mol⁻¹ and HNC from 52.2 to 49.7 kJ mol⁻¹.',
         'Optimisation moves atoms until the force is about zero and the energy stops changing.',
         'The result is a stationary point: usually a minimum, sometimes a transition state.',
         'ν = (1/2π)√(k/μ): a stiffer bond vibrates faster, a heavier one slower.',
@@ -225,7 +396,10 @@ CHUNK({
       ],
       formulas: [
         { name: 'Vibrational modes', html: `3N − 5 (linear), 3N − 6 (non-linear)`, note: 'N = number of atoms.' },
-        { name: 'Harmonic frequency', html: `ν = (1/2π) √(k/μ)`, note: 'k = force constant, μ = reduced mass.' }
+        { name: 'Harmonic frequency', html: `ν = (1/2π) √(k/μ)`, note: 'k = force constant, μ = reduced mass.' },
+        { name: 'Harmonic wavenumber', html: `ν̃ = (1/2πc) √(k/μ);  μ = m<sub>A</sub>m<sub>B</sub>/(m<sub>A</sub> + m<sub>B</sub>)`, note: 'c = speed of light.' },
+        { name: 'Force constant', html: `d<sup>2</sup>E/dq<sup>2</sup> = 2k`, note: 'For E = k(q − q<sub>e</sub>)<sup>2</sup>.' },
+        { name: 'Hartree conversion', html: `E (kJ mol<sup>−1</sup>) = E (Hartree) × 2626`, note: '1 Hartree = 2625.5 kJ mol<sup>−1</sup>.' }
       ]
     },
     // ------------------------------------------------------------------

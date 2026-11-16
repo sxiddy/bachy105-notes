@@ -10,7 +10,71 @@
       "J"
     ],
     "questions": "q-M1.js",
-    "syllabus": "Introduction and terminologies; zeroth law, first law, enthalpy and heat capacity; applications of the first law; second law; Carnot cycle; third law and the Gibbs–Helmholtz equation; chemical kinetics (rate equation, order of the reaction, integral rate equations, half-life of reactions); collision theory, effect of temperature and catalysts on reaction rate; numericals."
+    "syllabus": "Introduction and terminologies; zeroth law, first law, enthalpy and heat capacity; applications of the first law; second law; Carnot cycle; third law and the Gibbs–Helmholtz equation; chemical kinetics (rate equation, order of the reaction, integral rate equations, half-life of reactions); collision theory, effect of temperature and catalysts on reaction rate; numericals.",
+    "syllabusRows": [
+      {
+        "n": "1",
+        "text": "Introduction, terminologies",
+        "topics": [
+          "m1-thermo-basics"
+        ]
+      },
+      {
+        "n": "2",
+        "text": "Zeroth law, first law, enthalpy and heat capacity",
+        "topics": [
+          "m1-zeroth-first-law",
+          "m1-enthalpy-heat-capacity"
+        ]
+      },
+      {
+        "n": "3",
+        "text": "Applications of the first law, second law",
+        "topics": [
+          "m1-expansion-work",
+          "m1-second-law-entropy"
+        ]
+      },
+      {
+        "n": "4",
+        "text": "Carnot cycle",
+        "topics": [
+          "m1-carnot-cycle"
+        ]
+      },
+      {
+        "n": "5",
+        "text": "Third law, Gibbs–Helmholtz equation",
+        "topics": [
+          "m1-free-energy",
+          "m1-gibbs-helmholtz-third-law"
+        ]
+      },
+      {
+        "n": "6",
+        "text": "Chemical kinetics: rate equation, order of the reaction, integral rate equations, half-life of reactions",
+        "topics": [
+          "m1-rate-law",
+          "m1-integrated-rate"
+        ]
+      },
+      {
+        "n": "7",
+        "text": "Collision theory, effect of temperature and catalysts on reaction rate",
+        "topics": [
+          "m1-collision-arrhenius",
+          "m1-catalysis"
+        ]
+      },
+      {
+        "n": "8–9",
+        "text": "Numericals",
+        "topics": [
+          "m1-thermo-numericals",
+          "m1-kinetics-numericals"
+        ]
+      }
+    ]
   },
   {
     "id": "m2",
@@ -23,7 +87,64 @@
       "C"
     ],
     "questions": "q-M2.js",
-    "syllabus": "Electrochemical and electrolytic cells, electrode materials with examples; Nernst equation and numericals; classification of batteries; chemistry of Li-ion secondary batteries; fuel cells (H₂–O₂ and solid oxide); solar cells (silicon photovoltaic cell); photoelectrochemical cells; dye-sensitized cells."
+    "syllabus": "Electrochemical and electrolytic cells, electrode materials with examples; Nernst equation and numericals; classification of batteries; chemistry of Li-ion secondary batteries; fuel cells (H₂–O₂ and solid oxide); solar cells (silicon photovoltaic cell); photoelectrochemical cells; dye-sensitized cells.",
+    "syllabusRows": [
+      {
+        "n": "1–2",
+        "text": "Electrochemical and electrolytic cells, electrode materials with examples; Nernst equation and numericals",
+        "topics": [
+          "m2-electrochemical-cells",
+          "m2-electrolysis"
+        ]
+      },
+      {
+        "n": "3",
+        "text": "Classification of batteries",
+        "topics": [
+          "m2-batteries"
+        ]
+      },
+      {
+        "n": "4",
+        "text": "Chemistry of Li-ion secondary batteries",
+        "topics": [
+          "m2-li-ion"
+        ]
+      },
+      {
+        "n": "5",
+        "text": "Fuel cells: H₂–O₂ and solid oxide",
+        "topics": [
+          "m2-fuel-cells",
+          "m2-pemfc",
+          "m2-sofc"
+        ]
+      },
+      {
+        "n": "6",
+        "text": "Solar cells: silicon photovoltaic cell",
+        "topics": [
+          "m2-solar-energy",
+          "m2-semiconductors",
+          "m2-semiconductor-purification",
+          "m2-photovoltaics"
+        ]
+      },
+      {
+        "n": "7",
+        "text": "Photoelectrochemical cells",
+        "topics": [
+          "m2-pec-cells"
+        ]
+      },
+      {
+        "n": "8",
+        "text": "Dye-sensitized solar cells",
+        "topics": [
+          "m2-dssc"
+        ]
+      }
+    ]
   },
   {
     "id": "m3",
@@ -40,7 +161,77 @@
       "q-M3b.js",
       "q-M3.js"
     ],
-    "syllabus": "Electrical materials (Ohm’s law and resistivity); classification of metals and semiconductors; intrinsic and extrinsic Si, insulators, superconductors; magnetic materials (para and dia, ferromagnetic, antiferromagnetic and applications in storage devices); liquid cooling (types of coolants, thermal conductivity and applications); nanomaterials (introduction, top-down and bottom-up approaches for synthesis, bulk vs nano gold, quantum dots)."
+    "syllabus": "Electrical materials (Ohm’s law and resistivity); classification of metals and semiconductors; intrinsic and extrinsic Si, insulators, superconductors; magnetic materials (para and dia, ferromagnetic, antiferromagnetic and applications in storage devices); liquid cooling (types of coolants, thermal conductivity and applications); nanomaterials (introduction, top-down and bottom-up approaches for synthesis, bulk vs nano gold, quantum dots).",
+    "syllabusRows": [
+      {
+        "n": "1",
+        "text": "Electrical materials: Ohm’s law and resistivity",
+        "topics": [
+          "m3-ohm-resistivity",
+          "m3-conducting-materials"
+        ]
+      },
+      {
+        "n": "2",
+        "text": "Classification of metals and semiconductors",
+        "topics": [
+          "m3-band-theory"
+        ]
+      },
+      {
+        "n": "3",
+        "text": "Intrinsic and extrinsic Si, insulators, superconductors",
+        "topics": [
+          "m3-semiconductor-types-uses",
+          "m3-insulators",
+          "m3-superconductors"
+        ]
+      },
+      {
+        "n": "4–6",
+        "text": "Magnetic materials: para- and diamagnetic, ferromagnetic, antiferromagnetic; applications in storage devices",
+        "topics": [
+          "m3-magnetic-basics",
+          "m3-magnetic-classes",
+          "m3-hysteresis-storage"
+        ]
+      },
+      {
+        "n": "7",
+        "text": "Liquid cooling: types of coolants, thermal conductivity and applications",
+        "topics": [
+          "m3-coolants",
+          "m3-coolant-types"
+        ]
+      },
+      {
+        "n": "8",
+        "text": "Nanomaterials: introduction",
+        "topics": [
+          "m3-nanomaterials",
+          "m3-nano-classes",
+          "m3-why-nano"
+        ]
+      },
+      {
+        "n": "9",
+        "text": "Top-down and bottom-up approaches for synthesis",
+        "topics": [
+          "m3-synthesis",
+          "m3-milling",
+          "m3-sol-gel"
+        ]
+      },
+      {
+        "n": "10",
+        "text": "Bulk vs nano gold, quantum dots",
+        "topics": [
+          "m3-nano-gold",
+          "m3-quantum-dots",
+          "m3-qd-uses"
+        ]
+      }
+    ]
   },
   {
     "id": "m4",
@@ -52,7 +243,42 @@
       "G"
     ],
     "questions": "q-M4.js",
-    "syllabus": "Fundamental concepts in spectroscopic and diffraction techniques; principle and instrumentation of UV-Visible spectroscopy; applications of UV-Visible; powder XRD, determination of crystallite size, numericals."
+    "syllabus": "Fundamental concepts in spectroscopic and diffraction techniques; principle and instrumentation of UV-Visible spectroscopy; applications of UV-Visible; powder XRD, determination of crystallite size, numericals.",
+    "syllabusRows": [
+      {
+        "n": "1",
+        "text": "Fundamental concepts in spectroscopic techniques",
+        "topics": [
+          "m4-spectroscopy",
+          "m4-emr-regions"
+        ]
+      },
+      {
+        "n": "2",
+        "text": "Fundamental concepts in diffraction techniques",
+        "topics": [
+          "m4-bragg"
+        ]
+      },
+      {
+        "n": "3–4",
+        "text": "UV-Visible spectroscopy: principle, instrumentation and applications",
+        "topics": [
+          "m4-uv-vis",
+          "m4-beer-lambert",
+          "m4-uv-vis-instrument"
+        ]
+      },
+      {
+        "n": "5–6",
+        "text": "Powder XRD: determination of crystallite size, numericals",
+        "topics": [
+          "m4-xrays",
+          "m4-xrd-patterns",
+          "m4-scherrer"
+        ]
+      }
+    ]
   },
   {
     "id": "m5",
@@ -64,6 +290,60 @@
       "N"
     ],
     "questions": "q-M5.js",
-    "syllabus": "Introduction to quantum mechanical calculations; molecular orbital theory (atomic orbitals, molecular orbitals); orbital interactions and chemical bonding; potential energy curve and surface; electrostatic potentials; geometry optimisation; frequency; reaction mechanism; application of AI to screen semiconductors."
+    "syllabus": "Introduction to quantum mechanical calculations; molecular orbital theory (atomic orbitals, molecular orbitals); orbital interactions and chemical bonding; potential energy curve and surface; electrostatic potentials; geometry optimisation; frequency; reaction mechanism; application of AI to screen semiconductors.",
+    "syllabusRows": [
+      {
+        "n": "1–2",
+        "text": "Introduction to quantum mechanical calculations",
+        "topics": [
+          "m5-comp-intro",
+          "m5-comp-methods",
+          "m5-qm-calculations"
+        ]
+      },
+      {
+        "n": "3",
+        "text": "Molecular orbital theory: atomic orbitals, molecular orbitals",
+        "topics": [
+          "m5-atomic-orbitals",
+          "m5-molecular-orbitals"
+        ]
+      },
+      {
+        "n": "4",
+        "text": "Orbital interactions and chemical bonding",
+        "topics": [
+          "m5-orbital-overlap"
+        ]
+      },
+      {
+        "n": "5–6",
+        "text": "Potential energy curve and surface; electrostatic potentials",
+        "topics": [
+          "m5-potential-energy-surface"
+        ]
+      },
+      {
+        "n": "7–8",
+        "text": "Geometry optimisation; frequency",
+        "topics": [
+          "m5-geometry-frequency"
+        ]
+      },
+      {
+        "n": "9",
+        "text": "Reaction mechanism",
+        "topics": [
+          "m5-reaction-mechanisms"
+        ]
+      },
+      {
+        "n": "10",
+        "text": "Application of AI to screen semiconductors",
+        "topics": [
+          "m5-ai-ml-screening"
+        ]
+      }
+    ]
   }
 ]

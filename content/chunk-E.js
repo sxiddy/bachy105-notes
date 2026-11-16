@@ -260,6 +260,17 @@ CHUNK({
         ` },
         { title: 'Heat & electrical specs', html: `
           <p class="lead">First two checks on any coolant: does it <b>carry heat well</b>, and will it <b>short the circuit</b> if it leaks.</p>
+          <h3>Thermal conductivity</h3>
+          <p><b>Thermal conductivity (k)</b> is the ability of a material to conduct heat. It is the <b>rate of heat flow through unit area</b> of the material per <b>unit temperature gradient</b>, that is, the heat passing each second through a slab 1 m<sup>2</sup> in area and 1 m thick when its faces differ by 1 K. Its SI unit is <b>W m<sup>−1</sup> K<sup>−1</sup></b>.</p>
+          <div class="eq" data-label="Fourier's law">Q/t = −k A (ΔT/Δx)</div>
+          <p>Q/t is the heat flow rate (W), A the area (m<sup>2</sup>) and ΔT/Δx the temperature gradient (K m<sup>−1</sup>); the minus sign says heat flows from hot to cold. A coolant with a higher k pulls heat out of the hot surface faster.</p>
+          <div class="kv">
+            <div><span>Copper</span><b>≈ 400 W m<sup>−1</sup> K<sup>−1</sup></b></div>
+            <div><span>Aluminium</span><b>≈ 237 W m<sup>−1</sup> K<sup>−1</sup></b></div>
+            <div><span>Water (25 °C)</span><b>≈ 0.6 W m<sup>−1</sup> K<sup>−1</sup></b></div>
+            <div><span>Fluorocarbon dielectric fluids</span><b>≈ 0.06–0.07 W m<sup>−1</sup> K<sup>−1</sup></b></div>
+          </div>
+          <div class="note why"><p>This is why cold plates and heat sinks are made of Cu or Al (metals carry heat well through free electrons) and why water is the best liquid coolant: it conducts heat about ten times better than a fluorocarbon fluid.</p></div>
           <h3>1. Thermophysical properties</h3>
           <table class="tbl">
             <thead><tr><th>Property</th><th>Why it matters</th></tr></thead>
@@ -316,6 +327,20 @@ CHUNK({
           <h3>7. Cost</h3>
           <p>Water-based coolants are usually <b>low-cost</b>, but adding <b>antifreeze, glycols and anti-corrosion</b> materials pushes the cost up.</p>
           <div class="mnemonic">The seven checks, in slide order: "Try Every Fluid To Make Engines Cool" = Thermophysical, Electrical, Flammability, Toxicity, Material, Environment, Cost.</div>
+        ` },
+        { title: 'Exam: laptop coolant', html: `
+          <p class="lead">A common design question: choose a coolant for a <b>high-performance laptop processor</b> and justify it. Answer it by running the seven requirements against this one job.</p>
+          <div class="note exam">
+            <p><b>1. The problem.</b> A laptop CPU is small and power-dense, giving a very high heat flux (chips reach up to 1000 W/cm<sup>2</sup>). Heat lowers performance (the chip throttles) and shortens its life, so heat must be removed fast in a small space.</p>
+            <p><b>2. Set-up.</b> A closed cold-plate loop: a Cu or Al cold plate on the CPU, tubing, a small heat exchanger with a fan, and a pump.</p>
+            <p><b>3. Thermophysical.</b> The fluid needs high thermal conductivity and specific heat, and low viscosity so a tiny pump can move it. Water-based fluids are best here.</p>
+            <p><b>4. Electrical conductivity.</b> The loop sits next to live circuits; a leak of conducting water could short the board. So use <b>deionised water with corrosion inhibitors</b> in a sealed loop, or a <b>dielectric fluid (HFE)</b> where leak safety matters most.</p>
+            <p><b>5. Flammability and toxicity.</b> Must be non-flammable (flash point well above 93 °C or none) and low in toxicity, because it is in a consumer device near the user. HFE and water qualify; avoid ethylene glycol (toxic) and alcohols (flammable).</p>
+            <p><b>6. Material compatibility.</b> Must not corrode the Cu or Al cold plate; inhibitors such as tolyltriazole protect copper.</p>
+            <p><b>7. Environment and cost.</b> Low GWP and zero ODP (HFE rather than PFC); DI water is cheapest.</p>
+            <p><b>Verdict.</b> <b>DI water + corrosion inhibitors</b> in a sealed cold-plate loop for best heat removal at low cost; <b>HFE</b> if the design must tolerate leaks onto live electronics. No freezing protection is needed indoors, so glycol is unnecessary.</p>
+          </div>
+          <div class="note trap"><p>Do not pick PFC just because it is dielectric: it works, but its GWP is high. HFE gives the same electrical safety with low GWP.</p></div>
         ` },
       ],
       flashcards: [
