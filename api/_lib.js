@@ -97,7 +97,10 @@ async function siteMode(fresh) {
   const store = require('./_store');
   const out = { signin: true, free: false, freeMode: false, freeOffer: null };
   if (store.configured()) {
-    const [[s, m, sl]] = await store.pipeline([['HMGET', 'config', 'signin', 'mode', 'sale']]);
+    // a store error must not take the whole site down: keep the defaults and log why
+    const r = await store.pipeline([['HMGET', 'config', 'signin', 'mode', 'sale']]).catch((e) => { console.error('siteMode store error:', e.message); return null; });
+    const [s, m, sl] = (r && Array.isArray(r[0])) ? r[0] : [];
+    if (!r || !Array.isArray(r[0])) console.error('siteMode: config read failed', JSON.stringify(r));
     out.signin = s !== 'off'; out.freeMode = m !== 'paid'; // Pro is free for everyone until the owner locks it (mode 'paid')
     try { const x = JSON.parse(sl || 'null'); if (x && x.price === 0 && x.until > Date.now()) out.freeOffer = x.until; } catch (e) {}
     out.free = out.freeMode || !!out.freeOffer;
