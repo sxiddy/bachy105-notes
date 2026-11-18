@@ -1985,6 +1985,7 @@ PAPERS({
 <div class="eq">Overall: Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, E°<sub>cell</sub> = 0.34 − (−0.76) = 1.10 V</div>
 <div class="eq">Cell notation: Zn | ZnSO<sub>4</sub>(aq) ‖ CuSO<sub>4</sub>(aq) | Cu</div>
 <p><b>Electrolytic cell: electrolysis of molten NaCl</b></p>
+<figure data-fig="m2-electrolytic-cell"></figure>
 <ul><li>Two inert electrodes dip in molten NaCl at about 801 °C. The positive terminal of a DC supply connects to the anode and the negative terminal to the cathode, which forces electrons from the anode to the cathode.</li>
 <li>Na<sup>+</sup> ions move to the cathode and are reduced; Cl<sup>−</sup> ions move to the anode and are oxidised.</li></ul>
 <div class="eq">Cathode (−, reduction): 2Na<sup>+</sup> + 2e<sup>−</sup> → 2Na(l)</div>

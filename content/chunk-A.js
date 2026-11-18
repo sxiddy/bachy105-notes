@@ -445,6 +445,7 @@ CHUNK({
       tabs: [
         { title: 'Molten NaCl', html: `
           <p class="lead">An electrolytic cell forces a non-spontaneous reaction with an outside supply. Molten sodium chloride is the standard example.</p>
+          <figure data-fig="m2-electrolytic-cell"></figure>
           <ul>
             <li><b>Inert electrodes</b> are used and electrolysis is carried out at about <b>801 °C</b>, the melting point of NaCl.</li>
             <li>The <b>positive</b> terminal of the supply connects to the <b>anode</b>, the <b>negative</b> terminal to the <b>cathode</b>. This forces electrons to move from the anode to the cathode.</li>
@@ -491,6 +492,9 @@ CHUNK({
     }
   ],
   figures: [
+    { id: 'm2-electrolytic-cell', src: null, crop: null,
+      caption: 'Electrolytic cell for molten NaCl. The DC supply pulls electrons out of the anode (+) and pushes them into the cathode (−). Cl⁻ ions migrate to the anode and are oxidised to Cl₂; Na⁺ ions migrate to the cathode and are reduced to Na. Electrical energy drives a non-spontaneous reaction (ΔG &gt; 0).',
+      alt: 'A vessel of molten sodium chloride with two inert electrodes connected to a DC supply: the left electrode, wired to the positive terminal, is the anode where chloride ions arrive and chlorine bubbles form; the right electrode, wired to the negative terminal, is the cathode where sodium ions arrive. Arrows show electrons leaving the anode and entering the cathode. The half-reactions and overall reaction are written below.' },
     { id: 'm2-daniell-cell', src: 'm2/images/s05_714faec4.png', crop: null,
       caption: 'Electrons leave the Zn anode (−), pass the voltmeter and reach the Cu cathode (+). The KCl salt bridge joins the ZnSO₄ and CuSO₄ half cells. The zinc half-equation is drawn the right way round, Zn → Zn²⁺ + 2e⁻ (the course slide had the electrons on the wrong side).',
       alt: 'Two beakers: a zinc rod in ZnSO4 labelled anode (oxidation, negative) and a copper rod in CuSO4 labelled cathode (reduction, positive), joined by a KCl salt bridge and a wire through a voltmeter, with arrows showing electrons flowing from Zn to Cu. Half reactions and the cell notation Zn(s) | ZnSO4(aq) || CuSO4(aq) | Cu(s) are written below.' },

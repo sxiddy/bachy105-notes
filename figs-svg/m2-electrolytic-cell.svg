@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 690">
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfb"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfo"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" class="dfg"/></marker>
+  </defs>
+  <!-- external DC supply (battery) -->
+  <path d="M150 210V90H270M330 90H450V210" fill="none" class="ds2" stroke-width="3.5"/>
+  <path d="M270 62V118" class="ds" stroke-width="5"/>
+  <path d="M290 74V106" class="ds" stroke-width="9"/>
+  <path d="M310 62V118" class="ds" stroke-width="5"/>
+  <path d="M330 74V106" class="ds" stroke-width="9"/>
+  <text x="300" y="150" text-anchor="middle" font-size="24" font-weight="700" class="dt">DC supply</text>
+  <text x="254" y="62" text-anchor="middle" font-size="26" font-weight="700" class="dtr">+</text>
+  <text x="348" y="62" text-anchor="middle" font-size="26" font-weight="700" class="dtb">−</text>
+  <!-- electrons: pulled out of anode into + terminal, pushed from − terminal into cathode -->
+  <path d="M120 200V130" class="dsb" stroke-width="4" marker-end="url(#ab)"/>
+  <path d="M480 130V200" class="dsb" stroke-width="4" marker-end="url(#ab)"/>
+  <text x="96" y="172" text-anchor="middle" font-size="26" class="dtb">e⁻</text>
+  <text x="508" y="172" text-anchor="middle" font-size="26" class="dtb">e⁻</text>
+  <!-- vessel with molten NaCl -->
+  <path d="M62 300H538V440q0 26-26 26H88q-26 0-26-26z" class="dfo" fill-opacity=".2"/>
+  <path d="M60 250V440q0 28 28 28H512q28 0 28-28V250" fill="none" class="ds2" stroke-width="3.5"/>
+  <text x="300" y="296" text-anchor="middle" font-size="22" class="dt2">molten NaCl, about 801 °C</text>
+  <!-- electrodes (inert) -->
+  <rect x="136" y="210" width="28" height="226" rx="3" class="dfd"/>
+  <rect x="436" y="210" width="28" height="226" rx="3" class="dfd"/>
+  <!-- ion migration -->
+  <text x="262" y="352" text-anchor="middle" font-size="26" class="dtg">Cl⁻</text>
+  <path d="M240 344H190" class="dsg" stroke-width="3.5" marker-end="url(#ag)"/>
+  <text x="338" y="410" text-anchor="middle" font-size="26" class="dto">Na⁺</text>
+  <path d="M366 402H416" class="dso" stroke-width="3.5" marker-end="url(#ao)"/>
+  <!-- gas bubbles at anode -->
+  <circle cx="178" cy="324" r="6" fill="none" class="dsg" stroke-width="2.5"/>
+  <circle cx="186" cy="308" r="5" fill="none" class="dsg" stroke-width="2.5"/>
+  <!-- electrode labels -->
+  <text x="150" y="502" text-anchor="middle" font-size="26" font-weight="700" class="dtr">Anode (+)</text>
+  <text x="150" y="530" text-anchor="middle" font-size="22" class="dt2">oxidation</text>
+  <text x="450" y="502" text-anchor="middle" font-size="26" font-weight="700" class="dtb">Cathode (−)</text>
+  <text x="450" y="530" text-anchor="middle" font-size="22" class="dt2">reduction</text>
+  <text x="150" y="556" text-anchor="middle" font-size="22" class="dt3">inert (graphite)</text>
+  <text x="450" y="556" text-anchor="middle" font-size="22" class="dt3">inert (steel)</text>
+  <!-- equations -->
+  <text x="300" y="604" text-anchor="middle" font-size="24" class="dt mono">Anode: 2Cl⁻ → Cl₂(g) + 2e⁻</text>
+  <text x="300" y="638" text-anchor="middle" font-size="24" class="dt mono">Cathode: 2Na⁺ + 2e⁻ → 2Na(l)</text>
+  <text x="300" y="672" text-anchor="middle" font-size="24" font-weight="700" class="dt mono">2NaCl(l) → 2Na(l) + Cl₂(g)</text>
+</svg>
