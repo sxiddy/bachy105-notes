@@ -75,7 +75,15 @@ PAPERS({
       title: 'FAT · Slot B1+TB1 · Nov 2026',
       sub: 'Actual paper · Fall 2026–27',
       exam: 'fat'
-    }  ],
+    },
+    {
+      id: 'fat-b2tb2-2026',
+      kind: 'actual',
+      title: 'FAT · Slot B2+TB2 · Nov 2026',
+      sub: 'Actual paper · Fall 2026–27',
+      exam: 'fat'
+    }
+  ],
   papers: [
     {
       id: 'cat2-b1tb1',
@@ -1908,10 +1916,348 @@ PAPERS({
           notes: ['m3-magnetic-classes.3', 'm3-magnetic-classes.4', 'm3-hysteresis-storage.2', 'm2-dssc.1', 'm2-dssc.5', 'm2-dssc.6']
         }
       ]
+    },
+    {
+      id: 'fat-b2tb2-2026',
+      kind: 'actual',
+      exam: 'fat',
+      title: 'FAT · Slot B2+TB2 · Nov 2026',
+      short: 'B2+TB2 FAT',
+      sub: 'Actual paper · Fall 2026–27',
+      meta: [['Slot', 'B2+TB2'], ['Date', 'November 2026'], ['Duration', '3 hours'], ['Max marks', '100'], ['Programme', 'B.Tech.']],
+      instructions: `<b>General instructions:</b> Part A: 10 × 10 = 100 marks, answer all questions (Q9 and Q10 have an internal choice). BL – Blooms Taxonomy Level (1 – Remember, 2 – Understand, 3 – Apply, 4 – Analyse, 5 – Evaluate, 6 – Create).<br><b>Course Outcomes:</b> CO1: Apply the concepts of thermodynamics and kinetics. CO2: Use chemical concepts for the advancement of materials in electrical, magnetic, and energy domains. CO3: Demonstrate UV Visible spectroscopic and X-ray diffraction techniques. CO4: Discuss molecular orbitals and its energies through computational chemistry. CO5: Apply instrumental, wet-chemical, and computational methods to analyze materials, molecules, and ions.`,
+      questions: [
+        {
+          n: '1',
+          marks: '5+5',
+          co: '1',
+          bl: '2',
+          prompt: `<p><b>(a)</b> Describe the First Law of Thermodynamics. Derive the mathematical formulation for the internal energy change during an isothermal and adiabatic expansion of an ideal gas.</p>
+<p><b>(b)</b> Explain the foundational principles of an equation which explains how the rate constant of a chemical reaction depends on temperature and activation energy.</p>`,
+          answer: `<p><b>(a) First law:</b> energy can neither be created nor destroyed; it can only change from one form to another. The total energy of an isolated system is constant. For a closed system that takes in heat q and has work w done on it, the internal energy changes by</p>
+<figure data-fig="m1-first-law-flows"></figure>
+<div class="eq">ΔU = q + w (for a small change: dU = dq + dw)</div>
+<p>Sign convention: q is positive when heat is absorbed by the system, w is positive when work is done on the system. For expansion against an external pressure, dw = −P<sub>ext</sub> dV.</p>
+<p><b>Isothermal reversible expansion of an ideal gas.</b> The internal energy of an ideal gas depends only on temperature, so at constant T:</p>
+<div class="eq">ΔU = 0, so q = −w</div>
+<p>For reversible expansion P<sub>ext</sub> = P = nRT/V at every step:</p>
+<div class="eq">w = −∫<sub>V₁</sub><sup>V₂</sup> P dV = −nRT ∫<sub>V₁</sub><sup>V₂</sup> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq">q = +nRT ln(V<sub>2</sub>/V<sub>1</sub>): all the heat absorbed is turned into work done by the gas</div>
+<figure data-fig="m1-pv-isothermal"></figure>
+<p><b>Adiabatic reversible expansion of an ideal gas.</b> No heat is exchanged, q = 0, so</p>
+<div class="eq">ΔU = w, and dU = C<sub>v</sub> dT = −P dV</div>
+<div class="eq">ΔU = w = nC<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>)</div>
+<p>Substituting P = nRT/V and integrating, C<sub>v</sub> ln(T<sub>2</sub>/T<sub>1</sub>) = −R ln(V<sub>2</sub>/V<sub>1</sub>), which gives TV<sup>γ−1</sup> = constant and PV<sup>γ</sup> = constant (γ = C<sub>p</sub>/C<sub>v</sub>). The work can also be written as</p>
+<div class="eq">w = (P<sub>2</sub>V<sub>2</sub> − P<sub>1</sub>V<sub>1</sub>)/(γ − 1)</div>
+<p>In an adiabatic expansion w is negative, so ΔU is negative and the gas cools (T<sub>2</sub> &lt; T<sub>1</sub>): the work is paid for out of the gas's own internal energy.</p>
+<figure data-fig="m1-pv-adiabatic"></figure>
+<p><b>(b) Arrhenius equation</b></p>
+<div class="eq">k = A e<sup>−E<sub>a</sub>/RT</sup>, ln k = ln A − E<sub>a</sub>/RT</div>
+<p>k = rate constant, A = pre-exponential (frequency) factor, E<sub>a</sub> = activation energy, R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>, T = absolute temperature.</p>
+<p><b>Foundational principles</b></p>
+<ul><li><b>Collisions:</b> molecules must collide to react. A is related to the collision frequency and the fraction of collisions with the correct orientation.</li>
+<li><b>Activation energy:</b> only collisions with energy at least E<sub>a</sub> (the energy barrier between reactants and products, through the activated complex) lead to products.</li>
+<li><b>Boltzmann fraction:</b> the fraction of molecules with energy ≥ E<sub>a</sub> is e<sup>−E<sub>a</sub>/RT</sup>. Raising T spreads the energy distribution to higher energies, so this fraction grows sharply. For many reactions a 10 K rise roughly doubles the rate.</li>
+<li><b>Effect of E<sub>a</sub>:</b> the larger E<sub>a</sub>, the smaller k and the more sensitive k is to temperature. A catalyst works by lowering E<sub>a</sub>.</li></ul>
+<figure data-fig="m1-maxwell-boltzmann"></figure>
+<p><b>Using it:</b> a plot of ln k against 1/T is a straight line of slope −E<sub>a</sub>/R and intercept ln A. For two temperatures,</p>
+<div class="eq">log(k<sub>2</sub>/k<sub>1</sub>) = (E<sub>a</sub>/2.303R)(1/T<sub>1</sub> − 1/T<sub>2</sub>)</div>
+<figure data-fig="m1-arrhenius-plot"></figure>
+<div class="note exam"><p>Five marks each: in (a) the statement, ΔU = q + w with signs, and both derivations ending at ΔU = 0 (isothermal) and ΔU = w = nC<sub>v</sub>ΔT (adiabatic). In (b) the equation with every symbol, the collision and E<sub>a</sub> ideas, and the ln k vs 1/T plot.</p></div>`,
+          topics: ['m1-zeroth-first-law', 'm1-expansion-work', 'm1-collision-arrhenius'],
+          notes: ['m1-zeroth-first-law.2', 'm1-expansion-work.0', 'm1-expansion-work.1', 'm1-collision-arrhenius.2', 'm1-collision-arrhenius.3', 'm1-collision-arrhenius.4']
+        },
+        {
+          n: '2',
+          marks: 10,
+          co: '2',
+          bl: '2',
+          prompt: `<p>What are electrochemical cell and electrolytic cell? Explain it with appropriate chemical equation and diagram.</p>`,
+          answer: `<p><b>Electrochemical (galvanic or voltaic) cell:</b> a device that converts the chemical energy of a <b>spontaneous</b> redox reaction into electrical energy (ΔG &lt; 0, E<sub>cell</sub> &gt; 0).</p>
+<p><b>Electrolytic cell:</b> a device in which electrical energy from an outside supply drives a <b>non-spontaneous</b> redox reaction (ΔG &gt; 0).</p>
+<p>In both, oxidation takes place at the anode and reduction at the cathode.</p>
+<p><b>Galvanic cell: the Daniell cell</b></p>
+<figure data-fig="m2-daniell-cell"></figure>
+<ul><li>A zinc rod dips in ZnSO<sub>4</sub> solution and a copper rod in CuSO<sub>4</sub> solution; the two half cells are joined by a KCl salt bridge and the rods by a wire through a voltmeter.</li>
+<li>Zinc is oxidised and its electrons flow through the wire to the copper, where Cu<sup>2+</sup> is reduced. The salt bridge completes the circuit and keeps both solutions electrically neutral.</li></ul>
+<div class="eq">Anode (−, oxidation): Zn → Zn<sup>2+</sup> + 2e<sup>−</sup></div>
+<div class="eq">Cathode (+, reduction): Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu</div>
+<div class="eq">Overall: Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, E°<sub>cell</sub> = 0.34 − (−0.76) = 1.10 V</div>
+<div class="eq">Cell notation: Zn | ZnSO<sub>4</sub>(aq) ‖ CuSO<sub>4</sub>(aq) | Cu</div>
+<p><b>Electrolytic cell: electrolysis of molten NaCl</b></p>
+<ul><li>Two inert electrodes dip in molten NaCl at about 801 °C. The positive terminal of a DC supply connects to the anode and the negative terminal to the cathode, which forces electrons from the anode to the cathode.</li>
+<li>Na<sup>+</sup> ions move to the cathode and are reduced; Cl<sup>−</sup> ions move to the anode and are oxidised.</li></ul>
+<div class="eq">Cathode (−, reduction): 2Na<sup>+</sup> + 2e<sup>−</sup> → 2Na(l)</div>
+<div class="eq">Anode (+, oxidation): 2Cl<sup>−</sup> → Cl<sub>2</sub>(g) + 2e<sup>−</sup></div>
+<div class="eq">Overall: 2NaCl(l) → 2Na(l) + Cl<sub>2</sub>(g)</div>
+<p>Second example, electrolysis of water with a little H<sub>2</sub>SO<sub>4</sub>: cathode 4H<sup>+</sup> + 4e<sup>−</sup> → 2H<sub>2</sub>; anode 2H<sub>2</sub>O → O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup>; overall 2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub>.</p>
+<table><tr><th>Point</th><th>Electrochemical (galvanic) cell</th><th>Electrolytic cell</th></tr>
+<tr><td>Energy change</td><td>chemical → electrical</td><td>electrical → chemical</td></tr>
+<tr><td>Reaction</td><td>spontaneous, ΔG &lt; 0</td><td>non-spontaneous, ΔG &gt; 0</td></tr>
+<tr><td>Anode sign</td><td>negative</td><td>positive</td></tr>
+<tr><td>Cathode sign</td><td>positive</td><td>negative</td></tr>
+<tr><td>Salt bridge</td><td>needed (two half cells)</td><td>not needed (one vessel)</td></tr>
+<tr><td>Outside supply</td><td>none; it is the source</td><td>needed</td></tr>
+<tr><td>Examples</td><td>Daniell cell, dry cell, Li-ion on discharge</td><td>electrolysis of molten NaCl, electroplating, Li-ion on charge</td></tr></table>`,
+          topics: ['m2-electrochemical-cells', 'm2-electrolysis'],
+          notes: ['m2-electrochemical-cells.0', 'm2-electrochemical-cells.2', 'm2-electrolysis.0', 'm2-electrolysis.1']
+        },
+        {
+          n: '3',
+          marks: 10,
+          co: '2',
+          bl: '2',
+          prompt: `<p>“Nanomaterials play a pivotal role in our day to day life”. Substantiate this statement with related application. Explain any one method of synthesis of nanomaterials.</p>`,
+          answer: `<p><b>Nanomaterials</b> have at least one dimension between 1 and 100 nm. At this size the surface-area-to-volume ratio is very large and quantum size effects appear, so colour, strength, reactivity, conductivity and magnetism differ from the bulk. These new properties are why engineered nanomaterials are already in everyday products.</p>
+<figure data-fig="m3-nano-uses-map"></figure>
+<p><b>Everyday applications</b></p>
+<ul><li><b>Sunscreens and cosmetics:</b> nano TiO<sub>2</sub> and ZnO absorb UV but are too small to scatter visible light, so the cream goes on clear.</li>
+<li><b>Self-cleaning windows:</b> nano TiO<sub>2</sub> coatings use sunlight to break down dirt (photocatalysis).</li>
+<li><b>Medicine:</b> diagnosis, imaging and targeted drug delivery; gold nanoparticles in test kits.</li>
+<li><b>Electronics and displays:</b> smaller, faster chips; quantum-dot TVs whose colour is set by dot size.</li>
+<li><b>Sports goods and vehicles:</b> nanocomposites in tennis balls (butyl rubber with nano-clay lasts longer), rackets, bicycles and car parts.</li>
+<li><b>Packaging:</b> UV-blocking nano coatings on glass bottles; nano silica as filler in cosmetics and dental fillings.</li>
+<li><b>Energy:</b> nanoporous TiO<sub>2</sub> in dye-sensitized solar cells, nanostructured electrodes in batteries.</li>
+<li><b>Textiles:</b> stain-resistant and antibacterial (nano silver) clothing.</li></ul>
+<p><b>Synthesis method: sol–gel (bottom-up)</b></p>
+<p>A metal alkoxide M(OR)<sub>n</sub> (for silica, tetraethyl orthosilicate, TEOS) is turned into a colloidal solution (sol) and then into a 3-D network (gel), which is dried and heated to give the oxide nanoparticles.</p>
+<figure data-fig="m3-sol-gel-routes"></figure>
+<ol><li><b>Hydrolysis:</b> the alkoxide reacts with water (with alcohol as co-solvent, acid or base catalyst) to form a sol.<div class="eq">–M–OR + H<sub>2</sub>O → –M–OH + ROH; Si(OR)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4ROH</div></li>
+<li><b>Condensation:</b> M–O–M (oxo) or M–OH–M (hydroxo) bridges form and build a network; viscosity rises and a porous gel forms.<div class="eq">–M–OH + HO–M– → –M–O–M– + H<sub>2</sub>O</div><div class="eq">–M–OH + RO–M– → –M–O–M– + ROH</div></li>
+<li><b>Aging:</b> condensation continues; the network stiffens, porosity decreases and the particles grow farther apart.</li>
+<li><b>Drying:</b> water and organic solvent are removed from the gel.</li>
+<li><b>Calcination:</b> strong heating burns off leftover organic and –OH groups and crystallises the oxide nanoparticles.</li></ol>
+<p><b>Advantages:</b> low temperature, high purity and homogeneity, control of particle size and porosity, gives powders, films and coatings. <b>Limitations:</b> costly alkoxide precursors, long processing time, shrinkage and cracking on drying.</p>`,
+          topics: ['m3-nanomaterials', 'm3-why-nano', 'm3-sol-gel'],
+          notes: ['m3-nanomaterials.0', 'm3-nanomaterials.2', 'm3-why-nano.0', 'm3-sol-gel.1', 'm3-sol-gel.2', 'm3-sol-gel.5']
+        },
+        {
+          n: '4',
+          marks: 10,
+          co: '3',
+          bl: '3',
+          prompt: `<p>Define the terms chromophore and auxochrome with example. Discuss the working mechanism, instrumentation of UV-vis spectroscopy with diagram.</p>`,
+          answer: `<p><b>Chromophore:</b> a covalently unsaturated group in a molecule that is responsible for absorption in the UV-visible region (π → π* and n → π* transitions). Examples: C=C, C=O, N=N (azo), NO<sub>2</sub>, C≡N, benzene ring.</p>
+<p><b>Auxochrome:</b> a saturated group with lone pairs that does not absorb above 200 nm by itself, but when attached to a chromophore shifts its absorption to longer wavelength (bathochromic, red shift) and usually raises its intensity (hyperchromic). Examples: –OH, –NH<sub>2</sub>, –OR, –Cl. Benzene absorbs at 255 nm; phenol (benzene + –OH) at 270 nm.</p>
+<p><b>Working mechanism</b></p>
+<ul><li>UV (200–400 nm) and visible (400–800 nm) light promotes electrons from a lower to a higher molecular orbital when the photon energy matches the gap, ΔE = hν = hc/λ.</li>
+<li>Possible transitions in order of decreasing energy: σ → σ* (below 200 nm), n → σ*, π → π* and n → π* (longest λ, weakest).</li>
+<li>The amount absorbed follows the <b>Beer–Lambert law</b>: A = log(I<sub>0</sub>/I) = εcl, so absorbance is proportional to concentration c and path length l. The spectrum (A vs λ) gives λ<sub>max</sub> for identification, and A at λ<sub>max</sub> gives concentration.</li></ul>
+<p><b>Instrumentation (double-beam spectrophotometer)</b></p>
+<figure data-fig="m4-double-beam"></figure>
+<ol><li><b>Source:</b> deuterium (or hydrogen) lamp for UV, tungsten-halogen lamp for visible.</li>
+<li><b>Monochromator:</b> entrance slit, prism or diffraction grating, exit slit; selects one narrow band of wavelengths and scans it.</li>
+<li><b>Beam splitter (rotating mirror / chopper):</b> divides the light into a sample beam and a reference beam.</li>
+<li><b>Cells (cuvettes):</b> quartz for UV (glass absorbs UV), glass or plastic for visible only; usually 1 cm path. The reference cell holds pure solvent.</li>
+<li><b>Detector:</b> photomultiplier tube or photodiode converts the transmitted light to a current.</li>
+<li><b>Amplifier and recorder/computer:</b> compares the two beams, A = log(I<sub>reference</sub>/I<sub>sample</sub>), and plots absorbance against wavelength.</li></ol>
+<p>The double beam cancels lamp drift and solvent absorption, since sample and reference are measured at the same moment.</p>
+<p><b>Applications:</b> identifying conjugation and functional groups from λ<sub>max</sub>, quantitative analysis (concentration from a calibration line), purity checks, reaction kinetics, band gap of semiconductors and nanoparticles.</p>`,
+          topics: ['m4-uv-vis', 'm4-beer-lambert', 'm4-uv-vis-instrument'],
+          notes: ['m4-uv-vis.5', 'm4-uv-vis.2', 'm4-beer-lambert.0', 'm4-uv-vis-instrument.1', 'm4-uv-vis-instrument.2']
+        },
+        {
+          n: '5',
+          marks: 10,
+          co: '4',
+          bl: '3',
+          prompt: `<p>Describe computational chemistry. Mention the advantages of it and the properties which can be calculated by using computational chemistry.</p>`,
+          answer: `<p><b>Computational chemistry</b> is the branch of chemistry that uses computer simulation, built on theoretical chemistry, to calculate the structures, energies and properties of molecules, solids and reactions. It answers chemical questions with theory and calculation instead of only lab work.</p>
+<p>It draws on quantum mechanics (when electronic structure matters, as when bonds form or break), classical mechanics (molecular structure and motion without explicit electrons), statistical mechanics (linking single molecules to bulk properties such as T and P) and numerical methods that solve these equations on a computer.</p>
+<figure data-fig="m5-method-tree"></figure>
+<p><b>Main methods:</b> molecular mechanics and molecular dynamics (classical force fields, large systems), ab initio methods such as Hartree–Fock (from the Schrödinger equation, no experimental data), semi-empirical methods (simplified, with fitted parameters), density functional theory (DFT, from the electron density) and QM/MM for very large systems such as enzymes.</p>
+<p><b>Advantages</b></p>
+<ul><li><b>Lower cost:</b> many molecules can be screened on a computer and only the promising ones made.</li>
+<li><b>Saves time:</b> pathways and structures are narrowed down faster than by trying each in the lab.</li>
+<li><b>Safety:</b> unstable, toxic, explosive or very reactive species are studied without handling them.</li>
+<li><b>Works on any system:</b> including molecules not yet made, short-lived intermediates and transition states that cannot be isolated.</li>
+<li><b>Insight:</b> gives orbitals, charges and energy profiles that experiments cannot see directly, and helps interpret spectra.</li></ul>
+<p><b>Properties that can be calculated</b></p>
+<table><tr><th>Property</th><th>Example</th></tr>
+<tr><td>Molecular structure</td><td>bond lengths and angles by geometry optimisation</td></tr>
+<tr><td>Energies</td><td>total energy, relative stability of isomers, bond energies</td></tr>
+<tr><td>Spectroscopic properties</td><td>IR frequencies (frequency calculation), UV-vis, NMR</td></tr>
+<tr><td>Reaction mechanism</td><td>pathways, intermediates, transition states, activation barriers</td></tr>
+<tr><td>Thermodynamic properties</td><td>ΔH, ΔS, ΔG, reaction spontaneity</td></tr>
+<tr><td>Kinetics</td><td>rate constants</td></tr>
+<tr><td>Electronic structure</td><td>HOMO, LUMO, band gap, dipole moment, charges, electrostatic potential</td></tr>
+<tr><td>Materials and biology</td><td>semiconductors and nanomaterials, battery design, protein–ligand binding in drug design, DNA simulation</td></tr></table>
+<div class="note exam"><p>Give a one-line definition, the main method families, at least four advantages and at least six properties with examples.</p></div>`,
+          topics: ['m5-comp-intro', 'm5-comp-methods'],
+          notes: ['m5-comp-intro.0', 'm5-comp-intro.1', 'm5-comp-intro.2', 'm5-comp-methods.0']
+        },
+        {
+          n: '6',
+          marks: '5+5',
+          co: '3',
+          bl: '3',
+          prompt: `<p><b>(a)</b> Explain with diagram on the instrumental aspects of X-ray diffraction. Provide some important application of XRD.</p>
+<p><b>(b)</b> Estimate the crystallite size of the given nanomaterial using the given p-XRD data: peak position 2θ = 24.6°, FWHM = 2.560° and λ = 1.5809 Å.</p>`,
+          answer: `<p><b>(a) Powder X-ray diffractometer</b></p>
+<figure data-fig="m4-diffractometer-layout"></figure>
+<ul><li><b>X-ray tube (source):</b> electrons from a heated tungsten filament are accelerated by a high voltage onto a metal target (usually Cu) and produce X-rays; a filter (Ni for Cu) removes Kβ so nearly monochromatic Cu Kα (λ = 1.5406 Å) is used.</li>
+<li><b>Slits / collimator:</b> narrow and direct the X-ray beam onto the sample.</li>
+<li><b>Sample holder:</b> a flat layer of finely powdered sample, so that crystallites lie in all orientations.</li>
+<li><b>Goniometer:</b> rotates the sample by θ while the detector moves by 2θ, keeping the Bragg geometry.</li>
+<li><b>Detector:</b> counts the diffracted X-rays (scintillation or solid-state detector).</li>
+<li><b>Computer:</b> records intensity against 2θ, the diffractogram.</li></ul>
+<p>A peak appears whenever Bragg's law, nλ = 2d sin θ, is satisfied by a set of lattice planes.</p>
+<p><b>Applications</b></p>
+<ul><li>Identifying a crystalline phase by matching peaks to a database (JCPDS/ICDD).</li>
+<li>Telling crystalline (sharp peaks) from amorphous (broad hump) material, and degree of crystallinity.</li>
+<li>Lattice parameters, d-spacings and crystal structure.</li>
+<li>Crystallite size from peak broadening (Scherrer equation) and strain.</li>
+<li>Analysis of mixtures, polymorphs in drugs, minerals, corrosion products.</li></ul>
+<p><b>(b) Scherrer equation</b></p>
+<figure data-fig="m4-fwhm-peak"></figure>
+<div class="eq">D = Kλ / (β cos θ)</div>
+<p>K = 0.9 (shape factor; not given, so the usual value is taken), λ = 1.5809 Å, θ = 24.6°/2 = 12.3°.</p>
+<div class="eq">β = 2.560° × π/180 = 0.044680 rad</div>
+<div class="eq">cos 12.3° = 0.977046</div>
+<div class="eq">β cos θ = 0.044680 × 0.977046 = 0.043655</div>
+<div class="eq">D = (0.9 × 1.5809) / 0.043655 = 1.42281 / 0.043655 = 32.59 Å</div>
+<div class="eq"><b>D ≈ 32.6 Å = 3.26 nm</b></div>
+<div class="note trap"><p>Convert FWHM to radians and halve 2θ before taking the cosine. With K = 0.94 the same data give 34.0 Å (3.40 nm); state which K you used.</p></div>`,
+          topics: ['m4-xrd-patterns', 'm4-xrays', 'm4-bragg', 'm4-scherrer'],
+          notes: ['m4-xrd-patterns.0', 'm4-xrd-patterns.1', 'm4-xrd-patterns.4', 'm4-bragg.3', 'm4-scherrer.1', 'm4-scherrer.2']
+        },
+        {
+          n: '7',
+          marks: 10,
+          co: '2',
+          bl: '2',
+          prompt: `<p>Explain the types of extrinsic semiconductors with examples. What would be the effect of temperature on the conductivity of semiconductors?</p>`,
+          answer: `<p>An <b>extrinsic semiconductor</b> is a pure (intrinsic) semiconductor such as Si or Ge (group 14, four valence electrons) to which a tiny, controlled amount of impurity is added (doping, about 1 atom in 10<sup>6</sup>–10<sup>8</sup>). Doping raises the conductivity greatly. There are two types.</p>
+<p><b>1. n-type semiconductor</b></p>
+<figure data-fig="m2-n-type-doping"></figure>
+<ul><li>Dopant: a group 15 (pentavalent) element, P, As or Sb, in Si or Ge.</li>
+<li>Four of its five valence electrons form bonds with neighbouring Si atoms; the fifth is loosely held and easily freed into the conduction band. The dopant is a <b>donor</b>.</li>
+<li>Its donor level lies just below the conduction band, so little energy is needed to free the electron.</li>
+<li>Majority carriers: <b>electrons</b> (negative, hence n-type); minority carriers: holes.</li>
+<li>Example: Si doped with phosphorus, Ge doped with arsenic.</li></ul>
+<p><b>2. p-type semiconductor</b></p>
+<figure data-fig="m2-p-type-doping"></figure>
+<ul><li>Dopant: a group 13 (trivalent) element, B, Al, Ga or In.</li>
+<li>Its three valence electrons bond with three Si neighbours; the fourth bond is missing an electron, creating a <b>hole</b>. The dopant is an <b>acceptor</b>.</li>
+<li>Its acceptor level lies just above the valence band; electrons from the valence band move into it, leaving mobile holes.</li>
+<li>Majority carriers: <b>holes</b> (positive, hence p-type); minority carriers: electrons.</li>
+<li>Example: Si doped with boron, Ge doped with gallium.</li></ul>
+<p><b>Effect of temperature on conductivity</b></p>
+<figure data-fig="m2-resistivity-temp"></figure>
+<ul><li>At 0 K all electrons are in the valence band, so every semiconductor behaves as an insulator.</li>
+<li>As temperature rises, more electrons gain enough thermal energy to cross the band gap; each jump creates an electron in the conduction band and a hole in the valence band. The number of charge carriers grows roughly exponentially, so <b>conductivity increases and resistivity decreases with temperature</b> (negative temperature coefficient of resistance).</li>
+<li>In an extrinsic semiconductor, low temperatures ionise the dopants first (carriers from dopants); at high temperature intrinsic band-gap excitation takes over and conductivity rises steeply again.</li>
+<li>Metals behave the opposite way: lattice vibrations scatter electrons more, so their conductivity falls as temperature rises.</li></ul>`,
+          topics: ['m2-semiconductors', 'm3-semiconductor-types-uses'],
+          notes: ['m2-semiconductors.4', 'm2-semiconductors.5', 'm2-semiconductors.6', 'm3-semiconductor-types-uses.1', 'm2-semiconductors.1']
+        },
+        {
+          n: '8',
+          marks: 10,
+          co: '4',
+          bl: '3',
+          prompt: `<p>Explain the formation of molecular orbitals using the linear combination of atomic orbital (LCAO) approach. Why the anti-bonding orbitals are having higher energy as compare to bonding orbitals? Explain with illustrative diagram.</p>`,
+          answer: `<p><b>LCAO approach:</b> a molecular orbital is written as a linear combination of the atomic orbitals of the bonded atoms. For a diatomic molecule built from atoms A and B,</p>
+<div class="eq">ψ<sub>MO</sub> = c<sub>A</sub>ψ<sub>A</sub> ± c<sub>B</sub>ψ<sub>B</sub></div>
+<p>For a homonuclear molecule such as H<sub>2</sub>, c<sub>A</sub> = c<sub>B</sub>, and the two combinations are</p>
+<div class="eq">ψ<sub>b</sub> = ψ<sub>A</sub> + ψ<sub>B</sub> (bonding, in-phase, constructive)</div>
+<div class="eq">ψ<sub>a</sub> = ψ<sub>A</sub> − ψ<sub>B</sub> (antibonding, out-of-phase, destructive)</div>
+<p><b>Conditions for effective combination:</b> the atomic orbitals must have similar energy, must overlap appreciably, and must have the same symmetry about the bond axis. n atomic orbitals always give n molecular orbitals.</p>
+<figure data-fig="m5-orbital-overlap"></figure>
+<p><b>Why the antibonding orbital is higher in energy</b></p>
+<ul><li>Electron density is proportional to ψ<sup>2</sup>. For the bonding MO, ψ<sub>b</sub><sup>2</sup> = ψ<sub>A</sub><sup>2</sup> + ψ<sub>B</sub><sup>2</sup> + 2ψ<sub>A</sub>ψ<sub>B</sub>: the extra term piles up electron density <b>between the nuclei</b>, where it is attracted by both nuclei and shields their repulsion. The energy falls below that of the separate atomic orbitals.</li>
+<li>For the antibonding MO, ψ<sub>a</sub><sup>2</sup> = ψ<sub>A</sub><sup>2</sup> + ψ<sub>B</sub><sup>2</sup> − 2ψ<sub>A</sub>ψ<sub>B</sub>: density is removed from between the nuclei and there is a <b>node</b> (zero density) on the plane midway between them. The nuclei are left poorly shielded and repel each other, and the electron is held mainly on the far sides of the nuclei. The energy rises above the atomic orbitals.</li>
+<li>The antibonding MO is raised slightly more than the bonding MO is lowered, which is why He<sub>2</sub> (two bonding and two antibonding electrons) does not exist.</li></ul>
+<figure data-fig="m5-mo-h2"></figure>
+<div class="eq">Bond order = ½ (N<sub>b</sub> − N<sub>a</sub>); H<sub>2</sub>: (σ1s)<sup>2</sup>, bond order = ½(2 − 0) = 1</div>
+<div class="note exam"><p>Write both LCAO combinations, the three conditions, the ψ<sup>2</sup> argument with the node, and draw the H<sub>2</sub> MO energy diagram with the AOs at the sides and σ below, σ* above.</p></div>`,
+          topics: ['m5-molecular-orbitals', 'm5-orbital-overlap'],
+          notes: ['m5-molecular-orbitals.1', 'm5-molecular-orbitals.2', 'm5-molecular-orbitals.3', 'm5-orbital-overlap.1']
+        },
+        {
+          n: '9',
+          marks: 10,
+          co: '1',
+          bl: '3',
+          prompt: `<p><b>(a)</b> (i) 10 moles of an ideal gas expands reversibly and isothermally from a pressure of 10 atm to 2 atm at 300 K. Calculate the work done. (5 marks)<br>(ii) The half-life of a first-order reaction was found to be 10 min at a certain temperature. What is its rate constant? (5 marks)</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> (i) Heat supplied to a Carnot engine is 1897.8 kJ. How much useful work can be done by the engine which works between 0 °C and 100 °C. (5 marks)<br>(ii) If 3.0 g of substance ‘A’ decomposes for 36 minutes the mass of unreacted ‘A’ remaining is found to be 0.375 g. What is the half-life of this reaction if it follows first-order kinetics? (5 marks)</p>`,
+          answer: `<p><b>(a)(i)</b> n = 10 mol, T = 300 K, P<sub>1</sub> = 10 atm, P<sub>2</sub> = 2 atm, R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>.</p>
+<div class="eq">w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>) = −2.303 nRT log(P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq">nRT = 10 × 8.314 × 300 = 24 942 J</div>
+<div class="eq">w = −24 942 × ln 5 = −24 942 × 1.6094 = <b>−40 143 J ≈ −40.1 kJ</b></div>
+<p>The gas does 40.1 kJ of work on the surroundings. Since ΔU = 0 for an isothermal ideal-gas change, q = +40.1 kJ.</p>
+<p><b>(a)(ii)</b></p>
+<div class="eq">k = 0.693 / t<sub>½</sub> = 0.693 / 10 min = <b>0.0693 min<sup>−1</sup></b> = 0.0693/60 = <b>1.155 × 10<sup>−3</sup> s<sup>−1</sup></b></div>
+<p><b>(OR)</b></p>
+<p><b>(b)(i)</b> T<sub>1</sub> (source) = 100 °C = 373.15 K, T<sub>2</sub> (sink) = 0 °C = 273.15 K, q<sub>1</sub> = 1897.8 kJ.</p>
+<figure data-fig="m1-carnot-pv"></figure>
+<div class="eq">η = (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub> = 100/373.15 = 0.2680</div>
+<div class="eq">w = η × q<sub>1</sub> = 0.2680 × 1897.8 = <b>508.6 kJ</b></div>
+<p>Heat rejected to the sink = 1897.8 − 508.6 = 1389.2 kJ. (Using 273 K and 373 K gives η = 0.2681 and w = 508.8 kJ.)</p>
+<p><b>(b)(ii)</b> [A]<sub>0</sub> = 3.0 g, [A] = 0.375 g, t = 36 min.</p>
+<div class="eq">[A]<sub>0</sub>/[A] = 3.0/0.375 = 8 = 2<sup>3</sup>, so 3 half-lives have passed in 36 min</div>
+<div class="eq">t<sub>½</sub> = 36/3 = <b>12 min</b></div>
+<p>Check with the integrated rate law:</p>
+<div class="eq">k = (2.303/t) log([A]<sub>0</sub>/[A]) = (2.303/36) × log 8 = (2.303 × 0.9031)/36 = 0.0578 min<sup>−1</sup></div>
+<div class="eq">t<sub>½</sub> = 0.693/k = 0.693/0.0578 = 12.0 min</div>
+<div class="note trap"><p>Use kelvin in the Carnot efficiency: (100 − 0)/100 would wrongly give 100%. For (a)(i) the pressure ratio is P<sub>1</sub>/P<sub>2</sub> (initial over final), which equals V<sub>2</sub>/V<sub>1</sub>.</p></div>`,
+          topics: ['m1-thermo-numericals', 'm1-expansion-work', 'm1-carnot-cycle', 'm1-kinetics-numericals'],
+          notes: ['m1-thermo-numericals.0', 'm1-expansion-work.0', 'm1-kinetics-numericals.0', 'm1-thermo-numericals.4', 'm1-carnot-cycle.2', 'm1-kinetics-numericals.2']
+        },
+        {
+          n: '10',
+          marks: 10,
+          co: '2',
+          bl: '3',
+          prompt: `<p><b>(a)</b> Define magnetism and the origin of magnetism in any material? Explain any two types of magnetism with suitable example.</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> Explain about the dye-sensitized solar cell (DSSC) in detail with suitable chemical reactions and schematic diagram.</p>`,
+          answer: `<p><b>(a) Magnetism</b> is the property of a material by which it attracts or repels other materials or responds to an applied magnetic field. It arises from magnetic dipoles: tiny current loops of moving charge.</p>
+<p><b>Origin of magnetism:</b> every electron in an atom has a magnetic moment from two sources:</p>
+<ul><li><b>Orbital motion</b> of the electron around the nucleus (a current loop).</li>
+<li><b>Spin</b> of the electron about its own axis (the larger contribution; 1 Bohr magneton, μ<sub>B</sub> = 9.27 × 10<sup>−24</sup> A m<sup>2</sup>).</li></ul>
+<p>In a filled orbital two electrons have opposite spins and their moments cancel. A net atomic moment exists only when there are <b>unpaired electrons</b>, as in transition metals (3d) and rare earths (4f). How these atomic moments are arranged decides the type of magnetism.</p>
+<figure data-fig="m3-spin-arrangements"></figure>
+<p><b>Diamagnetism</b></p>
+<ul><li>Atoms have all electrons paired, so no permanent moment. An applied field induces a weak moment opposite to it, so the material is weakly <b>repelled</b>.</li>
+<li>Susceptibility χ small and negative (about −10<sup>−5</sup>), independent of temperature.</li>
+<li>Examples: Cu, Ag, Au, Bi, water, NaCl, H<sub>2</sub>, N<sub>2</sub>; superconductors are perfect diamagnets (χ = −1).</li></ul>
+<p><b>Paramagnetism</b></p>
+<ul><li>Atoms have unpaired electrons and permanent moments, but these point randomly and do not interact. A field partly aligns them, so the material is weakly <b>attracted</b>; the effect is lost when the field is removed.</li>
+<li>χ small and positive (10<sup>−5</sup> to 10<sup>−3</sup>); decreases with temperature (Curie law, χ = C/T).</li>
+<li>Examples: alkali metals, Al, Pt, O<sub>2</sub>, Cu<sup>2+</sup> and Fe<sup>3+</sup> salts.</li></ul>
+<p>(Ferromagnetism could be given instead: moments aligned parallel in domains, very large positive χ, hysteresis, becomes paramagnetic above the Curie temperature; Fe, Co, Ni.)</p>
+<p><b>(OR)</b></p>
+<p><b>(b) Dye-sensitized solar cell (Grätzel cell)</b> is a photoelectrochemical solar cell in which a dye absorbs sunlight and injects electrons into a wide-band-gap semiconductor (TiO<sub>2</sub>).</p>
+<figure data-fig="m2-dssc-schematic"></figure>
+<p><b>Construction</b></p>
+<ul><li><b>Transparent conducting glass:</b> two glass plates coated with fluorine-doped tin oxide (FTO) or indium tin oxide.</li>
+<li><b>Working electrode (photoanode, −):</b> a mesoporous layer of nanocrystalline TiO<sub>2</sub> (band gap 3.2 eV) with a very large surface area, coated with a monolayer of dye.</li>
+<li><b>Dye (photosensitizer):</b> ruthenium polypyridyl complexes (N3, N719, black dye) or natural dyes (anthocyanins from hibiscus, berries).</li>
+<li><b>Electrolyte:</b> iodide / tri-iodide (I<sup>−</sup>/I<sub>3</sub><sup>−</sup>) redox couple in an organic solvent.</li>
+<li><b>Counter electrode (+):</b> conducting glass coated with platinum or graphite, which catalyses I<sub>3</sub><sup>−</sup> reduction.</li></ul>
+<p><b>Working and reactions</b></p>
+<ol><li><b>Light absorption:</b> the dye absorbs a photon and is excited.<div class="eq">Dye + hν → Dye*</div></li>
+<li><b>Electron injection:</b> the excited dye injects an electron into the conduction band of TiO<sub>2</sub> (which lies below Dye*); the dye is oxidised.<div class="eq">Dye* → Dye<sup>+</sup> + e<sup>−</sup>(TiO<sub>2</sub>)</div></li>
+<li><b>Transport and collection:</b> electrons diffuse through the TiO<sub>2</sub> to the FTO, then flow through the external load (useful current) to the counter electrode.</li>
+<li><b>Dye regeneration:</b> iodide reduces the oxidised dye.<div class="eq">2Dye<sup>+</sup> + 3I<sup>−</sup> → 2Dye + I<sub>3</sub><sup>−</sup></div></li>
+<li><b>Electrolyte regeneration:</b> at the counter electrode tri-iodide is reduced back to iodide.<div class="eq">I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup></div></li></ol>
+<p>No net chemical change occurs: the cycle repeats as long as light falls on the cell. The voltage is the difference between the TiO<sub>2</sub> Fermi level and the I<sup>−</sup>/I<sub>3</sub><sup>−</sup> redox potential.</p>
+<p><b>Advantages:</b> cheap materials and simple fabrication with no high-purity silicon; works in diffuse and low light; can be semi-transparent, coloured and flexible. <b>Disadvantages:</b> lower efficiency than silicon cells; costly ruthenium dye and platinum catalyst; dye degradation; the liquid electrolyte has temperature-stability problems (can freeze, expand or leak) and contains volatile organic solvents.</p>`,
+          topics: ['m3-magnetic-basics', 'm3-magnetic-classes', 'm2-dssc'],
+          notes: ['m3-magnetic-basics.1', 'm3-magnetic-classes.0', 'm3-magnetic-classes.1', 'm3-magnetic-classes.2', 'm2-dssc.0', 'm2-dssc.1', 'm2-dssc.6']
+        }
+      ]
     }
   ],
   asked: {
     'm1-kinetics-numericals': [
+      {
+        where: 'Q9, 10 marks',
+        what: 'first-order k from t½ and t½ from mass remaining numericals',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q9, 10 marks',
         what: 'first-order k, t for 80%, and % remaining numericals',
@@ -1930,6 +2276,11 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       }    ],
     'm2-electrochemical-cells': [
+      {
+        where: 'Q2, 10 marks',
+        what: 'electrochemical (galvanic) cell vs electrolytic cell with equations and diagram',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q1(b), 5 marks',
         what: 'Ni | Ni²⁺ || Ag⁺ | Ag: cell notation, half reactions and E(cell) by the Nernst equation',
@@ -1967,6 +2318,11 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       }    ],
     'm2-dssc': [
+      {
+        where: 'Q10(b), 10 marks',
+        what: 'DSSC in detail with reactions and schematic',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q3, 10 marks',
         what: 'a dye-sensitized cell: components, sequence from light absorption to current, why it is efficient',
@@ -2050,6 +2406,11 @@ PAPERS({
       }    ],
     'm3-sol-gel': [
       {
+        where: 'Q3, 10 marks',
+        what: 'any one synthesis method of nanomaterials',
+        paper: 'fat-b2tb2-2026'
+      },
+      {
         where: 'Q4, 10 marks',
         what: 'sol–gel silica: equations, steps, size control, pros and cons',
         paper: 'cat2-b1tb1'
@@ -2070,6 +2431,11 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       }    ],
     'm4-uv-vis': [
+      {
+        where: 'Q4, 10 marks',
+        what: 'chromophore and auxochrome with examples',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q5(a), 5 marks',
         what: 'UV-Vis principle; Congo red vs methylene blue: chromophores, auxochromes, conjugation, transitions',
@@ -2099,6 +2465,11 @@ PAPERS({
       }
     ],
     'm4-scherrer': [
+      {
+        where: 'Q6(b), 5 marks',
+        what: 'crystallite size from 2θ = 24.6°, FWHM 2.560°, λ = 1.5809 Å',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q5(b), 5 marks',
         what: 'crystallite size by Scherrer (2θ = 44.60°, FWHM 0.95°, k = 0.9)',
@@ -2143,6 +2514,11 @@ PAPERS({
       }
     ],
     'm4-xrd-patterns': [
+      {
+        where: 'Q6(a), 5 marks',
+        what: 'XRD instrumentation with diagram and applications',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q5(a), 5 marks',
         what: 'XRD to tell single-crystal, polycrystalline and amorphous silicon apart',
@@ -2325,6 +2701,11 @@ PAPERS({
     ],
     'm1-expansion-work': [
       {
+        where: 'Q1(a), 5 marks',
+        what: 'ΔU = 0 (isothermal) and ΔU = w = nCvΔT (adiabatic) derivations',
+        paper: 'fat-b2tb2-2026'
+      },
+      {
         where: 'Q3(a), 5 marks',
         what: 'work, heat, delta U and delta H for 1 mol expanding isothermally from 5 L to 20 L at 300 K',
         paper: 'cat1-g1tg1-2025'
@@ -2371,6 +2752,11 @@ PAPERS({
       }    ],
     'm1-zeroth-first-law': [
       {
+        where: 'Q1(a), 5 marks',
+        what: 'first law statement; ΔU for isothermal and adiabatic expansion of an ideal gas',
+        paper: 'fat-b2tb2-2026'
+      },
+      {
         where: 'Q1, 10 marks',
         what: 'change in internal energy in an isothermal process of an ideal gas',
         paper: 'cat1-g2tg2-2025'
@@ -2414,6 +2800,11 @@ PAPERS({
       }
     ],
     'm1-thermo-numericals': [
+      {
+        where: 'Q9, 10 marks',
+        what: 'isothermal work (10 mol, 10 → 2 atm, 300 K) and Carnot useful work numericals',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q3, 10 marks',
         what: 'isothermal work and heat, and entropy of heating at constant pressure',
@@ -2568,6 +2959,11 @@ PAPERS({
     ],
     'm1-collision-arrhenius': [
       {
+        where: 'Q1(b), 5 marks',
+        what: 'Arrhenius equation: how k depends on T and Ea',
+        paper: 'fat-b2tb2-2026'
+      },
+      {
         where: 'Q5, 10 marks',
         what: 'effect of temperature by collision theory, energy distribution curves, Arrhenius equation terms',
         paper: 'cat1-g1tg1-2025'
@@ -2603,6 +2999,11 @@ PAPERS({
         paper: 'cat1-b1tb1-2026'
       }    ],
     'm2-electrolysis': [
+      {
+        where: 'Q2, 10 marks',
+        what: 'electrolytic cell with equations (molten NaCl)',
+        paper: 'fat-b2tb2-2026'
+      },
     ],
     'm3-ohm-resistivity': [
     ],
@@ -2625,6 +3026,11 @@ PAPERS({
       }
     ],
     'm3-magnetic-classes': [
+      {
+        where: 'Q10(a), 10 marks',
+        what: 'define magnetism, its origin, and two types with examples',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q7, 10 marks',
         what: 'distinguish dia, para and ferromagnetic materials and five applications',
@@ -2687,12 +3093,22 @@ PAPERS({
     ],
     'm5-comp-intro': [
       {
+        where: 'Q5, 10 marks',
+        what: 'computational chemistry: definition, advantages, properties calculated',
+        paper: 'fat-b2tb2-2026'
+      },
+      {
         where: 'Q5(a), 5 marks',
         what: 'merits of computational chemistry compared with conventional chemistry',
         paper: 'fat-g1tg1-2025'
       }
     ],
     'm5-molecular-orbitals': [
+      {
+        where: 'Q8, 10 marks',
+        what: 'LCAO formation of MOs; why antibonding MOs are higher in energy',
+        paper: 'fat-b2tb2-2026'
+      },
       {
         where: 'Q5(b), 5 marks',
         what: 'MO treatment of a diatomic with the time-independent Schrodinger equation',
@@ -2710,6 +3126,34 @@ PAPERS({
         where: 'Q8, 10 marks',
         what: 'geometry optimisation workflow and use in reaction mechanisms',
         paper: 'fat-b1tb1-2026'
+      }
+    ],
+    'm3-nanomaterials': [
+      {
+        where: 'Q3, 10 marks',
+        what: 'everyday applications of nanomaterials',
+        paper: 'fat-b2tb2-2026'
+      }
+    ],
+    'm4-uv-vis-instrument': [
+      {
+        where: 'Q4, 10 marks',
+        what: 'UV-Vis working and instrumentation with diagram',
+        paper: 'fat-b2tb2-2026'
+      }
+    ],
+    'm2-semiconductors': [
+      {
+        where: 'Q7, 10 marks',
+        what: 'n- and p-type extrinsic semiconductors; effect of temperature on conductivity',
+        paper: 'fat-b2tb2-2026'
+      }
+    ],
+    'm3-semiconductor-types-uses': [
+      {
+        where: 'Q7, 10 marks',
+        what: 'types of extrinsic semiconductors with examples',
+        paper: 'fat-b2tb2-2026'
       }
     ]
   }
