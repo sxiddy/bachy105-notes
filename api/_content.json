@@ -123,14 +123,6 @@
    "access": "free"
   },
   {
-   "id": "cat1-f1tf1-2025w",
-   "kind": "actual",
-   "title": "CAT-1 · Slot F1+TF1 · January 2026",
-   "sub": "Actual paper · Winter 2025–26",
-   "questions": 9,
-   "access": "free"
-  },
-  {
    "id": "fat-g1tg1-2025",
    "kind": "actual",
    "title": "FAT · Slot G1+TG1 · Nov 2025",
@@ -144,14 +136,6 @@
    "title": "FAT · Slot B1+TB1 · Nov 2026",
    "sub": "Actual paper · Fall 2026–27",
    "questions": 10,
-   "access": "free"
-  },
-  {
-   "id": "fat-f1tf1-2025",
-   "kind": "actual",
-   "title": "FAT · Slot F1+TF1 · Nov/Dec 2025",
-   "sub": "Actual paper · Fall 2025–26",
-   "questions": 12,
    "access": "free"
   }
  ]

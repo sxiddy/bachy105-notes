@@ -63,12 +63,6 @@ PAPERS({
       sub: 'Actual paper · Fall 2025–26'
     },
     {
-      id: 'cat1-f1tf1-2025w',
-      kind: 'actual',
-      title: 'CAT-1 · Slot F1+TF1 · January 2026',
-      sub: 'Actual paper · Winter 2025–26'
-    },
-    {
       id: 'fat-g1tg1-2025',
       kind: 'actual',
       title: 'FAT · Slot G1+TG1 · Nov 2025',
@@ -81,15 +75,7 @@ PAPERS({
       title: 'FAT · Slot B1+TB1 · Nov 2026',
       sub: 'Actual paper · Fall 2026–27',
       exam: 'fat'
-    },
-    {
-      id: 'fat-f1tf1-2025',
-      kind: 'actual',
-      title: 'FAT · Slot F1+TF1 · Nov/Dec 2025',
-      sub: 'Actual paper · Fall 2025–26',
-      exam: 'fat'
-    }
-  ],
+    }  ],
   papers: [
     {
       id: 'cat2-b1tb1',
@@ -1430,222 +1416,6 @@ PAPERS({
       ]
     },
     {
-      id: 'cat1-f1tf1-2025w',
-      kind: 'actual',
-      title: 'CAT-1 · Slot F1+TF1 · January 2026',
-      short: 'F1+TF1 paper',
-      sub: 'Actual paper · Winter 2025–26',
-      meta: [['Slot', 'F1+TF1'], ['Date', 'January 2026'], ['Duration', '90 minutes'], ['Max marks', '50'], ['Programme', 'B.Tech.']],
-      instructions: `<b>General instructions:</b> Write only your registration number on the question paper in the box provided and do not write other information. Use statistical tables supplied from the exam cell as necessary. Use graph sheets supplied from the exam cell as necessary. Only non-programmable calculator without storage is permitted. Answer all questions.`,
-      questions: [
-        {
-          n: '1a',
-          marks: 5,
-          co: '1',
-          bl: '1',
-          prompt: `<p>How galvanic cells are different from electrolytic cells; explain with an example of each? Support your answer with a valid justification.</p>`,
-          answer: `<p>A <b>galvanic (voltaic) cell</b> converts the energy of a spontaneous redox reaction into electrical energy. An <b>electrolytic cell</b> uses electrical energy from an external source to force a non-spontaneous reaction.</p>
-<table class="tbl"><thead><tr><th>Feature</th><th>Galvanic cell</th><th>Electrolytic cell</th></tr></thead><tbody>
-<tr><td>Energy change</td><td>Chemical to electrical</td><td>Electrical to chemical</td></tr>
-<tr><td>Reaction</td><td>Spontaneous, ΔG &lt; 0, E<sub>cell</sub> &gt; 0</td><td>Non-spontaneous, ΔG &gt; 0, needs an applied voltage above E<sub>cell</sub></td></tr>
-<tr><td>Anode</td><td>Negative; oxidation</td><td>Positive; oxidation</td></tr>
-<tr><td>Cathode</td><td>Positive; reduction</td><td>Negative; reduction</td></tr>
-<tr><td>Set-up</td><td>Two half-cells joined by a salt bridge</td><td>Usually one vessel, both electrodes in the same electrolyte</td></tr>
-<tr><td>Electron flow</td><td>Anode to cathode through the wire, pushed by the cell</td><td>Anode to cathode through the wire, pushed by the battery</td></tr></tbody></table>
-<p><b>Example of galvanic cell: the Daniell cell.</b> Zn | Zn<sup>2+</sup> || Cu<sup>2+</sup> | Cu. Anode: Zn → Zn<sup>2+</sup> + 2e<sup>−</sup>. Cathode: Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu. E°<sub>cell</sub> = 0.34 − (−0.76) = +1.10 V, so the reaction runs by itself.</p>
-<p><b>Example of electrolytic cell: electrolysis of molten NaCl.</b> Cathode: Na<sup>+</sup> + e<sup>−</sup> → Na. Anode: 2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup>. The reaction 2NaCl → 2Na + Cl<sub>2</sub> does not occur on its own, and a battery has to supply the energy.</p>
-<p><b>Justification:</b> in the Daniell cell E°<sub>cell</sub> is positive and ΔG° = −nFE° = −2 × 96485 × 1.10 = −212 kJ/mol, so it can drive a load. For NaCl the sign is reversed, so an external voltage larger than this magnitude has to be applied.</p>
-<div class="note trap"><p>The sign labels of the electrodes swap between the two cells (anode negative in galvanic, positive in electrolytic), but oxidation always happens at the anode.</p></div>
-<div class="note exam"><p>Five marks: a comparison table with at least four rows (2), one example each with half reactions (2), and the ΔG justification (1).</p></div>`,
-          topics: ['m2-electrochemical-cells', 'm2-electrolysis'],
-          notes: ['m2-electrochemical-cells.0', 'm2-electrolysis.0']
-        },
-        {
-          n: '1b',
-          marks: 5,
-          co: '1',
-          bl: '2',
-          prompt: `<p>How conductivity of metals and semi-conductors varies with temperature? Explain.</p>`,
-          answer: `<p><b>Metals: conductivity falls as temperature rises.</b></p>
-<ul><li>In a metal the valence and conduction bands overlap, so a very large number of free electrons is available at all temperatures. Heating does not add noticeably to this number.</li>
-<li>Heating makes the lattice ions vibrate with larger amplitude, so electrons collide with them more often. Their mean free path and mobility drop.</li>
-<li>Resistivity therefore rises roughly linearly: ρ<sub>T</sub> = ρ<sub>0</sub>[1 + α(T − T<sub>0</sub>)], so conductivity σ = 1/ρ falls.</li></ul>
-<p><b>Semiconductors: conductivity rises as temperature rises.</b></p>
-<ul><li>At 0 K the valence band is full, the conduction band is empty, and the gap E<sub>g</sub> is small (Si about 1.1 eV, Ge about 0.7 eV). The material behaves as an insulator.</li>
-<li>On heating, more electrons gain enough energy to jump across the gap, leaving holes behind. The number of charge carriers grows roughly as n ∝ e<sup>−E<sub>g</sub>/2kT</sup>.</li>
-<li>Lattice scattering also increases in a semiconductor and lowers the mobility a little, but the exponential growth in carriers is far larger, so σ rises overall and resistivity falls.</li></ul>
-<figure data-fig="m3-metal-resistivity-temperature"></figure>
-<p>On a graph of resistivity against T, the metal curve slopes upward and the semiconductor curve slopes downward.</p>
-<div class="note trap"><p>Do not say semiconductors have fewer collisions at high T. The point is that carrier number rises faster than mobility falls. At very high T a doped semiconductor becomes intrinsic.</p></div>
-<div class="note exam"><p>Five marks: the opposite trends (1), the mechanism for metals (2) and for semiconductors (2). A small sketch of resistivity against T for both earns the diagram mark.</p></div>`,
-          topics: ['m3-ohm-resistivity', 'm3-band-theory'],
-          notes: ['m3-ohm-resistivity.1', 'm3-band-theory.2', 'm2-semiconductors.1']
-        },
-        {
-          n: '2a',
-          marks: 5,
-          co: '1',
-          bl: '2',
-          prompt: `<p>Explain the working principle of a photovoltaic (PV) cell and discuss the significance of bandgap of semiconductors on the efficiency of PV.</p>`,
-          answer: `<p><b>Principle.</b> A PV cell converts sunlight directly into electricity using a semiconductor p–n junction (commonly silicon).</p>
-<ol><li>Where the n-type and p-type layers meet, electrons diffuse into the p side and holes into the n side. This leaves a <b>depletion region</b> with a built-in electric field pointing from n to p.</li>
-<li>A photon with energy hν ≥ E<sub>g</sub> is absorbed and lifts an electron from the valence band to the conduction band, creating an electron–hole pair.</li>
-<li>The built-in field sweeps electrons to the n side and holes to the p side.</li>
-<li>Metal contacts collect the charges. Electrons flow through the external load, giving a DC photocurrent, and recombine with holes at the other contact.</li></ol>
-<figure data-fig="m2-pv-pn-depletion"></figure>
-<p><b>Significance of the bandgap</b></p>
-<ul><li><b>Photons with hν &lt; E<sub>g</sub> are not absorbed</b>. A large gap wastes much of the solar spectrum and lowers the current.</li>
-<li><b>Photons with hν &gt; E<sub>g</sub> lose the excess energy as heat</b> (the electron relaxes to the band edge). A small gap wastes more energy this way and gives a low voltage, because the open-circuit voltage is limited by E<sub>g</sub>/e.</li>
-<li>Current falls with rising E<sub>g</sub> while voltage rises with it, so the product has an optimum at about 1.1–1.5 eV. Silicon (1.1 eV) is close to this, and the theoretical limit for a single junction is about 33%.</li></ul>
-<div class="worked"><div class="given"><p>Longest wavelength that Si (E<sub>g</sub> = 1.1 eV) can absorb. Use λ (nm) = 1240 / E (eV).</p></div>
-<div class="solve"><p>λ = 1240 / 1.1 = 1127 nm.</p></div>
-<div class="result">Si absorbs visible and near-infrared light up to about 1130 nm.</div></div>
-<div class="note trap"><p>A bigger bandgap does not mean a better cell. It raises the voltage but cuts the current, so the optimum is in the middle.</p></div>
-<div class="note exam"><p>Five marks: p–n junction and photon absorption steps with a neat diagram (3), the effect of too large and too small a gap with the optimum (2).</p></div>`,
-          topics: ['m2-photovoltaics'],
-          notes: ['m2-photovoltaics.0', 'm2-photovoltaics.4', 'm2-photovoltaics.6']
-        },
-        {
-          n: '2b',
-          marks: 5,
-          co: '1',
-          bl: '2',
-          prompt: `<p>Explain the function of each component of a dye-sensitized solar cell and how oxidized dye will be regenerated.</p>`,
-          answer: `<p>A dye-sensitized solar cell (DSSC) separates light absorption (done by a dye) from charge transport (done by a wide-gap semiconductor and an electrolyte).</p>
-<figure data-fig="m2-dssc-schematic"></figure>
-<table class="tbl"><thead><tr><th>Component</th><th>Function</th></tr></thead><tbody>
-<tr><td>Transparent conducting glass (FTO or ITO) on both sides</td><td>Lets light in and collects electrons as the front and back contacts</td></tr>
-<tr><td>Nanocrystalline TiO<sub>2</sub> film (photoanode)</td><td>Wide-gap semiconductor with a very large surface area. It carries the dye and accepts electrons from the excited dye</td></tr>
-<tr><td>Dye sensitizer (for example a Ru complex)</td><td>Absorbs visible light, goes to an excited state and injects an electron into the TiO<sub>2</sub> conduction band</td></tr>
-<tr><td>Electrolyte with I<sup>−</sup>/I<sub>3</sub><sup>−</sup> redox couple</td><td>Carries charge between the electrodes and gives electrons back to the oxidised dye</td></tr>
-<tr><td>Counter electrode (Pt or carbon-coated)</td><td>Catalyses the reduction of I<sub>3</sub><sup>−</sup> back to I<sup>−</sup> using electrons returning through the external circuit</td></tr></tbody></table>
-<p><b>Dye regeneration (the cycle)</b></p>
-<div class="eq">Dye + hν → Dye*</div>
-<div class="eq">Dye* → Dye<sup>+</sup> + e<sup>−</sup>(TiO<sub>2</sub>)</div>
-<div class="eq">2Dye<sup>+</sup> + 3I<sup>−</sup> → 2Dye + I<sub>3</sub><sup>−</sup> (regeneration)</div>
-<div class="eq">I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup> (counter electrode)</div>
-<p>The iodide in the electrolyte donates an electron to the oxidised dye, restoring it to the neutral ground state. The iodide is oxidised to triiodide, which diffuses to the counter electrode and is reduced back to iodide with the electrons that have travelled through the load. Nothing is consumed overall.</p>
-<div class="note trap"><p>The electron does not pass through the dye to the electrolyte directly. It goes from the dye into TiO<sub>2</sub> and round the external circuit; the dye gets its replacement electron from I<sup>−</sup>.</p></div>
-<div class="note exam"><p>Five marks: each of the five components with its role (3) and the regeneration reactions I<sup>−</sup> to I<sub>3</sub><sup>−</sup> to I<sup>−</sup> (2).</p></div>`,
-          topics: ['m2-dssc'],
-          notes: ['m2-dssc.2', 'm2-dssc.3', 'm2-dssc.4', 'm2-dssc.1']
-        },
-        {
-          n: '3a',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>Write the anodic and cathodic reaction of a solid oxide fuel cell (SOFC) and also explain its advantages over proton exchange membrane fuel cell (PEMFC).</p>`,
-          answer: `<p>The SOFC has a solid ceramic electrolyte, yttria-stabilized zirconia (YSZ), that conducts <b>oxide ions (O<sup>2−</sup>)</b> at 800–1000 °C. It has a porous Ni–YSZ anode and a porous LSM cathode.</p>
-<figure data-fig="m2-sofc-diagram"></figure>
-<div class="eq">Anode: H<sub>2</sub> + O<sup>2−</sup> → H<sub>2</sub>O + 2e<sup>−</sup></div>
-<div class="eq">Cathode: ½O<sub>2</sub> + 2e<sup>−</sup> → O<sup>2−</sup></div>
-<div class="eq">Overall: H<sub>2</sub> + ½O<sub>2</sub> → H<sub>2</sub>O</div>
-<p>With carbon monoxide as fuel, the anode reaction is CO + O<sup>2−</sup> → CO<sub>2</sub> + 2e<sup>−</sup>. Oxide ions travel from the cathode to the anode through the electrolyte; electrons travel through the external circuit.</p>
-<p><b>Advantages over the PEMFC</b></p>
-<ul><li><b>No platinum catalyst.</b> The high temperature makes the reactions fast, so cheap nickel works. The PEMFC needs Pt.</li>
-<li><b>Fuel flexibility.</b> It can use H<sub>2</sub>, CO, coal gas and reformed hydrocarbons, and CO is a fuel, not a poison. In a PEMFC even ppm of CO poisons the Pt.</li>
-<li><b>Sulphur tolerance</b> is relatively high, so less fuel clean-up is needed.</li>
-<li><b>Higher efficiency</b> (over 60% fuel to electricity) and the hot exhaust can run a turbine or give heat (cogeneration).</li>
-<li><b>Solid electrolyte</b>: no leakage, no membrane to keep wet, so no water management problem. A PEMFC membrane must stay hydrated.</li></ul>
-<div class="note trap"><p>In an SOFC the mobile ion is O<sup>2−</sup> and water forms at the <b>anode</b>. In a PEMFC the mobile ion is H<sup>+</sup> and water forms at the cathode. A good drawback to mention: the high temperature means slow start-up and material stress.</p></div>
-<div class="note exam"><p>Five marks: the two electrode reactions (2) and three or more advantages with reasons (3).</p></div>`,
-          topics: ['m2-sofc', 'm2-pemfc'],
-          notes: ['m2-sofc.2', 'm2-sofc.4']
-        },
-        {
-          n: '3b',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>Define superconductors. Explain the Meissner effect phenomenon and its applications.</p>`,
-          answer: `<p><b>Definition.</b> A superconductor is a material whose electrical resistance drops to <b>exactly zero</b> when it is cooled below a critical temperature T<sub>c</sub>. Examples: Hg (T<sub>c</sub> = 4.2 K), Nb<sub>3</sub>Sn, YBa<sub>2</sub>Cu<sub>3</sub>O<sub>7</sub> (about 92 K).</p>
-<p><b>Meissner effect.</b> Below T<sub>c</sub> a superconductor <b>expels the magnetic field</b> from its interior, so B = 0 inside. It behaves as a perfect diamagnet (susceptibility χ = −1).</p>
-<figure data-fig="m3-meissner-effect"></figure>
-<ul><li>If a superconductor is cooled in a magnetic field, the field lines are pushed out as T falls below T<sub>c</sub>. Surface currents set up by the field cancel B inside.</li>
-<li>A perfect conductor would only keep a field frozen in; a superconductor actively expels it. That is the difference.</li>
-<li>The effect breaks down when the temperature exceeds T<sub>c</sub> or when the applied field exceeds a critical field H<sub>c</sub>; the material returns to the normal state.</li>
-<li>A magnet placed above a superconductor is repelled and floats (magnetic levitation).</li></ul>
-<p><b>Applications</b></p>
-<ul><li>Maglev trains: levitation with no contact and very low friction.</li>
-<li>Strong superconducting electromagnets in MRI scanners and particle accelerators, since no power is lost as heat in the winding.</li>
-<li>Loss-free power transmission cables and fault-current limiters.</li>
-<li>SQUID magnetometers for very weak fields.</li></ul>
-<div class="note trap"><p>Zero resistance and the Meissner effect are two separate properties. Zero resistance alone does not explain field expulsion.</p></div>
-<div class="note exam"><p>Five marks: definition with T<sub>c</sub> (1), Meissner effect with a field-line diagram (3), applications (1).</p></div>`,
-          topics: ['m3-superconductors'],
-          notes: ['m3-superconductors.0', 'm3-superconductors.2', 'm3-superconductors.6']
-        },
-        {
-          n: '4',
-          marks: 10,
-          co: '2',
-          bl: '2',
-          prompt: `<p>Describe and compare paramagnetism, ferromagnetism, ferrimagnetism, and antiferromagnetism. Illustrate the spin alignments in the absence and presence of an external magnetic field.</p>`,
-          answer: `<p>Magnetism arises from the spin (and orbital) motion of electrons. Atoms with unpaired electrons carry a net magnetic moment, and the classes differ in how these moments are arranged.</p>
-<figure data-fig="m3-spin-arrangements"></figure>
-<table class="tbl"><thead><tr><th>Type</th><th>Spin arrangement, no field</th><th>With field H</th><th>Net moment and susceptibility</th></tr></thead><tbody>
-<tr><td><b>Paramagnetism</b></td><td>Unpaired spins on isolated atoms point randomly (↗ ↙ ↖ ↘); net moment zero</td><td>Spins partly line up with the field; lost when the field is removed</td><td>Weak, positive χ; falls with T (Curie law)</td></tr>
-<tr><td><b>Ferromagnetism</b></td><td>Within each domain all spins are parallel (↑ ↑ ↑ ↑) by exchange coupling; domains point in different directions, so the bulk may show no moment</td><td>Domains aligned with the field grow and all spins line up; strong magnetisation that can stay after the field is removed</td><td>Very large, positive χ; becomes paramagnetic above the Curie temperature. Fe, Co, Ni</td></tr>
-<tr><td><b>Antiferromagnetism</b></td><td>Neighbouring spins are antiparallel and equal (↑ ↓ ↑ ↓); net moment zero</td><td>Very little change, so only a small positive moment</td><td>Small positive χ; ordering lost above the Néel temperature. MnO, NiO</td></tr>
-<tr><td><b>Ferrimagnetism</b></td><td>Neighbouring spins are antiparallel but <b>unequal</b> (↑ ↓ with different sizes); net moment non-zero (for example ↑↑ ↓)</td><td>Net moments align, giving large magnetisation</td><td>Large, positive χ; ferrites such as Fe<sub>3</sub>O<sub>4</sub>, with low electrical conductivity</td></tr></tbody></table>
-<p><b>Key comparison</b></p>
-<ul><li>Ferromagnets and ferrimagnets keep a permanent moment, and both show hysteresis. Paramagnets and antiferromagnets do not.</li>
-<li>Ferromagnets have parallel alignment; antiferromagnets cancel exactly; ferrimagnets cancel only partly.</li>
-<li>The ordered types lose order at T<sub>C</sub> (Curie) or T<sub>N</sub> (Néel) and become paramagnetic.</li></ul>
-<div class="note trap"><p>Ferrimagnets and antiferromagnets both have antiparallel neighbours. The difference is whether the opposing moments are equal (cancel, antiferromagnet) or unequal (net moment, ferrimagnet).</p></div>
-<div class="note exam"><p>Ten marks: about 2 for each type, 2 for correct spin-arrow sketches in the absence and presence of a field. A compact table plus arrow rows is the quickest way to score.</p></div>`,
-          topics: ['m3-magnetic-classes'],
-          notes: ['m3-magnetic-classes.2', 'm3-magnetic-classes.3', 'm3-magnetic-classes.4', 'm3-magnetic-classes.5', 'm3-magnetic-classes.6']
-        },
-        {
-          n: '5a',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>Discuss the hysteresis behaviour of ferromagnetic materials with a suitable plot between magnetic field vs. magnetization.</p>`,
-          answer: `<p>When a ferromagnet is magnetised, demagnetised and magnetised in the opposite direction, the magnetisation M lags behind the applied field H. The M–H curve is a closed loop, called a <b>hysteresis loop</b>.</p>
-<figure data-fig="m3-hysteresis-loop"></figure>
-<p><b>Plot to draw:</b> H on the x-axis, M on the y-axis. Starting from the origin on an unmagnetised sample, M rises steeply along the virgin curve to a flat top (saturation M<sub>s</sub>, all domains aligned). Reducing H to zero, M falls only to M<sub>r</sub>. A reverse field H<sub>c</sub> brings M to zero. Continuing gives negative saturation, and the loop closes after reversing again.</p>
-<ul><li><b>Saturation magnetisation M<sub>s</sub>:</b> all domains aligned with the field.</li>
-<li><b>Retentivity (remanence) M<sub>r</sub>:</b> magnetisation left at H = 0.</li>
-<li><b>Coercivity H<sub>c</sub>:</b> reverse field needed to bring M to zero.</li>
-<li><b>Loop area:</b> energy lost as heat per cycle, caused by domain wall movement.</li></ul>
-<p><b>Reason for the lag:</b> domain walls move and domains rotate when H is applied, but these motions meet obstacles (defects, impurities) and are not fully reversible.</p>
-<table class="tbl"><thead><tr><th>Material</th><th>Loop</th><th>Use</th></tr></thead><tbody>
-<tr><td>Soft (iron, silicon steel)</td><td>Narrow, low H<sub>c</sub>, small loss</td><td>Transformer cores, electromagnets</td></tr>
-<tr><td>Hard (alnico, NdFeB)</td><td>Wide, high H<sub>c</sub> and M<sub>r</sub></td><td>Permanent magnets, data storage</td></tr></tbody></table>
-<div class="note trap"><p>Retentivity is the M value on the vertical axis at H = 0, and coercivity is the H value on the horizontal axis at M = 0. Do not swap the intercepts.</p></div>
-<div class="note exam"><p>Five marks: a properly labelled loop with M<sub>s</sub>, M<sub>r</sub>, H<sub>c</sub> (3), explanation of the lag and the loop area (1), soft against hard (1).</p></div>`,
-          topics: ['m3-hysteresis-storage'],
-          notes: ['m3-hysteresis-storage.1']
-        },
-        {
-          n: '5b',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>Define thermal conductivity. What characteristics would you recommend for an effective coolant used in a high-performance laptop processor?</p>`,
-          answer: `<p><b>Thermal conductivity (k)</b> is the heat transferred per unit time through a unit area of a material per unit temperature gradient. From Fourier's law:</p>
-<div class="eq">Q / t = −k A (dT/dx), unit: W m<sup>−1</sup> K<sup>−1</sup></div>
-<p>A high k means heat moves quickly from the hot surface into the fluid. Copper is about 400 W/m·K and water about 0.6 W/m·K.</p>
-<p><b>Characteristics for a laptop processor coolant</b></p>
-<ul><li><b>High thermal conductivity</b> to take heat from the chip surface rapidly.</li>
-<li><b>High specific heat</b> so each kilogram carries a lot of heat for a small temperature rise, and a small flow is enough.</li>
-<li><b>High latent heat and a suitable boiling point</b>, so it does not boil off during use, or gives a large cooling effect if it does boil.</li>
-<li><b>Low viscosity</b> so a small pump can circulate it through thin cold-plate channels.</li>
-<li><b>Electrically insulating (dielectric)</b> or leak-safe, so a leak does not short the circuit.</li>
-<li><b>Non-corrosive and chemically stable</b> toward copper, aluminium and seals, with a low freezing point.</li>
-<li><b>Non-toxic, non-flammable, low cost.</b></li></ul>
-<p>A practical choice is water with glycol and corrosion inhibitors in a closed cold-plate loop; nanofluids (nanoparticles in water) raise k further, and dielectric fluids suit direct contact with the electronics.</p>
-<div class="note trap"><p>Water is the best at carrying heat, but it conducts electricity (when impure) and corrodes metals, so on its own it fails the safety checks. Mention inhibitors or a dielectric fluid.</p></div>
-<div class="note exam"><p>Five marks: definition with unit (2) and at least four reasoned coolant properties (3).</p></div>`,
-          topics: ['m3-coolants'],
-          notes: ['m3-coolants.2', 'm3-coolants.5']
-        }
-      ]
-    },
-    {
       id: 'fat-g1tg1-2025',
       kind: 'actual',
       exam: 'fat',
@@ -1870,252 +1640,6 @@ PAPERS({
 <div class="note exam"><p>10.a: schematic (jar, balls, motion arrows), mechanism, and at least four limitations. 10.b: the five steps in order with the hydrolysis and condensation equations.</p></div>`,
           topics: ['m3-milling', 'm3-synthesis', 'm3-sol-gel'],
           notes: ['m3-milling.2', 'm3-milling.3', 'm3-sol-gel.1', 'm3-sol-gel.3']
-        }
-      ]
-    },
-    {
-      id: 'fat-f1tf1-2025',
-      kind: 'actual',
-      exam: 'fat',
-      title: 'FAT · Slot F1+TF1 · Nov/Dec 2025',
-      short: 'F1+TF1 FAT',
-      sub: 'Actual paper · Fall 2025–26',
-      meta: [['Slot', 'F1+TF1'], ['Date', 'Nov/Dec 2025'], ['Duration', '3 hours'], ['Max marks', '100'], ['Programme', 'B.Tech.']],
-      instructions: `<b>Instructions to candidates:</b> Write only your registration number in the designated box on the question paper. Writing anything elsewhere on the question paper will be considered a violation. Section-I: Answer any 5 Questions (5 × 5 Marks). Section-II: Answer all Questions (5 × 15 Marks).<br><b>Course Outcomes:</b> CO1: Understand the fundamental concepts in physical, analytical and materials chemistry. CO2: Apply chemical concepts for the advancement of materials in electrical, magnetic, and energy domains. CO3: Demonstrate instrumental techniques in chemistry. CO4: Solve chemical problems by applying computational chemistry. CO5: Experiment to quantify the metal ions, to visualize molecules using computational tools, to prepare ZnO semiconductor. BL – Bloom's Taxonomy Levels (K1 – Remembering, K2 – Understanding, K3 – Applying, K4 – Analysing, K5 – Evaluating, K6 – Creating).`,
-      questions: [
-        {
-          n: '1',
-          marks: 5,
-          co: '1',
-          bl: '3',
-          prompt: `<p>According to collision theory, what factors determine the rate of a chemical reaction, and how does temperature influence the frequency and effectiveness of molecular collisions?</p>`,
-          answer: `<p>The rate depends on three factors:</p>
-<ol><li><b>Collision frequency (Z):</b> more molecules per unit volume (higher concentration or pressure) give more collisions per second.</li>
-<li><b>Energy:</b> only collisions with kinetic energy of at least E<sub>a</sub> can break bonds and cross the barrier.</li>
-<li><b>Orientation (steric factor p):</b> the molecules must meet with the reactive sites facing each other, as in Cl + NOCl.</li></ol>
-<div class="eq">k = p Z e<sup>−E<sub>a</sub>/RT</sup> = A e<sup>−E<sub>a</sub>/RT</sup></div>
-<p><b>Effect of temperature:</b> a higher T raises molecular speed, so collisions are slightly more frequent (Z ∝ √T, a small effect). The large effect is on <b>effectiveness</b>: the fraction of molecules with E ≥ E<sub>a</sub>, e<sup>−E<sub>a</sub>/RT</sup>, grows exponentially, so the rate roughly doubles for a 10 °C rise.</p>
-<div class="note trap"><p>Most collisions fail. Do not say the faster rate at high T is mainly due to more frequent collisions; it is mainly due to more collisions being energetic enough.</p></div>
-<div class="note exam"><p>Three factors, the k = A e<sup>−E<sub>a</sub>/RT</sup> equation, and the split between frequency (small effect) and effectiveness (large effect).</p></div>`,
-          topics: ['m1-collision-arrhenius'],
-          notes: ['m1-collision-arrhenius.0', 'm1-collision-arrhenius.1', 'm1-collision-arrhenius.3']
-        },
-        {
-          n: '2',
-          marks: '3+2',
-          co: '1',
-          bl: '4',
-          prompt: `<p><b>a)</b> Define critical temperature (Tc), critical magnetic field (Hc), and critical current density (Jc). (3 Marks)</p>
-<p><b>b)</b> A lead superconductor has Tc = 7.2 K. If its resistance is 1.2 μΩ just above Tc, what will be the resistance at 4.2 K? (2 Marks)</p>`,
-          answer: `<p><b>(a)</b></p>
-<ul><li><b>T<sub>c</sub>:</b> the temperature below which a material loses all electrical resistance and becomes superconducting.</li>
-<li><b>H<sub>c</sub>:</b> the maximum magnetic field a superconductor can sustain at a given temperature; above it the superconductivity is destroyed. H<sub>c</sub> is largest at 0 K and falls to zero at T<sub>c</sub>.</li>
-<li><b>J<sub>c</sub>:</b> the maximum current per unit cross-sectional area it can carry with zero resistance; a larger current destroys the state.</li></ul>
-<p><b>(b)</b> 4.2 K is below T<sub>c</sub> = 7.2 K, so lead is superconducting. Its resistance drops abruptly to zero at T<sub>c</sub> and stays zero:</p>
-<div class="eq">R(4.2 K) = <b>0 Ω</b></div>
-<div class="note trap"><p>Do not scale the 1.2 μΩ with temperature as for a normal metal. The fall at T<sub>c</sub> is a sharp transition to exactly zero, so the given 1.2 μΩ is a distractor.</p></div>
-<div class="note exam"><p>One mark per definition, with the idea of "destroys superconductivity" for H<sub>c</sub> and J<sub>c</sub>; (b) 0 Ω with the reason (T below T<sub>c</sub>).</p></div>`,
-          topics: ['m3-superconductors'],
-          notes: ['m3-superconductors.1', 'm3-superconductors.0']
-        },
-        {
-          n: '3',
-          marks: 5,
-          co: '1',
-          bl: '1',
-          prompt: `<p>Describe the Sol-gel method for synthesizing SiO<sub>2</sub> nanoparticles in detail.</p>`,
-          answer: `<p>The precursor is tetraethyl orthosilicate (TEOS) in ethanol, with water and an acid or ammonia catalyst.</p>
-<ol><li><b>Hydrolysis:</b> Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4C<sub>2</sub>H<sub>5</sub>OH.</li>
-<li><b>Condensation:</b> 2Si(OH)<sub>4</sub> → (HO)<sub>3</sub>Si–O–Si(OH)<sub>3</sub> + H<sub>2</sub>O; repeated, it builds a Si–O–Si network and a colloidal sol.</li>
-<li><b>Gelation:</b> the sol links into a 3-D wet gel.</li>
-<li><b>Ageing, washing and drying:</b> the gel is aged, washed and dried (xerogel or aerogel) at about 100 °C.</li>
-<li><b>Calcination:</b> heating at 400–600 °C removes residual organics and gives SiO<sub>2</sub> nanoparticles.</li></ol>
-<p>Size is tuned by the water:TEOS ratio, pH, temperature and the amount of ammonia. Advantages: low temperature, purity, size control. Drawback: costly precursors and shrinkage on drying.</p>
-<div class="note trap"><p>Hydrolysis before condensation; the by-products are ethanol and water, not alcohol alone.</p></div>
-<div class="note exam"><p>List the steps in order with the two key equations; one line on size control earns the last mark.</p></div>`,
-          topics: ['m3-sol-gel', 'm3-synthesis'],
-          notes: ['m3-sol-gel.3', 'm3-sol-gel.1']
-        },
-        {
-          n: '4',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>What are the main differences between proton-exchange membrane fuel cells and Solid oxide fuel cells in terms of their operating temperature, materials used, and electrochemical performance?</p>`,
-          answer: `<table><thead><tr><th></th><th>PEMFC</th><th>SOFC</th></tr></thead><tbody>
-<tr><td>Operating temperature</td><td>60–80 °C (low)</td><td>800–1000 °C (high)</td></tr>
-<tr><td>Electrolyte</td><td>Nafion polymer membrane, conducts H<sup>+</sup></td><td>Ceramic YSZ, conducts O<sup>2−</sup></td></tr>
-<tr><td>Electrodes and catalyst</td><td>Carbon with Pt catalyst</td><td>Ni–YSZ anode, LSM cathode; no Pt</td></tr>
-<tr><td>Fuel</td><td>Pure H<sub>2</sub> (CO poisons Pt)</td><td>H<sub>2</sub>, CO, natural gas, biogas</td></tr>
-<tr><td>Water forms at</td><td>Cathode</td><td>Anode</td></tr>
-<tr><td>Performance</td><td>Quick start, high power density, 40–60% efficient; vehicles and portable use</td><td>Slow start, about 60% (over 80% with heat recovery); stationary power plants</td></tr></tbody></table>
-<div class="note trap"><p>The ions move in opposite directions: H<sup>+</sup> from anode to cathode in the PEMFC, O<sup>2−</sup> from cathode to anode in the SOFC.</p></div>
-<div class="note exam"><p>A table covering the three asked headings (temperature, materials, performance) is enough for full marks.</p></div>`,
-          topics: ['m2-pemfc', 'm2-sofc', 'm2-fuel-cells'],
-          notes: ['m2-sofc.4']
-        },
-        {
-          n: '5',
-          marks: 5,
-          co: '2',
-          bl: '3',
-          prompt: `<p>Draw a clear picture of the Dye sensitized solar cell, list out its components in detail, and briefly discuss the working principle involved.</p>`,
-          answer: `<figure data-fig="m2-dssc-schematic"></figure>
-<p><b>Components:</b> (1) photoanode: FTO or ITO glass with a porous nanocrystalline TiO<sub>2</sub> layer; (2) sensitiser dye adsorbed on the TiO<sub>2</sub> (Ru-bipyridyl, or a natural anthocyanin); (3) electrolyte with the I<sup>−</sup>/I<sub>3</sub><sup>−</sup> redox couple in an organic solvent; (4) counter electrode: FTO glass coated with Pt (or carbon) catalyst; (5) sealant between the plates.</p>
-<p><b>Working:</b></p>
-<div class="eq">D + hν → D* → D<sup>+</sup> + e<sup>−</sup>(TiO<sub>2</sub>)</div>
-<div class="eq">Counter electrode: I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup> &nbsp;;&nbsp; Dye regeneration: 2D<sup>+</sup> + 3I<sup>−</sup> → 2D + I<sub>3</sub><sup>−</sup></div>
-<p>The excited dye injects an electron into TiO<sub>2</sub>; it flows through the external circuit to the Pt electrode and reduces I<sub>3</sub><sup>−</sup> to I<sup>−</sup>, and I<sup>−</sup> regenerates the dye. There is no net chemical change; light becomes current.</p>
-<div class="note trap"><p>The dye, not TiO<sub>2</sub>, absorbs the visible light.</p></div>
-<div class="note exam"><p>Labelled picture with the electron path (2 marks), components (1.5), working steps (1.5).</p></div>`,
-          topics: ['m2-dssc'],
-          notes: ['m2-dssc.0', 'm2-dssc.1']
-        },
-        {
-          n: '6',
-          marks: 5,
-          co: '3',
-          bl: '3',
-          prompt: `<p>What is the difference between crystallite size and crystal size? Find out the crystallite size of the given nanomaterial using the given powder-XRD data:</p><p>Peak position 2θ = 21.81°, FWHM of sample = 2.81°, k = 0.9 and λ = 1.5406 Å (degree to radian = Degree × π/180).</p>`,
-          answer: `<p><b>Difference:</b> a crystallite is a single coherently diffracting domain with perfect lattice order. A crystal (grain or particle) can be one crystallite or many crystallites joined by grain boundaries. XRD peak width gives the crystallite size, which is smaller than or equal to the particle size seen in SEM or TEM.</p>
-<div class="eq">θ = 21.81°/2 = 10.905°, cos θ = 0.9819</div>
-<div class="eq">β = 2.81° × π/180 = 0.04904 rad</div>
-<div class="eq">D = kλ/(β cos θ) = (0.9 × 1.5406 Å)/(0.04904 × 0.9819) = 1.3865/0.04816</div>
-<div class="eq">D ≈ <b>28.8 Å ≈ 2.88 nm</b></div>
-<div class="note trap"><p>Use θ = 10.905°, not 21.81°, in cos θ. No instrumental broadening is given, so it is ignored. A 2.81° FWHM is very broad, which fits a tiny crystallite of under 3 nm.</p></div>
-<div class="note exam"><p>Two marks for the definition contrast; three for θ, β in radians and D with unit.</p></div>`,
-          topics: ['m4-scherrer', 'm4-bragg'],
-          notes: ['m4-scherrer.0', 'm4-scherrer.2']
-        },
-        {
-          n: '7',
-          marks: 5,
-          co: '4',
-          bl: '4',
-          prompt: `<p>Draw the molecular orbital energy diagram for O<sub>2</sub> and predict its bond order and magnetic property.</p>`,
-          answer: `<figure data-fig="m5-mo-o2"></figure>
-<p>Draw the 2s and 2p levels of each O atom at the sides and the molecular orbitals in the centre, as above. For O<sub>2</sub> the valence MOs from the bottom are σ2s, σ*2s, σ2p<sub>z</sub>, π2p<sub>x</sub> = π2p<sub>y</sub>, π*2p<sub>x</sub> = π*2p<sub>y</sub>, σ*2p<sub>z</sub> (the σ2p orbital lies above the π2p pair only for B<sub>2</sub>, C<sub>2</sub> and N<sub>2</sub>).</p>
-<div class="eq">σ1s<sup>2</sup> σ*1s<sup>2</sup> σ2s<sup>2</sup> σ*2s<sup>2</sup> σ2p<sub>z</sub><sup>2</sup> π2p<sub>x</sub><sup>2</sup> π2p<sub>y</sub><sup>2</sup> π*2p<sub>x</sub><sup>1</sup> π*2p<sub>y</sub><sup>1</sup></div>
-<div class="eq">Bond order = (N<sub>b</sub> − N<sub>a</sub>)/2 = (10 − 6)/2 = <b>2</b></div>
-<p>The two π* electrons are unpaired (Hund's rule, parallel spins), so O<sub>2</sub> is <b>paramagnetic</b> with two unpaired electrons, as seen when liquid oxygen is held by a magnet.</p>
-<div class="note trap"><p>Count all 16 electrons (or only the 12 valence electrons: 8 bonding, 4 antibonding, same bond order). Putting the last two electrons paired in one π* orbital would wrongly predict diamagnetism.</p></div>
-<div class="note exam"><p>The diagram with the right ordering and electron filling (3 marks), bond order 2 (1), paramagnetic with the reason (1).</p></div>`,
-          topics: ['m5-molecular-orbitals'],
-          notes: ['m5-molecular-orbitals.3']
-        },
-        {
-          n: '8',
-          marks: '8+7',
-          co: '1',
-          bl: '4',
-          prompt: `<p><b>a)</b> Draw the P–V diagram of a Carnot cycle and explain, using suitable equations, how the total work output depends on the initial (high) and final (low) temperatures of the cycle. (8 marks)</p>
-<p><b>b)</b> 1 mole of an ideal monoatomic gas (C<sub>V</sub> = 3R/2) at 27 °C expands reversibly and adiabatically from a volume of 15 dm<sup>3</sup> to a volume of 45 dm<sup>3</sup>. Calculate q, ΔU, W and ΔH. (R = 8.314 J mol<sup>−1</sup> K<sup>−1</sup>) (7 marks)</p>`,
-          answer: `<p><b>(a)</b></p>
-<figure data-fig="m1-carnot-pv"></figure>
-<p>Draw A → B (isotherm at T<sub>h</sub>, top), B → C (adiabat, steeper), C → D (isotherm at T<sub>c</sub>), D → A (adiabat). The enclosed area is the net work.</p>
-<div class="eq">q<sub>h</sub> = RT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>), &nbsp; q<sub>c</sub> = RT<sub>c</sub> ln(V<sub>D</sub>/V<sub>C</sub>) = −RT<sub>c</sub> ln(V<sub>B</sub>/V<sub>A</sub>)</div>
-<p>(the adiabats give V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>). ΔU = 0 over a cycle, so</p>
-<div class="eq">W<sub>net</sub> = q<sub>h</sub> + q<sub>c</sub> = R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>) = q<sub>h</sub>(1 − T<sub>c</sub>/T<sub>h</sub>)</div>
-<p>The work output grows with the gap T<sub>h</sub> − T<sub>c</sub>: a hotter source or colder sink gives a taller loop and more work. If T<sub>h</sub> = T<sub>c</sub> the loop collapses to a line and W = 0.</p>
-<p><b>(b)</b> T<sub>i</sub> = 300 K. Reversible adiabatic, so q = 0.</p>
-<div class="eq">T<sub>f</sub> = T<sub>i</sub>(V<sub>i</sub>/V<sub>f</sub>)<sup>R/C<sub>v</sub></sup> = 300 × (15/45)<sup>2/3</sup> = 300 × 0.4807 = 144.2 K</div>
-<div class="eq">ΔU = C<sub>v</sub>ΔT = 1.5 × 8.314 × (144.2 − 300) = −1943 J</div>
-<div class="eq">W = ΔU = <b>−1943 J</b> (about −1.94 kJ), &nbsp; q = <b>0</b></div>
-<div class="eq">ΔH = C<sub>p</sub>ΔT = 2.5 × 8.314 × (−155.8) = <b>−3238 J</b></div>
-<div class="note trap"><p>The exponent is R/C<sub>v</sub> = 2/3 (that is, γ − 1 for γ = 5/3), and the volume ratio is V<sub>i</sub>/V<sub>f</sub>. Taking ΔH = ΔU is wrong because C<sub>p</sub> = C<sub>v</sub> + R.</p></div>
-<div class="note exam"><p>(a) diagram, q<sub>h</sub> and q<sub>c</sub>, W = R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>) and the comment on the T difference. (b) T<sub>f</sub> first, then each quantity with a sign and unit.</p></div>`,
-          topics: ['m1-carnot-cycle', 'm1-expansion-work', 'm1-thermo-numericals'],
-          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-thermo-numericals.1']
-        },
-        {
-          n: '9',
-          marks: '10+5',
-          co: '2',
-          bl: '3',
-          prompt: `<p><b>a)</b> Lithium is the best-known anode for energy storage devices. Justify the statement with proper reasoning, discuss the charging and discharging mechanisms of the Li-ION battery with a clear picture. (10 marks)</p>
-<p><b>b)</b> Represent the cell in which the following reaction takes place: (5 marks)</p>
-<p>Mg(s) + 2Ag<sup>+</sup> (0.0001 M) ⟶ Mg<sup>2+</sup> (0.130 M) + 2Ag (s)</p>
-<p>Calculate the ΔG of the cell if E°<sub>cell</sub> = 3.17 V.</p>`,
-          answer: `<p><b>(a) Why lithium:</b> it has the most negative standard potential (E° = −3.04 V), so cells give a high voltage (about 3.6 V); it is the lightest metal (6.94 g/mol) with a very high specific capacity (3860 mAh/g); and the small Li<sup>+</sup> ion moves quickly in and out of host lattices.</p>
-<figure data-fig="m2-liion-charge-discharge"></figure>
-<p><b>Charging:</b> Li<sup>+</sup> leaves the layered LiCoO<sub>2</sub>, crosses the electrolyte and intercalates between the graphite sheets; electrons travel round the circuit under the charger.</p>
-<div class="eq">LiCoO<sub>2</sub> → Li<sub>1−n</sub>CoO<sub>2</sub> + nLi<sup>+</sup> + ne<sup>−</sup> &nbsp;;&nbsp; C<sub>6</sub> + nLi<sup>+</sup> + ne<sup>−</sup> → Li<sub>n</sub>C<sub>6</sub></div>
-<p><b>Discharging:</b> the reverse. Li<sub>n</sub>C<sub>6</sub> → C<sub>6</sub> + nLi<sup>+</sup> + ne<sup>−</sup> at the anode, and the cathode takes the Li<sup>+</sup> and electrons back into the oxide. The separator blocks electrode contact but passes Li<sup>+</sup>.</p>
-<p><b>(b)</b> Mg is oxidised (anode), Ag<sup>+</sup> is reduced (cathode); n = 2.</p>
-<div class="eq">Mg(s) | Mg<sup>2+</sup> (0.130 M) || Ag<sup>+</sup> (0.0001 M) | Ag(s)</div>
-<div class="eq">E = E° − (0.0591/2) log([Mg<sup>2+</sup>]/[Ag<sup>+</sup>]<sup>2</sup>) = 3.17 − 0.02955 × log(0.130/10<sup>−8</sup>)</div>
-<div class="eq">log(1.3 × 10<sup>7</sup>) = 7.114, &nbsp; E = 3.17 − 0.210 = 2.96 V</div>
-<div class="eq">ΔG = −nFE = −2 × 96485 × 2.96 = −5.71 × 10<sup>5</sup> J = <b>−571 kJ</b></div>
-<div class="note trap"><p>The printed E° = 3.17 V is for 1 M solutions. The question asks for ΔG of the cell as given, so use E (2.96 V), not E°; with E° you get the standard ΔG° = −612 kJ. Square [Ag<sup>+</sup>].</p></div>
-<div class="note exam"><p>(a) three reasons for lithium, the picture, and both reactions on charge and discharge. (b) the notation (2 marks), the Nernst step with the squared term, and ΔG = −nFE with unit.</p></div>`,
-          topics: ['m2-li-ion', 'm2-electrochemical-cells'],
-          notes: ['m2-li-ion.1', 'm2-li-ion.3', 'm2-electrochemical-cells.3']
-        },
-        {
-          n: '10',
-          marks: '10+5',
-          co: '2',
-          bl: '2',
-          prompt: `<p><b>a)</b> Explain how materials are classified as paramagnetic, ferromagnetic, antiferromagnetic, and ferrimagnetic based on the electron spin arrangement. (10 marks)</p>
-<p><b>b)</b> Define a supercondiuctor. Describe the variation of its electrical resistivity with temperature and illustrate it with a suitable diagram. (5 marks)</p>`,
-          answer: `<p><b>(a)</b></p>
-<figure data-fig="m3-spin-arrangements"></figure>
-<ul><li><b>Paramagnetic:</b> atoms have unpaired electrons, but the moments point randomly, so the net moment is zero without a field; weakly attracted, χ small and positive (Al, O<sub>2</sub>).</li>
-<li><b>Ferromagnetic:</b> neighbouring moments align parallel in domains, giving a large net moment even without a field; strong attraction and hysteresis; becomes paramagnetic above the Curie temperature (Fe, Co, Ni).</li>
-<li><b>Antiferromagnetic:</b> neighbouring moments are equal and antiparallel (↑↓↑↓), so the net moment is zero; weak response; order is lost above the Néel temperature (MnO, Cr).</li>
-<li><b>Ferrimagnetic:</b> antiparallel but unequal moments (two sublattices of different size), so a net moment remains; strong, ferromagnet-like (Fe<sub>3</sub>O<sub>4</sub>, ferrites).</li></ul>
-<p><b>(b)</b> A superconductor is a material whose resistance drops to exactly zero below a critical temperature T<sub>c</sub> and which expels magnetic field (Meissner effect).</p>
-<figure data-fig="m3-superconductor-resistivity"></figure>
-<p>Diagram: resistivity ρ on the y-axis, T on the x-axis. A normal metal falls smoothly and levels off at a small residual value. A superconductor follows the metal curve down to T<sub>c</sub>, then drops vertically to zero and stays at zero (for example Hg at 4.2 K, Pb at 7.2 K, YBCO at 93 K).</p>
-<div class="note trap"><p>Antiferromagnets cancel exactly; ferrimagnets cancel only partly. That difference is the point of the question.</p></div>
-<div class="note exam"><p>(a) a spin-arrow sketch for each of the four types, with net moment and example. (b) definition, the sharp drop at T<sub>c</sub> on a labelled graph.</p></div>`,
-          topics: ['m3-magnetic-classes', 'm3-superconductors'],
-          notes: ['m3-magnetic-classes.6', 'm3-superconductors.0']
-        },
-        {
-          n: '11',
-          marks: '5+10',
-          co: '3',
-          bl: '3',
-          prompt: `<p><b>a)</b> Explain the various transitions occurring in the UV-vis electronic spectroscopy with proper illustration and examples. (5 marks)</p>
-<p><b>b)</b> Describe the working principles and instrumentation of UV-visible spectroscopy and XRD. (10 marks)</p>`,
-          answer: `<p><b>(a)</b> Draw the orbital ladder: σ, π and n (non-bonding) filled; σ* and π* empty, with an arrow for each of the four jumps.</p>
-<figure data-fig="m4-mo-ladder"></figure>
-<ul><li><b>σ → σ*:</b> largest gap, below 200 nm (CH<sub>4</sub>, ethane).</li>
-<li><b>n → σ*:</b> about 150–250 nm (H<sub>2</sub>O, alcohols, amines).</li>
-<li><b>π → π*:</b> 200–300 nm, longer with conjugation, strong (ethene 175 nm, butadiene 217 nm, benzene 255 nm).</li>
-<li><b>n → π*:</b> smallest gap, weak (acetone about 280 nm).</li></ul>
-<p><b>(b) UV-Vis.</b> Principle: absorption of a photon promotes an electron; A = εcl (Beer-Lambert).</p>
-<figure data-fig="m4-double-beam"></figure>
-<p>Instrument: source (deuterium lamp for UV, tungsten lamp for visible) → monochromator (grating and slit) → beam splitter into sample and reference cuvettes (quartz for UV) → detector (photomultiplier or photodiode) → recorder giving A against λ.</p>
-<p><b>XRD.</b> Principle: Bragg's law nλ = 2d sin θ; planes of spacing d diffract X-rays at angle θ.</p>
-<figure data-fig="m4-diffractometer-layout"></figure>
-<p>Instrument: X-ray tube (Cu Kα, 1.5406 Å) with filter and slits → powder sample on a rotating stage (goniometer) → detector moved at 2θ → intensity against 2θ pattern. Peak positions give d and identify the phase; peak width gives the crystallite size by Scherrer: D = kλ/(β cos θ).</p>
-<div class="note trap"><p>UV-Vis measures absorption by electrons (needs a chromophore); XRD measures scattering from the lattice (needs a crystal). Use quartz, not glass, cuvettes for UV.</p></div>
-<div class="note exam"><p>Allocate time: 5 marks for transitions, then about 5 each for the two techniques (principle, block diagram with labels, output).</p></div>`,
-          topics: ['m4-uv-vis', 'm4-beer-lambert', 'm4-bragg', 'm4-scherrer'],
-          notes: ['m4-uv-vis.2', 'm4-uv-vis-instrument.1', 'm4-bragg.3', 'm4-xrd-patterns.0']
-        },
-        {
-          n: '12',
-          marks: '7+8',
-          co: '4',
-          bl: '1',
-          prompt: `<p><b>a)</b> Define a potential energy surface (PES) and explain its significance in understanding chemical reactions. (7 marks)</p>
-<p><b>b)</b> Discuss how geometry optimization is performed to locate the minimum energy structure of a molecule. (8 marks)</p>`,
-          answer: `<p><b>(a)</b> A PES is the energy of a molecular system plotted against its nuclear coordinates (bond lengths, angles), within the Born–Oppenheimer approximation. For a diatomic it is the curve E(r); for larger molecules it is a multi-dimensional surface, drawn as contours.</p>
-<figure data-fig="m5-pes-contours"></figure>
-<p><b>Significance:</b> minima are stable species (reactants, products, intermediates); a first-order saddle point is the transition state, and its height above the reactant is the activation energy; the lowest-energy path joining the minima is the reaction path; the curvature gives vibrational frequencies; the shape shows which of several products or mechanisms is favoured.</p>
-<p><b>(b)</b> Geometry optimisation moves the atoms downhill on the PES until the structure sits at a minimum.</p>
-<ol><li>Build a starting geometry and choose a method and basis set.</li>
-<li>Compute the energy E and its gradient (force = −dE/dx) on each atom.</li>
-<li>Move the atoms against the gradient (steepest descent, conjugate gradient, or Newton–Raphson with the Hessian) to a lower-energy geometry.</li>
-<li>Repeat until convergence: forces near zero, a small step, a small energy change.</li>
-<li>Check with a frequency calculation: all real frequencies means a minimum; one imaginary frequency means a transition state.</li></ol>
-<div class="note trap"><p>Zero gradient only says the point is stationary. The frequency check separates a minimum from a saddle point. The optimiser finds the nearest local minimum, which may not be the global one.</p></div>
-<div class="note exam"><p>(a) definition, a sketch with minima and saddle point labelled, and three or four uses. (b) the loop of energy, gradient, step and convergence, plus the frequency check.</p></div>`,
-          topics: ['m5-potential-energy-surface', 'm5-geometry-frequency'],
-          notes: ['m5-potential-energy-surface.2', 'm5-potential-energy-surface.4', 'm5-geometry-frequency.0']
         }
       ]
     },
@@ -2404,13 +1928,7 @@ PAPERS({
         where: 'Q9(a), 10 marks',
         what: 'how a ceramic fuel cell produces electricity',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q4, 5 marks',
-        what: 'compare two types of fuel cell',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm2-electrochemical-cells': [
       {
         where: 'Q1(b), 5 marks',
@@ -2423,21 +1941,10 @@ PAPERS({
         paper: 'cat2-b2tb2'
       },
       {
-        where: 'Q1(a), 5 marks',
-        what: 'galvanic against electrolytic cells with an example of each',
-        paper: 'cat1-f1tf1-2025w'
-      },
-      {
         where: 'Q5(a), 5 marks',
         what: 'find the Zn ion concentration from the measured cell potential (Nernst)',
         paper: 'cat2-g1tg1-2025'
-      },
-      {
-        where: 'Q9(b), 5 marks',
-        what: 'cell notation for Mg and Ag+ and the free energy change from E using Nernst',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm2-li-ion': [
       {
         where: 'Q2, 10 marks',
@@ -2458,13 +1965,7 @@ PAPERS({
         where: 'Q9(b), 10 marks',
         what: 'Li-ion battery function with diagram, advantages and disadvantages',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q9(a), 10 marks',
-        what: 'why lithium is the best anode and the charge and discharge mechanism of a Li-ion cell',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm2-dssc': [
       {
         where: 'Q3, 10 marks',
@@ -2477,11 +1978,6 @@ PAPERS({
         paper: 'cat2-b2tb2'
       },
       {
-        where: 'Q2(b), 5 marks',
-        what: 'function of each component of a dye-sensitized solar cell and regeneration of the oxidised dye',
-        paper: 'cat1-f1tf1-2025w'
-      },
-      {
         where: 'Q2, 10 marks',
         what: 'dye-sensitized cell with a natural pigment: diagram and each event',
         paper: 'cat2-g1tg1-2025'
@@ -2490,11 +1986,6 @@ PAPERS({
         where: 'Q2, 10 marks',
         what: 'build a dye-based solar device and give its pros and cons',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q5, 5 marks',
-        what: 'draw the dye sensitized solar cell, its components and working',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q10(b), 10 marks',
@@ -2556,13 +2047,7 @@ PAPERS({
         where: 'Q10, 10 marks',
         what: 'top-down milling or bottom-up sol-gel route to nanomaterials',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q3, 5 marks',
-        what: 'sol-gel route to SiO2 nanoparticles',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm3-sol-gel': [
       {
         where: 'Q4, 10 marks',
@@ -2583,13 +2068,7 @@ PAPERS({
         where: 'Q10(b), 10 marks',
         what: 'steps of nano silica synthesis by sol-gel',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q3, 5 marks',
-        what: 'sol-gel method for SiO2 nanoparticles in detail',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm4-uv-vis': [
       {
         where: 'Q5(a), 5 marks',
@@ -2605,11 +2084,6 @@ PAPERS({
         where: 'Q4, 10 marks',
         what: 'UV-Vis principle by Beer-Lambert law and electronic transitions in identifying organic compounds',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q11, 15 marks',
-        what: 'UV-Vis transitions with examples, and UV-Vis and XRD principle and instrumentation',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q4, 10 marks',
@@ -2646,16 +2120,6 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       },
       {
-        where: 'Q6, 5 marks',
-        what: 'crystallite size against crystal size, Scherrer at 2θ = 21.81°, FWHM 2.81°',
-        paper: 'fat-f1tf1-2025'
-      },
-      {
-        where: 'Q11(b), 10 marks',
-        what: 'peak width and crystallite size in XRD',
-        paper: 'fat-f1tf1-2025'
-      },
-      {
         where: 'Q6(b), 5 marks',
         what: 'crystallite size from p-XRD data (Scherrer)',
         paper: 'fat-b1tb1-2026'
@@ -2668,19 +2132,9 @@ PAPERS({
         paper: 'cat2-b2tb2'
       },
       {
-        where: 'Q3(a), 5 marks',
-        what: 'anode and cathode reactions of an SOFC and its advantages over a PEMFC',
-        paper: 'cat1-f1tf1-2025w'
-      },
-      {
         where: 'Q9(a), 10 marks',
         what: 'ceramic fuel cell: diagram, electricity generation and advantages despite high temperature',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q4, 5 marks',
-        what: 'PEMFC against SOFC: temperature, materials, performance',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q2, 10 marks',
@@ -2710,16 +2164,6 @@ PAPERS({
         where: 'Q6, 10 marks',
         what: 'XRD instrument diagram and working by Bragg equation',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q6, 5 marks',
-        what: 'XRD peak data for crystallite size',
-        paper: 'fat-f1tf1-2025'
-      },
-      {
-        where: 'Q11(b), 10 marks',
-        what: 'XRD working principle and instrumentation',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q6(a), 5 marks',
@@ -2777,13 +2221,7 @@ PAPERS({
         where: 'Q1, 10 marks',
         what: 'four stages of the reversible engine and why efficiency is limited by the reservoir temperatures',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q8(a), 8 marks',
-        what: 'Carnot P-V diagram and how the work depends on the high and low temperatures',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm1-second-law-entropy': [
       {
         where: 'Q1, 10 marks',
@@ -2930,13 +2368,7 @@ PAPERS({
         where: 'Q8(a), 5 marks',
         what: 'work, change in U and H for N2 expanding irreversibly and isothermally against 5 atm',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q8(b), 7 marks',
-        what: 'q, U, W and H for a reversible adiabatic expansion of a monatomic gas, 15 to 45 dm3',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm1-zeroth-first-law': [
       {
         where: 'Q1, 10 marks',
@@ -3021,11 +2453,6 @@ PAPERS({
         where: 'Q8(a), 5 marks',
         what: 'irreversible isothermal expansion work with unit conversion',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q8(b), 7 marks',
-        what: 'adiabatic expansion final temperature and energy changes',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q9, 10 marks',
@@ -3174,73 +2601,22 @@ PAPERS({
         where: 'Q4(a), 5 marks',
         what: 'why higher temperature raises the rate constant, with diagram and Arrhenius equation',
         paper: 'cat1-b1tb1-2026'
-      },
-      {
-        where: 'Q1, 5 marks',
-        what: 'collision theory factors and the effect of temperature on collision frequency and effectiveness',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm2-electrolysis': [
-      {
-        where: 'Q1(a), 5 marks',
-        what: 'an electrolytic cell example with justification',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm3-ohm-resistivity': [
-      {
-        where: 'Q1(b), 5 marks',
-        what: 'how conductivity of metals and semiconductors varies with temperature',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm3-band-theory': [
-      {
-        where: 'Q1(b), 5 marks',
-        what: 'temperature effect on conductivity of metals and semiconductors',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm2-photovoltaics': [
-      {
-        where: 'Q2(a), 5 marks',
-        what: 'working of a photovoltaic cell and the role of the semiconductor bandgap in efficiency',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm2-pemfc': [
-      {
-        where: 'Q3(a), 5 marks',
-        what: 'advantages of the SOFC compared with the PEM fuel cell',
-        paper: 'cat1-f1tf1-2025w'
-      },
-      {
-        where: 'Q4, 5 marks',
-        what: 'PEMFC against SOFC: temperature, materials, performance',
-        paper: 'fat-f1tf1-2025'
-      }
     ],
     'm3-superconductors': [
-      {
-        where: 'Q3(b), 5 marks',
-        what: 'define superconductors; the Meissner effect and its applications',
-        paper: 'cat1-f1tf1-2025w'
-      },
       {
         where: 'Q3, 10 marks',
         what: 'characteristics and five uses of YBa2Cu3O7',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q2, 5 marks',
-        what: 'define Tc, Hc, Jc and the resistance of lead below Tc',
-        paper: 'fat-f1tf1-2025'
-      },
-      {
-        where: 'Q10(b), 5 marks',
-        what: 'define a superconductor and sketch resistivity against temperature',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q7, 10 marks',
@@ -3250,19 +2626,9 @@ PAPERS({
     ],
     'm3-magnetic-classes': [
       {
-        where: 'Q4, 10 marks',
-        what: 'compare para-, ferro-, ferri- and antiferromagnetism with spin alignments with and without a field',
-        paper: 'cat1-f1tf1-2025w'
-      },
-      {
         where: 'Q7, 10 marks',
         what: 'distinguish dia, para and ferromagnetic materials and five applications',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q10(a), 10 marks',
-        what: 'para, ferro, antiferro and ferrimagnetism from spin arrangement',
-        paper: 'fat-f1tf1-2025'
       },
       {
         where: 'Q10(a), 10 marks',
@@ -3271,18 +2637,8 @@ PAPERS({
       }
     ],
     'm3-hysteresis-storage': [
-      {
-        where: 'Q5(a), 5 marks',
-        what: 'hysteresis of ferromagnets with an M–H plot',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm3-coolants': [
-      {
-        where: 'Q5(b), 5 marks',
-        what: 'define thermal conductivity; recommended coolant properties for a laptop processor',
-        paper: 'cat1-f1tf1-2025w'
-      }
     ],
     'm2-batteries': [
       {
@@ -3324,11 +2680,6 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       },
       {
-        where: 'Q11(b), 10 marks',
-        what: 'UV-Vis working principle',
-        paper: 'fat-f1tf1-2025'
-      },
-      {
         where: 'Q4, 10 marks',
         what: 'Beer–Lambert law in the UV-Vis working principle',
         paper: 'fat-b1tb1-2026'
@@ -3346,19 +2697,8 @@ PAPERS({
         where: 'Q5(b), 5 marks',
         what: 'MO treatment of a diatomic with the time-independent Schrodinger equation',
         paper: 'fat-g1tg1-2025'
-      },
-      {
-        where: 'Q7, 5 marks',
-        what: 'MO diagram of O2, bond order and magnetism',
-        paper: 'fat-f1tf1-2025'
-      }
-    ],
+      }    ],
     'm5-potential-energy-surface': [
-      {
-        where: 'Q12(a), 7 marks',
-        what: 'define the potential energy surface and its significance for reactions',
-        paper: 'fat-f1tf1-2025'
-      },
       {
         where: 'Q5, 10 marks',
         what: 'short note on potential energy curve and surface',
@@ -3366,11 +2706,6 @@ PAPERS({
       }
     ],
     'm5-geometry-frequency': [
-      {
-        where: 'Q12(b), 8 marks',
-        what: 'how geometry optimization finds the minimum energy structure',
-        paper: 'fat-f1tf1-2025'
-      },
       {
         where: 'Q8, 10 marks',
         what: 'geometry optimisation workflow and use in reaction mechanisms',
