@@ -93,7 +93,7 @@ function isOwner(req) {
 // Cached for a few seconds per server instance, so a switch reaches every page within about 5 s.
 let MODE = null, MODE_AT = 0;
 async function siteMode(fresh) {
-  if (!fresh && MODE && Date.now() - MODE_AT < 5000) return MODE;
+  if (!fresh && MODE && Date.now() - MODE_AT < 30000) return MODE; // 30 s: one long-running server (Render) shares it across students
   const store = require('./_store');
   const out = { signin: true, free: false, freeMode: false, freeOffer: null };
   if (store.configured()) {
@@ -131,6 +131,21 @@ async function storePaid(email) {
   return paid;
 }
 
+// The Notix store keeps its purchases in the same Turso database, without a key prefix ("paid:BACHY105" hash).
+// Read it directly, so Pro still unlocks when the store website itself is down (e.g. Vercel paused it, 19-11-2026).
+// Same rule as the store's isLive: a grant with an "until" time in the past no longer counts.
+async function storePaidDirect(email) {
+  const url = process.env.TURSO_DATABASE_URL, token = process.env.TURSO_AUTH_TOKEN;
+  if (!url || !token || !email) return false;
+  try {
+    const out = await require('./_turso').pipeline([['HGET', 'paid:' + STORE_CODE, email]], { url, token });
+    const raw = out && out[0] && 'result' in out[0] ? out[0].result : Array.isArray(out) ? out[0] : null;
+    if (raw == null) return false;
+    let x = {}; try { x = JSON.parse(raw) || {}; } catch (e) { return true; }
+    return !(x.until && x.until <= Date.now());
+  } catch (e) { console.error('storePaidDirect:', e.message); return false; }
+}
+
 // Who can see the paid modules: the owner, a student whose email paid (hash "paid"), or one on the owner's free
 // list (hash "free"; removing them locks them out straight away, and a temporary grant has an "until" time). A free grant can be limited to some modules;
 // then .modules lists them (null = everything). While the whole site is free, everyone who can open it.
@@ -145,7 +160,7 @@ async function hasAccess(req) {
   if (!(await deviceActive(u, req))) return null;
   const [paid, free] = await store.pipeline([['HGET', 'paid', u.e], ['HGET', 'free', u.e]]);
   if (paid != null) return { email: u.e, paid: true, modules: null };
-  if (await storePaid(u.e)) return { email: u.e, paid: true, modules: null, store: true };
+  if (await storePaid(u.e) || await storePaidDirect(u.e)) return { email: u.e, paid: true, modules: null, store: true };
   if (free == null) return null;
   let x = {}; try { x = JSON.parse(free) || {}; } catch (e) {}
   if (x.until && x.until <= Date.now()) { await store.pipeline([['HDEL', 'free', u.e]]); return null; } // temporary grant ended
@@ -246,7 +261,13 @@ async function withStorePrice(out) {
   } catch (e) {} // store unreachable: keep the site's own price
   return out;
 }
-async function settings() { return withStorePrice(await siteSettings()); }
+// Cached 30 s in memory, so a burst of students does not each wait on the database for the same owner settings.
+let SETTINGS = null, SETTINGS_AT = 0;
+async function settings() {
+  if (SETTINGS && Date.now() - SETTINGS_AT < 30000) return { ...SETTINGS };
+  SETTINGS = await withStorePrice(await siteSettings()); SETTINGS_AT = Date.now();
+  return { ...SETTINGS };
+}
 async function siteSettings() {
   const store = require('./_store');
   const out = { price: PRICE, normalPrice: PRICE, sale: null, banner: null, paused: null, business: '' };

@@ -86,6 +86,21 @@ module.exports = handle(async (req, res) => {
     if (a === 'unlock-me') return send(res, 200, { ok: true }, { 'Set-Cookie': ownerCookie() });
     if (!store.configured()) return send(res, 400, { error: 'Storage is not set up yet (Vercel → Storage → Upstash).' });
 
+    // Copy every live Notix purchase of this subject (store's unprefixed "paid:BACHY105" in the same Turso DB) into this
+    // site's own "paid" list, so those buyers keep Pro while Notix is down (19-11-2026). Existing entries are kept.
+    if (a === 'import-notix-buyers') {
+      const url = process.env.TURSO_DATABASE_URL, token = process.env.TURSO_AUTH_TOKEN;
+      if (!url || !token) return send(res, 500, { error: 'Turso is not set up.' });
+      const [flat] = (await require('./_turso').pipeline([['HGETALL', 'paid:BACHY105']], { url, token })).map((x) => (x && 'result' in x ? x.result : x));
+      const cmds = []; let skipped = 0;
+      for (let i = 0; flat && i < flat.length; i += 2) {
+        let x = {}; try { x = JSON.parse(flat[i + 1]) || {}; } catch (e) {}
+        if (x.until && x.until <= Date.now()) { skipped++; continue; } // an expired hand-given grant
+        cmds.push(['HSETNX', 'paid', flat[i], JSON.stringify({ id: x.id || 'notix', at: x.at || new Date().toISOString(), amount: x.amount || 0, via: 'Notix' })]);
+      }
+      const r = cmds.length ? await store.pipeline(cmds) : [];
+      return send(res, 200, { ok: true, found: cmds.length + skipped, added: r.filter((v) => v === 1).length, alreadyThere: r.filter((v) => v === 0).length, skipped });
+    }
     if (a === 'set-price') {
       const rs = Number(b.rupees);
       if (!Number.isInteger(rs) || rs < 0 || rs > 5000) return send(res, 400, { error: 'Enter a whole number of rupees, from 0 (free) to 5000.' });
