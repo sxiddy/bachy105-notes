@@ -1,0 +1,32 @@
+# Render blueprint (free web service), same setup as evs-notes. Secrets marked sync:false are typed in on Render
+# when the blueprint is created (copy them from the old Vercel project's Environment Variables).
+services:
+  - type: web
+    name: bachy105
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: "true"
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: GOOGLE_CLIENT_ID
+        value: 1031135588562-kg77aahgjjbccieu0kahgkcpl3nnlj0i.apps.googleusercontent.com
+      # STORE_URL left out while the Notix store is down: the site sells Pro itself through Razorpay Payment Links.
+      # Buyers from Notix still unlock through the direct Turso lookup. Add it back once the store is up.
+      - key: RAZORPAY_KEY_ID
+        value: rzp_live_U22jVeWOAsknIG
+      - key: PAY_VIA_LINK
+        value: "1"
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: TURSO_DATABASE_URL
+        value: libsql://notes-sxiddy.aws-us-east-1.turso.io
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      - key: ADMIN_KEY
+        sync: false
+      - key: STORE_SECRET
+        sync: false

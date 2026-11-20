@@ -6,3 +6,7 @@ publish/
 .env.*
 .claude/WORKPLAN.md
 .claude/LOCK
+dist/
+.wrangler/
+.dev.vars
+node_modules/

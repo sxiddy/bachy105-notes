@@ -58,7 +58,7 @@ function readSigned(req, name) {
   try { return JSON.parse(unb64u(payload).toString('utf8')); } catch (e) { return null; }
 }
 function cookie(name, value, maxAge) {
-  const secure = process.env.VERCEL ? '; Secure' : '';
+  const secure = (process.env.VERCEL || process.env.PRODUCTION) ? '; Secure' : '';
   return `${name}=${value}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax${secure}`;
 }
 const userCookie = (email, deviceId) => cookie(USER_COOKIE, sign({ e: email, d: deviceId }), MAX_AGE);
@@ -93,7 +93,7 @@ function isOwner(req) {
 // Cached for a few seconds per server instance, so a switch reaches every page within about 5 s.
 let MODE = null, MODE_AT = 0;
 async function siteMode(fresh) {
-  if (!fresh && MODE && Date.now() - MODE_AT < 30000) return MODE; // 30 s: one long-running server (Render) shares it across students
+  if (!fresh && MODE && Date.now() - MODE_AT < 300000) return MODE; // 5 min (was 30 s): one long-running server (Render) shares it across students
   const store = require('./_store');
   const out = { signin: true, free: false, freeMode: false, freeOffer: null };
   if (store.configured()) {
@@ -236,6 +236,9 @@ const isOurs = (p) => p.status === 'captured' && p.method === 'upi' && p.currenc
 async function recordPaid(email, p) {
   const store = require('./_store');
   if (!store.configured()) throw Object.assign(new Error('Storage is not set up, so access cannot be saved.'), { status: 500 });
+  // a payment the owner removed on /admin (e.g. refunded) never grants Pro again, even if the poller or a claim sees it
+  const [gone] = await store.pipeline([['HGET', 'paidRevoked', email]]);
+  if (gone && String(gone).split(',').includes(String(p.id))) return;
   await store.pipeline([['HSET', 'paid', email, JSON.stringify({ id: p.id, at: new Date(p.created_at * 1000).toISOString(), amount: p.amount })]]);
 }
 
@@ -247,7 +250,7 @@ async function recordPaid(email, p) {
 // struck through while a store sale runs). Cached for 5 minutes; if the store can't be reached the site's own price stays.
 let STORE_PRICE = null;
 async function withStorePrice(out) {
-  const url = process.env.STORE_URL;
+  const url = process.env.STORE_URL || process.env.PRICE_FROM; // PRICE_FROM: price from Notix while still selling here
   if (!url) return out;
   try {
     if (!STORE_PRICE || STORE_PRICE.until < Date.now()) {
@@ -261,10 +264,10 @@ async function withStorePrice(out) {
   } catch (e) {} // store unreachable: keep the site's own price
   return out;
 }
-// Cached 30 s in memory, so a burst of students does not each wait on the database for the same owner settings.
+// Cached 5 min in memory (was 30 s; lighter on Cloudflare CPU), so a burst of students does not each wait on the database for the same owner settings.
 let SETTINGS = null, SETTINGS_AT = 0;
 async function settings() {
-  if (SETTINGS && Date.now() - SETTINGS_AT < 30000) return { ...SETTINGS };
+  if (SETTINGS && Date.now() - SETTINGS_AT < 300000) return { ...SETTINGS };
   SETTINGS = await withStorePrice(await siteSettings()); SETTINGS_AT = Date.now();
   return { ...SETTINGS };
 }

@@ -1,6 +1,18 @@
 {
   "name": "bachy105-notes",
   "private": true,
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=22" }
+  "scripts": {
+    "start": "node server.js",
+    "cf-build": "node tools/cf-build.js",
+    "deploy": "node tools/cf-build.js && wrangler deploy"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "wrangler": "^4.165.0"
+  },
+  "allowScripts": {
+    "workerd@1.20261118.1": true
+  }
 }

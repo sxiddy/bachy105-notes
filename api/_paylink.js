@@ -13,6 +13,8 @@ async function createLink(email, amount, origin) {
     description: 'BACHY105 Notes Pro (' + email + ')',
     customer: { email },
     notify: { sms: false, email: false }, reminder_enable: false,
+    // fill in and lock the student email on the payment page, so the Razorpay dashboard shows it on every payment
+    options: { checkout: { prefill: { email }, readonly: { email: true } } },
     notes: { product: PRODUCT, email },
     callback_url: origin + '/?paid=1', callback_method: 'get',
     expire_by: Math.floor(Date.now() / 1000) + 30 * 60, // 30 minutes; Razorpay needs at least 15
@@ -53,8 +55,8 @@ async function pollOnce() {
   for (const l of list) {
     if (DONE.has(l.id) || l.status !== 'paid' || l.created_at < since || (l.notes || {}).product !== PRODUCT) continue;
     const email = normEmail((l.notes || {}).email);
-    const [have] = await store.pipeline([['HGET', 'paid', email]]);
-    if (have == null) {
+    const [have, gone] = await store.pipeline([['HGET', 'paid', email], ['HGET', 'paidRevoked', email]]);
+    if (have == null && !gone) { // gone: the owner removed this student's paid Pro on /admin
       const r = await unlockLink(l, null);
       if (r.ok) { n++; console.log('[paylink] Pro granted to', email, 'payment', r.paymentId); }
       else { console.log('[paylink] not granted', l.id, r.why); if (!r.pending) DONE.add(l.id); continue; }

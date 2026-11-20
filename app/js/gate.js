@@ -95,7 +95,10 @@
     try {
       const FM = window.FILE_MODULE || {};
       const paidFiles = !paid ? [] : (window.PRO_FILES || []).filter((f) => !modules || modules.includes(FM[f]));
-      const files = (window.FREE_FILES || []).concat(paidFiles);
+      let files = (window.FREE_FILES || []).concat(paidFiles);
+      // Cloudflare build: the same files joined into a few bundles (tools/cf-build.js), far fewer requests
+      const B = window.BUNDLES;
+      if (B) files = B.free.concat(!paid ? [] : Object.keys(B.pro).filter((m) => !modules || modules.includes(m)).map((m) => B.pro[m]));
       // all at once: every file only registers data (the app sorts chunks, questions and papers itself)
       await Promise.all(files.map((f) => loadScript('data/' + f)));
       // the notes are free; Pro (every module, or the modules of a single-module grant) unlocks the Pro features
