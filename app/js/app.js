@@ -143,7 +143,7 @@ window.__startApp = function () {
   const SUM = D.summaries || {};
   // Fast track (content/fast-mX.js): starred facts, high-yield topics and 10 must-do MCQs per module
   const FAST = D.fast || {};
-  const HY = new Set([].concat(...Object.values(FAST).map((f) => f.hy || [])));
+  const HY = new Set(); // filled from past papers once IMP and QID exist
   // Important topics, starred in the sidebar. A topic is judged only against the real papers that could have asked it:
   // CAT-1 covered module 1, CAT-2 modules 2-4, FAT everything (worked out from the modules each exam's papers used).
   // Starred when asked in 2+ papers and in at least 40% of those that covered its module.
@@ -185,6 +185,19 @@ window.__startApp = function () {
   QS.sort((a, b) => qSort(a) - qSort(b) || String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
   QS.forEach((q) => { (QBY[q.topic] = QBY[q.topic] || []).push(q); });
   const QID = {}; QS.forEach((q) => { QID[q.id] = q; });
+  // Fast track follows the past papers too (owner, 21-11-2026): "Read these in full" = the module's starred topics, most-asked
+  // first; "Often asked" facts = facts on those topics; the 10 MCQs come from those topics (hand picks first, then the bank).
+  Object.entries(FAST).forEach(([mid, f]) => {
+    const imp = Object.keys(IMP).filter((t) => t.startsWith(mid + '-') && TOPIC[t]).sort((a, b) => IMP[b][0] / IMP[b][1] - IMP[a][0] / IMP[a][1] || IMP[b][0] - IMP[a][0]);
+    if (!imp.length) return;
+    f.hy = imp; imp.forEach((t) => HY.add(t));
+    (f.facts || []).forEach((x) => { x.star = !!IMP[x.t]; });
+    const picks = (f.mcqs || []).filter((id) => QID[id] && QID[id].options && IMP[QID[id].topic]), seen = new Set(picks);
+    const pool = imp.map((t) => QS.filter((q) => q.topic === t && q.options && !seen.has(q.id)));
+    for (let i = 0; picks.length < 10 && pool.some((l) => l.length); i = (i + 1) % pool.length) { const q = pool[i].shift(); if (q) picks.push(q.id); }
+    for (const id of f.mcqs || []) { if (picks.length >= 10) break; if (!picks.includes(id)) picks.push(id); }
+    f.mcqs = picks;
+  });
 
   // flashcards
   const CARDS = [];
@@ -1098,7 +1111,7 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
       <section class="sum-sec"><h2 class="h-sec">Must-know facts</h2>
         <ol class="fast-facts">${(f.facts || []).map((x) => `<li class="${x.star ? 'star' : ''}"><span class="fnum" aria-hidden="true"></span><div class="prose">${x.star ? '<span class="hy-tag">Often asked</span> ' : ''}${x.html}${TOPIC[x.t] ? ` <a class="fsrc" href="#${x.t}">${rt(TOPIC[x.t].short || TOPIC[x.t].title)} →</a>` : ''}</div></li>`).join('')}</ol>
       </section>
-      ${hy.length ? `<section class="sum-sec"><h2 class="h-sec">Read these in full</h2><p class="muted" style="margin-top:0">The topics quizzes keep coming back to. If you open only a few, open these.</p><div>${hy.map((t) => topicRow(TOPIC[t])).join('')}</div></section>` : ''}
+      ${hy.length ? `<section class="sum-sec"><h2 class="h-sec">Read these in full</h2><p class="muted" style="margin-top:0">The topics the past CAT and FAT papers keep asking, most-asked first. If you open only a few, open these.</p><div>${hy.map((t) => topicRow(TOPIC[t])).join('')}</div></section>` : ''}
       <section class="sum-sec"><h2 class="h-sec">Lock it in: 10 MCQs</h2><p class="muted" style="margin-top:0" data-mcqcount></p><div data-mcqs></div></section>
       <div class="btn-row fast-end"><button class="btn primary" data-done></button>${nextId ? `<a class="btn" href="#fast.${nextId}">Next: Module ${+MOD[nextId].num} ${icon('right')}</a>` : `<a class="btn" href="#fast">All modules</a>`}</div>`;
     const holder = $('[data-mcqs]', el), cnt = $('[data-mcqcount]', el), doneBtn = $('[data-done]', el);

@@ -17,6 +17,7 @@ FAST({
     { t: 'm3-nano-gold', star: false, html: 'Gold nanoparticles look red, not gold, because of <b>surface plasmon resonance</b>.' },
     { t: 'm3-why-nano', star: true, html: 'Nano properties change because of more <b>surface area per volume</b> and <b>quantum effects</b>.' },
     { t: 'm3-synthesis', star: false, html: '<b>Top-down</b> methods (ball milling) break bulk down; <b>bottom-up</b> methods (sol–gel) build from atoms.' },
+    { t: 'm3-sol-gel', star: true, html: '<b>Sol–gel</b>: a metal alkoxide is hydrolysed and condensed (sol → gel), then dried and calcined to give nanoparticles; it is a bottom-up method run at low temperature.' },
     { t: 'm3-quantum-dots', star: true, html: 'In <b>quantum dots</b>, a bigger dot has a smaller gap and glows <b>redder</b>; a smaller dot glows bluer.' },
     { t: 'm3-coolants', star: false, html: 'A <b>coolant</b> carries heat away from chips; <b>dielectric fluids</b> are used where liquid touches the electronics.' }
   ],

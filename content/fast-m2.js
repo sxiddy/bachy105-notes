@@ -17,7 +17,8 @@ FAST({
     { t: 'm2-pemfc', star: false, html: 'The <b>PEMFC</b> works at low temperature with a <b>Nafion</b> membrane and needs pure hydrogen.' },
     { t: 'm2-sofc', star: false, html: 'The <b>SOFC</b> uses a ceramic <b>YSZ</b> electrolyte at 800–1000 °C and can run on H₂ or CO.' },
     { t: 'm2-photovoltaics', star: true, html: 'A <b>p–n junction</b> separates the electrons and holes that light creates, which gives a current: the <b>photovoltaic effect</b>.' },
-    { t: 'm2-dssc', star: false, html: 'In a <b>dye-sensitised (Grätzel) cell</b>, a dye on TiO₂ absorbs the light and iodide carries electrons back.' }
+    { t: 'm2-dssc', star: false, html: 'In a <b>dye-sensitised (Grätzel) cell</b>, a dye on TiO₂ absorbs the light and iodide carries electrons back.' },
+    { t: 'm2-pec-cells', star: true, html: 'A <b>photoelectrochemical (PEC) cell</b> splits water with light: a semiconductor photoanode (e.g. TiO<sub>2</sub>) makes O<sub>2</sub>, and electrons go to the cathode to make H<sub>2</sub>.' }
   ],
   mcqs: ['m2-q-01', 'm2-q-03', 'm2-q-05', 'm2-q-07', 'm2-q-10', 'm2-q-12', 'm2-q-14']
 });

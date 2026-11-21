@@ -11,6 +11,7 @@ FAST({
     { t: 'm1-expansion-work', star: false, html: 'In an <b>adiabatic</b> process q = 0, so a gas that expands quickly cools down.' },
     { t: 'm1-second-law-entropy', star: true, html: 'The <b>second law</b>: the entropy of the universe increases in every spontaneous process.' },
     { t: 'm1-carnot-cycle', star: true, html: 'Carnot efficiency <b>η = 1 − T<sub>c</sub>/T<sub>h</sub></b>; no engine between the same two temperatures can beat it.' },
+    { t: 'm1-thermo-numericals', star: true, html: 'Numericals: for reversible isothermal expansion <b>w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</b> and ΔU = 0; ΔS = q<sub>rev</sub>/T; keep T in kelvin and R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>.' },
     { t: 'm1-free-energy', star: true, html: 'A process is spontaneous when <b>ΔG = ΔH − TΔS</b> is negative.' },
     { t: 'm1-gibbs-helmholtz-third-law', star: false, html: 'The <b>third law</b>: a perfect crystal has zero entropy at 0 K, so absolute entropies can be listed.' },
     { t: 'm1-rate-law', star: true, html: 'The <b>order</b> of a reaction comes from experiment (the rate law), not from the balanced equation.' },
