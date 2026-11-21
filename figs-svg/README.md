@@ -64,3 +64,6 @@ Old next-up list (done): pec-liquid-junction, dssc-schematic, dssc-ru-dyes,
 dssc-natural-dyes, dssc-hibiscus-cell, dssc-pros-cons; then m3-…, m4-….
 
 Batches 8-12 done 2026-10-06 (generators tools/figs/batch8..12.js): all 124 figures now have a redraw (node tools/figs/todo.js lists none left).
+
+Last four done (batch 24, 22-11-2026): m3-nanoscale-chart, m3-qd-core-shell, m4-optics-layout, m4-xray-em-uses
+(`node tools/figs/batch24.js figs-svg`). Every figure is now redrawn.
