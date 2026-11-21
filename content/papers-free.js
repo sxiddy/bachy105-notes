@@ -650,7 +650,7 @@ PAPERS({
 <tr><td>Applies to the overall reaction</td><td>Applies to one elementary step only</td></tr>
 <tr><td>Need not equal the coefficients</td><td>Equals the molecules in that step</td></tr></tbody></table>
 <p><b>Examples:</b></p>
-<ul><li>2NO + 2H<sub>2</sub> → 2N<sub>2</sub> + 2H<sub>2</sub>O has rate = k[NO]<sup>2</sup>[H<sub>2</sub>], order 3 (not 4).</li>
+<ul><li>2NO + 2H<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O has rate = k[NO]<sup>2</sup>[H<sub>2</sub>], order 3 (not 4).</li>
 <li>CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub> + H<sub>2</sub>O → CH<sub>3</sub>COOH + C<sub>2</sub>H<sub>5</sub>OH is bimolecular but pseudo-first order (water in large excess), rate = k[ester].</li>
 <li>H<sub>2</sub> + Cl<sub>2</sub> → 2HCl (as in the notes) has order zero in the rate law shown, while molecularity has no zero value.</li>
 <li>SO<sub>2</sub>Cl<sub>2</sub> → SO<sub>2</sub> + Cl<sub>2</sub> is unimolecular, first order.</li></ul>
@@ -771,7 +771,7 @@ PAPERS({
 <p>80% complete means 20% is left, [A]<sub>0</sub>/[A] = 5.</p>
 <div class="eq eq-steps"><span>t</span><span>= (1/k) ln 5</span><span></span><span>= 1.609 / 0.0990</span><span></span><span>= <b>16.25 h ≈ 16.3 h</b></span></div>
 <p>Check by half-lives: 80% needs ln 5/ln 2 = 2.32 half-lives, and 2.32 × 7 = 16.25 h. The result lies between two half-lives (14 h, 75%) and three (21 h, 87.5%), as it should.</p>
-<div class="note trap"><p>For 80% completion the fraction left is 0.20, not 0.80. Using ln(1/0.8) gives only 1.56 h, which is wrong.</p></div>
+<div class="note trap"><p>For 80% completion the fraction left is 0.20, not 0.80. Using ln(1/0.8) gives only 2.25 h, which is wrong.</p></div>
 <div class="note exam"><p>Five marks each. In (a) the differential rate law, the integration steps and the cancellation of [A]<sub>0</sub> are the marks. In (b) show k, ln 5 and the final time with its unit.</p></div>`,
           topics: ['m1-rate-law', 'm1-integrated-rate'],
           notes: ['m1-integrated-rate.1', 'm1-kinetics-numericals.1']
@@ -1270,9 +1270,9 @@ PAPERS({
 <p>k is the rate constant, A the frequency factor (collisions per second with suitable orientation), E<sub>a</sub> the activation energy, R = 8.314 J/mol/K and T the absolute temperature. Raising T raises the fraction of molecules with energy at least E<sub>a</sub> (the tail of the Maxwell–Boltzmann curve) exponentially, so k and the rate increase. A plot of ln k against 1/T has slope −E<sub>a</sub>/R and intercept ln A. For E<sub>a</sub> = 50 kJ/mol, k roughly doubles (factor 1.9) from 300 K to 310 K.</p>
 <p><b>Activation energy</b> is the minimum energy colliding molecules must have to react, the height of the barrier between reactants and the activated complex (transition state).</p>
 <figure data-fig="m1-energy-profile"></figure>
-<p><b>Diagram to draw (CH<sub>3</sub>NC → CH<sub>3</sub>CN):</b> potential energy against reaction coordinate. Methyl isonitrile at a higher level on the left, a peak (the transition state, where the N–C unit is half-rotated and the C–N–C angle is bent) at the top, acetonitrile at a lower level on the right. Mark E<sub>a</sub> from the reactant level to the peak and ΔH (about −42 kJ/mol, exothermic) from reactant to product.</p>
+<p><b>Diagram to draw (CH<sub>3</sub>NC → CH<sub>3</sub>CN):</b> potential energy against reaction coordinate. Methyl isonitrile at a higher level on the left, a peak (the transition state, where the N–C unit is half-rotated and the C–N–C angle is bent) at the top, acetonitrile at a lower level on the right. Mark E<sub>a</sub> from the reactant level to the peak and ΔH (about −90 kJ/mol, exothermic) from reactant to product.</p>
 <p><b>Importance:</b> E<sub>a</sub> sets how fast the reaction goes: a high barrier means slow reaction even though ΔH is negative (acetonitrile is more stable, yet CH<sub>3</sub>NC is stable at room temperature and rearranges noticeably only on heating, around 200 °C). A larger E<sub>a</sub> also makes k more sensitive to temperature, and a catalyst works by lowering it.</p>
-<div class="note trap"><p>E<sub>a</sub> is not ΔH. E<sub>a</sub> is the forward barrier; ΔH is the difference between product and reactant levels. The ΔH value quoted is the commonly given figure from textbooks (about −42 kJ/mol), so state it as approximate if you quote it.</p></div>
+<div class="note trap"><p>E<sub>a</sub> is not ΔH. E<sub>a</sub> is the forward barrier; ΔH is the difference between product and reactant levels. The ΔH value quoted is the commonly given figure from textbooks (about −90 kJ/mol), so state it as approximate if you quote it.</p></div>
 <div class="note exam"><p>State the Arrhenius equation with terms, the effect of T, define E<sub>a</sub> and draw the methyl isonitrile profile with E<sub>a</sub> and ΔH marked and the transition state labelled.</p></div>`,
           topics: ['m1-collision-arrhenius', 'm1-catalysis'],
           notes: ['m1-collision-arrhenius.4', 'm1-collision-arrhenius.2']
@@ -1342,7 +1342,7 @@ PAPERS({
 <p><b>P–V diagram to draw:</b> two isotherms (the upper one at T<sub>h</sub>, A to B; the lower at T<sub>c</sub>, C to D) joined by two steeper adiabats (B to C and D to A). The closed loop is traversed clockwise. The <b>area enclosed</b> equals the net work done by the engine in one cycle.</p>
 <p><b>Significance for efficiency</b></p>
 <p>Around the cycle, ΔS = q<sub>h</sub>/T<sub>h</sub> + q<sub>c</sub>/T<sub>c</sub> = 0, so q<sub>h</sub>/q<sub>c</sub> = −T<sub>h</sub>/T<sub>c</sub>.</p>
-<div class="eq eq-steps"><span>η</span><span>= W / q<sub>h</sub></span><span></span><span>= 1 − q<sub>c</sub>/q<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub> / T<sub>h</sub></span></div>
+<div class="eq eq-steps"><span>η</span><span>= W / q<sub>h</sub></span><span></span><span>= (q<sub>h</sub> + q<sub>c</sub>)/q<sub>h</sub> = 1 + q<sub>c</sub>/q<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub> / T<sub>h</sub></span></div>
 <ul><li>η depends only on the two reservoir temperatures (in kelvin), not on the working substance.</li>
 <li>No real engine working between the same T<sub>h</sub> and T<sub>c</sub> can beat this value, so the Carnot efficiency is the benchmark for judging real engines.</li>
 <li>η is always below 1, because T<sub>c</sub> = 0 K cannot be reached. This is the Kelvin statement of the second law.</li>
@@ -1560,7 +1560,7 @@ PAPERS({
 <div class="eq">β = 0.85° × π/180 = 0.014835 rad</div>
 <div class="eq eq-steps"><span>D</span><span>= kλ / (β cos θ)</span><span></span><span>= (0.9 × 1.5406 Å) / (0.014835 × 0.9751)</span><span></span><span>= 1.3865 / 0.014466</span></div>
 <div class="eq">D ≈ <b>95.8 Å ≈ 9.6 nm</b></div>
-<div class="note trap"><p>The printed peak position is 2θ, so use θ = 12.805° in cos θ. The FWHM must be in radians. Using 25.61° inside the cosine gives 10.6 nm, which is wrong.</p></div>
+<div class="note trap"><p>The printed peak position is 2θ, so use θ = 12.805° in cos θ. The FWHM must be in radians. Using 25.61° inside the cosine gives 10.4 nm, which is wrong.</p></div>
 <div class="note exam"><p>Diagram with labels (tube, sample, goniometer, detector) and nλ = 2d sin θ for about half the marks; the rest for θ, β in radians and D with unit.</p></div>`,
           topics: ['m4-bragg', 'm4-scherrer', 'm4-xrd-patterns'],
           notes: ['m4-xrd-patterns.0', 'm4-bragg.4', 'm4-scherrer.2']
@@ -1597,7 +1597,7 @@ PAPERS({
 <p><b>(b)</b> k = 0.693/t<sub>½</sub> = 0.693/8 = 0.0866 min<sup>−1</sup>.</p>
 <div class="eq eq-steps"><span>t</span><span>= (2.303/k) log([A]<sub>0</sub>/[A])</span><span></span><span>= (2.303/0.0866) × log 100</span><span></span><span>= 26.6 × 2</span></div>
 <div class="eq">t ≈ <b>53.2 min</b> (about 6.64 half-lives)</div>
-<div class="note trap"><p>In (a) the work is not nRT ln(V<sub>2</sub>/V<sub>1</sub>); that is the reversible path and would give −1.70 kJ. Irreversible expansion against a fixed pressure uses −P<sub>ex</sub>ΔV. In (b), 1% means [A]/[A]<sub>0</sub> = 0.01.</p></div>
+<div class="note trap"><p>In (a) the work is not nRT ln(V<sub>2</sub>/V<sub>1</sub>); that is the reversible path and would give −0.84 kJ. Irreversible expansion against a fixed pressure uses −P<sub>ex</sub>ΔV. In (b), 1% means [A]/[A]<sub>0</sub> = 0.01.</p></div>
 <div class="note exam"><p>(a) the formula, the dm<sup>3</sup> atm to J conversion, and the reason ΔU = ΔH = 0. (b) k from the half-life, then the first-order integrated form.</p></div>`,
           topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-integrated-rate'],
           notes: ['m1-thermo-numericals.0', 'm1-kinetics-numericals.1']
@@ -2032,7 +2032,7 @@ PAPERS({
 <figure data-fig="m3-sol-gel-routes"></figure>
 <ol><li><b>Hydrolysis:</b> the alkoxide reacts with water (with alcohol as co-solvent, acid or base catalyst) to form a sol.<div class="eq">–M–OR + H<sub>2</sub>O → –M–OH + ROH; Si(OR)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4ROH</div></li>
 <li><b>Condensation:</b> M–O–M (oxo) or M–OH–M (hydroxo) bridges form and build a network; viscosity rises and a porous gel forms.<div class="eq">–M–OH + HO–M– → –M–O–M– + H<sub>2</sub>O</div><div class="eq">–M–OH + RO–M– → –M–O–M– + ROH</div></li>
-<li><b>Aging:</b> condensation continues; the network stiffens, porosity decreases and the particles grow farther apart.</li>
+<li><b>Aging:</b> condensation continues; the network stiffens and shrinks, pore liquid is pushed out, porosity decreases and the particles coarsen and pack closer together.</li>
 <li><b>Drying:</b> water and organic solvent are removed from the gel.</li>
 <li><b>Calcination:</b> strong heating burns off leftover organic and –OH groups and crystallises the oxide nanoparticles.</li></ol>
 <p><b>Advantages:</b> low temperature, high purity and homogeneity, control of particle size and porosity, gives powders, films and coatings. <b>Limitations:</b> costly alkoxide precursors, long processing time, shrinkage and cracking on drying.</p>`,
