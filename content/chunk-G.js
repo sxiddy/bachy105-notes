@@ -345,112 +345,111 @@ CHUNK({
       id: 'm4-xrd-patterns',
       title: "Powder XRD: diffractometer and patterns",
       short: "Powder XRD",
-      blurb: 'What sits inside an X-ray diffractometer, how to read peak position, height and width off a diffractogram, how databases confirm a phase, and where XRD earns its keep.',
+      blurb: 'The diffractometer in plain words (tube, sample, detector), why the detector sits at 2θ, how to read a peak, and what XRD is used for.',
       source: 'Pages 33–34, 38',
       tabs: [
         { title: 'The diffractometer', html: `
-          <p class="lead">An X-ray diffractometer is the instrument that <b>produces monochromatic X-rays</b>, focuses them on a sample, scans through a range of 2θ and records how strongly X-rays come back at each angle.</p>
-          <ul>
-            <li>Optics <b>focus the X-ray beam</b> on the sample.</li>
-            <li>It <b>scans through a 2θ range</b>.</li>
-            <li>The sample reflects X-rays into the detector, which records them and their <b>intensity</b>.</li>
-            <li>It is attached to a <b>goniometer</b> for simultaneous scanning.</li>
-            <li>It records <b>peak position and intensity</b> wherever constructive interference happens.</li>
-            <li>The result is displayed on a <b>diffractogram</b>.</li>
-          </ul>
+          <p class="lead">A diffractometer is just <b>three things in a line</b>: something that makes X-rays, the powder sample, and something that counts the X-rays that bounce off. Everything else is helpers.</p>
+          <div class="vs">
+            <div class="side"><h4>1. X-ray tube</h4><p>Makes the X-rays.</p></div>
+            <div class="side"><h4>2. Sample</h4><p>A flat layer of powder. Its crystals bounce X-rays off at certain angles only.</p></div>
+          </div>
+          <div class="vs">
+            <div class="side"><h4>3. Detector</h4><p>Counts how many X-rays arrive at each angle.</p></div>
+            <div class="side"><h4>Result</h4><p>A graph of counts vs angle (2θ), called a <b>diffractogram</b>.</p></div>
+          </div>
+          <h3>The idea in one line</h3>
+          <p>Turn the angle slowly. At most angles nothing comes back. At a few special angles (where <b>Bragg's law, nλ = 2d sin θ</b>, is true) the bounced waves add up, and the detector sees a spike. Those spikes are the peaks.</p>
           <figure data-fig="m4-diffractometer-layout"></figure>
-          <h3>Following the beam, then the signal</h3>
+          <h3>The full list (for the exam diagram)</h3>
+          <p>Follow the X-rays from left to right. The helpers just clean the beam or the signal:</p>
           <ol class="steps">
-            <li><b>High-voltage supply</b> Powers the X-ray tube.</li>
-            <li><b>X-ray tube</b> Produces the X-rays.</li>
-            <li><b>Primary filter</b> Removes unwanted wavelengths so the beam is monochromatic.</li>
-            <li><b>Collimator</b> Narrows the beam into a thin, parallel pencil aimed at the sample.</li>
-            <li><b>Sample</b> Diffracts X-rays at its Bragg angles.</li>
-            <li><b>Detector and pre-amp</b> Turn each X-ray into an electrical pulse and boost it.</li>
-            <li><b>Main amplifier and amplitude analyzer</b> Amplify the pulses and sort them by size.</li>
-            <li><b>Control unit, communication module, PC</b> Run the scan and plot the diffractogram.</li>
+            <li><b>High-voltage supply</b> Powers the tube.</li>
+            <li><b>X-ray tube</b> Makes the X-rays.</li>
+            <li><b>Filter</b> Keeps one wavelength only (one λ, so each set of planes gives one sharp peak).</li>
+            <li><b>Collimator</b> Makes the beam thin and straight.</li>
+            <li><b>Sample</b> Bounces X-rays out at its Bragg angles.</li>
+            <li><b>Detector</b> Turns each X-ray into an electrical pulse.</li>
+            <li><b>Amplifiers</b> Make the pulses big enough to count.</li>
+            <li><b>Computer</b> Runs the scan and draws the diffractogram.</li>
           </ol>
-          <div class="note why"><p>Why monochromatic: Bragg's law has a single λ in it. Send in many wavelengths and each diffracts at its own angle, smearing every peak. The filter strips most of the Kβ and the continuous background, leaving mainly Kα.</p></div>
+          <div class="note exam"><p>In the FAT, draw: <b>tube → filter → collimator → sample → detector → computer</b>, with the angle 2θ marked between the incoming beam and the detector. Then one line for each part, like the list above.</p></div>
         ` },
         { title: 'Goniometer & detector', html: `
-          <p class="lead">The goniometer is the precision turntable that keeps the angles right: as the sample turns through <b>θ</b>, the detector swings through <b>2θ</b>.</p>
-          <figure data-fig="m4-goniometer"></figure>
+          <p class="lead">The <b>goniometer</b> is the turntable that moves the sample and the detector together. That is all it does: it keeps the angles right.</p>
           <ul>
-            <li>The <b>Göbel mirror</b> on the tube side is the optics that shapes the beam and focuses it on the sample.</li>
-            <li>The <b>Soller slit</b>, a stack of thin parallel plates, passes only well-aligned rays to the detector.</li>
-            <li>The detector reads the reflected X-rays at each 2θ.</li>
+            <li>The sample tilts by <b>θ</b>.</li>
+            <li>The detector moves by <b>2θ</b>, twice as far.</li>
           </ul>
+          <figure data-fig="m4-goniometer"></figure>
+          <h3>Why 2θ and not θ?</h3>
+          <p>Think of a ball bouncing off a wall. It comes in at angle θ and leaves at angle θ on the other side, so it has turned by <b>2θ</b> in total. The detector has to sit where the bounced X-rays go, so it stays at 2θ. That is why every XRD graph is plotted against <b>2θ</b>.</p>
           <figure data-fig="m4-theta-2theta-geometry"></figure>
-          <p>Here the X-ray source is fixed while the specimen holder and detector rotate about one axis. Rays reflected from atomic planes 1 and 2, spaced d<sub>hkl</sub> apart, differ in path by 2d<sub>hkl</sub> sin θ, the Bragg condition again.</p>
+          <h3>Two small parts you may see named</h3>
+          <div class="kv">
+            <div><span>Göbel mirror</span><b>Shapes the X-ray beam and aims it at the sample (tube side)</b></div>
+            <div><span>Soller slit</span><b>A stack of thin plates that lets only straight rays reach the detector</b></div>
+          </div>
           <h3>Detector types</h3>
           <div class="chips"><span class="chip">Gas-filled</span><span class="chip">Scintillation</span><span class="chip">Semiconductor</span></div>
-          <div class="note why"><p>Why the detector turns twice as far: the diffracted beam leaves the planes at θ on the other side, so it ends up 2θ away from the incoming beam. Keep the detector at 2θ and it always sits where a Bragg reflection would land.</p></div>
+          <div class="note trap"><p>In the Scherrer and Bragg formulas you use <b>θ</b>, which is half the 2θ read off the graph. Forgetting to halve it is the most common mistake.</p></div>
         ` },
         { title: 'Reading a diffractogram', html: `
-          <p class="lead">An XRD plot is <b>signal intensity vs 2θ</b>. Every peak gives three readings: its position, its height and its width.</p>
+          <p class="lead">The graph has angle (<b>2θ</b>) along the bottom and <b>intensity</b> (how many X-rays) up the side. Each peak tells you three things.</p>
           <figure data-fig="m4-xrd-peak-parameters"></figure>
           <table class="tbl">
-            <thead><tr><th>Reading</th><th>What it tells you</th></tr></thead>
+            <thead><tr><th>Look at</th><th>It tells you</th></tr></thead>
             <tbody>
-              <tr><td>Peak position (2θ)</td><td>Where atoms sit within the lattice: each 2θ gives a <b>d-spacing</b> (d<sub>hkl</sub>, the distance between reflection planes) through Bragg's law, and from it the <b>lattice parameter</b> and the <b>crystal structure</b></td></tr>
-              <tr><td>Peak intensity</td><td>Tracks the <b>number of atoms in phase</b>; a taller peak means more crystals or molecules with that spacing</td></tr>
-              <tr><td>Peak width</td><td><b>Inversely proportional</b> to crystal size; it also reflects the <b>perfection of the lattice</b> (crystalline or amorphous)</td></tr>
+              <tr><td><b>Where</b> the peak is (2θ)</td><td>The spacing between atom layers (d), through Bragg's law. The set of positions is the material's <b>fingerprint</b>.</td></tr>
+              <tr><td><b>How tall</b> it is</td><td>How many crystals have that spacing. Taller = more of them.</td></tr>
+              <tr><td><b>How wide</b> it is</td><td>How big the crystals are. <b>Wider peak = smaller crystals</b> (this is what the Scherrer equation uses).</td></tr>
             </tbody>
           </table>
+          <h3>The three shapes to know</h3>
           <div class="vs">
-            <div class="side"><h4>Thin peak</h4><p><b>Larger crystal</b></p></div>
-            <div class="side"><h4>Broad peak</h4><p><b>Smaller crystal</b>, defects, or amorphous nature</p></div>
+            <div class="side"><h4>Crystalline</h4><p><b>Sharp, narrow peaks</b>. Big, well-ordered crystals.</p></div>
+            <div class="side"><h4>Amorphous (glass)</h4><p><b>No peaks</b>, just one broad hump. The atoms have no repeating order.</p></div>
           </div>
-          <p>Try it: pull the crystallite size from 100 nm down to 2 nm and watch the peaks spread, then switch on amorphous for the glass-like hump. Hover a peak to read its 2θ, FWHM and D.</p>
+          <p>Nanocrystals sit in between: the peaks are still there, but <b>broad</b>, because the crystals are tiny.</p>
+          <p>Try it: drag the crystallite size from 100 nm down to 2 nm and watch the peaks spread out, then switch on amorphous to see the hump.</p>
           <div data-viz="xrd-pattern"></div>
-          <div class="note trap"><p>The pattern above is labelled 2θ [Mo]: it was recorded with Mo Kα (0.71 Å). With Cu Kα (1.54 Å) the same planes diffract at larger 2θ, because sin θ = nλ/2d grows with λ. Check the anode before you compare two patterns.</p></div>
+          <div class="note heads-up"><p>The same material gives peaks at different 2θ with a different X-ray source (Cu or Mo), because λ is different. Only compare patterns taken with the same source.</p></div>
         ` },
         { title: 'Database matching', html: `
-          <p class="lead">To identify an unknown, you <b>match its pattern</b> against reference patterns from the literature and from experiments.</p>
+          <p class="lead">To find out what an unknown powder is, you <b>compare its peaks with a library</b> of known patterns, like matching a fingerprint.</p>
           <ul>
-            <li>The unknown compound's pattern is compared with literature and experimental values.</li>
-            <li>Identity is confirmed by matching the <b>location, width and relative heights</b> of the peaks.</li>
+            <li>Match the <b>positions</b> of the peaks first, then their <b>relative heights</b>.</li>
+            <li>If they line up with a library card, that is your compound.</li>
           </ul>
           <div class="kv">
-            <div><span>JCPDS</span><b>Joint Committee on Powder Diffraction Standards</b></div>
-            <div><span>ICSD</span><b>International Crystal Structure Database</b></div>
+            <div><span>JCPDS</span><b>Joint Committee on Powder Diffraction Standards: the main library of patterns</b></div>
+            <div><span>ICSD</span><b>Inorganic Crystal Structure Database: another library</b></div>
           </div>
           <figure data-fig="m4-nacl-pattern"></figure>
-          <h3>A reference card: NaCl</h3>
+          <h3>Example: table salt (NaCl)</h3>
           <div class="kv">
-            <div><span>Structure</span><b>FCC</b></div>
-            <div><span>Reference</span><b>ICSD Ref. #96-900-6377</b></div>
-            <div><span>Cell edges</span><b>a = b = c = 5.64 Å</b></div>
-            <div><span>Cell angles</span><b>α = β = γ = 90°</b></div>
-            <div><span>Density</span><b>ρ = 2.14 g/cm<sup>3</sup></b></div>
-            <div><span>Strongest peaks</span><b>(200), then (220)</b></div>
+            <div><span>Structure</span><b>FCC (face-centred cube)</b></div>
+            <div><span>Cube edge</span><b>a = 5.64 Å</b></div>
+            <div><span>Tallest peaks</span><b>(200), then (220)</b></div>
           </div>
-          <div class="note why"><p><b>FCC</b> (face-centred cubic): the unit cell is a cube with an atom at every corner and one in the middle of each face. a, b, c are the cell's edge lengths and α, β, γ the angles between them; all edges equal and all angles 90° means a cube. ρ is density.</p></div>
-          <p>Each peak is labelled with the Miller indices (hkl) of the planes that make it: (111), (200), (220), (311), (222), (400), (331), (420), (422) and (511).</p>
-          <div class="note trap"><p>The page says the match "verifies element identity". Strictly, XRD identifies the <b>compound or phase</b>: NaCl as a crystal, quartz vs cristobalite, rather than a bare list of elements.</p></div>
-          <div class="note heads-up"><p>ICSD officially stands for <b>Inorganic</b> Crystal Structure Database; the page expands it as "International". JCPDS is now run as the ICDD (International Centre for Diffraction Data), and its reference patterns are still called JCPDS cards.</p></div>
+          <p>The numbers in brackets, like (200), are Miller indices: just labels for which set of atom layers made that peak.</p>
+          <div class="note trap"><p>XRD tells you the <b>compound and its crystal form</b> (for example NaCl, or quartz vs cristobalite), not just which elements are present.</p></div>
         ` },
         { title: 'Uses, pros & cons', html: `
-          <p class="lead">XRD is the everyday tool for crystal structure: cheap, simple and nondestructive, with one weak spot, <b>light elements</b>.</p>
-          <div class="kv">
-            <div><span>Grain</span><b>One small crystal region inside a solid; a polygrained (polycrystalline) solid is many grains packed together</b></div>
-            <div><span>Texture</span><b>Whether the grains point randomly or mostly in one direction</b></div>
-            <div><span>Strain</span><b>How much the lattice is stretched or squeezed from its normal spacing</b></div>
-            <div><span>SEM / TEM</span><b>Scanning / transmission electron microscope: they image with an electron beam instead of light</b></div>
-          </div>
-          <h3>Applications</h3>
+          <p class="lead">XRD is the cheap, everyday way to find out <b>what a solid is and how its atoms are arranged</b>.</p>
+          <h3>What it is used for</h3>
           <ul>
-            <li>Distinguishing <b>crystalline from amorphous</b> materials.</li>
-            <li>Details of <b>unit cell dimensions</b>, atom positions and crystal symmetry.</li>
-            <li>Determining the <b>texture</b> (preferred grain orientation) of polygrained materials.</li>
-            <li>Measuring <b>strain</b> and small grain size.</li>
+            <li>Telling <b>crystalline from amorphous</b> (sharp peaks vs a hump).</li>
+            <li>Identifying a compound by matching its pattern.</li>
+            <li>Finding the <b>size of the unit cell</b> and the crystal structure.</li>
+            <li>Finding the <b>crystallite size</b> (from peak width) and <b>strain</b> (stretched or squeezed layers).</li>
+            <li>Finding the <b>texture</b>: whether the grains point randomly or mostly one way.</li>
           </ul>
           <div class="vs">
-            <div class="side"><h4>Advantages</h4><ul><li><b>Lowest cost</b>, convenient, widely used for crystal structure determination</li><li><b>No significant air absorption</b>, so no evacuated chamber</li><li><b>Nondestructive</b> technique</li></ul></div>
-            <div class="side"><h4>Disadvantage</h4><ul><li>X-rays <b>do not interact very strongly with lighter elements</b></li></ul></div>
+            <div class="side"><h4>Good</h4><ul><li><b>Cheap</b> and simple</li><li><b>Nondestructive</b>: the sample is not harmed</li><li>Works <b>in air</b>, no vacuum needed</li></ul></div>
+            <div class="side"><h4>Bad</h4><ul><li><b>Weak for light elements</b> (H, Li, B): they have few electrons, and X-rays bounce off electrons</li></ul></div>
           </div>
-          <div class="note why"><p>X-rays scatter off electrons. Light atoms such as H, Li or B have very few, so they scatter weakly and are hard to locate next to heavy atoms.</p></div>
-          <div class="note why"><p>Electron-beam methods (SEM, TEM) need a vacuum because air scatters electrons. X-rays near 1 Å cross air with little loss, so the sample can sit in the open.</p></div>
+          <div class="note exam"><p>For "applications and advantages" questions, the five uses and the four points above are enough.</p></div>
         ` }
       ],
       flashcards: [
