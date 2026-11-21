@@ -350,11 +350,11 @@ CHUNK({
           <div class="note why"><p>If zero entropy is given to elements in their perfect crystalline form at 0 K, then all perfect crystalline <b>compounds</b> also have zero entropy at 0 K. This is why absolute entropies S° can be tabulated.</p></div>
           <h3>Absolute entropy from the third law</h3>
           <p>Because S = 0 at 0 K, the entropy of a substance at any temperature T can be found as an absolute value, not just as a change. Heating at constant pressure adds dS = dq<sub>rev</sub>/T = C<sub>p</sub> dT/T, so integrating from 0 K gives:</p>
-          <div class="eq" data-label="Absolute entropy">S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> <span class="frac"><span>C<sub>p</sub></span><span>T</span></span> dT = ∫<sub>0</sub><sup>T</sup> C<sub>p</sub> d(ln T)</div>
+          <div class="eq" data-label="Absolute entropy">S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span> <span class="frac"><span>C<sub>p</sub></span><span>T</span></span> dT = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span> C<sub>p</sub> d(ln T)</div>
           <p>If the substance melts or boils on the way up to T, the entropy of each phase change, ΔH<sub>trans</sub>/T<sub>trans</sub>, is added at that temperature:</p>
-          <div class="eq">S<sub>T</sub> = ∫<sub>0</sub><sup>T<sub>f</sub></sup> <span class="frac"><span>C<sub>p</sub>(s)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>fus</sub></span><span>T<sub>f</sub></span></span> + ∫<sub>T<sub>f</sub></sub><sup>T<sub>b</sub></sup> <span class="frac"><span>C<sub>p</sub>(l)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>vap</sub></span><span>T<sub>b</sub></span></span> + ∫<sub>T<sub>b</sub></sub><sup>T</sup> <span class="frac"><span>C<sub>p</sub>(g)</span><span>T</span></span> dT</div>
+          <div class="eq">S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T<sub>f</sub></span><span>0</span></span></span> <span class="frac"><span>C<sub>p</sub>(s)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>fus</sub></span><span>T<sub>f</sub></span></span> + <span class="int"><span class="isg">∫</span><span class="lims"><span>T<sub>b</sub></span><span>T<sub>f</sub></span></span></span> <span class="frac"><span>C<sub>p</sub>(l)</span><span>T</span></span> dT + <span class="frac"><span>ΔH<sub>vap</sub></span><span>T<sub>b</sub></span></span> + <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>T<sub>b</sub></span></span></span> <span class="frac"><span>C<sub>p</sub>(g)</span><span>T</span></span> dT</div>
           <p>In practice C<sub>p</sub> is measured down to a few kelvin, C<sub>p</sub>/T is plotted against T (or C<sub>p</sub> against ln T), and the area under the curve gives the entropy. These values are the standard absolute entropies S° listed in tables at 298 K.</p>
-          <div class="note exam"><p>"How does the third law help to find absolute entropy?" Answer: it fixes S = 0 at 0 K for a perfect crystal, so S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup>(C<sub>p</sub>/T)dT plus ΔH/T for each phase change gives the absolute entropy.</p></div>
+          <div class="note exam"><p>"How does the third law help to find absolute entropy?" Answer: it fixes S = 0 at 0 K for a perfect crystal, so S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span>(C<sub>p</sub>/T)dT plus ΔH/T for each phase change gives the absolute entropy.</p></div>
         ` }
       ],
       flashcards: [
@@ -366,7 +366,7 @@ CHUNK({
         { front: 'Third law of thermodynamics?', back: 'The entropy of a <b>perfect crystalline</b> substance is <b>zero at 0 K</b>.' },
         { front: 'Statistical definition of entropy?', back: '<b>S = k ln W</b>, W = number of microstates; W = 1 at 0 K.' },
         { front: 'Why is adsorption of a gas spontaneous though ΔS < 0?', back: 'It is strongly <b>exothermic</b>; |ΔH| > |TΔS| at low T, so <b>ΔG = ΔH − TΔS < 0</b>. Favoured at low temperature.' },
-        { front: 'Absolute entropy from the third law?', back: 'S = 0 at 0 K, so <b>S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> (C<sub>p</sub>/T) dT</b> plus ΔH/T at each phase change.' },
+        { front: 'Absolute entropy from the third law?', back: 'S = 0 at 0 K, so <b>S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span> (C<sub>p</sub>/T) dT</b> plus ΔH/T at each phase change.' },
         { front: 'What does the Gibbs–Helmholtz equation lead to?', back: 'The <b>van\'t Hoff equation</b> for K against T.' }
       ],
       oneLiners: [
@@ -381,7 +381,7 @@ CHUNK({
       formulas: [
         { name: 'Gibbs–Helmholtz', html: `ΔG = ΔH − TΔS`, note: 'Spontaneous if ΔG &lt; 0.' },
         { name: 'Boltzmann entropy', html: `S = k ln W`, note: 'W = number of microstates; S = 0 when W = 1.' },
-        { name: 'Absolute entropy', html: `S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> (C<sub>p</sub>/T) dT + Σ ΔH<sub>trans</sub>/T<sub>trans</sub>`, note: 'Third law: S = 0 at 0 K for a perfect crystal.' }
+        { name: 'Absolute entropy', html: `S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span> (C<sub>p</sub>/T) dT + Σ ΔH<sub>trans</sub>/T<sub>trans</sub>`, note: 'Third law: S = 0 at 0 K for a perfect crystal.' }
       ]
     },
     // ------------------------------------------------------------------

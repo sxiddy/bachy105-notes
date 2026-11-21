@@ -568,7 +568,7 @@ PAPERS({
 <figure data-fig="m1-first-law-flows"></figure>
 <p><b>Work of isothermal reversible expansion (n mol, ideal gas)</b></p>
 <p>Reversible means P<sub>ex</sub> = P of the gas at every step, so dw = −P dV with P = nRT/V.</p>
-<div class="eq">w = −∫ P dV = −nRT ∫<sub>V<sub>1</sub></sub><sup>V<sub>2</sub></sup> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</div>
+<div class="eq">w = −∫ P dV = −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V<sub>2</sub></span><span>V<sub>1</sub></span></span></span> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</div>
 <div class="eq">Boyle: V<sub>2</sub>/V<sub>1</sub> = P<sub>1</sub>/P<sub>2</sub>, so w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
 <p>At constant T, ΔU = 0 for an ideal gas, so q = −w = nRT ln(V<sub>2</sub>/V<sub>1</sub>): all the heat absorbed is turned into work. The work is the area under the isotherm P = nRT/V on the P–V diagram.</p>
 <p><b>Practical significance</b></p>
@@ -1948,7 +1948,7 @@ PAPERS({
 <p><b>Isothermal reversible expansion of an ideal gas.</b> The internal energy of an ideal gas depends only on temperature, so at constant T:</p>
 <div class="eq">ΔU = 0, so q = −w</div>
 <p>For reversible expansion P<sub>ext</sub> = P = nRT/V at every step:</p>
-<div class="eq">w = −∫<sub>V₁</sub><sup>V₂</sup> P dV = −nRT ∫<sub>V₁</sub><sup>V₂</sup> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq">w = −<span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> P dV = −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
 <div class="eq">q = +nRT ln(V<sub>2</sub>/V<sub>1</sub>): all the heat absorbed is turned into work done by the gas</div>
 <figure data-fig="m1-pv-isothermal"></figure>
 <p><b>Adiabatic reversible expansion of an ideal gas.</b> No heat is exchanged, q = 0, so</p>

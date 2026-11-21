@@ -1232,3 +1232,10 @@ a.syl-name:hover { text-decoration: underline; }
 @media (max-width: 480px) { .subj { grid-template-columns: 44px minmax(0, 1fr); } .subj-tags { grid-column: 2; grid-row: auto; } }
 /* phones: the closed menu drawer's shadow showed as a dark band down the left edge (clear in light mode) */
 @media (max-width: 960px) { .app:not(.sb-open) .sidebar { box-shadow: none; } }
+/* definite integrals: limits stacked at the right of the sign, upper on top, as written by hand */
+.int { display: inline-flex; align-items: center; vertical-align: middle; margin: 0 .1em; }
+.int .lims { display: inline-flex; flex-direction: column; justify-content: space-between; font-size: .7em; line-height: 1.05; margin: 0 .25em 0 .1em; align-self: stretch; }
+.int .lims > span:first-child { margin-top: -.45em; }
+.int .lims > span:last-child { margin-bottom: -.45em; }
+.int .lims sub, .int .lims sup { font-size: .85em; }
+.int .isg { font-size: 1.45em; line-height: 1; font-style: italic; }

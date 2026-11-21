@@ -177,7 +177,7 @@ QUESTIONS({
       q: `<p>A data table lists S° = 191.6 J mol<sup>−1</sup> K<sup>−1</sup> for N<sub>2</sub>(g) at 298 K, an absolute value rather than a change. Which statement explains how such a value is obtained?</p>`,
       options: ['The third law sets S = 0 for a perfect crystal at 0 K, so S is found by integrating Cp/T from 0 K and adding ΔH/T for each phase change', 'It is measured directly with an entropy meter', 'It is ΔH/T at 298 K', 'Absolute entropies cannot be found; tables give only changes'],
       correct: 0,
-      answer: `<p><b>S<sub>T</sub> = ∫<sub>0</sub><sup>T</sup> (C<sub>p</sub>/T) dT + Σ ΔH<sub>trans</sub>/T<sub>trans</sub></b>, starting from S = 0 at 0 K (third law).</p>`,
+      answer: `<p><b>S<sub>T</sub> = <span class="int"><span class="isg">∫</span><span class="lims"><span>T</span><span>0</span></span></span> (C<sub>p</sub>/T) dT + Σ ΔH<sub>trans</sub>/T<sub>trans</sub></b>, starting from S = 0 at 0 K (third law).</p>`,
       explain: `<p>The third law fixes the zero: a perfect crystal at 0 K has S = 0 (W = 1, S = k ln 1 = 0). Heating at constant pressure adds dS = C<sub>p</sub> dT/T, so the entropy at T is the area under the C<sub>p</sub>/T against T curve, plus ΔH<sub>fus</sub>/T<sub>f</sub> and ΔH<sub>vap</sub>/T<sub>b</sub> at the melting and boiling points on the way.</p>`,
       points: ['Third law: S = 0 at 0 K for a perfect crystal', 'S = ∫ Cp/T dT', 'Add ΔH/T at each phase change']
     },
