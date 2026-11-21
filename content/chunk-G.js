@@ -10,6 +10,46 @@ CHUNK({
       blurb: 'Where X-rays sit in the spectrum, who found them, how a tube makes them, and why the spectrum is a smooth hump with sharp Kα and Kβ spikes on top.',
       source: 'Pages 25–29',
       tabs: [
+        { title: 'Start here: what XRD is', html: `
+          <p class="lead"><b>XRD (X-ray diffraction)</b> is a way of finding out <b>how the atoms inside a solid are arranged</b>. You shine X-rays at a powdered sample, and it sends them back out only at certain angles. The list of those angles is a <b>fingerprint</b> that tells you what the solid is.</p>
+          <p>The slides use a lot of words before explaining them. Here they are, in plain language, before you meet them.</p>
+          <h3>Crystal words</h3>
+          <table class="tbl">
+            <thead><tr><th>Word</th><th>Plain meaning</th></tr></thead>
+            <tbody>
+              <tr><td><b>Crystal</b></td><td>A solid whose atoms sit in a <b>neat pattern that repeats</b> over and over, like tiles on a floor. Salt, sugar, quartz and most metals are crystals.</td></tr>
+              <tr><td><b>Amorphous</b></td><td>A solid with <b>no repeating pattern</b>; the atoms are jumbled. Glass and most plastics.</td></tr>
+              <tr><td><b>Lattice</b></td><td>The repeating grid of points the atoms sit on.</td></tr>
+              <tr><td><b>Unit cell</b></td><td>The <b>smallest box</b> of atoms that, copied in every direction, builds the whole crystal. Like one tile. Its edge lengths (a, b, c) are the <b>lattice parameters</b>.</td></tr>
+              <tr><td><b>Lattice planes</b></td><td>Flat, evenly spaced sheets of atoms running through the crystal, like the pages of a closed book.</td></tr>
+              <tr><td><b>d (d-spacing)</b></td><td>The <b>gap between two neighbouring planes</b>. Usually a few ångströms.</td></tr>
+              <tr><td><b>Miller indices (hkl)</b></td><td>Three numbers in brackets, like (111) or (200), that act as a <b>name for one set of planes</b>. You only need to read them as labels on peaks.</td></tr>
+              <tr><td><b>Phase</b></td><td>One particular crystal form of a substance. Quartz and cristobalite are two phases of SiO<sub>2</sub>. (Not the same as the <em>phase of a wave</em> below.)</td></tr>
+            </tbody>
+          </table>
+          <h3>Wave and unit words</h3>
+          <table class="tbl">
+            <thead><tr><th>Word</th><th>Plain meaning</th></tr></thead>
+            <tbody>
+              <tr><td><b>Å (ångström)</b></td><td>1 Å = 10<sup>−10</sup> m = 0.1 nm. Roughly the size of an atom.</td></tr>
+              <tr><td><b>keV</b></td><td>Kilo-electron-volt, a unit of photon energy. 1 keV = 1000 eV.</td></tr>
+              <tr><td><b>In phase / out of phase</b></td><td>Two waves are in phase when crest meets crest (they add up); out of phase when crest meets trough (they cancel).</td></tr>
+              <tr><td><b>Monochromatic</b></td><td>Only <b>one wavelength</b>. XRD needs this.</td></tr>
+              <tr><td><b>θ and 2θ</b></td><td>θ is the angle between the X-ray and the planes. The detector sits at 2θ from the incoming beam, so XRD graphs are plotted against <b>2θ</b>.</td></tr>
+              <tr><td><b>Diffractogram</b></td><td>The XRD graph: <b>intensity (y) vs 2θ (x)</b>, a row of peaks.</td></tr>
+              <tr><td><b>Coherent</b></td><td>Waves that stay in step with each other.</td></tr>
+            </tbody>
+          </table>
+          <h3>The whole story in five lines</h3>
+          <ol class="steps">
+            <li><b>Make X-rays</b> in a tube (this topic).</li>
+            <li><b>Shine them on a crystal.</b> Its planes are about as far apart as the X-ray wavelength (~1 Å), so they scatter it like a grating.</li>
+            <li><b>Waves from different planes add up</b> only at angles where their extra path is a whole number of wavelengths. That rule is <b>Bragg's law, 2d sin θ = nλ</b>.</li>
+            <li><b>Sweep the angle</b> with a diffractometer and record a peak at each such angle.</li>
+            <li><b>Read the peaks</b>: positions give d and the crystal type, width gives crystallite size (Scherrer equation).</li>
+          </ol>
+          <div class="note why"><p>Why not just use a microscope? Atoms are ~1 Å apart, far smaller than visible light (400–700 nm) can show. X-rays have a wavelength about that size, so they can "feel" the spacing.</p></div>
+        ` },
         { title: 'What X-rays are', html: `
           <p class="lead">X-rays are <b>energetic, high-frequency electromagnetic radiation</b>. On the spectrum they sit between UV and gamma rays.</p>
           <div class="kv">
@@ -53,6 +93,13 @@ CHUNK({
             <div><span>Anode (+)</span><b>Cu / Cr / Mo / W, disk type</b></div>
             <div><span>Accelerating potential</span><b>25–150 kV</b></div>
           </div>
+          <div class="kv">
+            <div><span>Cathode / anode</span><b>The negative and positive electrodes; electrons leave the cathode and fly to the anode</b></div>
+            <div><span>kV (kilovolt)</span><b>1000 volts; the bigger the voltage, the faster the electrons</b></div>
+            <div><span>Thermionic emission</span><b>A metal heated until it glows boils electrons off its surface</b></div>
+            <div><span>KE</span><b>Kinetic energy, the energy of motion</b></div>
+            <div><span>Atomic number (Z)</span><b>Number of protons in the nucleus (W = 74)</b></div>
+          </div>
           <p>The cathode and anode are sealed in at opposite ends of the tube. The anode metal is chosen to suit the application.</p>
           <ol class="steps">
             <li><b>Heat</b> The W filament is heated and gives off electrons by the thermionic process.</li>
@@ -80,12 +127,14 @@ CHUNK({
             <div><span>Output</span><b>Polychromatic, continuous, white</b></div>
             <div><span>Discovered by</span><b>Nikola Tesla</b></div>
           </div>
+          <div class="note why"><p><b>Polychromatic</b> means many wavelengths mixed together; <b>continuous</b> means no gaps between them; <b>white</b> is borrowed from white light, which contains every colour.</p></div>
           <figure data-fig="m4-bremsstrahlung"></figure>
           <div class="note why"><p>Why continuous: every electron takes a different path. A near miss loses a little energy and gives a low-energy photon; a close pass loses a lot and gives a high-energy one. Millions of electrons fill in every wavelength, so you get a smooth hump, "white" like white light. The only hard limit is at the top: a photon can't carry more than the electron's full KE, so the tube voltage sets the shortest wavelength.</p></div>
           <div class="note heads-up"><p>The page writes "breaking radiation". The German <em>bremsen</em> means to brake, so the usual English is <b>braking radiation</b>.</p></div>
         ` },
         { title: 'Characteristic X-rays', html: `
           <p class="lead">Characteristic X-rays come from an <b>inner-shell interaction</b>: a hole in an inner shell is filled by a higher-energy electron, and the energy gap leaves as one sharp X-ray line.</p>
+          <div class="note why"><p>Electrons in an atom sit in <b>shells</b> at fixed energies. Counting out from the nucleus they are named <b>K</b> (innermost, n = 1, held tightest), then <b>L</b> (n = 2), then <b>M</b> (n = 3). An electron falling from an outer shell to an inner one gives up the energy difference.</p></div>
           <ol class="steps">
             <li><b>Knock out</b> The incoming electron ejects a K-shell electron from a target atom.</li>
             <li><b>Fill</b> A higher-energy electron drops into the vacancy, from the L shell or the M shell.</li>
@@ -376,12 +425,19 @@ CHUNK({
             <div><span>Density</span><b>ρ = 2.14 g/cm<sup>3</sup></b></div>
             <div><span>Strongest peaks</span><b>(200), then (220)</b></div>
           </div>
+          <div class="note why"><p><b>FCC</b> (face-centred cubic): the unit cell is a cube with an atom at every corner and one in the middle of each face. a, b, c are the cell's edge lengths and α, β, γ the angles between them; all edges equal and all angles 90° means a cube. ρ is density.</p></div>
           <p>Each peak is labelled with the Miller indices (hkl) of the planes that make it: (111), (200), (220), (311), (222), (400), (331), (420), (422) and (511).</p>
           <div class="note trap"><p>The page says the match "verifies element identity". Strictly, XRD identifies the <b>compound or phase</b>: NaCl as a crystal, quartz vs cristobalite, rather than a bare list of elements.</p></div>
           <div class="note heads-up"><p>ICSD officially stands for <b>Inorganic</b> Crystal Structure Database; the page expands it as "International". JCPDS is now run as the ICDD (International Centre for Diffraction Data), and its reference patterns are still called JCPDS cards.</p></div>
         ` },
         { title: 'Uses, pros & cons', html: `
           <p class="lead">XRD is the everyday tool for crystal structure: cheap, simple and nondestructive, with one weak spot, <b>light elements</b>.</p>
+          <div class="kv">
+            <div><span>Grain</span><b>One small crystal region inside a solid; a polygrained (polycrystalline) solid is many grains packed together</b></div>
+            <div><span>Texture</span><b>Whether the grains point randomly or mostly in one direction</b></div>
+            <div><span>Strain</span><b>How much the lattice is stretched or squeezed from its normal spacing</b></div>
+            <div><span>SEM / TEM</span><b>Scanning / transmission electron microscope: they image with an electron beam instead of light</b></div>
+          </div>
           <h3>Applications</h3>
           <ul>
             <li>Distinguishing <b>crystalline from amorphous</b> materials.</li>
@@ -441,6 +497,7 @@ CHUNK({
             </tbody>
           </table>
           <p>Particle size is <b>always larger</b> than crystallite size.</p>
+          <div class="note why"><p><b>Nucleation centre</b>: a spot where a crystal first starts to grow. Several start at once, each grows into a grain, and they meet at <b>grain boundaries</b>. <b>Agglomeration</b> means clumping together. <b>Coherently</b> here means the waves leave in step, because the lattice runs on without a break.</p></div>
           <figure data-fig="m4-particle-grain-crystallite"></figure>
           <figure data-fig="m4-sem-grains"></figure>
           <div class="note heads-up"><p>The page prints "Particle ≤ grain ≤ crystallite < unit cell", with every sign backwards. A particle holds grains and a grain holds crystallites, so it has to be <b>particle ≥ grain ≥ crystallite > unit cell</b>.</p></div>
@@ -466,7 +523,7 @@ CHUNK({
           <div class="note why"><p>Why small means broad: in a big crystal thousands of planes scatter. Move slightly off the Bragg angle and the tiny mismatch from plane to plane adds up until the waves cancel, so the peak is sharp. With only a few planes the mismatch never builds up to full cancellation, and intensity survives over a wider range of angles.</p></div>
           <ol class="steps">
             <li><b>Halve 2θ</b> to get the Bragg angle θ.</li>
-            <li><b>Convert FWHM</b> to radians: degrees × π/180.</li>
+            <li><b>Convert FWHM</b> to radians: degrees × π/180. (A <b>radian</b> is another angle unit: a full circle is 2π rad = 360°, so 1° ≈ 0.01745 rad.)</li>
             <li><b>Match units</b>: λ in nm gives D in nm.</li>
             <li><b>Plug in</b> D = kλ / β cos θ.</li>
           </ol>

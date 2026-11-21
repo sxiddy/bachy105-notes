@@ -37,6 +37,14 @@ CHUNK({
           <h3>Factors affecting resistivity</h3>
           <div class="chips"><span class="chip">temperature</span><span class="chip">alloying</span><span class="chip">mechanical stress</span><span class="chip">age hardening</span><span class="chip">cold working</span></div>
           <div class="note why"><p>A longer wire resists more (l in the numerator). A thicker wire resists less (A in the denominator).</p></div>
+          <div class="note why"><p><b>Conductivity σ = 1/ρ</b>. It is the flip side of resistivity: low resistivity means high conductivity. Later topics use both words.</p></div>
+          <div class="kv">
+            <div><span>Alloying</span><b>mixing another element into the metal</b></div>
+            <div><span>Mechanical stress</span><b>pulling, pressing or bending the solid</b></div>
+            <div><span>Age hardening</span><b>heat treatment that lets tiny particles form inside an alloy and harden it</b></div>
+            <div><span>Cold working</span><b>shaping the metal at room temperature (rolling, wire drawing), which distorts its crystal structure</b></div>
+          </div>
+          <p>All five disturb the regular arrangement of atoms, so moving electrons are scattered more and ρ changes.</p>
         ` }
       ],
       flashcards: [
@@ -83,9 +91,12 @@ CHUNK({
             <div class="side"><h4>Conduction band</h4><ul><li>Formed by grouping the levels of the <b>free electrons</b>.</li><li>Generally <b>empty</b>. With external energy, valence electrons jump in and become free electrons.</li><li>Electrons have higher energy and are not bound to the nucleus.</li></ul></div>
             <div class="side"><h4>Forbidden gap</h4><ul><li>The <b>energy gap</b> between the valence and conduction bands.</li><li>No electron can have an energy inside it.</li></ul></div>
           </div>
+          <div class="note why"><p><b>eV (electronvolt)</b> is the energy unit used for band gaps: the energy one electron gains when pushed through 1 volt (1 eV = 1.6 × 10<sup>−19</sup> J). The gap E<sub>G</sub> is the energy an electron must gain to jump from the valence band to the conduction band.</p></div>
+          <div class="note why"><p>Only electrons in the <b>conduction band</b> are free to move and carry current. When an electron leaves the valence band it leaves an empty spot called a <b>hole</b>. A neighbouring electron can move into it, so the hole shifts and acts like a moving <b>positive charge</b>.</p></div>
         ` },
         { title: 'Three classes', html: `
           <p class="lead">The size of the forbidden gap decides whether a solid conducts.</p>
+          <p>Heat or an electric field gives electrons extra energy. If that energy is bigger than the gap, electrons reach the conduction band and current flows; if not, the solid does not conduct.</p>
           <figure data-fig="m3-band-classes"></figure>
           <div data-viz="band-gap-picker"></div>
           <div class="vs">
@@ -111,6 +122,7 @@ CHUNK({
               <tr><td>Examples</td><td>Cu, Al, W, Ag</td><td>Paper, wood, glass, plastics</td><td>Ge, Si, Se, C</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p><b>Temperature coefficient of resistance</b> tells how resistance changes when the material is heated. <b>Positive</b>: resistance rises with temperature (metals, because hot atoms vibrate more and scatter electrons). <b>Negative</b>: resistance falls with temperature (semiconductors, because heat frees more electrons across the gap).</p></div>
           <div class="note heads-up"><p>The slide prints the semiconductor gap as "E<sub>G</sub> &gt; 5 eV", copied from the insulator column. Elsewhere in the same deck it is about 1 eV, which is what the table above shows.</p></div>
         ` }
       ],
@@ -156,6 +168,13 @@ CHUNK({
             <li>High <b>flexibility</b>.</li>
           </ol>
           <p>The properties needed vary with the purpose.</p>
+          <div class="kv">
+            <div><span>Windings</span><b>coils of wire inside motors, generators and transformers</b></div>
+            <div><span>Ductility</span><b>can be stretched into thin wire without breaking</b></div>
+            <div><span>Malleability</span><b>can be hammered or rolled into sheets</b></div>
+            <div><span>Solderability</span><b>joins easily with solder (a low-melting metal used to connect wires)</b></div>
+            <div><span>Lattice</span><b>the regular, repeating arrangement of atoms in a solid metal</b></div>
+          </div>
           <div class="note why"><p>Any impurity, metallic or not, and even one of low resistivity, <b>raises</b> the resistivity of a metal. It creates lattice imperfections that scatter electrons.</p></div>
           <figure data-fig="m3-metal-resistivity-temperature"></figure>
           <div class="note heads-up"><p>The slide asks for "highest possible conductivity (ideally zero)". Ideally zero is the target for resistivity and for the temperature coefficient, not for conductivity.</p></div>
@@ -182,6 +201,7 @@ CHUNK({
             <div><span>Specific gravity</span><b>8.96 g/cm<sup>3</sup></b></div>
           </div>
           <p>Pure copper conducts well; standard-grade copper conducts less because of impurities.</p>
+          <div class="note why"><p><b>Specific gravity</b> here is the density (mass per cm<sup>3</sup>). <b>Hard-drawn</b> copper is pulled through dies cold, which makes it stronger. <b>Annealed</b> copper is heated and slowly cooled, which makes it soft and flexible. <b>Bus bars</b> are thick metal strips that carry large currents in switchboards and substations.</p></div>
           <div class="vs">
             <div class="side"><h4>Hard-drawn copper</h4><p>High mechanical strength. Used for <b>high-voltage underground cable, bus bars and conductors</b>.</p></div>
             <div class="side"><h4>Annealed (soft) copper</h4><p>Used for <b>insulated conductors in low-voltage cables, winding wires for machines and transformers, flexible wires and coils</b>.</p></div>
@@ -232,6 +252,17 @@ CHUNK({
       tabs: [
         { title: 'Where this sits', html: `
           <p class="lead">The basics of semiconductors (intrinsic, extrinsic, doping, band gaps, compound semiconductors) are covered in <b>Module 2, Semiconductors as electrode materials</b>. This topic adds the n-type against p-type comparison and the uses from the electrical-materials unit.</p>
+          <table class="tbl">
+            <thead><tr><th>Term</th><th>Plain meaning</th></tr></thead>
+            <tbody>
+              <tr><td><b>Intrinsic</b></td><td>A pure semiconductor (pure Si or Ge).</td></tr>
+              <tr><td><b>Doping</b></td><td>Adding a very small, controlled amount of another element (the dopant) to raise conductivity.</td></tr>
+              <tr><td><b>Extrinsic</b></td><td>A doped semiconductor.</td></tr>
+              <tr><td><b>Pentavalent / trivalent</b></td><td>An atom with 5 / 3 outer (valence) electrons. Si and Ge have 4.</td></tr>
+              <tr><td><b>Charge carrier</b></td><td>Anything that moves and carries current: free electrons (negative) or holes (positive).</td></tr>
+              <tr><td><b>Majority / minority carrier</b></td><td>The carrier present in larger / smaller numbers.</td></tr>
+            </tbody>
+          </table>
           <div class="kv">
             <div><span>Band gap Si</span><b>1.0 eV (slide value)</b></div>
             <div><span>Band gap Ge</span><b>0.7 eV</b></div>
@@ -253,6 +284,7 @@ CHUNK({
               <tr><td>Examples</td><td>As, Sb, Bi, P</td><td>B, Ga, In, Al</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p>Why 5 gives electrons and 3 gives holes: each Si atom bonds to four neighbours using its 4 outer electrons. A pentavalent atom uses 4 for bonding and has <b>1 left over</b>, which is free to move. A trivalent atom has only 3, so one bond is <b>missing an electron</b>: that gap is a hole.</p></div>
           <div class="note trap"><p>Both n-type and p-type crystals are electrically <b>neutral</b>. The words positive and negative here describe the ionised impurity atom, not the crystal.</p></div>
           <figure data-fig="m3-donor-acceptor"></figure>
         ` },
@@ -281,6 +313,7 @@ CHUNK({
             <li>In an <b>intrinsic</b> (pure) semiconductor such as pure Si or Ge, conductivity arises <b>only from thermally generated electron–hole pairs</b>: heat lifts a few electrons across the gap, each leaving a hole. At 0 K it is an insulator; at room temperature it conducts a little.</li>
             <li><b>Compound semiconductors</b> are made from two or more elements and are used in high-frequency and optoelectronic devices. <b>Gallium arsenide (GaAs)</b> goes into LEDs, laser diodes and microwave ICs; <b>indium phosphide (InP)</b> into high-speed electronics and optical communication.</li>
           </ul>
+          <div class="note why"><p>A <b>photon</b> is a single packet of light energy. <b>Optoelectronic</b> devices turn electricity into light or light into electricity.</p></div>
           <div class="note why"><p>GaAs has a direct band gap (1.42 eV), so an electron dropping across the gap gives out its energy as a photon efficiently. Si has an indirect gap and mostly gives heat instead, which is why LEDs and laser diodes use GaAs, not Si.</p></div>
         ` }
       ],
@@ -316,6 +349,7 @@ CHUNK({
             <li>They need a very high electric field to cross the gap.</li>
             <li>Insulators have very high resistivity and offer very high resistance to current.</li>
           </ul>
+          <div class="note why"><p><b>Breakdown</b>: if the voltage across an insulator is made large enough, electrons are torn across the gap, current suddenly flows and the insulator fails (often with a spark). The field at which this happens is the breakdown field, or <b>dielectric strength</b>.</p></div>
         ` },
         { title: 'Uses & examples', html: `
           <div class="note why"><p>In domestic wiring, insulation <b>protects us from shock</b> and prevents leakage current. Insulators play an important part in all electrical and electronic circuits.</p></div>
@@ -335,7 +369,7 @@ CHUNK({
             <li><b>Very high resistivity</b>, 10<sup>8</sup>–10<sup>16</sup> Ω m, so conductivity is negligible under normal conditions.</li>
             <li><b>Negative temperature coefficient of resistance</b>: heating frees a few more carriers, so resistance falls slightly as temperature rises.</li>
             <li>They give <b>electrical isolation</b> between conducting parts.</li>
-            <li>Generally <b>strong dielectrics</b>: they withstand high voltages without breakdown.</li>
+            <li>Generally <b>strong dielectrics</b>: they withstand high voltages without breakdown. (A <b>dielectric</b> is an insulator placed in an electric field, for example between capacitor plates.)</li>
           </ul>
           <h3>Common insulating materials</h3>
           <table class="tbl">
@@ -383,6 +417,12 @@ CHUNK({
       tabs: [
         { title: 'Superconductivity', html: `
           <p class="lead">Cool some materials below a certain temperature and their <b>resistivity vanishes</b>. They show <b>infinite conductivity</b>.</p>
+          <div class="kv">
+            <div><span>K (kelvin)</span><b>absolute temperature; 0 K = −273 °C, so T(K) = T(°C) + 273</b></div>
+            <div><span>Liquid helium</span><b>boils at about 4 K; very cold but costly</b></div>
+            <div><span>Liquid nitrogen</span><b>boils at 77 K (−196 °C); cheap and easy to handle</b></div>
+            <div><span>Magnetic field / flux</span><b>the region where a magnet acts, drawn as field lines; flux is the amount of field passing through an area (more in the magnetism topics)</b></div>
+          </div>
           <figure data-fig="m3-superconductor-resistivity"></figure>
           <ul>
             <li>Discovered in <b>1911 in Leiden</b> by the Dutch physicist <b>Heike Kamerlingh Onnes</b>, who won the <b>Nobel Prize in Physics in 1913</b> for low-temperature research.</li>
@@ -505,6 +545,14 @@ CHUNK({
             <li><b>SQUIDs</b>: YBCO SQUIDs work at 77 K and detect extremely weak magnetic fields, for brain mapping (MEG) and mineral exploration.</li>
             <li><b>High-field magnets and motors</b>: compact magnets for MRI, research magnets and ship-propulsion motors, because YBCO tolerates strong fields.</li>
           </ol>
+          <div class="kv">
+            <div><span>Ceramic</span><b>a hard, brittle inorganic solid, usually an oxide</b></div>
+            <div><span>Cuprate</span><b>a compound containing copper oxide layers</b></div>
+            <div><span>Perovskite</span><b>a common crystal structure type (named after the mineral CaTiO<sub>3</sub>)</b></div>
+            <div><span>Anisotropic</span><b>property differs with direction</b></div>
+            <div><span>Flux pinning</span><b>flux vortices get stuck at defects, holding the magnet in place</b></div>
+            <div><span>SQUID</span><b>superconducting quantum interference device: an extremely sensitive magnetic-field detector</b></div>
+          </div>
           <div class="note why"><p>Liquid nitrogen costs far less than liquid helium and is much easier to handle. Moving T<sub>c</sub> above 77 K is what turned superconductors from a lab curiosity into usable devices.</p></div>
         ` },
         { title: 'Materials and Tc', html: `

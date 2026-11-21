@@ -16,6 +16,15 @@ CHUNK({
             <div><span>System</span><b>the matter or region in space you focus on</b></div>
             <div><span>Surroundings</span><b>everything external to the system</b></div>
           </div>
+          <p>The surface that separates the two is the <b>boundary</b> (for example the walls of a flask or a piston). What can cross it gives three types of system, and later topics use these names:</p>
+          <table class="tbl">
+            <thead><tr><th>Type</th><th>Matter crosses?</th><th>Energy crosses?</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><b>Open</b></td><td>yes</td><td>yes</td><td>boiling water in an open pan</td></tr>
+              <tr><td><b>Closed</b></td><td>no</td><td>yes</td><td>a sealed flask being heated</td></tr>
+              <tr><td><b>Isolated</b></td><td>no</td><td>no</td><td>an ideal thermos flask; the universe as a whole</td></tr>
+            </tbody>
+          </table>
           <h3>Properties of a system</h3>
           <div class="vs">
             <div class="side"><h4>Intensive</h4><p>Do <b>not</b> depend on how much matter is present.</p><p>Examples: temperature, pressure.</p></div>
@@ -33,6 +42,12 @@ CHUNK({
               <tr><td>Examples</td><td><b>T, P, U, H</b></td><td><b>w</b> (work done), <b>q</b> (heat transferred)</td></tr>
             </tbody>
           </table>
+          <div class="kv">
+            <div><span>Δ (delta)</span><b>"change in": final value minus initial value, e.g. ΔU = U<sub>final</sub> − U<sub>initial</sub></b></div>
+            <div><span>q</span><b>heat: energy that crosses the boundary because of a temperature difference</b></div>
+            <div><span>w</span><b>work: energy that crosses the boundary in any other way, e.g. a gas pushing a piston</b></div>
+            <div><span>Units</span><b>q, w and U are all energies, measured in joules (J)</b></div>
+          </div>
           <h3>Internal energy (U)</h3>
           <ul>
             <li>U = <b>kinetic energy + potential energy</b> of the particles in the system.</li>
@@ -53,11 +68,12 @@ CHUNK({
           <p>Work = force × distance moved in the direction of the force. Heat a gas in a cylinder: it expands and pushes the piston, so the gas does work on the piston. When the system expands by dV against an external pressure P<sub>ex</sub>:</p>
           <div class="eq" data-label="Expansion work">dw = −P<sub>ex</sub> dV</div>
           <p>This is the system doing work on its surroundings, so w is negative.</p>
+          <div class="note why"><p><b>dV</b> means a very small change in volume, and P<sub>ex</sub> is the pressure of the surroundings pushing on the piston (pressure = force/area, so P × V has units of energy). The minus sign comes from the sign rule used in this module: energy <b>leaving</b> the system is negative. Expansion makes dV positive, so w comes out negative.</p></div>
         ` },
         { title: 'Reversible process', html: `
           <p class="lead">A process is <b>reversible</b> if it can be turned back so that both the system and the surroundings return to their original states, with no other change anywhere in the universe.</p>
           <ul>
-            <li>A reversible change can be undone by an <b>infinitesimal</b> change of a variable.</li>
+            <li>A reversible change can be undone by an <b>infinitesimal</b> (vanishingly small) change of a variable. So a reversible process runs in endless tiny steps, very slowly, staying almost at equilibrium the whole time.</li>
             <li>In reality no process is perfectly reversible. It is the ideal limit.</li>
           </ul>
           <div class="vs">
@@ -180,10 +196,18 @@ CHUNK({
             <div class="side"><h4>At constant volume (C<sub>v</sub>)</h4><p>w = 0, so <b>ΔU = q<sub>v</sub></b>.</p><div class="eq">C<sub>v</sub> = (∂U/∂T)<sub>v</sub></div><p>All the heat raises U.</p></div>
             <div class="side"><h4>At constant pressure (C<sub>p</sub>)</h4><p>The volume changes and some work is done, so <b>ΔH = q<sub>p</sub></b>.</p><div class="eq">C<sub>p</sub> = (∂H/∂T)<sub>p</sub></div><p>Some of the heat goes into expansion work.</p></div>
           </div>
+          <div class="note why"><p>How to read the symbols: q<sub>v</sub> and q<sub>p</sub> are the heat taken in at constant volume and at constant pressure. <b>(∂U/∂T)<sub>v</sub></b> is a partial derivative: the rate at which U rises with T while V is held fixed. In plain words, "extra energy stored per extra kelvin".</p></div>
           <div class="note why"><p>At constant pressure the gas has to push the surroundings back as it warms, so it needs more heat per degree. That is why C<sub>p</sub> is larger than C<sub>v</sub>.</p></div>
         ` },
         { title: 'Cp − Cv = R', html: `
           <p class="lead">For an ideal gas the gap between the two heat capacities is exactly the gas constant.</p>
+          <div class="kv">
+            <div><span>Ideal gas</span><b>a model gas whose molecules have no size and do not attract each other; it obeys PV = nRT</b></div>
+            <div><span>n</span><b>number of moles</b></div>
+            <div><span>R</span><b>gas constant = 8.314 J mol<sup>−1</sup> K<sup>−1</sup></b></div>
+            <div><span>Monatomic</span><b>gas made of single atoms, e.g. He, Ne, Ar</b></div>
+            <div><span>γ (gamma)</span><b>just a name for the ratio C<sub>p</sub>/C<sub>v</sub>; always greater than 1</b></div>
+          </div>
           <ol class="steps">
             <li><b>Start</b> with H = U + PV, so ΔH = ΔU + Δ(PV).</li>
             <li><b>Ideal gas, 1 mol:</b> PV = RT, so Δ(PV) = R ΔT.</li>
@@ -236,6 +260,7 @@ CHUNK({
             <li>The size of w depends on whether the expansion is <b>reversible or irreversible</b>.</li>
           </ul>
           <div class="eq" data-label="Reversible, n moles">w = −nRT ln <span class="frac"><span>V<sub>2</sub></span><span>V<sub>1</sub></span></span> = −nRT ln <span class="frac"><span>P<sub>1</sub></span><span>P<sub>2</sub></span></span></div>
+          <div class="note why"><p>Where the formula comes from: in a reversible change P<sub>ex</sub> = P = nRT/V, so adding up all the small pieces dw = −P dV from V<sub>1</sub> to V<sub>2</sub> (integrating) gives −nRT ln(V<sub>2</sub>/V<sub>1</sub>). <b>ln</b> is the natural logarithm (log to base e; ln x = 2.303 log<sub>10</sub> x). The pressure form follows from Boyle's law, V<sub>2</sub>/V<sub>1</sub> = P<sub>1</sub>/P<sub>2</sub> at constant T. An <b>isotherm</b> is the P–V curve drawn at one fixed temperature.</p></div>
           <p>The work equals the <b>area under the isotherm</b> P = nRT/V. In an irreversible expansion against the same final pressure, the work is the smaller rectangular area.</p>
           <figure data-fig="m1-pv-isothermal"></figure>
           <div class="note exam"><p><b>Reversible work is the maximum work.</b> The numericals call it the maximum work done, W = −nRT ln(P<sub>1</sub>/P<sub>2</sub>).</p></div>
@@ -244,6 +269,7 @@ CHUNK({
         { title: 'Adiabatic', html: `
           <p class="lead">In an adiabatic process <b>q = 0</b>, so the first law reduces to <b>ΔU = w</b>. The system pays for its work out of its own internal energy.</p>
           <figure data-fig="m1-pv-adiabatic"></figure>
+          <p>The curve an adiabatic change follows on a P–V diagram is called an <b>adiabat</b>. Subscripts i and f mean <b>initial</b> and <b>final</b>.</p>
           <ul>
             <li>Expansion: w = −ve, ΔU = −ve, so the <b>temperature falls</b>.</li>
             <li>Example: a CO<sub>2</sub> fire extinguisher. The gas leaves at high pressure and cools as it expands at atmospheric pressure.</li>

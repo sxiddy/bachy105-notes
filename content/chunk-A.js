@@ -12,6 +12,19 @@ CHUNK({
       tabs: [
         { title: 'What a cell is', html: `
           <p class="lead">An electrochemical cell either makes electricity from a <b>spontaneous</b> redox reaction or uses electricity to drive a <b>non-spontaneous</b> one. Same basic hardware, opposite direction of energy flow.</p>
+          <h3>Words you need first</h3>
+          <table class="tbl">
+            <thead><tr><th>Term</th><th>Plain meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Oxidation</td><td>A species <b>loses electrons</b> (Zn → Zn<sup>2+</sup> + 2e<sup>−</sup>).</td></tr>
+              <tr><td>Reduction</td><td>A species <b>gains electrons</b> (Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu).</td></tr>
+              <tr><td>Redox reaction</td><td>Oxidation and reduction happening together: the electrons one species loses, another gains.</td></tr>
+              <tr><td>Spontaneous</td><td>Goes on its own once started, with no outside energy pushed in (like a ball rolling downhill).</td></tr>
+              <tr><td>ΔG (Gibbs free energy change)</td><td>The useful energy a reaction releases or needs. <b>Negative ΔG = spontaneous</b>; positive ΔG = needs energy supplied.</td></tr>
+              <tr><td>Electrode</td><td>A solid conductor (metal rod, graphite) where electrons enter or leave the cell. <b>Anode</b> = where oxidation happens; <b>cathode</b> = where reduction happens.</td></tr>
+              <tr><td>Electrolyte</td><td>A liquid, paste or solid that contains ions free to move, so it conducts by ion flow.</td></tr>
+            </tbody>
+          </table>
           <h3>What's inside</h3>
           <ul>
             <li><b>Two electronic conductors</b> (electrodes): the anode and the cathode.</li>
@@ -50,6 +63,7 @@ CHUNK({
             <div><span>Double line ‖</span><b>salt bridge</b></div>
             <div><span>C<sub>1</sub>, C<sub>2</sub></span><b>ion concentrations</b></div>
           </div>
+          <div class="note why"><p>A <b>phase boundary</b> is where one state of matter meets another, here the solid metal touching the liquid solution. The <b>salt bridge</b> is a tube of salt jelly joining the two solutions (explained in the Daniell cell tab). <b>1 M</b> (one molar) means 1 mole of the substance dissolved per litre of solution.</p></div>
           <p>Notice the metal sits on the outside at both ends: metal first on the left, metal last on the right.</p>
           <div class="mnemonic"><b>An Ox, Red Cat</b>: the ANode does OXidation, REDuction happens at the CAThode. Alphabetical order helps too: anode comes before cathode, so it goes on the left.</div>
           <div class="note exam"><p>Given a cell such as Cd | Cd<sup>2+</sup> ‖ Cu<sup>2+</sup> | Cu, treat the left metal as the anode: write its oxidation, write the right-hand reduction, then add them for the net reaction.</p></div>
@@ -73,6 +87,7 @@ CHUNK({
             <li>maintains the <b>charge balance</b> in the two half cells</li>
             <li>minimises or eliminates the <b>liquid junction potential</b></li>
           </ul>
+          <div class="note why"><p><b>Liquid junction potential</b>: a small unwanted voltage that appears where two different solutions touch, because their ions spread across the boundary at different speeds. It adds error to the measured cell voltage.</p></div>
           <div class="note why"><p>Without the bridge, the zinc beaker fills up with new Zn<sup>2+</sup> and turns positive, while the copper beaker is left with spare SO<sub>4</sub><sup>2−</sup> and turns negative. That charge build-up stops the reaction almost at once. The bridge sends Cl<sup>−</sup> into the zinc side and K<sup>+</sup> into the copper side, so current keeps flowing. KCl is a good choice because K<sup>+</sup> and Cl<sup>−</sup> move at nearly the same speed, so they add almost no extra potential where the two solutions meet.</p></div>
           <p>Try it: follow the electrons and the bridge ions, then switch to Electrolytic and watch the electrode signs flip while oxidation stays at the anode.</p>
           <div data-viz="cell-galvanic"></div>
@@ -84,7 +99,8 @@ CHUNK({
             <li>It reflects the tendency of an element, compound or ion to <b>gain or lose electrons</b>.</li>
             <li>A cell reaction is <b>feasible when E<sub>cell</sub> is positive</b>.</li>
           </ul>
-          <div class="note why"><p>Voltage and free energy measure the same drive: ΔG = −nFE. A positive E<sub>cell</sub> means ΔG &lt; 0, which is exactly the spontaneous case a galvanic cell runs on.</p></div>
+          <div class="note why"><p><b>Standard reduction potential (E°)</b>: the voltage a half cell would show for <b>gaining</b> electrons, measured against a reference (the hydrogen electrode, set at 0 V) under standard conditions: 1 M solutions, 1 atm gas, 298 K (25 °C). The more positive E°, the more eagerly that ion is reduced. The little "°" always means "at standard conditions"; E without it is the actual value.</p></div>
+          <div class="note why"><p>Voltage and free energy measure the same drive: ΔG = −nFE, where <b>F</b> is the Faraday constant (96,500 C, the charge on one mole of electrons). A positive E<sub>cell</sub> means ΔG &lt; 0, which is exactly the spontaneous case a galvanic cell runs on.</p></div>
           <h3>Nernst equation</h3>
           <div class="eq" data-label="Nernst equation (298 K)">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log Q</div>
           <div class="kv">
@@ -93,6 +109,7 @@ CHUNK({
             <div><span>Q</span><b>[products] / [reactants], each raised to its coefficient; solids count as 1</b></div>
             <div><span>0.0591</span><b>2.303RT/F at 298 K</b></div>
           </div>
+          <p>In that constant, <b>R</b> = gas constant (8.314 J K<sup>−1</sup> mol<sup>−1</sup>), <b>T</b> = temperature in kelvin (298 K = 25 °C), <b>F</b> = 96,500 C mol<sup>−1</sup>, and 2.303 converts natural log (ln) to base-10 log. Square brackets [ ] mean concentration in mol/L. You never need to recompute 0.0591; just use it.</p>
           <p>For a metal cell M<sub>1</sub> | M<sub>1</sub><sup>n+</sup> ‖ M<sub>2</sub><sup>n+</sup> | M<sub>2</sub> (anode left, cathode right) the reaction is M<sub>1</sub> + M<sub>2</sub><sup>n+</sup> → M<sub>1</sub><sup>n+</sup> + M<sub>2</sub>. The anode ion is a product and the cathode ion a reactant, so:</p>
           <div class="eq" data-label="Metal | ion cells">E<sub>cell</sub> = E°<sub>cell</sub> − <span class="frac"><span>0.0591</span><span>n</span></span> log <span class="frac"><span>[anode ion]</span><span>[cathode ion]</span></span></div>
           <div class="note trap"><p>When the two ions have different charges, balance the reaction first. Ni + 2Ag<sup>+</sup> → Ni<sup>2+</sup> + 2Ag has n = 2 and Q = [Ni<sup>2+</sup>] / [Ag<sup>+</sup>]<sup>2</sup>.</p></div>
@@ -164,6 +181,18 @@ CHUNK({
       tabs: [
         { title: 'What it is', html: `
           <p class="lead">A semiconductor is a substance, usually a solid element or compound, that <b>conducts electricity under some conditions but not others</b>. That switchability makes it a good medium for controlling electrical current.</p>
+          <h3>Words you need first</h3>
+          <table class="tbl">
+            <thead><tr><th>Term</th><th>Plain meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Valence electrons</td><td>The outermost electrons of an atom, the ones used in bonding. Si has 4.</td></tr>
+              <tr><td>Energy band</td><td>In a solid, the energy levels of billions of atoms merge into broad ranges called bands.</td></tr>
+              <tr><td>Valence band</td><td>The band holding the bonding electrons. Electrons here are tied to their bonds and cannot carry current.</td></tr>
+              <tr><td>Conduction band</td><td>The higher band. An electron that reaches it is free to move through the solid and carry current.</td></tr>
+              <tr><td>Band gap (forbidden band)</td><td>The energy gap between the two bands, where no electron can sit.</td></tr>
+              <tr><td>eV (electron volt)</td><td>A tiny energy unit: the energy one electron gains crossing 1 volt (1.6 × 10<sup>−19</sup> J).</td></tr>
+            </tbody>
+          </table>
           <h3>The band picture</h3>
           <ul>
             <li><b>Almost filled valence band</b></li>
@@ -213,7 +242,7 @@ CHUNK({
               <tr><td>Called</td><td>–</td><td>Negative charge conductor</td><td>Positive charge conductor</td></tr>
             </tbody>
           </table>
-          <p>Here n<sub>e</sub> is the electron concentration, n<sub>h</sub> the hole concentration and n<sub>i</sub> the intrinsic carrier concentration.</p>
+          <p><b>Pentavalent</b> = has 5 valence electrons (group 15); <b>trivalent</b> = has 3 (group 13). A <b>donor</b> gives an extra electron; an <b>acceptor</b> takes one, leaving a hole. A <b>carrier</b> is anything that moves and carries charge: a free electron (−) or a hole (+). Here n<sub>e</sub> is the electron concentration, n<sub>h</sub> the hole concentration and n<sub>i</sub> the intrinsic carrier concentration.</p>
           <div class="note heads-up"><p>The chart labels the p-type side "Donar impurity – N<sub>D</sub>", copied from the n-type side. Trivalent atoms take electrons, so the right label is <b>acceptor impurity, N<sub>A</sub></b>. "Donar" is also a misspelling of donor.</p></div>
           <h3>Elements or compounds</h3>
           <p>Semiconductors come as either elements or compounds. <b>Silicon and germanium</b> are the most common elemental ones. Compound semiconductors include:</p>
@@ -317,6 +346,7 @@ CHUNK({
       tabs: [
         { title: 'Distillation', html: `
           <p class="lead">Semiconductor Si and Ge must be about <b>99.9999% pure</b>. The first clean-up is distillation: turn the element into a volatile chloride and separate by the <b>difference in boiling points</b>.</p>
+          <div class="note why"><p><b>Volatile</b> = turns to vapour easily (low boiling point). Si and Ge themselves boil at thousands of degrees, but their chlorides boil below about 100 °C, so they can be distilled like a liquid and separated from the chlorides of impurities, which boil at different temperatures.</p></div>
           <div class="note why"><p>Six nines means roughly one foreign atom per million. Stray atoms act as unplanned dopants, and the previous topic showed how few it takes to change conductivity. You have to remove them before you can add the dopants you actually want.</p></div>
           <div class="kv">
             <div><span>Distilled for Ge</span><b>GeCl<sub>4</sub></b></div>
@@ -358,7 +388,8 @@ CHUNK({
           <div class="note exam"><p>Draw the rod with the ring heater; label the recrystallised pure end, the molten zone with impurities and the impure end; show the direction of travel. Always state the principle in one line: impurities are more soluble in the melt than in the solid.</p></div>
         ` },
         { title: 'Czochralski', html: `
-          <p class="lead">Zone-refined Ge or Si is <b>polycrystalline</b>: no regularity in the crystal structure, and crystals of different sizes. The <b>Czochralski crystal pulling technique</b> turns it into one single crystal.</p>
+                    <p class="lead">Zone-refined Ge or Si is <b>polycrystalline</b>: no regularity in the crystal structure, and crystals of different sizes. The <b>Czochralski crystal pulling technique</b> turns it into one single crystal.</p>
+          <div class="note why"><p>A <b>crystal</b> is a solid whose atoms sit in one regular, repeating pattern. A <b>single crystal</b> keeps that one pattern unbroken through the whole piece. A <b>polycrystalline</b> solid is many tiny crystals stuck together, each pointing a different way; the joins between them are <b>grain boundaries</b>.</p></div>
           <p>The key is a <b>single-crystal seed</b>. Atoms from the melt freeze onto it and reproduce its <b>identical atomic arrangement</b>, so the whole ingot grows as one continuous crystal.</p>
           <figure data-fig="m2-czochralski-steps"></figure>
           <ol class="steps">
@@ -447,7 +478,7 @@ CHUNK({
           <p class="lead">An electrolytic cell forces a non-spontaneous reaction with an outside supply. Molten sodium chloride is the standard example.</p>
           <figure data-fig="m2-electrolytic-cell"></figure>
           <ul>
-            <li><b>Inert electrodes</b> are used and electrolysis is carried out at about <b>801 °C</b>, the melting point of NaCl.</li>
+            <li><b>Inert electrodes</b> (ones that only pass electrons and do not react themselves, e.g. graphite or platinum) are used and electrolysis is carried out at about <b>801 °C</b>, the melting point of NaCl.</li>
             <li>The <b>positive</b> terminal of the supply connects to the <b>anode</b>, the <b>negative</b> terminal to the <b>cathode</b>. This forces electrons to move from the anode to the cathode.</li>
             <li>Na<sup>+</sup> ions gain electrons at the cathode and are reduced to Na. As they are used up, more Na<sup>+</sup> ions migrate towards the cathode.</li>
             <li>In the same way Cl<sup>−</sup> ions move overall to the anode, where they are oxidised to Cl<sub>2</sub>.</li>

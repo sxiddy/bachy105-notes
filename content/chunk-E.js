@@ -19,6 +19,7 @@ CHUNK({
             <div><span>Type of material</span><b>Semiconductor</b></div>
           </div>
           <figure data-fig="m3-qd-tem"></figure>
+          <div class="note why"><p><b>Quantum effects</b> are behaviours that appear only at atomic sizes, where electrons act like waves and can have only certain fixed energies. The <b>band gap</b> is the energy gap between the valence and conduction bands (see the Energy bands topic).</p></div>
           <p>Another definition: QDs are semiconductor particles of a few nanometres (<b>&lt;10 nm</b>) whose <b>optical and electronic properties</b> differ from larger particles of the same material.</p>
           <h3>Examples</h3>
           <div class="chips"><span class="chip">CdSe, cadmium selenide</span><span class="chip">CdS, cadmium sulfide</span><span class="chip">InP, indium phosphide</span></div>
@@ -48,13 +49,14 @@ CHUNK({
             <li>Electron–hole pairs get confined when the particle diameter approaches the <b>de Broglie wavelength</b> of the conduction-band electrons.</li>
             <li>Result: <b>discrete energy levels</b> and a wider gap (the metal → semiconductor → insulator trend), so the particles react differently with light and give <b>tunable fluorescent emission</b>.</li>
           </ul>
-          <p><b>Schrödinger</b>: electrons in confined systems occupy <b>quantised energy levels</b>.</p>
+          <p><b>Schrödinger</b> (whose equation describes electrons as waves): electrons in confined systems occupy <b>quantised energy levels</b>. Quantised = only certain fixed values allowed, like steps of a staircase rather than a ramp.</p>
           <div class="vs">
             <div class="side"><h4>Bulk semiconductor</h4><p><b>Continuous</b> energy levels within the valence and conduction bands, smaller energy gap.</p></div>
             <div class="side"><h4>Quantum dot</h4><p><b>Discrete</b> energy levels and a <b>large band gap</b>, created by the confinement effect.</p></div>
           </div>
           <figure data-fig="m3-qd-bulk-vs-dot"></figure>
           <ul>
+            <li>Light words: <b>wavelength λ</b> is the distance between wave crests; <b>frequency ν</b> is how many waves pass per second. They are inversely linked (c = νλ): high frequency = short wavelength = bluer, higher energy.</li>
             <li>The <b>release of confinement energy</b> is a key property of a QD. It explains why the <b>QD size decides the frequency</b> of the light it emits (the slide calls it a "positive relationship").</li>
             <li>Because the band gap is quantised, a QD emits at a <b>very constant wavelength</b>.</li>
             <li>That wavelength can be <b>fine-tuned by changing the size</b>, which is the same as changing the energy levels.</li>
@@ -90,6 +92,7 @@ CHUNK({
           <p>Read the graph left to right: the emission peaks sit at 473, 480, 500, 518, 538, 550, 565, 587, 610 and 655 nm, and each step to the right belongs to a bigger dot.</p>
           <p>Drag the size slider from 2 nm up to 10 nm and watch the gap shrink and the glow slide from violet to red.</p>
           <div data-viz="qd-size"></div>
+          <div class="note why"><p>In E = hc/λ, <b>h</b> is Planck's constant (6.626 × 10<sup>−34</sup> J s) and <b>c</b> the speed of light (3 × 10<sup>8</sup> m/s). <b>Red-shifted</b> means moved towards longer wavelength (the red end); the opposite is blue-shifted.</p></div>
           <div class="note why"><p>Bigger dot, looser confinement, levels closer together, smaller gap. A smaller gap means a lower-energy photon, and since E = hc/λ, lower energy means a longer wavelength. That is the red shift.</p></div>
           <div class="mnemonic">Bigger dot, redder glow. Tiny dot, blue light.</div>
           <div class="note why"><p>For one material, size is the knob: CdSe dots of different sizes cover blue to red without changing the chemistry.</p></div>
@@ -97,6 +100,7 @@ CHUNK({
         { title: 'Key properties', html: `
           <p class="lead">The headline feature of QDs is a <b>band gap you can tune</b> just by changing size. That one knob is why they show up in so many devices.</p>
           <ul>
+            <li><b>Photovoltaics</b> = solar cells (light into electricity). <b>Extinction coefficient</b> = how strongly a material absorbs light. <b>Electron mobility</b> = how fast electrons move through it under a field.</li>
             <li><b>Changing the band gap</b> of semiconductors is the most attractive thing about QDs, for both fundamental and technological reasons.</li>
             <li>Widely tunable band-gap semiconductors are candidate materials for new-generation devices:</li>
           </ul>
@@ -153,6 +157,12 @@ CHUNK({
       source: 'Slides 37–39',
       tabs: [
         { title: 'Synthesis routes', html: `
+          <div class="kv">
+            <div><span>Precursor</span><b>starting chemical that reacts to form the dots (e.g. Cd and Se compounds for CdSe)</b></div>
+            <div><span>Nucleate</span><b>first tiny clusters form; they then grow into dots</b></div>
+            <div><span>Autoclave</span><b>a sealed steel pressure vessel that can be heated</b></div>
+            <div><span>Heating mantle</span><b>an electric heater shaped to hold a round flask</b></div>
+          </div>
           <p class="lead"><b>Four routes</b> for making QDs: high temperature, hydrothermal, microwave and ultrasonication. In each, the <b>reaction conditions</b> (temperature, time, pressure) set the dot size.</p>
           <figure data-fig="m3-qd-hot-injection"></figure>
           <table class="tbl">
@@ -234,6 +244,12 @@ CHUNK({
           <h3>Coolants are everywhere</h3>
           <div class="chips"><span class="chip">Automobiles</span><span class="chip">HVAC systems</span><span class="chip">Home air-conditioners</span><span class="chip">Computers</span><span class="chip">Supercomputers</span><span class="chip">Data centres</span><span class="chip">Miniature electronics</span><span class="chip">Military devices</span><span class="chip">Mobile devices</span></div>
           <p>The section covers three things: <b>types of coolants</b>, <b>thermal conductivity</b> (how well the fluid carries heat) and <b>applications</b>.</p>
+          <div class="kv">
+            <div><span>Heat flux</span><b>heat flowing per unit area, in W/cm²; 1 W = 1 joule per second</b></div>
+            <div><span>Power density</span><b>power (and so heat) packed into a small volume or area</b></div>
+            <div><span>Radiator / heat exchanger</span><b>a set of thin tubes and fins where the hot liquid gives its heat to air</b></div>
+            <div><span>HVAC</span><b>heating, ventilation and air-conditioning</b></div>
+          </div>
           <div class="note why"><p>For scale, a kitchen hot plate gives out only a few W/cm². A chip at 1000 W/cm² is hundreds of times more intense, over a tiny area. Hot chips slow themselves down, leak more current and wear out faster, which is why the heat has to be pulled away.</p></div>
         ` },
         { title: 'Cooling loops', html: `
@@ -272,6 +288,12 @@ CHUNK({
           </div>
           <div class="note why"><p>This is why cold plates and heat sinks are made of Cu or Al (metals carry heat well through free electrons) and why water is the best liquid coolant: it conducts heat about ten times better than a fluorocarbon fluid.</p></div>
           <h3>1. Thermophysical properties</h3>
+          <div class="kv">
+            <div><span>Specific heat</span><b>heat needed to warm 1 kg by 1 °C (J kg<sup>−1</sup> K<sup>−1</sup>)</b></div>
+            <div><span>Latent heat of vaporization</span><b>heat absorbed to turn liquid into vapour with no rise in temperature</b></div>
+            <div><span>Surface tension</span><b>the pull at a liquid's surface that makes it bead up</b></div>
+            <div><span>Viscosity</span><b>how thick the liquid is, its resistance to flow</b></div>
+          </div>
           <table class="tbl">
             <thead><tr><th>Property</th><th>Why it matters</th></tr></thead>
             <tbody>
@@ -285,7 +307,7 @@ CHUNK({
           <h3>2. Electrical conductivity</h3>
           <ul>
             <li><b>Water</b> and <b>glycol–water</b> are highly conductive, so a spill may damage the electronics.</li>
-            <li><b>Non-aqueous coolants</b> are preferred when electronics are involved.</li>
+            <li><b>Non-aqueous coolants</b> (ones not based on water) are preferred when electronics are involved.</li>
           </ul>
           <div class="note heads-up"><p>The slide calls water highly conductive. Strictly, perfectly pure water conducts poorly. The conduction comes from dissolved ions, and any water loop picks those up from pipes, additives and air. So in practice treat every water-based coolant as conductive.</p></div>
         ` },
@@ -311,11 +333,15 @@ CHUNK({
           <p class="lead">Last three checks: it must not <b>corrode</b> the hardware, must be kind to the <b>atmosphere</b>, and has to be <b>affordable</b>.</p>
           <h3>5. Material compatibility</h3>
           <ul>
-            <li>The <b>wetted surface</b> and the coolant must be compatible, to <b>minimise corrosion</b>.</li>
+            <li>The <b>wetted surface</b> (any part the liquid touches) and the coolant must be compatible, to <b>minimise corrosion</b> (slow chemical attack that eats away a metal, like rusting).</li>
             <li><b>Copper and aluminium</b> are the preferred build materials: high thermal conductivity and compatible with most coolants.</li>
           </ul>
           <h3>6. Environmental impact</h3>
           <p>A coolant should have low <b>global warming potential (GWP)</b> and low <b>ozone depletion potential (ODP)</b>.</p>
+          <div class="kv">
+            <div><span>GWP</span><b>how much heat a gas traps in the atmosphere compared with the same mass of CO<sub>2</sub> (GWP of CO<sub>2</sub> = 1)</b></div>
+            <div><span>ODP</span><b>how much a gas destroys the ozone layer, which shields us from UV (CFC-11 = 1)</b></div>
+          </div>
           <table class="tbl">
             <thead><tr><th>Coolant base</th><th>GWP</th><th>ODP</th></tr></thead>
             <tbody>
@@ -379,6 +405,7 @@ CHUNK({
         { title: 'Water & brines', html: `
           <p class="lead"><b>Water</b> is the default coolant: it carries heat very well, it is cheap and it is low-risk. Its big weakness is that it <b>freezes</b>.</p>
           <h3>Aqueous coolants (water)</h3>
+          <p><b>Aqueous</b> means water-based. <b>Glycol</b> is an alcohol with two –OH groups (ethylene glycol, HOCH<sub>2</sub>CH<sub>2</sub>OH, is car antifreeze); it mixes fully with water.</p>
           <ul>
             <li>Good <b>thermal conductivity</b>, high <b>specific heat</b>, high <b>latent heat of vaporization</b>, low <b>viscosity</b>.</li>
             <li>A <b>low-risk</b> coolant.</li>
@@ -395,12 +422,13 @@ CHUNK({
         { title: 'Deionised water', html: `
           <p class="lead"><b>Deionised (DI) water</b> is water with its ions stripped out. It is kinder to metal than tap water, but it still needs <b>corrosion inhibitors</b>.</p>
           <ul>
-            <li><b>Tap water</b> contains <b>minerals and pathogens</b>.</li>
+            <li><b>Tap water</b> contains <b>minerals and pathogens</b> (dissolved salts, and germs such as bacteria).</li>
             <li>DI water is <b>less corrosive</b> than tap water.</li>
             <li>Add corrosion inhibitors even to DI water, because <b>exposure to air</b> can make it corrosive.</li>
           </ul>
           <h3>Common corrosion inhibitors</h3>
           <div class="chips"><span class="chip">Phosphates</span><span class="chip">Tolyltriazole</span><span class="chip">2-Ethylhexanoic acid</span></div>
+          <div class="note why"><p>A <b>corrosion inhibitor</b> is a chemical added in small amounts to slow down corrosion of the metal parts.</p></div>
           <div class="note why"><p>Why air matters: DI water absorbs CO<sub>2</sub> from the air, which forms carbonic acid and lowers the pH, and it picks up dissolved O<sub>2</sub>, which attacks metal. Inhibitors form a thin protective layer on the metal; tolyltriazole is the classic copper protector.</p></div>
           <div class="note heads-up"><p>The slide spells it "tolytriazole". The correct name is <b>tolyltriazole</b> (a tolyl group on a triazole ring).</p></div>
           <div class="note trap"><p>"Deionised" does not mean "safe forever". Once it touches air it starts to turn corrosive, so the inhibitor goes in every time.</p></div>
@@ -440,6 +468,7 @@ CHUNK({
               <tr><td><b>Silicones</b></td><td>Syltherm XLT, polydimethylsiloxane (silicone oil)</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p><b>Dielectric</b> = electrical insulator. <b>Aromatic</b> compounds contain a benzene ring; <b>aliphatic</b> compounds are open carbon chains (like paraffin, mineral oil). <b>Silicones</b> are polymers with an Si–O–Si backbone.</p></div>
           <div class="note why"><p>Immersion cooling: whole servers sit in a bath of the liquid. Direct-to-chip: the liquid is piped through cold plates right on the chips. In immersion the liquid touches live boards all the time; in direct-to-chip a leak would drip straight onto them. Either way it must not conduct.</p></div>
           <div class="note trap"><p>Dielectric does not mean non-flammable. Benzene and toluene sit in the aromatic branch, yet benzene is on the flammable list. For electronics the fluorocarbons (PFC, HFE) win because they are <b>non-conducting</b>, <b>non-flammable</b> and <b>low in toxicity</b>.</p></div>
         ` },

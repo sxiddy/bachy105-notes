@@ -13,7 +13,7 @@ CHUNK({
         { title: 'Why a second law', html: `
           <p class="lead">The first law only says energy is conserved. It says <b>nothing about direction</b>. The second law tells you which way a process goes by itself.</p>
           <ul>
-            <li>Heat does <b>not</b> flow spontaneously from a cool body to a hotter body.</li>
+            <li>Heat does <b>not</b> flow spontaneously (by itself, without outside help) from a cool body to a hotter body.</li>
             <li>The <b>entropy (S) of an isolated system increases</b> in the course of a spontaneous change.</li>
           </ul>
           <div class="eq" data-label="Second law">ΔS<sub>tot</sub> &gt; 0, where S<sub>tot</sub> = S + S<sub>sur</sub></div>
@@ -21,6 +21,7 @@ CHUNK({
             <div><span>S</span><b>entropy of the system of interest</b></div>
             <div><span>S<sub>sur</sub></span><b>entropy of the surroundings</b></div>
           </div>
+          <div class="note why"><p><b>Entropy in plain words:</b> a measure of how spread out the energy and matter of a system are (how many ways the particles can be arranged). Gas spreading through a room, ice melting and heat flowing from hot to cold all spread things out, so S rises. Units: J K<sup>−1</sup>. The exact definition is in the next tab.</p></div>
           <div class="note exam"><p>The second law is a statement about the <b>total</b> entropy of the isolated system (the universe), and not just about the system you are studying.</p></div>
           <div data-viz="entropy-expansion"></div>
           <figure data-fig="m1-free-expansion"></figure>
@@ -32,7 +33,8 @@ CHUNK({
         { title: 'Entropy', html: `
           <p class="lead">Entropy is a <b>state function</b>. Its thermodynamic definition looks at the change dS caused by a physical or chemical process.</p>
           <div class="eq" data-label="Definition">dS = <span class="frac"><span>dq<sub>rev</sub></span><span>T</span></span></div>
-          <p>dq<sub>rev</sub> is the energy transferred as heat <b>reversibly</b> to the system at absolute temperature T.</p>
+          <p>dq<sub>rev</sub> is the energy transferred as heat <b>reversibly</b> to the system at absolute temperature T (absolute = in kelvin, K = °C + 273).</p>
+          <div class="note why"><p>Why divide by T: the same heat causes more disorder in a cold system (which was orderly) than in a hot one (already disordered). Why "reversible" heat: S is a state function, so ΔS is found along an imagined reversible path between the same two states, even if the real change was irreversible.</p></div>
           <ul>
             <li>Processes that raise entropy (ΔS &gt; 0) show <b>increasing disorder</b>.</li>
             <li>Isothermal expansion of a perfect gas: <b>ΔS = nR ln(V<sub>f</sub>/V<sub>i</sub>)</b>.</li>
@@ -44,6 +46,8 @@ CHUNK({
             <div class="side"><h4>Reversible isothermal expansion</h4><p>The system gains entropy <b>q<sub>rev</sub>/T</b>; the surroundings lose the same amount, so the total change is zero.</p></div>
             <div class="side"><h4>Irreversible (into vacuum)</h4><p>The system gains nR ln(V<sub>f</sub>/V<sub>i</sub>) but the surroundings change by <b>zero</b>, so ΔS<sub>tot</sub> &gt; 0.</p></div>
           </div>
+          <div class="eq" data-label="Clausius inequality">dS ≥ <span class="frac"><span>dq</span><span>T</span></span></div>
+          <p>The = sign holds for a reversible change, the &gt; sign for an irreversible (real) one. This form is used in the free energy topic.</p>
           <p>The <b>Clausius inequality</b> says all spontaneous processes in nature are irreversible and the entropy of the universe is <b>increasing continuously</b>.</p>
           <div class="note example"><p>Clausius summed up both laws: <b>the energy of the universe remains constant; the entropy of the universe tends towards a maximum.</b></p></div>
         ` },
@@ -101,6 +105,7 @@ CHUNK({
         { title: 'Heat engine', html: `
           <p class="lead">A <b>heat engine</b> transforms heat into work, and it does so in a <b>cyclic process</b>.</p>
           <figure data-fig="m1-heat-engine"></figure>
+          <div class="note why"><p>A <b>reservoir</b> is a body so large that taking heat from it or adding heat to it does not change its temperature (a furnace, the atmosphere, the sea). A <b>cyclic process</b> returns the working substance (e.g. the gas) to its starting state, so ΔU = 0 over one cycle and the engine can repeat. <b>η</b> (eta) is the symbol for efficiency.</p></div>
           <div class="kv">
             <div><span>Hot reservoir (T<sub>h</sub>)</span><b>supplies heat Q<sub>H</sub></b></div>
             <div><span>Cold reservoir (T<sub>c</sub>)</span><b>receives waste heat Q<sub>C</sub></b></div>
@@ -129,10 +134,11 @@ CHUNK({
         { title: 'Efficiency & statements', html: `
           <p class="lead">Add the entropy changes round the cycle and the total is zero, which links heat to temperature.</p>
           <figure data-fig="m1-carnot-ts"></figure>
+          <p><b>∮</b> means "sum round a closed cycle". Only strokes 1 and 3 exchange heat (the adiabats have ΔS = 0), and because S is a state function its total change over a full cycle is zero.</p>
           <div class="eq">∮ dS = <span class="frac"><span>q<sub>h</sub></span><span>T<sub>h</sub></span></span> + <span class="frac"><span>q<sub>c</sub></span><span>T<sub>c</sub></span></span> = 0, so q<sub>h</sub>/q<sub>c</sub> = −T<sub>h</sub>/T<sub>c</sub></div>
           <div class="eq" data-label="Carnot efficiency">η = <span class="frac"><span>W</span><span>q<sub>h</sub></span></span> = 1 − <span class="frac"><span>q<sub>c</sub></span><span>q<sub>h</sub></span></span> = 1 − <span class="frac"><span>T<sub>c</sub></span><span>T<sub>h</sub></span></span></div>
           <div class="vs">
-            <div class="side"><h4>Kelvin statement</h4><p>It is impossible for any system to have an efficiency of 100% (η = 1).</p></div>
+            <div class="side"><h4>Kelvin (Kelvin–Planck) statement</h4><p>It is impossible for any system to have an efficiency of 100% (η = 1).</p></div>
             <div class="side"><h4>Clausius statement</h4><p>It is impossible for any process to have as its sole result the transfer of heat from a cooler object to a warmer one.</p></div>
           </div>
           <div class="note exam"><p>Temperatures in the efficiency formula must be in <b>kelvin</b>. Efficiency is never 1 unless T<sub>c</sub> = 0 K.</p></div>
@@ -171,6 +177,7 @@ CHUNK({
             <li>Kelvin used this to define the thermodynamic temperature scale: the hot source is at a known temperature, the cold sink is the object of interest.</li>
             <li>The Kelvin scale is defined using water at its <b>triple point</b> as the notional hot source, fixed at <b>273.16 K</b> exactly.</li>
           </ul>
+          <div class="note why"><p>The <b>triple point</b> of water is the one temperature and pressure (0.01 °C, about 0.006 atm) where ice, liquid water and water vapour all exist together in equilibrium. Being a single fixed point, it is easy to reproduce in any lab.</p></div>
         ` }
       ],
       flashcards: [
@@ -230,10 +237,16 @@ CHUNK({
             <div class="side"><h4>Constant T and V</h4><p>Clausius inequality becomes dS − dU/T ≥ 0, i.e. TdS ≥ dU.</p><div class="eq">A = U − TS</div><div class="eq">dA = dU − TdS ≤ 0</div><p>A = <b>Helmholtz free energy</b>.</p></div>
             <div class="side"><h4>Constant T and P</h4><p>Clausius inequality becomes dS − dH/T ≥ 0, i.e. TdS ≥ dH (no additional work).</p><div class="eq">G = H − TS</div><div class="eq">dG = dH − TdS ≤ 0</div><p>G = <b>Gibbs free energy</b>.</p></div>
           </div>
+          <div class="note why"><p>The missing step: start from the Clausius inequality dS ≥ dq/T. At constant volume no expansion work is done, so dq = dU; at constant pressure dq = dH. Substituting gives TdS ≥ dU (or dH). At constant T, d(TS) = TdS, so dU − TdS ≤ 0 is the same as d(U − TS) ≤ 0, i.e. dA ≤ 0; likewise dG ≤ 0. The "≤" means "decreases, or stays the same at equilibrium".</p></div>
           <div class="note exam"><p>Criterion: <b>dG ≤ 0 and dA ≤ 0</b>. A reaction at constant T and P is spontaneous only if G decreases. This follows from applying the 1st law with dq<sub>v</sub> = dU.</p></div>
         ` },
         { title: 'Endo- and exothermic', html: `
           <p class="lead">Because dG = dH − TdS, the sign of dG comes from a tug of war between enthalpy and entropy.</p>
+          <div class="kv">
+            <div><span>Endothermic</span><b>takes in heat from the surroundings; ΔH positive (e.g. melting ice)</b></div>
+            <div><span>Exothermic</span><b>gives out heat to the surroundings; ΔH negative (e.g. burning fuel)</b></div>
+            <div><span>Chemical equilibrium</span><b>forward and backward reactions run at equal rates, so amounts stop changing</b></div>
+          </div>
           <div class="vs">
             <div class="side"><h4>Endothermic (dH &gt; 0)</h4><p>To be spontaneous at constant T and P, G must decrease. That is possible only if the entropy of the system rises so much that <b>TdS outweighs dH</b>.</p><p>Endothermic reactions are therefore <b>driven by the increase of entropy</b> of the system.</p></div>
             <div class="side"><h4>Exothermic (dH &lt; 0)</h4><p>Commonly spontaneous, because dH &lt; 0 makes dG &lt; 0, provided TdS is not so negative that it outweighs the decrease in enthalpy.</p></div>
@@ -325,6 +338,7 @@ CHUNK({
             <li>ΔH &gt; 0 and ΔS &gt; 0: increasing T makes ΔG more negative, so the reaction becomes more spontaneous.</li>
             <li>ΔH &lt; 0 and ΔS &lt; 0: decreasing T makes ΔG more negative.</li>
           </ul>
+          <div class="note why"><p>The <b>°</b> in ΔH°, ΔS°, ΔG° means <b>standard</b> conditions: 1 bar (about 1 atm) pressure, 1 M concentration, usually quoted at 298 K. The sign logic is the same with or without it.</p></div>
           <div class="mnemonic">Same signs: temperature decides. Opposite signs: the answer never changes.</div>
           <h3>Worked case: adsorption of a gas on a solid</h3>
           <p>When a gas is adsorbed on a solid surface, the free-moving gas molecules become held in place on the surface, so their freedom of motion falls and <b>ΔS &lt; 0</b>. Even so, adsorption happens on its own. The reason is that adsorption is strongly <b>exothermic (ΔH &lt; 0)</b>, because bonds or attractive forces form between the gas and the surface. In ΔG = ΔH − TΔS the term −TΔS is positive, but at ordinary temperatures it is smaller than the large negative ΔH, so ΔG &lt; 0 and the process is spontaneous.</p>
@@ -335,6 +349,7 @@ CHUNK({
         ` },
         { title: 'Third law', html: `
           <p class="lead">The <b>entropy of all perfect crystalline substances is zero at T = 0</b>.</p>
+          <div class="note why"><p>A <b>crystal</b> is a solid whose particles sit in a regular repeating pattern. <b>Perfect</b> means no defects: no missing or misplaced particles and no impurities. T = 0 means 0 K (absolute zero, −273.15 °C), the lowest possible temperature.</p></div>
           <ul>
             <li>At 0 K all thermal motion is quenched, and in a perfect crystal every atom or ion sits in a regular, uniform array.</li>
             <li>Localised matter plus no thermal motion means <b>zero entropy</b>.</li>
@@ -342,7 +357,7 @@ CHUNK({
           <div class="eq" data-label="Statistical definition">S = k ln W</div>
           <div class="kv">
             <div><span>S</span><b>entropy</b></div>
-            <div><span>k</span><b>Boltzmann constant</b></div>
+            <div><span>k</span><b>Boltzmann constant = R/N<sub>A</sub> = 1.38 × 10<sup>−23</sup> J K<sup>−1</sup> (the gas constant per molecule)</b></div>
             <div><span>W</span><b>number of microstates, the ways a molecular state can be spread over the energy states for a given total energy</b></div>
           </div>
           <p>At T = 0, W = 1, so S = k ln 1 = <b>0</b>.</p>
@@ -394,6 +409,13 @@ CHUNK({
       tabs: [
         { title: 'Work & ΔU', html: `
           <p class="lead">For work, pick the formula by the type of expansion: reversible isothermal, constant external pressure, or adiabatic.</p>
+          <div class="kv">
+            <div><span>Temperature</span><b>always kelvin in formulas: K = °C + 273</b></div>
+            <div><span>Volume</span><b>1 dm<sup>3</sup> = 1 L = 1000 cm<sup>3</sup></b></div>
+            <div><span>Pressure</span><b>1 atm = 101 325 Pa; inside ln(P<sub>1</sub>/P<sub>2</sub>) units cancel, so any unit works</b></div>
+            <div><span>R</span><b>8.314 J mol<sup>−1</sup> K<sup>−1</sup> for answers in joules; 0.0821 L atm mol<sup>−1</sup> K<sup>−1</sup> with L and atm</b></div>
+            <div><span>Energy</span><b>1 cal = 4.184 J; 1 kJ = 1000 J</b></div>
+          </div>
           <div class="worked"><div class="given"><p><b>Maximum work.</b> 10 mol of an ideal gas expand reversibly and isothermally from 10 atm to 2 atm at 300 K (the same problem is also posed at 37 °C = 310 K).</p></div>
           <div class="solve"><div class="eq">w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div><div class="eq">= −10 × 8.314 × 310 × ln 5 = −25 773 × 1.609</div></div>
           <div class="result">w ≈ <b>−41 469 J</b> at 310 K (slide: −41 468.7 J)</div></div>

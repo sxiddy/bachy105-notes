@@ -26,9 +26,10 @@ CHUNK({
             <div class="side"><h4>Spin motion</h4><p>A spinning electron gives a <b>spin magnetic moment</b>, pointing N up or N down depending on the spin quantum number m<sub>s</sub>.</p></div>
             <div class="side"><h4>Orbital motion</h4><p>An electron orbiting the nucleus gives an <b>orbital magnetic moment</b>, a field around the atom (N up or N down).</p></div>
           </div>
+          <div class="note why"><p>Quick chemistry refresher. An <b>orbital</b> holds at most 2 electrons with opposite spins (↑↓, <b>paired</b>). An electron alone in an orbital (↑) is <b>unpaired</b>. Paired spins cancel each other's magnetism; unpaired ones do not, so <b>only unpaired electrons make an atom magnetic</b>. The spin quantum number m<sub>s</sub> is +½ (↑) or −½ (↓).</p></div>
           <p>The <b>Bohr magneton (µ<sub>B</sub>)</b> is the strength of the magnetic moment of an electron due to its spin. Moments are measured in Bohr magnetons (BM).</p>
           <div class="eq" data-label="Spin-only moment">µ<sub>eff</sub> = 2√[S(S+1)] = √[n(n+2)] BM</div>
-          <p>n is the number of <b>unpaired electrons</b>. If orbital angular momentum also contributes:</p>
+          <p>n is the number of <b>unpaired electrons</b>. S is the total spin, n × ½, so S = n/2 (putting this into 2√[S(S+1)] gives √[n(n+2)]). L is the total orbital angular momentum quantum number. If orbital angular momentum also contributes:</p>
           <div class="eq">µ = √[L(L+1) + 4S(S+1)]</div>
           <div class="worked"><div class="given"><p>Spin-only moment of an ion with 5 unpaired electrons (e.g. Cr, Mn in the 3d table).</p></div>
           <div class="solve"><div class="eq">µ = √[n(n+2)] = √(5 × 7) = √35</div></div>
@@ -38,6 +39,7 @@ CHUNK({
             <li>The <b>magnetic dipole moment</b> is a <b>vector</b>: it has a magnitude and a direction. The net atomic moment is the vector sum of the orbital and spin contributions.</li>
           </ul>
           <h3>Worked: Ti<sup>3+</sup> and Fe<sup>2+</sup></h3>
+          <p>Notation: <b>[Ar]</b> is shorthand for the 18 electrons of argon (the filled inner shells). <b>3d<sup>6</sup></b> means 6 electrons in the 3d orbitals; the 3d set has 5 orbitals, so it holds up to 10. <b>Hund's rule</b>: electrons occupy empty orbitals singly first and pair up only when every orbital has one.</p>
           <p>Method: write the configuration of the atom, remove electrons from <b>4s first</b>, then from 3d, fill the 3d box one electron per orbital before pairing (Hund's rule), count unpaired electrons n, and put n into µ = √[n(n+2)].</p>
           <div class="worked">
             <div class="given"><p>Spin-only magnetic moment of <b>Ti<sup>3+</sup></b> (Z = 22).</p></div>
@@ -79,6 +81,12 @@ CHUNK({
         ` },
         { title: 'Permeability & susceptibility', html: `
           <p class="lead">Three quantities describe how a material responds to an applied field H.</p>
+          <div class="kv">
+            <div><span>H (magnetic field strength)</span><b>the field you apply, e.g. from current in a coil; unit A/m</b></div>
+            <div><span>B (magnetic induction, flux density)</span><b>the total field actually present inside the material; unit tesla (T) = Wb/m²</b></div>
+            <div><span>µ<sub>0</sub></span><b>permeability of free space (vacuum), 4π × 10<sup>−7</sup> H/m</b></div>
+            <div><span>B<sub>0</sub></span><b>flux density the same H would give in vacuum</b></div>
+          </div>
           <div class="kv">
             <div><span>Magnetic permeability (µ)</span><b>ratio of induction to field; how easily flux lines flow through the material</b></div>
             <div><span>Magnetization (M)</span><b>total magnetic moment per unit volume</b></div>
@@ -130,6 +138,12 @@ CHUNK({
         { title: 'Five classes', html: `
           <p class="lead">Every substance is an assembly of atoms that are either magnetic or non-magnetic. By response to a field, materials fall into five classes.</p>
           <div class="chips"><span class="chip">diamagnetic</span><span class="chip">paramagnetic</span><span class="chip">ferromagnetic</span><span class="chip">antiferromagnetic</span><span class="chip">ferrimagnetic</span></div>
+          <div class="kv">
+            <div><span>Spin / moment</span><b>the tiny magnet of each atom, drawn as an arrow</b></div>
+            <div><span>Parallel / antiparallel</span><b>arrows point the same way / opposite ways</b></div>
+            <div><span>Susceptibility χ</span><b>sign tells attraction (+) or repulsion (−) by a magnet; size tells how strong</b></div>
+            <div><span>Thermal agitation</span><b>heat makes atoms jiggle and scrambles the arrows; higher T, more disorder</b></div>
+          </div>
           <p>Ferro-, antiferro- and ferrimagnetism need no new kind of moment. They are different ways the <b>same moments are coupled (arranged)</b>.</p>
           <figure data-fig="m3-spin-arrangements"></figure>
           <table class="tbl">
@@ -169,17 +183,18 @@ CHUNK({
             <li>The unpaired spins can interact, giving cooperative effects such as ferromagnetism.</li>
           </ul>
           <div class="eq" data-label="Curie law">χ = C / T</div>
-          <p>C is the Curie constant. Examples: alkali metals, transition metals, rare earths.</p>
+          <p>C is the Curie constant, a number fixed for each material; T is in kelvin. So χ halves when T doubles: heat fights the alignment. Examples: alkali metals, transition metals, rare earths.</p>
         ` },
         { title: 'Ferromagnetism', html: `
           <p class="lead">Strong magnetization <b>even with no applied field</b>, from unpaired electrons interacting cooperatively.</p>
           <ul>
-            <li>It comes from <b>exchange coupling</b> between adjacent atoms, which gives <b>spontaneous magnetization</b>.</li>
+            <li>It comes from <b>exchange coupling</b> between adjacent atoms, which gives <b>spontaneous magnetization</b>. (Exchange coupling is a quantum effect that makes neighbouring spins prefer to line up; spontaneous means it happens by itself, with no applied field.)</li>
             <li>Spins align <b>parallel</b>.</li>
             <li>In a field it attracts the lines of force very strongly.</li>
             <li>Each ferromagnet has a <b>Curie temperature θ<sub>f</sub></b>; spontaneous magnetization exists below it.</li>
             <li>Ferromagnets show <b>hysteresis</b> and consist of many small regions called <b>domains</b>.</li>
           </ul>
+          <div class="note why"><p>A <b>domain</b> is a small region in which all spins point the same way. Different domains point different ways, so an unmagnetised iron bar shows no net magnetism; a field lines the domains up. <b>Hysteresis</b> means the magnetization lags behind the field and depends on its history (explained in the next topic). In the formula, θ is the Curie temperature.</p></div>
           <div class="eq" data-label="Curie–Weiss law">χ = C / (T − θ)</div>
           <p>Susceptibility is very large and positive. The material is <b>paramagnetic above θ<sub>f</sub></b> and <b>ferromagnetic below it</b>. Examples: <b>Fe, Co, Ni, Gd</b>.</p>
         ` },
@@ -200,6 +215,7 @@ CHUNK({
             <li>Susceptibility is very large and positive.</li>
           </ul>
           <p>Example: <b>ferrites</b>.</p>
+          <div class="note why"><p>A <b>sublattice</b> is one set of atom sites in the crystal; here one set has spins up and the other spins down. <b>Ferrites</b> are iron oxides combined with other metals, such as MgFe<sub>2</sub>O<sub>4</sub> or barium ferrite.</p></div>
           <div class="note heads-up"><p>The slide table says "χ = C/(T ± θ) when T &gt; T<sub>N</sub>; when T &lt; T<sub>N</sub> behaves as paramagnetic". The slide text says paramagnetic <b>above</b> the Curie temperature, so the table has the direction reversed and uses T<sub>N</sub> where T<sub>C</sub> is meant. Use the text version.</p></div>
         ` },
         { title: 'Summary table', html: `
@@ -233,6 +249,7 @@ CHUNK({
           </table>
           <h3>Ferromagnetism in metals</h3>
           <ul>
+            <li>Itinerant electrons move freely through the whole metal; localised electrons stay on their own atom.</li>
             <li>Two ways to understand it: (i) moments <b>localised on atoms</b>, used in molecular field theory and Heisenberg's approach; (ii) the <b>band structure</b> of metals, which gives <b>itinerant electrons</b>.</li>
             <li>Even in Fe most electrons behave as localised. Of 8 valence electrons in the (3d + 4s) bands, only about <b>0.95 (4s)</b> are free or itinerant and about <b>7.05</b> sit in the localised 3d band.</li>
           </ul>
@@ -274,6 +291,7 @@ CHUNK({
           <figure data-fig="m3-superexchange"></figure>
           <ul>
             <li>In the ferro and antiferro states the dipoles align <b>spontaneously</b>, because of a positive interaction energy between spins. This cooperative interaction is <b>quantum mechanical</b> in origin.</li>
+            <li><b>d<sub>z²</sub></b> and <b>d<sub>x²−y²</sub></b> are the names of two of the five 3d orbitals; Ni<sup>2+</sup> (3d<sup>8</sup>) has one unpaired electron in each.</li>
             <li>One mechanism behind antiferromagnetism in <b>NiO</b> is <b>superexchange</b>: the single electrons in the d<sub>z²</sub> and d<sub>x²−y²</sub> orbitals of one Ni<sup>2+</sup> couple antiferromagnetically with those of a neighbouring Ni<sup>2+</sup>, <b>through the p orbital of the oxide ion</b>.</li>
           </ul>
           <div class="note why"><p>The two nickel ions never touch. The O<sup>2−</sup> between them passes the spin information along the Ni–O–Ni line, and the paired electrons in the oxygen p orbital force the two nickel spins to point opposite ways.</p></div>
@@ -316,11 +334,17 @@ CHUNK({
               <tr><td>Barium ferrite</td><td>0.05 (0.02 µm thick)</td><td>–</td><td>0.40</td><td>56–240</td><td>350</td></tr>
             </tbody>
           </table>
+          <div class="kv">
+            <div><span>Aspect ratio</span><b>particle length ÷ width; long needle shapes hold their magnetization better</b></div>
+            <div><span>B<sub>r</sub></span><b>remanence: flux density left when the field is removed (the stored signal)</b></div>
+            <div><span>H<sub>c</sub></span><b>coercivity: reverse field needed to erase it (how hard the data is to wipe)</b></div>
+            <div><span>emu/cc, Oe</span><b>older (CGS) units of magnetization and field; 1 Oe ≈ 79.6 A/m</b></div>
+          </div>
           <p>Other columns on the slide: B<sub>r</sub> in emu/cc (350, 380, 400, 1100*, 320), H<sub>c</sub> in Oe (420, 940, 950, 2200, 3000) and surface area in m²/g (15–30, 20–35, 18–55, 20–60, 20–25). *For overcoated, stable particles use only 50–80% of the value.</p>
           <p>Soft magnetic materials have <b>low coercivity</b>.</p>
         ` },
         { title: 'Magnetic storage', html: `
-          <p class="lead">Magnetic oxides matter for <b>non-volatile memory</b> such as hard disk drives (HDDs) and magnetic RAM (MRAM), because they keep their magnetization when power is removed.</p>
+          <p class="lead">Magnetic oxides matter for <b>non-volatile memory</b> (memory that keeps data with the power off) such as hard disk drives (HDDs) and magnetic RAM (MRAM), because they keep their magnetization when power is removed.</p>
           <ul>
             <li><b>MgFe<sub>2</sub>O<sub>4</sub> ferrites</b> are used in transformer cores, magnetic recording and information-storage devices.</li>
             <li><b>Cassettes, tapes and floppy disks</b> record data as variations in magnetisation on the surface of the medium: a polymer film with tiny <b>CrO<sub>2</sub> or γ-Fe<sub>2</sub>O<sub>3</sub></b> particles, or a thin magnetic film on a substrate.</li>

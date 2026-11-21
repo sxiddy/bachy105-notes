@@ -27,6 +27,11 @@ CHUNK({
             <li><b>Sample solution in a cuvette</b> absorbs part of it. What comes out is I<sub>t</sub>.</li>
             <li><b>Detector (photocell)</b> turns the light into a signal for the <b>digital display or meter</b>.</li>
           </ol>
+          <div class="kv">
+            <div><span>Intensity (I)</span><b>How bright the beam is: how much light energy arrives per second</b></div>
+            <div><span>Cuvette</span><b>A small clear box (usually 1 cm wide, glass or quartz) that holds the liquid sample in the beam</b></div>
+            <div><span>Monochromatic / polychromatic</span><b>One wavelength only / many wavelengths mixed</b></div>
+          </div>
           <h3>Who got it started</h3>
           <table class="tbl">
             <thead><tr><th>Year</th><th>Who</th><th>What they did</th></tr></thead>
@@ -39,6 +44,12 @@ CHUNK({
           <p>Since then spectroscopy has pushed <b>chemistry, physics and astronomy</b> forward.</p>
           <div class="note why"><p>Fraunhofer mapped the dark lines in sunlight. Kirchhoff then showed that every element gives its own set of lines. That is what turns a spectrum into a fingerprint, and it is why spectroscopy can name a substance.</p></div>
           <div class="note exam"><p>Module 4 syllabus: fundamental concepts of spectroscopic and diffraction techniques; <b>principle, instrumentation and applications of UV-Visible and powder XRD</b>; determination of crystallite size; numericals.</p></div>
+          <h3>The two techniques this module is about</h3>
+          <div class="vs">
+            <div class="side"><h4>UV-Vis spectroscopy</h4><p>Shine UV and visible light (200–700 nm) through a <b>solution</b> and measure how much is <b>absorbed</b>. Tells you <b>which groups</b> a molecule has and <b>how concentrated</b> it is.</p></div>
+            <div class="side"><h4>XRD (X-ray diffraction)</h4><p>Shine X-rays on a <b>solid powder</b> and record the <b>angles</b> they bounce off at. Tells you <b>how the atoms are arranged</b> (which crystal it is) and how big its tiny crystals are.</p></div>
+          </div>
+          <div class="note why"><p>A <b>crystal</b> is a solid whose atoms repeat in a neat pattern, like floor tiles. Its atoms form flat, evenly spaced layers. X-rays have a wavelength about the size of those gaps (~10<sup>−10</sup> m), so the layers send them out only at certain angles, and the set of angles identifies the solid. "Diffraction" just means a wave spreading and bending as it passes small objects. The full details come in the XRD topics at the end; until then, read "XRD" as <b>"the X-ray method for finding crystal structure"</b>.</p></div>
         ` },
         { title: 'Energy on the move', html: `
           <p class="lead"><b>Energy</b> is the <b>capacity to do work</b>. It gets from one place to another in three ways, and spectroscopy runs on the third one.</p>
@@ -85,6 +96,7 @@ CHUNK({
             <div><span>Velocity (c), in vacuum</span><b>2.9979 × 10<sup>8</sup> m s<sup>−1</sup></b></div>
             <div><span>Photon energy (E)</span><b>E = hν, directly proportional to ν</b></div>
           </div>
+          <div class="note why"><p><b>h</b> is <b>Planck's constant</b>, 6.626 × 10<sup>−34</sup> J s: the fixed number that converts a frequency into the energy of one photon. <b>1 Hz = 1 s<sup>−1</sup></b>, one oscillation per second, so frequencies are written in either unit.</p></div>
           <div class="eq" data-label="Speed of a wave">c = λν</div>
           <div class="eq" data-label="Energy of a photon">E = hν = <span class="frac"><span>hc</span><span>λ</span></span></div>
           <figure data-fig="m4-wavelength-frequency"></figure>
@@ -111,6 +123,7 @@ CHUNK({
             <div class="side"><h4>Wave nature explains</h4><p><b>Reflection, refraction, diffraction</b></p></div>
             <div class="side"><h4>Particle nature explains</h4><p><b>Absorption and emission</b>, one photon at a time</p></div>
           </div>
+          <div class="note why"><p><b>Attenuation</b> means weakening: the beam comes out dimmer than it went in. A <b>medium</b> is whatever the light travels through (air, water, glass).</p></div>
           <div class="note trap"><p>Scattering and refraction both change the light's direction. Refraction is a clean bend at the boundary between two transparent media. Scattering throws the energy out in many directions from inside the sample.</p></div>
           <div class="note exam"><p>UV-Vis, the rest of this module, measures absorption by comparing the light going in with the light transmitted. Fluorescence and phosphorescence measure emission. XRD, later in the module, relies on diffraction of X-rays.</p></div>
         ` },
@@ -224,10 +237,18 @@ CHUNK({
         ` },
         { title: 'Effects & techniques', html: `
           <p class="lead">Each region carries a different amount of energy, so it disturbs a different part of a molecule. That is why every region has its <b>own kind of spectroscopy</b>.</p>
+          <div class="kv">
+            <div><span>eV (electron-volt)</span><b>Energy one electron gains crossing 1 volt: 1 eV = 1.602 × 10<sup>−19</sup> J. Handy for one photon</b></div>
+            <div><span>kJ/mol</span><b>Energy for one mole (6.022 × 10<sup>23</sup>) of photons or molecules. Handy for chemistry</b></div>
+            <div><span>Transition</span><b>A jump of the molecule from one energy level to another</b></div>
+            <div><span>Electronic / vibrational / rotational</span><b>An electron moves to a higher orbital / bonds stretch and bend / the whole molecule spins</b></div>
+            <div><span>Spin</span><b>Electrons and some nuclei behave like tiny magnets; in a magnetic field they can flip between two directions. NMR flips nuclear spins, ESR flips electron spins</b></div>
+            <div><span>Ionisation</span><b>Knocking an electron right out of an atom or molecule</b></div>
+          </div>
           <table class="tbl">
             <thead><tr><th>Radiation</th><th>E (kJ/mol)</th><th>Technique (what changes)</th><th>Time (s)</th></tr></thead>
             <tbody>
-              <tr><td>γ-rays, X-rays</td><td><b>10<sup>5</sup>–10<sup>3</sup></b></td><td><b>X-ray diffraction</b> (nuclear transitions)</td><td>10<sup>−18</sup></td></tr>
+              <tr><td>γ-rays, X-rays</td><td><b>10<sup>5</sup>–10<sup>3</sup></b></td><td><b>X-ray diffraction</b> (nuclear transitions; XRD itself works by X-rays scattering off layers of atoms in a crystal, see the XRD topics)</td><td>10<sup>−18</sup></td></tr>
               <tr><td>Ultraviolet-visible</td><td><b>10<sup>3</sup>–10<sup>1</sup></b></td><td><b>UV-Vis</b> (electronic transitions)</td><td>10<sup>−15</sup>–10<sup>−14</sup></td></tr>
               <tr><td>Infrared</td><td><b>10<sup>1</sup>–10<sup>−1</sup></b></td><td><b>IR</b> (vibrational transitions)</td><td>10<sup>−13</sup></td></tr>
               <tr><td>Microwaves</td><td><b>10<sup>−3</sup></b></td><td><b>Electron spin resonance</b> (ESR, rotational motion)</td><td>10<sup>−4</sup>–10<sup>−8</sup></td></tr>
@@ -399,6 +420,7 @@ CHUNK({
           </table>
           <div class="note why"><p>Shorter UV means more energy per photon, and ozone absorbs those photons more readily. So UVC is stopped, UVB is mostly stopped, and UVA gets through to the ground.</p></div>
           <h3>What the absorption looks like</h3>
+          <div class="note why"><p>Words used below. <b>Valence electrons</b> are the outer electrons, the ones in bonds and lone pairs. <b>S<sub>0</sub></b> is the molecule's normal (ground) state and <b>S<sub>1</sub></b> the first excited state, after an electron has been lifted. Each of these electronic levels is split into many closely spaced <b>vibrational levels</b>, one for each way the bonds can be vibrating. <b>kcal/mol</b> is an older energy unit: 1 kcal = 4.184 kJ.</p></div>
           <figure data-fig="m4-atom-vs-molecule"></figure>
           <ul>
             <li><b>An atom</b>: one electron jump (for example 2p → 3s) gives a single <b>sharp line</b>.</li>
@@ -416,6 +438,7 @@ CHUNK({
             <li>The energy of molecular orbitals is <b>specific to each group or chemical function</b>.</li>
             <li>So the <b>absorption wavelength correlates with the type of chemical bonds</b>. That is how UV-Vis recognises groups.</li>
           </ul>
+          <div class="note why"><p>A <b>molecular orbital</b> is an energy level an electron can occupy in a molecule (next tab). Electrons also have <b>spin</b>, up or down. In a <b>singlet</b> state (S) the two electrons of a pair still point opposite ways; in a <b>triplet</b> state (T) one has flipped so both point the same way. T<sub>1</sub> sits a little below S<sub>1</sub>.</p></div>
           <figure data-fig="m4-jablonski"></figure>
           <ol class="steps">
             <li><b>Absorption</b> lifts the molecule from the fundamental singlet state S<sub>0</sub> to a vibrational level of the excited singlet state S<sub>1</sub>.</li>
@@ -429,8 +452,28 @@ CHUNK({
           <p>The second diagram shows emission as colour. An electron lifted high falls back to level 2: <b>3 → 2 gives red</b>, 4 → 2 green, 5 → 2 blue and <b>6 → 2 violet</b>. The bigger the drop, the more energetic the photon and the bluer the light.</p>
           <div class="note heads-up"><p>The diagram says "intersystem conversion". The standard term is intersystem crossing (S<sub>1</sub> → T<sub>1</sub>); internal conversion is a different, same-spin process.</p></div>
         ` },
-        { title: 'Four transitions', html: `
-          <p class="lead">After excitation by EMR, <b>valence electrons</b> jump between σ, π and lone-pair (n) orbitals. <b>Four different transitions</b> are possible.</p>
+        { title: 'Orbitals & four transitions', html: `
+          <p class="lead">The next tabs talk about σ, π, n and "σ*". Those are kinds of <b>orbitals</b>, the regions where electrons live in a molecule. Here is all you need.</p>
+          <table class="tbl">
+            <thead><tr><th>Symbol</th><th>What it is</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><b>σ (sigma)</b></td><td>Electrons in a <b>single bond</b>, sitting directly between the two atoms. Held very tightly.</td><td>C–H, C–C in methane</td></tr>
+              <tr><td><b>π (pi)</b></td><td>The <b>extra bond</b> in a double or triple bond, lying above and below the bond line. Held more loosely.</td><td>The second bond in C=C or C=O</td></tr>
+              <tr><td><b>n (non-bonding)</b></td><td>A <b>lone pair</b>: two electrons on one atom that are not in any bond.</td><td>The two pairs on O in water or C=O</td></tr>
+              <tr><td><b>σ*, π* (star)</b></td><td><b>Antibonding</b> orbitals: empty, higher-energy levels an electron can be lifted into when it absorbs light.</td><td>Empty in the normal molecule</td></tr>
+            </tbody>
+          </table>
+          <p>Energy ladder, lowest to highest: <b>σ &lt; π &lt; n &lt; π* &lt; σ*</b>. Filled levels are at the bottom, empty (*) levels at the top. A <b>transition</b> such as π → π* means one electron jumps from a filled π level to the empty π* level by absorbing a photon of exactly that energy gap.</p>
+          <div class="kv">
+            <div><span>Saturated</span><b>Only single bonds (only σ)</b></div>
+            <div><span>Unsaturated</span><b>Has double/triple bonds (has π)</b></div>
+            <div><span>Conjugated</span><b>Double and single bonds alternate, e.g. C=C–C=C; π electrons spread over the chain</b></div>
+            <div><span>Valence electrons</span><b>The outer electrons, the ones in bonds and lone pairs</b></div>
+            <div><span>Ground state S<sub>0</sub> / excited state S<sub>1</sub></span><b>The molecule before and after an electron is lifted</b></div>
+          </div>
+          <div class="note why"><p>Rule of thumb for every tab after this: <b>bigger jump = more energy = shorter wavelength</b>. Conjugation shrinks the π → π* gap, so conjugated molecules absorb at longer wavelengths, sometimes in the visible, which is why they look coloured.</p></div>
+          <h3>Now the four transitions</h3>
+          <p>After excitation by EMR, <b>valence electrons</b> jump between σ, π and lone-pair (n) orbitals. <b>Four different transitions</b> are possible.</p>
           <figure data-fig="m4-mo-ladder"></figure>
           <table class="tbl">
             <thead><tr><th>Transition</th><th>Occurs in</th><th>Range</th></tr></thead>
@@ -465,6 +508,7 @@ CHUNK({
         ` },
         { title: 'Band intensity', html: `
           <p class="lead">How tall a band is depends on how <b>likely</b> the transition is. That probability is measured by <b>ε</b>, the molar absorption coefficient, and it sorts bands into four classes.</p>
+          <div class="note why"><p>Two terms from the Beer–Lambert topic, used early here. <b>Absorbance (A)</b> is a number for how much light the sample soaks up: 0 means none, 1 means 90% absorbed, 2 means 99%. <b>λ<sub>max</sub></b> is the wavelength at the top of an absorption band, where absorbance is highest. ε is the absorbance per unit concentration and path length, so it compares molecules fairly.</p></div>
           <table class="tbl">
             <thead><tr><th>Class</th><th>ε (L mol<sup>−1</sup> cm<sup>−1</sup>)</th></tr></thead>
             <tbody>
@@ -527,6 +571,7 @@ CHUNK({
             <li><b>Pyridine → 2-methylpyridine</b>: λ<sub>max</sub> 257 → 260 nm and ε 2750 → <b>3560</b>. The slide's hyperchromic example, with a slight red shift too.</li>
             <li>Also listed under hyperchromic on the slide: the <b>B-band shifts from 275 mμ to 262 mμ</b>.</li>
           </ul>
+          <div class="note why"><p>A <b>solvent</b> is the liquid the sample is dissolved in. A <b>polar</b> solvent (water, ethanol) has an uneven charge, slightly + at one end and slightly − at the other; a non-polar one (hexane) does not. <b>Conjugation</b> is alternating single and double bonds that let π electrons spread out.</p></div>
           <div class="note why"><p>Polar solvents hydrogen-bond to lone pairs and lower their energy, so the n → π* gap widens and that band moves blue. A group that twists the molecule out of plane breaks the overlap between neighbouring π orbitals, so the transition becomes less likely and ε drops.</p></div>
           <div class="mnemonic"><p><b>BR and HB</b>: Batho is Red, Hypso is Blue. Hyper means more intensity and hypo means less, as in hyperactive and hypothermia.</p></div>
           <div class="note heads-up"><p>mμ (millimicron) is an old name for nm. The B-band line (275 → 262 nm) describes a move to shorter wavelength, which is a hypsochromic change in position, even though the slide lists it under hyperchromic. Use pyridine → 2-methylpyridine (ε 2750 → 3560) as your hyperchromic example.</p></div>
@@ -726,7 +771,7 @@ CHUNK({
             <li><b>Filter</b> trims the light before it enters the monochromator.</li>
             <li><b>Monochromator</b> selects one wavelength.</li>
             <li><b>Beam splitter</b> sends half the beam through the <b>sample</b>; a <b>mirror</b> turns the other half through the <b>reference</b>.</li>
-            <li><b>Photodiodes</b>, one behind each cell, measure the two beams.</li>
+            <li><b>Photodiodes</b> (small light sensors that give a current proportional to the light hitting them), one behind each cell, measure the two beams.</li>
             <li><b>Data processing</b> compares them and gives the <b>data readout</b>: absorbance against wavelength.</li>
           </ol>
           <table class="tbl">
@@ -754,6 +799,12 @@ CHUNK({
               <tr><td><b>5. Charge-transfer complexes</b></td><td>Formed when an electron-rich molecule is mixed with an electron acceptor. The slide lists tetracyanoethylene and iodine as the electron-rich partners, and aniline and benzene as the acceptors. The complex gives <b>new absorption peaks</b></td></tr>
             </tbody>
           </table>
+          <div class="kv">
+            <div><span>Analyte</span><b>The substance you are trying to measure</b></div>
+            <div><span>Cis / trans isomers</span><b>Same atoms and bonds, but around a C=C the two groups are on the same side (cis) or opposite sides (trans)</b></div>
+            <div><span>Tautomers (keto–enol)</span><b>Two forms of one compound that switch by moving an H atom: keto has C=O, enol has C=C–OH</b></div>
+            <div><span>Charge-transfer complex</span><b>A loose pair of an electron-rich molecule (donor) and an electron-poor one (acceptor)</b></div>
+          </div>
           <div class="note why"><p>Vitamin A<sub>2</sub> has one more double bond in conjugation than A<sub>1</sub>, which is why its peak sits further out (351 vs 325 nm). No band above 200 nm means only σ → σ* and n → σ* jumps are available. Trans isomers are flatter and less crowded, so the π system stays fully conjugated; in the cis form, groups bump into each other and twist the molecule.</p></div>
           <div class="note trap"><p>In keto–enol the keto band sits at the longer wavelength (275 nm), which looks backwards. It is the weak n → π* of an isolated C=O, while the enol band is a strong π → π* of the conjugated system. Tell them apart by <b>intensity</b>: ε = 20 against ε = 1800.</p></div>
           <div class="note heads-up"><p>The charge-transfer roles are swapped on the slide. Tetracyanoethylene and iodine are electron <em>acceptors</em>; aniline and benzene are electron-rich <em>donors</em>. When light is absorbed an electron jumps from the donor to the acceptor, and that jump is the new band.</p></div>

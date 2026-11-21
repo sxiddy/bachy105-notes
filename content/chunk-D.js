@@ -178,12 +178,19 @@ CHUNK({
               <tr><td>Very small particles</td><td>Special atomic structures with <b>discrete electronic states</b>, giving special properties plus <b>superparamagnetism</b></td></tr>
             </tbody>
           </table>
+          <div class="kv">
+            <div><span>Bulk</span><b>an ordinary, everyday-sized piece of the material</b></div>
+            <div><span>Grain</span><b>one small crystal; most solids are many grains packed together</b></div>
+            <div><span>Discrete electronic states</span><b>electrons can have only a few separate, fixed energies instead of a continuous band</b></div>
+            <div><span>Catalyst</span><b>a substance that speeds up a reaction without being used up</b></div>
+          </div>
           <div class="note why"><p>Ordinary ceramics are brittle. With nanometre-sized grains, the grains can slide past each other at high temperature, so the ceramic deforms instead of cracking.</p></div>
           <div class="note why"><p><b>Superparamagnetism</b>: each tiny particle is a single magnetic domain. Heat keeps flipping its magnetic direction at random, so it holds no magnetism on its own, yet it responds strongly as soon as a magnetic field is applied.</p></div>
           <figure data-fig="m3-gold-macro-nano"></figure>
           <p>Gold makes the contrast obvious: the <b>same element</b> is a shiny yellow bar in bulk and a <b>deep red liquid</b> as nanoparticles.</p>
         ` },
         { title: 'Colour, size & shape', html: `
+          <div class="note why"><p>Light is a wave. Its <b>wavelength</b> (distance between wave crests, in nm) sets its colour: visible light runs from about <b>400 nm (violet)</b> to <b>700 nm (red)</b>. A material looks coloured because it absorbs some wavelengths and sends the rest to your eye.</p></div>
           <p class="lead">Nano gold is <b>never gold-coloured</b>. Its colour is set by the particle's <b>size and shape</b>, and silver behaves the same way.</p>
           <table class="tbl">
             <thead><tr><th>Particles in glass</th><th>Size</th><th>Shape</th><th>Colour reflected</th></tr></thead>
@@ -205,6 +212,7 @@ CHUNK({
           <div class="note why"><p>Spacing matters because particles sitting close together couple their electron oscillations, which shifts the resonance. That is why a red gold sol turns bluish-purple when the particles clump together.</p></div>
         ` },
         { title: 'Surface plasmon resonance', html: `
+          <p>A metal has <b>free electrons</b> that are not tied to any one atom. A <b>plasmon</b> is these electrons sloshing back and forth together, like water in a tub. <b>Resonance</b> is what happens when a push arrives at exactly the natural rhythm of a system (like pushing a swing in time), so the motion becomes large and energy is absorbed strongly.</p>
           <p class="lead">The colours come mainly from <b>surface plasmon resonance (SPR)</b>: light's electromagnetic field sets the electrons on the particle's surface oscillating <b>together</b>.</p>
           <ol class="steps">
             <li><b>Light hits the particle</b> its oscillating electric field pushes on the free electrons at the surface.</li>
@@ -308,8 +316,10 @@ CHUNK({
           <ul>
             <li>It is the <b>spatial confinement of electrons</b> in a nanomaterial, instead of their free existence within the bulk.</li>
             <li>Electron–hole pairs become confined when the <b>particle diameter approaches the de Broglie wavelength</b> of electrons in the conduction band.</li>
+            <li>(An <b>electron–hole pair</b> is an electron lifted into the conduction band plus the hole it left behind. The <b>de Broglie wavelength</b> is the wavelength an electron has when treated as a wave, λ = h/(mv); for electrons in a semiconductor it is a few nanometres.)</li>
             <li>So confinement appears once the particle is small enough to be <b>comparable to the electron's de Broglie wavelength</b>.</li>
           </ul>
+          <div class="note why"><p><b>Fluorescent emission</b>: a material absorbs light and then gives out light of its own colour. <b>Tunable</b> means the colour can be chosen, here by choosing the particle size.</p></div>
           <div class="note why"><p>Picture an electron in a box. A big box allows so many closely packed levels that they blur into a band. A tiny box allows only a few, widely spaced levels, so the gap grows as the particle shrinks. A bigger gap means the light given out when an electron drops across it carries more energy, so smaller particles glow bluer. Choose the size and you choose the colour: that is what "tunable" means.</p></div>
           <div class="note heads-up"><p>Slide 16 says confinement occurs when the particle is "too small to be comparable to" the de Broglie wavelength. Read it as <b>small enough to be comparable to</b> it: the effect starts when size ≈ wavelength and gets stronger as the particle shrinks further.</p></div>
           <div data-viz="confinement"></div>
@@ -328,6 +338,7 @@ CHUNK({
               <tr><td>Optical</td><td>Different response to light, tunable fluorescence</td><td>Quantum size effect</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p><b>Defects</b> are mistakes in the regular atom pattern of a crystal: a <b>vacancy</b> is a missing atom; a <b>dislocation</b> is a row of atoms out of line, and it lets layers slip, which makes metals bend. <b>Membrane permeability</b> means how easily something passes through a cell's outer wall (membrane).</p></div>
           <div class="note why"><p>A crystal only a few nanometres across has very little room for dislocations and vacancies. A near-perfect lattice is harder to deform, so strength goes up. Fewer defects also change how electrons scatter as they move, which is why the conductivity differs from the bulk value.</p></div>
           <div class="note heads-up"><p>Slide 17 prints "<b>supermagnetism</b>". It means <b>superparamagnetism</b>, the term used on slide 10.</p></div>
           <div class="note exam"><p>When asked why nanomaterials behave differently, open with the two root causes (<b>surface area/volume</b> and <b>quantum effects</b>), then run down this table: conductivity, strength, magnetism, membrane permeability, catalysis, optics.</p></div>
@@ -383,6 +394,11 @@ CHUNK({
               <li>Uses <b>chemical and biological methods</b> to make nanostructures and nanoparticles</li>
             </ul></div>
           </div>
+          <div class="kv">
+            <div><span>Long-range order</span><b>the regular atom pattern repeats over large distances</b></div>
+            <div><span>Short-range order</span><b>atoms are arranged neatly only with their nearest neighbours</b></div>
+            <div><span>Macroscopic connection</span><b>a link from the nanostructure to something big enough to handle, e.g. wires to a chip</b></div>
+          </div>
           <div class="note why"><p>Top-down starts from a bulk crystal that is already ordered over long distances, so that order carries into the pieces, and large pieces are easy to connect to the outside world. Bottom-up places atoms and molecules step by step, which gives fine control over the local, short-range arrangement.</p></div>
           <div data-viz="topdown-bottomup"></div>
           <p><em>Try it:</em> play the scene and watch both sides finish at the same nanoparticles, one by breaking a block down, the other by letting atoms cluster up.</p>
@@ -410,6 +426,20 @@ CHUNK({
               <li>Green synthesis</li>
             </ul></div>
           </div>
+          <table class="tbl">
+            <thead><tr><th>Method</th><th>One-line meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Etching</td><td>Dissolving away unwanted material with chemicals or plasma</td></tr>
+              <tr><td>Sputtering</td><td>Knocking atoms off a target by hitting it with fast gas ions</td></tr>
+              <tr><td>Electro-explosion</td><td>A huge current pulse vaporises a thin metal wire</td></tr>
+              <tr><td>CVD</td><td>Gases react on a hot surface and deposit a solid layer or particles</td></tr>
+              <tr><td>Supercritical fluid</td><td>A fluid above its critical temperature and pressure, part gas and part liquid, used as the reaction medium</td></tr>
+              <tr><td>Chemical reduction</td><td>Metal ions in solution gain electrons and become metal nanoparticles</td></tr>
+              <tr><td>Green synthesis</td><td>Using plant extracts or microbes instead of harsh chemicals</td></tr>
+              <tr><td>Precursor</td><td>The starting chemical that turns into the product</td></tr>
+              <tr><td>Nucleation</td><td>The first tiny clusters of atoms forming, which then grow</td></tr>
+            </tbody>
+          </table>
           <div class="note trap"><p><b>Laser ablation</b> is top-down: a laser blasts material off a bulk target. <b>Laser pyrolysis</b> is bottom-up: a laser heats gaseous precursors that react and nucleate into particles. Same tool, opposite directions.</p></div>
           <div class="note exam"><p>The two methods this module covers in detail sit on opposite sides: <b>mechanical milling is top-down</b>, <b>sol–gel is bottom-up</b>.</p></div>
         ` }
@@ -443,6 +473,14 @@ CHUNK({
         { title: 'What it is', html: `
           <p class="lead">Mechanical milling, also called <b>mechanical alloying</b> or <b>mechanochemical synthesis</b>, is a <b>top-down</b> method. It shrinks bulk material to the nanoscale by <b>grinding and impacting</b>.</p>
           <p>High-energy mills hit and deform the powder over and over. That gives two results: <b>size reduction</b> and the <b>creation of new phases</b>. It is a <b>cost-effective</b> way to get nanoscale material straight from bulk.</p>
+          <div class="kv">
+            <div><span>Phase</span><b>a region of uniform structure and composition (e.g. one crystal type)</b></div>
+            <div><span>Nanocrystalline</span><b>made of crystals (grains) only nanometres across</b></div>
+            <div><span>Amorphous</span><b>no regular atom pattern at all, like glass</b></div>
+            <div><span>Quasicrystalline</span><b>ordered but never exactly repeating</b></div>
+            <div><span>Equilibrium</span><b>the most stable, lowest-energy arrangement; nonequilibrium = trapped in a less stable one</b></div>
+            <div><span>Nanocomposite</span><b>a mix of two or more materials with at least one part at the nanoscale</b></div>
+          </div>
           <h3>What it makes</h3>
           <ul>
             <li><b>Nonequilibrium structures</b>: nanocrystalline, amorphous and quasicrystalline materials</li>
@@ -466,6 +504,7 @@ CHUNK({
           </div>
           <h3>Types of mill</h3>
           <div class="chips"><span class="chip">Tumbler mills</span><span class="chip">Attrition mills</span><span class="chip">Shaker mills</span><span class="chip">Vibratory mills</span><span class="chip">Planetary mills</span></div>
+          <div class="note why"><p><b>µm</b> (micrometre) = 10<sup>−6</sup> m = 1000 nm, so a 50 µm grain must shrink about a thousand times. <b>WC</b> (tungsten carbide) is an extremely hard material. An <b>inert atmosphere</b> is an unreactive gas such as argon, used so the fresh powder does not react with air.</p></div>
           <p>Shaker mills such as the <b>SPEX model 8000</b> work on small batches: about <b>10 cm<sup>3</sup></b> of powder is sufficient.</p>
           <figure data-fig="m3-milling-principle"></figure>
           <p>The schematic labels the balls as <b>refractory or steel balls</b> and asks for a <b>preferably inert atmosphere</b> around the 50 µm powder.</p>
@@ -478,7 +517,7 @@ CHUNK({
           <figure data-fig="m3-planetary-mill"></figure>
           <p>What happens to a powder particle trapped between two balls as the impacts get harder:</p>
           <ol class="steps">
-            <li><b>Elastic deformation</b> the particle squashes and springs back.</li>
+            <li><b>Elastic deformation</b> the particle squashes and springs back. (Elastic = returns to shape; plastic = stays deformed; shear = layers slide over each other.)</li>
             <li><b>Plastic and shear deformation</b> it flattens and shears permanently.</li>
             <li><b>Fracture, amorphization, chemical reactions</b> it breaks into smaller pieces, its crystal order can collapse, and the fresh surfaces react.</li>
           </ol>
@@ -495,11 +534,12 @@ CHUNK({
               <li><b>Severe plastic deformation</b> from mechanical attrition, due to high temperature at the interphase: <b>100–200 °C</b></li>
               <li><b>Hard to break down</b> to the required particle size</li>
               <li><b>Contamination</b> from the milling tools (<b>Fe</b>) and the atmosphere (trace O<sub>2</sub>, N<sub>2</sub> in rare gases)</li>
-              <li>Needs inert conditions such as a <b>glove box</b>; limits: Fe <b>&lt; 1–2%</b>, trace elements <b>&lt; 300 ppm</b></li>
+              <li>Needs inert conditions such as a <b>glove box</b> (a sealed box filled with inert gas, worked through built-in gloves); limits: Fe <b>&lt; 1–2%</b>, trace elements <b>&lt; 300 ppm</b></li>
               <li>A <b>protective coating</b> to cut milling-tool contamination (MTC) raises the process cost</li>
               <li>Working duration <b>&gt; 30 h</b> pushes MTC to <b>&gt; 10%</b></li>
             </ul></div>
           </div>
+          <div class="note why"><p><b>ppm</b> = parts per million (300 ppm = 0.03%). The <b>interphase</b> is the contact zone where ball, powder and ball meet. <b>Attrition</b> means wearing down by rubbing and grinding.</p></div>
           <div class="note why"><p>The heat comes from kinetic energy turning into heat at every collision point. The iron comes from the steel balls and vial walls wearing a little with each hit, so longer milling means more wear. Freshly broken surfaces are very reactive and grab O<sub>2</sub> or N<sub>2</sub>, which is why the vial is filled under inert gas in a glove box.</p></div>
           <div class="note exam"><p>In a pros and cons answer, give the numbers: <b>100–200 °C</b>, Fe <b>&lt; 1–2%</b>, trace <b>&lt; 300 ppm</b>, <b>&gt; 30 h → MTC &gt; 10%</b>. They are what separates a full-mark answer from a vague one.</p></div>
         ` }
@@ -547,6 +587,7 @@ CHUNK({
             <div><span>Product</span><b>metal-oxide nanoparticles</b></div>
           </div>
           <p>The conventional precursors are <b>metal alkoxides</b>: a metal atom bonded to –OR groups, where R is an alkyl group. The slides' example is a silicon alkoxide, Si(OR)<sub>4</sub>. The synthesis runs in <b>several steps</b>, starting with <b>hydrolysis</b> of the alkoxide in water, or with the help of alcohol, to form the sol.</p>
+          <div class="note why"><p><b>Hydrolysis</b> = splitting a compound by reaction with water. An <b>alkyl group</b> (R) is a hydrocarbon piece such as CH<sub>3</sub> (methyl) or C<sub>2</sub>H<sub>5</sub> (ethyl), so ROH is an alcohol. <b>Colloidal particles</b> are particles about 1–1000 nm across that stay spread through a liquid without settling.</p></div>
           <div class="note why"><p>A sol is a liquid with tiny solid particles floating in it. A gel is what you get once those particles link up into a 3-D network that traps the liquid, a bit like jelly setting.</p></div>
         ` },
         { title: 'Step by step', html: `
@@ -560,7 +601,7 @@ CHUNK({
           </ol>
           <div data-viz="sol-gel"></div>
           <p><em>Try it:</em> step from precursor to nanoparticles and watch the loose sol particles join through M–O–M bridges into a network before drying and calcination.</p>
-          <div class="note why"><p><b>Viscosity rises</b> because every new M–O–M bridge joins two units, so chains and networks keep growing until the liquid sets.</p></div>
+          <div class="note why"><p><b>Viscosity</b> means thickness of a liquid, its resistance to flow (honey is more viscous than water). <b>Viscosity rises</b> because every new M–O–M bridge joins two units, so chains and networks keep growing until the liquid sets.</p></div>
           <div class="note why"><p>During <b>aging</b>, small particles tend to dissolve and redeposit on bigger ones, leaving fewer, larger particles spaced farther apart, while the network stiffens and its pores shrink.</p></div>
           <div class="note why"><p><b>Calcination</b> is strong heating that burns off leftover organic groups and –OH and crystallises the oxide.</p></div>
           <div class="mnemonic"><p>Happy Cats Always Demand Cream: Hydrolysis, Condensation, Aging, Drying, Calcination.</p></div>
@@ -633,6 +674,7 @@ CHUNK({
               <li><b>Very slow production rates</b> of nanopowders</li>
             </ul></div>
           </div>
+          <div class="note why"><p><b>Agglomerating</b> = particles clumping together. <b>Monosized</b> = all particles the same size. <b>Growth aids</b> are additives used to control particle growth (e.g. surfactants).</p></div>
           <div class="note why"><p>Nanoparticles carry a huge surface energy, so they stick together to cut down their exposed surface. That is why agglomeration is a constant fight.</p></div>
           <h3>Milling vs sol–gel</h3>
           <table class="tbl">

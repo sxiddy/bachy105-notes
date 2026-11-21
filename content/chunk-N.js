@@ -12,6 +12,12 @@ CHUNK({
       tabs: [
         { title: 'Potential energy curve', html: `
           <p class="lead">A <b>potential energy curve (PEC)</b> is a graph of the potential energy of a <b>diatomic</b> molecular system against the <b>internuclear distance</b> between the two atoms.</p>
+          <div class="kv">
+            <div><span>Potential energy</span><b>energy stored because of the positions of the atoms (attraction and repulsion between nuclei and electrons)</b></div>
+            <div><span>Diatomic</span><b>a molecule of two atoms, e.g. H<sub>2</sub>, HCl</b></div>
+            <div><span>Internuclear distance R</span><b>distance between the two nuclei, i.e. the bond length, usually in Å (1 Å = 10<sup>−10</sup> m)</b></div>
+            <div><span>Harmonic / anharmonic</span><b>behaves like a perfect spring (symmetric energy rise) / does not (curve lopsided, flattens when the bond breaks)</b></div>
+          </div>
           <figure data-fig="m5-pec-diatomic"></figure>
           <div data-viz="morse-curve"></div>
           <p>Comparing the <b>harmonic bond approximation</b> with the exact PEC shows that <b>all real bonds are anharmonic</b>. Chemistry exists because of the anharmonicity of real chemical bonds.</p>
@@ -54,6 +60,7 @@ CHUNK({
             <li>That leaves <b>3N − 6</b> coordinates for molecular <b>vibration</b> (<b>3N − 5</b> for a linear molecule).</li>
           </ul>
           <p>So the PES of a non-linear polyatomic molecule is a function of <b>3N − 6</b> vibrational modes, and of <b>3N − 5</b> for a linear molecule.</p>
+          <div class="note why"><p><b>Translation</b> moves the whole molecule and <b>rotation</b> turns it; neither changes its shape, so neither changes its energy. Only <b>vibrations</b> (changes in bond lengths and angles) do. A <b>linear</b> molecule (all atoms on one line, e.g. CO<sub>2</sub>) has only 2 meaningful rotations, because spinning about its own axis moves nothing, so one extra coordinate is left for vibration. Each such coordinate is a <b>degree of freedom</b>.</p></div>
         ` },
         { title: 'Ozone and contour diagrams', html: `
           <p class="lead">Slides 32 and 33 show how a surface is drawn for real molecules.</p>
@@ -69,6 +76,13 @@ CHUNK({
           <div class="vs">
             <div class="side"><h4>Features</h4><ul><li>Global minima</li><li>Local minima</li><li>Saddle points, the <b>transition states</b></li><li>Energy barrier</li><li>Reaction pathway, the <b>minimum energy path (MEP)</b></li><li>Surface curvature</li></ul></div>
             <div class="side"><h4>Importance</h4><ul><li>Understanding chemical reactions</li><li>Reaction rate prediction</li><li>Analysis of molecular stability</li><li>Spectroscopic analysis</li><li>Molecular dynamics simulations</li><li>Drug design and materials science</li></ul></div>
+          </div>
+          <div class="kv">
+            <div><span>Global minimum</span><b>the lowest point on the whole surface: the most stable structure</b></div>
+            <div><span>Local minimum</span><b>a valley lower than its surroundings but not the lowest overall</b></div>
+            <div><span>Saddle point</span><b>like a mountain pass: highest point along the path between two valleys, lowest point across it. This is the transition state (TS), the top of the energy barrier</b></div>
+            <div><span>Energy barrier</span><b>the climb from a minimum up to the saddle point; it controls the reaction rate</b></div>
+            <div><span>MEP</span><b>the easiest (lowest-energy) route from one valley to another through the saddle point</b></div>
           </div>
           <h3>Dimensions</h3>
           <table class="tbl">
@@ -188,6 +202,7 @@ CHUNK({
             <li>Change the atom positions slightly to <b>reduce the energy</b>.</li>
             <li>Repeat until the <b>force is about 0</b> and the energy change is very small, within the pre-set tolerance.</li>
           </ol>
+          <div class="note why"><p>The <b>force</b> on an atom is the <b>slope</b> of the energy surface at that point: it pushes the atom downhill. At the bottom of a valley the slope, and so the force, is zero. The <b>tolerance</b> is the "small enough" limit set in the program. A <b>dihedral angle</b> is the twist angle between two planes, e.g. the rotation about a C–C bond.</p></div>
           <div data-viz="geom-opt"></div>
           <div class="note heads-up"><p>The slide compares optimisations with the <b>same method</b>, the <b>same basis set</b> and <b>different initial geometries</b>. They can end with different energies for the optimised structure, because the start decides which minimum is reached.</p></div>
         ` },
@@ -206,6 +221,7 @@ CHUNK({
           <p>A calculation started in one valley moves down into that valley; it does not cross a barrier to look at other regions. So <b>several starting structures</b> may have to be optimised before the most stable one is found.</p>
           <h3>Example: propen-2-ol</h3>
           <p>Propen-2-ol, CH<sub>2</sub>=C(OH)CH<sub>3</sub>, is the enol form of acetone. Rotating its O–H and CH<sub>3</sub> groups gives <b>six stationary points</b>:</p>
+          <div class="note why"><p>An <b>enol</b> has an OH on a C=C carbon ("ene" + "ol"); the <b>keto</b> form (acetone) has C=O instead. A <b>stationary point</b> is any geometry where the slope is zero in every direction (minimum, transition state or hilltop). An <b>imaginary frequency</b>, used in the table, marks a direction in which the energy goes <b>down</b> instead of up; the Frequency and Intermediate and TS tabs explain it fully. For now: minimum = 0, TS = 1, hilltop = 2 or more.</p></div>
           <table class="tbl">
             <thead><tr><th>Structure</th><th>Energy (kJ mol<sup>−1</sup>)</th><th>Type</th></tr></thead>
             <tbody>
@@ -217,7 +233,7 @@ CHUNK({
           </table>
           <p>An optimisation started near structure 3 usually <b>stops at 3</b>, even though structure 1 is more stable. Different starting geometries → different pathways → different stationary points.</p>
           <h3>Conformer analysis: propane</h3>
-          <p>Rotation about single bonds gives conformations of different energy; <b>more eclipsing interactions mean higher energy</b>. Rotating the two CH<sub>3</sub> groups of propane gives three stationary points:</p>
+          <p>Rotation about single bonds gives conformations of different energy; <b>more eclipsing interactions mean higher energy</b>. <b>Eclipsed</b>: viewed along the C–C bond, the H atoms on the front carbon sit directly in front of those on the back carbon and crowd each other. <b>Staggered</b>: they sit in the gaps, so there is less repulsion. Rotating the two CH<sub>3</sub> groups of propane gives three stationary points:</p>
           <ul>
             <li><b>A, hilltop:</b> both CH<sub>3</sub> groups eclipsed, <b>6 eclipsing interactions</b>, highest energy.</li>
             <li><b>B, transition state:</b> one group eclipsed and one staggered, <b>3 eclipsing interactions</b>, intermediate energy.</li>
@@ -248,7 +264,7 @@ CHUNK({
           <p>A diatomic is treated as two masses joined by a spring (harmonic oscillator). In wavenumbers:</p>
           <div class="eq" data-label="Wavenumber">ν̃ = <span class="frac"><span>1</span><span>2πc</span></span> (<span class="frac"><span>k</span><span>μ</span></span>)<sup>1/2</sup></div>
           <div class="eq" data-label="Reduced mass">μ = <span class="frac"><span>m<sub>A</sub>m<sub>B</sub></span><span>m<sub>A</sub> + m<sub>B</sub></span></span></div>
-          <p>c is the speed of light and m<sub>A</sub>, m<sub>B</sub> are the atomic masses. The <b>force constant k</b> measures bond <b>stiffness</b>, how strongly the bond resists stretching or compression. It is set by the <b>curvature</b> (second derivative) of the energy at the minimum:</p>
+          <p>c is the speed of light and m<sub>A</sub>, m<sub>B</sub> are the atomic masses. The <b>wavenumber</b> ν̃ = ν/c is the number of waves per centimetre (unit cm<sup>−1</sup>), the unit used on IR spectra. The <b>reduced mass</b> μ replaces two moving atoms with one effective mass; it is close to the lighter atom's mass, which is why bonds to H vibrate fast. The <b>force constant k</b> measures bond <b>stiffness</b>, how strongly the bond resists stretching or compression. It is set by the <b>curvature</b> (second derivative) of the energy at the minimum:</p>
           <div class="eq" data-label="Force constant">d<sup>2</sup>E/dq<sup>2</sup> = 2k   (for E = k(q − q<sub>e</sub>)<sup>2</sup>)</div>
           <ul>
             <li>The factor 2 comes only from how the energy is written; with V = ½k(R − R<sub>e</sub>)<sup>2</sup> the second derivative is simply k.</li>
@@ -288,6 +304,7 @@ CHUNK({
         ` },
         { title: 'Calculated frequencies', html: `
           <p class="lead">Methane has 9 modes. The slide lists them from an ORCA calculation at <b>B3LYP / 6-31G*</b>.</p>
+          <div class="note why"><p>Modes with almost the same value (1372.17, 1372.44, 1372.77) are <b>degenerate</b>: methane's symmetry makes them really equal, and the tiny differences are numerical noise. An <b>IR spectrum</b> records which wavenumbers of infrared light a molecule absorbs; each absorption matches a vibration.</p></div>
           <table class="tbl">
             <thead><tr><th>Mode</th><th>Type</th><th>Frequency (cm<sup>−1</sup>)</th></tr></thead>
             <tbody>
@@ -306,6 +323,7 @@ CHUNK({
         ` },
         { title: 'Intermediate and TS', html: `
           <p class="lead">Optimisation and frequency calculations together tell a <b>reaction intermediate</b> from a <b>transition state</b>.</p>
+          <div class="note why"><p>Why "imaginary"? Frequency comes from √(k/μ), and k is the curvature of the energy. In a valley the curvature is positive, so ν is real. At a saddle point the energy curves <b>downward</b> along the reaction path, so k is negative and √(negative) is an imaginary number. <b>First-order</b> saddle point = downhill in exactly one direction. An <b>intermediate</b> is a short-lived species that sits in a shallow valley between two steps of a reaction.</p></div>
           <figure data-fig="m5-ts-vs-intermediate"></figure>
           <div data-viz="ts-explorer"></div>
           <table class="tbl">
@@ -347,6 +365,7 @@ CHUNK({
             <li>Frequencies confirm this: HCN and HNC have <b>no imaginary frequency</b>; the TS has <b>one</b>, the motion of H from C toward N.</li>
           </ul>
           <figure data-fig="m5-hcn-hnc-profile"></figure>
+          <p><b>Isomerisation</b>: one molecule rearranges into another with the same atoms (same formula, different structure).</p>
           <h3>Zero-point energy (ZPE) correction</h3>
           <p>Even at 0 K a molecule keeps its lowest vibrational energy, the ZPE, which the frequency calculation gives. The profile is drawn twice: with the <b>raw ab initio energies</b> and with <b>ZPE-corrected</b> energies. Energies are in Hartree; to convert, <b>multiply by 2626</b> (1 Hartree ≈ 2625.5 kJ mol<sup>−1</sup>).</p>
           <div class="worked">
@@ -422,6 +441,13 @@ CHUNK({
             <li>Analyse the <b>intrinsic reaction coordinate (IRC)</b>: trace the path from the TS to the products and from the TS to the reactants.</li>
             <li>Construct the <b>energy profile</b>: reactants, intermediates and TS, products. Find <b>E<sub>a</sub>, ΔE and ΔG</b>.</li>
           </ol>
+          <div class="kv">
+            <div><span>Mechanism</span><b>the step-by-step route of a reaction: which bonds break and form, and in what order</b></div>
+            <div><span>IRC</span><b>the downhill path traced from the TS in both directions; it proves the TS really connects these reactants and products</b></div>
+            <div><span>E<sub>a</sub></span><b>activation energy: E(TS) − E(reactants), the barrier height</b></div>
+            <div><span>ΔE</span><b>E(products) − E(reactants); negative = energy released</b></div>
+            <div><span>ΔG</span><b>Gibbs free energy change; negative = reaction is spontaneous</b></div>
+          </div>
         ` },
         { title: 'Nucleophilic reactions', html: `
           <p class="lead">Nucleophilic reactions involving anions are organic reactions where negatively charged species (anions) <b>donate electron pairs</b> to <b>electrophilic (+) carbon atoms</b>.</p>
@@ -433,9 +459,17 @@ CHUNK({
               <tr><td><b>Addition–elimination</b> (at carbonyls)</td><td>Common in <b>carboxylic acid derivatives</b>. The bond forms first, then the leaving group departs.</td></tr>
             </tbody>
           </table>
+          <div class="kv">
+            <div><span>Nucleophile (Nu<sup>−</sup>, Y<sup>−</sup>)</span><b>electron-pair donor, e.g. OH<sup>−</sup>, Cl<sup>−</sup></b></div>
+            <div><span>Electrophilic carbon</span><b>a carbon made slightly + by an attached electronegative atom (C–Cl, C=O)</b></div>
+            <div><span>Leaving group (X)</span><b>the atom or group that departs with the bond's electrons, e.g. Cl<sup>−</sup></b></div>
+            <div><span>sp<sup>3</sup> / sp<sup>2</sup> / sp carbon</span><b>carbon with four single bonds / one double bond / one triple bond</b></div>
+            <div><span>Substrate (RX)</span><b>the molecule being attacked; R = carbon group</b></div>
+          </div>
         ` },
         { title: 'SN1 and SN2', html: `
           <p class="lead">Nucleophilic substitution, <b>SN1 and SN2</b>, is why these reactions matter for computation.</p>
+          <div class="note why"><p>The name: <b>S</b>ubstitution, <b>N</b>ucleophilic, and the number is how many species are in the slow step. <b>SN1</b>: the leaving group leaves first, giving a <b>carbocation</b> (a carbon with only three bonds and a + charge), then the nucleophile attacks. <b>SN2</b>: one step, the nucleophile comes in as the leaving group goes out. <b>Regioselectivity</b> = which site reacts; <b>stereoselectivity</b> = which 3-D arrangement of the product forms.</p></div>
           <div class="vs">
             <div class="side"><h4>Why important</h4><ul><li>The <b>first reactions taught</b> in organic chemistry.</li><li>Key models for understanding reaction mechanisms.</li></ul></div>
             <div class="side"><h4>What we learn</h4><ul><li>Regioselectivity, stereoselectivity, reaction rates and solvent effects.</li><li>Computational models give deep insight, especially for SN2.</li></ul></div>
@@ -454,6 +488,7 @@ CHUNK({
             <li>The nucleophile attacks the central carbon from the <b>backside</b>, pushing the leaving group (X<sup>−</sup>) out, through a <b>single transition state (TS)</b>.</li>
             <li>An <b>exit ion–dipole complex (ID2)</b> forms before the final separation into products.</li>
           </ol>
+          <div class="note why"><p>An <b>ion–dipole complex</b> is a loose pair held together by the attraction between the ion (Y<sup>−</sup>) and the polar C–X bond (a dipole, + end at carbon). It is lower in energy than the separate reactants, so it forms a valley. <b>Backside attack</b> means Y<sup>−</sup> approaches from the side opposite X.</p></div>
           <p>The PES has a <b>double-well shape</b>: two valleys (ID1 and ID2) and one peak (the TS). This shape is universal for SN2 reactions in the gas phase.</p>
           <figure data-fig="m5-sn2-profile"></figure>
           <div data-viz="sn2-path"></div>
@@ -463,10 +498,12 @@ CHUNK({
             <div class="side"><h4>In the gas phase</h4><p>Reactions are very <b>fast</b> because there is no solvent stabilisation, but they are <b>hard to control</b> and to make selective.</p></div>
             <div class="side"><h4>In solution (e.g. water)</h4><p>The rate can drop by <b>up to 20 orders of magnitude</b>. Solvation stabilises the nucleophile (e.g. Cl<sup>−</sup>) but does not stabilise the TS as well, so the barrier is <b>higher</b>.</p></div>
           </div>
-          <p>The slide figure shows calculated HF/6-31G* gas-phase energies (dashed curve) against the potential of mean force in aqueous solution (solid curve).</p>
+          <div class="note why"><p><b>Solvation</b>: solvent molecules cluster around an ion and lower its energy. The small Cl<sup>−</sup> holds its charge tightly and is stabilised a lot; in the TS the charge is spread over a larger structure and is stabilised less, so the gap (barrier) grows. <b>20 orders of magnitude</b> = 10<sup>20</sup> times slower.</p></div>
+          <p>The slide figure shows calculated HF/6-31G* gas-phase energies (dashed curve) against the potential of mean force in aqueous solution (solid curve). The <b>potential of mean force</b> is the energy along the reaction path averaged over all the moving solvent molecules.</p>
         ` },
         { title: 'Ketone enolization', html: `
           <p class="lead">Ketone enolization is the mechanism worked through computational chemistry on the slides: from the <b>keto form</b> to the <b>enol form</b>, finding the possible pathways, intermediates and transition states.</p>
+          <div class="note why"><p><b>Keto form</b>: C=O with an H on the next carbon (CH–C=O). <b>Enol form</b>: that H has moved to the oxygen, giving C=C–OH. The change is a <b>proton transfer</b> (an H<sup>+</sup> moving from one atom to another). The two forms are <b>tautomers</b>: isomers that interconvert by moving an H.</p></div>
           <figure data-fig="m5-enolization"></figure>
           <h3>What calculations contribute</h3>
           <ul>
@@ -483,6 +520,7 @@ CHUNK({
         ` },
         { title: 'Gas and solution phase', html: `
           <p class="lead">The same enolization can be modelled in the gas phase or in solution.</p>
+          <div class="note why"><p>An <b>implicit</b> solvent model replaces the solvent by a smooth surrounding medium with the solvent's polarity (dielectric constant), cheap and quick; <b>PCM</b> (polarisable continuum model) and <b>SMD</b> are two such models. An <b>explicit</b> model places real solvent molecules around the solute, costlier but able to show individual H-bonds. A <b>proton shuttle</b> is a solvent molecule (e.g. water) that takes an H<sup>+</sup> from one atom and hands one to another.</p></div>
           <div class="vs">
             <div class="side"><h4>Gas phase</h4><ul><li>A <b>baseline</b> without bulk-solvent stabilisation.</li><li>Reveals <b>intrinsic proton-transfer pathways</b> and conformational effects.</li><li>Charge-separated structures may be relatively costly; results depend on whether a catalyst or explicit molecule is included.</li></ul></div>
             <div class="side"><h4>Solution phase</h4><ul><li>Model the bulk solvent with an <b>implicit model</b> (SMD or PCM); add <b>explicit solvent molecules</b> when specific H-bonds or proton shuttles matter.</li><li>Solvation can stabilise ions and polar transition states, changing relative barriers and pathway preference.</li><li>Solvent effects are system-dependent; the barrier does not always decrease.</li></ul></div>
@@ -522,6 +560,7 @@ CHUNK({
       tabs: [
         { title: 'Computational chemistry and AI/ML', html: `
           <p class="lead">Physics-based computational chemistry and data-driven AI/ML complement each other.</p>
+          <div class="note why"><p><b>AI</b> (artificial intelligence) is software that does tasks needing judgement. <b>Machine learning (ML)</b> is the part of AI where a program <b>learns patterns from examples</b> (data) instead of being given the rules. Once trained on many calculated or measured molecules, it can predict a new one in a fraction of a second.</p></div>
           <table class="tbl">
             <thead><tr><th>Approach</th><th>How it works</th><th>Character</th></tr></thead>
             <tbody>
@@ -541,6 +580,7 @@ CHUNK({
         { title: 'AI-driven screening', html: `
           <p class="lead"><b>AI-driven screening</b> uses existing <b>materials data</b> and trained <b>machine-learning models</b> to predict the properties of potential new materials. AI/ML makes the process faster and more systematic.</p>
           <div class="chips"><span class="chip">Data</span><span class="chip">AI model</span><span class="chip">Decision / prediction</span></div>
+          <div class="note why"><p>A <b>semiconductor</b> (e.g. silicon) conducts electricity between a metal and an insulator. In a solid, electron energies form broad <b>bands</b>: the filled <b>valence band</b> and the empty <b>conduction band</b> above it. The <b>band gap</b> is the energy step between them. An electron lifted across leaves behind a <b>hole</b>, a missing electron that acts as a + charge carrier. <b>Dopants</b> are impurity atoms added on purpose to change conductivity; <b>vacancies</b> are missing atoms.</p></div>
           <h3>Properties used in semiconductor screening</h3>
           <table class="tbl">
             <thead><tr><th>Property</th><th>Significance</th></tr></thead>
@@ -567,7 +607,9 @@ CHUNK({
             <li><b>Candidate screening.</b> Predict properties for materials not yet examined and rank them against the screening criteria.</li>
             <li><b>Validation of prediction.</b> Run high-level theoretical or computational calculations where appropriate, and experimental measurements, before drawing conclusions.</li>
           </ol>
+          <p><b>Descriptors</b> are numbers that describe a material to the model (e.g. average atomic mass, electronegativity, lattice volume), because a model can only read numbers.</p>
           <h3>Common methods</h3>
+          <div class="note why"><p><b>Linear regression</b> fits a straight-line relation; <b>random forest</b> and <b>gradient boosting</b> combine many simple decision trees; <b>neural networks</b> are layered models loosely like brain cells; <b>graph neural networks</b> read a structure as atoms (points) joined by bonds (lines); <b>active learning</b> lets the model choose which new calculation would teach it most.</p></div>
           <div class="chips"><span class="chip">linear regression</span><span class="chip">random forest</span><span class="chip">gradient boosting</span><span class="chip">neural networks</span><span class="chip">graph neural networks</span><span class="chip">active learning</span></div>
           <h3>Advantages</h3>
           <div class="chips"><span class="chip">speed</span><span class="chip">reduced computational cost</span><span class="chip">efficient exploration</span></div>

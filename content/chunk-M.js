@@ -150,6 +150,17 @@ CHUNK({
             <div class="side"><h4>Classical mechanics</h4><ul><li><b>Molecular mechanics</b> (MM)</li><li><b>Molecular dynamics</b> (MD)</li></ul></div>
             <div class="side"><h4>Hybrid</h4><ul><li><b>QM/MM</b>, quantum mechanics with molecular mechanics</li></ul></div>
           </div>
+          <div class="note why"><p><b>Quantum</b> methods treat the <b>electrons</b> explicitly, so they can describe bonds forming and breaking. <b>Classical</b> methods treat atoms as simple balls and ignore electrons, so they are fast but cannot describe bond changes. <b>Electronic structure</b> just means how the electrons are arranged in a molecule.</p></div>
+          <h3>Abbreviations in the list</h3>
+          <div class="kv">
+            <div><span>HF</span><b>Hartree–Fock: the basic ab initio method; each electron feels only the average field of the others</b></div>
+            <div><span>MP2</span><b>Møller–Plesset perturbation theory, 2nd order: a correction added on top of HF</b></div>
+            <div><span>CI, CC</span><b>configuration interaction, coupled cluster: more accurate (and costly) corrections to HF</b></div>
+            <div><span>MCSCF, CASSCF</span><b>multi-configurational methods, for cases where one electron arrangement is not enough</b></div>
+            <div><span>TD-DFT</span><b>time-dependent DFT, used for excited states and spectra</b></div>
+            <div><span>AM1, PM3, PM6</span><b>names of semi-empirical parameter sets</b></div>
+          </div>
+          <p>The later tabs and the next topic explain each family; for now only the three groups matter.</p>
         ` },
         { title: 'MM and MD', html: `
           <h3>Molecular mechanics (MM)</h3>
@@ -158,9 +169,11 @@ CHUNK({
             <li>The energy depends on how far the actual geometry <b>deviates from ideal values</b>.</li>
             <li><b>Geometry optimisation</b> adjusts atom positions until the lowest possible energy is found.</li>
           </ul>
+          <div class="note why"><p>The set of spring stiffnesses and ideal bond lengths and angles used by MM is called a <b>force field</b>. <b>Potential energy</b> is stored energy due to position: a stretched or squeezed spring stores more of it, so a strained geometry has higher energy.</p></div>
           <h3>Molecular dynamics (MD)</h3>
           <p>MD applies the <b>laws of classical mechanics</b> to simulate the movement of atoms and molecules <b>over time</b>. The laws of motion are applied to molecules that change shape or move.</p>
           <ul>
+            <li>A <b>conformational change</b> is a change of shape by rotating or bending around bonds, with no bond broken (for example a chain twisting).</li>
             <li>MD is <b>not an electronic structure method</b>. Covalent <b>bond breaking and bond making</b>, as opposed to conformational change, <b>cannot</b> be studied with MD programs that use this method.</li>
             <li>For chemical reactions, use forces from <b>semi-empirical, ab initio or density functional</b> methods.</li>
           </ul>
@@ -174,9 +187,27 @@ CHUNK({
             <li>The wavefunction is a mathematical function that gives the <b>electron distribution</b>.</li>
             <li>From the distribution you can decide the <b>polarity</b> of the molecule and which parts are attacked by <b>nucleophiles or electrophiles</b>.</li>
           </ul>
+          <div class="kv">
+            <div><span>First principles</span><b>only the basic laws of physics, no fitted numbers</b></div>
+            <div><span>Polarity</span><b>uneven sharing of electrons, so one end is slightly − and the other slightly +</b></div>
+            <div><span>Nucleophile</span><b>"nucleus-loving": electron-rich species that attacks electron-poor (+) sites, e.g. OH<sup>−</sup></b></div>
+            <div><span>Electrophile</span><b>"electron-loving": electron-poor species that attacks electron-rich (−) sites, e.g. H<sup>+</sup></b></div>
+          </div>
         ` },
         { title: 'Schrödinger equation', html: `
           <p class="lead">The Schrödinger equation comes in a <b>time-dependent</b> (TDSE) and a <b>time-independent</b> (TISE) form.</p>
+          <h3>Symbols first</h3>
+          <div class="kv">
+            <div><span>Ψ, ψ (psi)</span><b>wavefunction; its square gives where the electron is likely to be</b></div>
+            <div><span>Ĥ (H-hat)</span><b>Hamiltonian operator: a recipe that acts on ψ and gives the total energy (kinetic + potential). The hat means "operator"</b></div>
+            <div><span>E</span><b>energy of the state</b></div>
+            <div><span>ħ (h-bar)</span><b>Planck's constant divided by 2π</b></div>
+            <div><span>i</span><b>the imaginary number √(−1)</b></div>
+            <div><span>∂/∂t, d²/dx²</span><b>rate of change with time; second derivative (how curved the function is) along x</b></div>
+            <div><span>V</span><b>potential energy</b></div>
+            <div><span>Non-relativistic</span><b>ignoring Einstein's relativity, fine for light atoms</b></div>
+          </div>
+          <div class="note why"><p>An <b>eigenvalue</b> equation has the form "operator acting on a function = number × the same function". In Ĥψ = Eψ, the allowed numbers E are the <b>energy eigenvalues</b>, and the matching ψ are <b>stationary states</b> (states whose probability pattern does not change with time).</p></div>
           <div class="vs">
             <div class="side"><h4>TDSE</h4><div class="eq">iħ ∂Ψ(x,t)/∂t = Ĥ Ψ(x,t)</div><p>Ψ is the wavefunction of coordinate and time; Ĥ is the Hamiltonian. For a single non-relativistic particle of mass m:</p><div class="eq">Ĥ = −(ħ²/2m) ∂²/∂x² + V(x,t)</div><p>The first term is the <b>kinetic energy</b>, the second the (time-dependent) <b>potential energy</b>.</p></div>
             <div class="side"><h4>TISE</h4><div class="eq">Ĥ ψ(x) = E ψ(x)</div><p>ψ is the wavefunction, E the energy. For a single non-relativistic particle of mass m:</p><div class="eq">Ĥ = −(ħ²/2m) d²/dx² + V(x)</div><p>The first term is the <b>kinetic energy</b>, the second the (time-independent) <b>potential energy</b>.</p></div>
@@ -192,6 +223,7 @@ CHUNK({
           <p class="lead">Semi-empirical calculations balance <b>accuracy against speed and cost</b>. They simplify ab initio methods with approximations and experimental parameters. They are still based on the Schrödinger equation, with more approximations to solve it.</p>
           <ul>
             <li>They start with ab initio <b>Hartree–Fock</b> calculations and simplify them by approximating or omitting certain integrals.</li>
+            <li>Solving the equation means evaluating a huge number of <b>integrals</b> (sums over all space, one for each pair or set of orbitals). Skipping or estimating many of them is where the speed comes from.</li>
             <li>Plugging experimental values into the mathematical procedure to get the best calculated values is called <b>parameterisation</b>.</li>
             <li>They are <b>slower than molecular mechanics</b> (MM is parameterised too) but <b>much faster than ab initio</b>.</li>
           </ul>
@@ -200,7 +232,7 @@ CHUNK({
           <p class="lead">DFT rests on the idea that the <b>electronic structure of a molecule is completely determined by its electron density</b>, the probability of finding an electron at a point in space.</p>
           <ul>
             <li>Instead of the wavefunction (as in ab initio methods), DFT calculates the <b>electron density</b> directly.</li>
-            <li>It uses <b>functionals</b> (mathematical functions of functions) to approximate the link between electron density and energy.</li>
+            <li>It uses <b>functionals</b> (mathematical functions of functions) to approximate the link between electron density and energy. A normal function turns a number into a number; a functional turns a whole function (here the density over all space) into one number (the energy). <b>B3LYP</b> is a popular functional.</li>
             <li>It is generally <b>more accurate than Hartree–Fock</b> and often comparable to more advanced ab initio methods, at a <b>significantly lower cost</b>.</li>
             <li>It can be applied to a wide range of molecules and properties.</li>
           </ul>
@@ -214,7 +246,8 @@ CHUNK({
           </div>
           <ul>
             <li>The two regions are <b>coupled</b> to account for <b>electrostatic and van der Waals</b> interactions.</li>
-            <li>QM/MM can use <b>mechanical embedding, electrostatic embedding</b> or more advanced embedding schemes to describe the interaction between the regions.</li>
+            <li>QM/MM can use <b>mechanical embedding, electrostatic embedding</b> or more advanced embedding schemes to describe the interaction between the regions. In <b>mechanical embedding</b> the MM atoms only push on the QM atoms (shape and contact); in <b>electrostatic embedding</b> the charges of the MM atoms also pull on the QM electrons.</li>
+            <li><b>Van der Waals</b> interactions are weak attractions and short-range repulsions between all atoms, even neutral ones.</li>
             <li>It is <b>cheaper than treating the whole system quantum mechanically</b> and gives a <b>more realistic description of the reactive region</b> than MM alone.</li>
           </ul>
           <h3>Used in</h3>
@@ -276,6 +309,7 @@ CHUNK({
         ` },
         { title: 'Methods and basis sets', html: `
           <p class="lead">Every calculation needs a <b>method</b> and a <b>basis set</b>.</p>
+          <div class="note why"><p>The <b>method</b> is the level of physics (how electron–electron interactions are treated). The <b>basis set</b> is the toolkit of functions used to build the orbitals. Results are written <b>method/basis set</b>, e.g. <b>B3LYP/6-31G*</b> = DFT with the B3LYP functional and the 6-31G* basis set.</p></div>
           <div class="vs">
             <div class="side"><h4>Methods</h4><ul><li>Hartree–Fock (HF)</li><li>Density functional theory (DFT)</li><li>Configuration interaction (CI)</li><li>Perturbation theory (MP2, MP3)</li><li>Coupled cluster theory (CCSD, CCSD(T))</li><li>Multi-configurational self-consistent field (MCSCF)</li><li>Complete active space self-consistent field (CASSCF)</li></ul></div>
             <div class="side"><h4>Basis sets</h4><ul><li>Minimal</li><li>Split-valence</li><li>Polarisation</li><li>Diffuse</li><li>Correlation consistent</li><li>Effective core potential (ECP)</li></ul></div>
@@ -283,6 +317,13 @@ CHUNK({
         ` },
         { title: 'Basis sets', html: `
           <p class="lead">A <b>basis set</b> is a set of mathematical functions used to represent the <b>atomic orbitals</b> of the electrons in a molecule. Basis sets differ in size, flexibility and accuracy.</p>
+          <div class="note why"><p>Think of building a curve from Lego pieces: <b>more functions = more flexible orbitals = more accurate, but slower</b>. <b>Core</b> electrons are the inner ones that do not take part in bonding; <b>valence</b> electrons are the outer ones that form bonds, so they get extra functions first. An <b>anion</b> is a negative ion; its extra electron sits far out, which is why it needs spread-out (diffuse) functions.</p></div>
+          <div class="kv">
+            <div><span>STO-3G</span><b>each orbital built from 3 Gaussian functions (STO = Slater-type orbital)</b></div>
+            <div><span>6-31G</span><b>core orbitals from 6 functions; valence split into two parts made of 3 and 1 functions</b></div>
+            <div><span>* or (d)</span><b>adds polarisation (d-type) functions on heavy atoms; ** or (d,p) also adds p functions on H</b></div>
+            <div><span>+ / ++</span><b>adds diffuse functions on heavy atoms / also on H</b></div>
+          </div>
           <table class="tbl">
             <thead><tr><th>Basis set</th><th>Description</th><th>Examples</th><th>Features and use</th></tr></thead>
             <tbody>
@@ -296,6 +337,12 @@ CHUNK({
           </table>
         ` },
         { title: 'Methods in brief', html: `
+          <div class="kv">
+            <div><span>Electron correlation</span><b>electrons dodge each other instantly; HF only uses their average repulsion, so it misses this and the energy is slightly too high</b></div>
+            <div><span>Post-HF</span><b>methods that start from the HF answer and add the missing correlation (CI, MP2, CC)</b></div>
+            <div><span>Configuration</span><b>one particular way of placing the electrons in the orbitals</b></div>
+            <div><span>Excited state</span><b>a state where an electron has been lifted to a higher orbital, e.g. by absorbing light</b></div>
+          </div>
           <table class="tbl">
             <thead><tr><th>Method</th><th>Description</th><th>Applications</th></tr></thead>
             <tbody>
@@ -341,6 +388,16 @@ CHUNK({
       tabs: [
         { title: 'Quantum numbers', html: `
           <p class="lead">The principal quantum number <b>n</b> fixes the allowed values of the others.</p>
+          <table class="tbl">
+            <thead><tr><th>Symbol</th><th>Name</th><th>What it tells you</th></tr></thead>
+            <tbody>
+              <tr><td><b>n</b></td><td>principal</td><td>shell and size/energy (1, 2, 3 …)</td></tr>
+              <tr><td><b>l</b></td><td>azimuthal</td><td>shape: l = 0, 1, 2, 3 are <b>s, p, d, f</b></td></tr>
+              <tr><td><b>m<sub>l</sub></b></td><td>magnetic</td><td>orientation in space (e.g. p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>)</td></tr>
+              <tr><td><b>m<sub>s</sub></b></td><td>spin</td><td>electron spin, +½ (↑) or −½ (↓)</td></tr>
+            </tbody>
+          </table>
+          <div class="note example"><p>n = 2: l = 0 (2s, one orbital) or l = 1 (2p, m<sub>l</sub> = −1, 0, +1, three orbitals).</p></div>
           <div class="kv">
             <div><span>l</span><b>0, 1, 2, … , (n − 1)</b></div>
             <div><span>m<sub>l</sub></span><b>−l, −(l − 1), … , 0, … , (l − 1), +l: a total of 2l + 1 values</b></div>
@@ -359,6 +416,7 @@ CHUNK({
             <div><span>Pauli exclusion principle</span><b>no two electrons have the same four quantum numbers (two per orbital, opposite spins)</b></div>
             <div><span>Hund's rule</span><b>fill degenerate orbitals singly with parallel spins before pairing</b></div>
           </div>
+          <div class="note why"><p><b>Degenerate</b> orbitals have exactly the same energy, like the three 2p orbitals. <b>Parallel spins</b> means all ↑.</p></div>
           <div class="note heads-up"><p>The slides name these three rules and show the Aufbau filling order as pictures. The one-line statements above are the standard ones.</p></div>
         ` },
         { title: 'Orbital shapes', html: `
@@ -403,6 +461,7 @@ CHUNK({
           <p><b>Orbital overlap:</b> effective interaction needs <b>sufficient overlap</b> between the atomic orbitals. Greater overlap usually means a <b>stronger interaction</b> and more stabilisation of the bonding MO.</p>
           <h3>Conditions of orbital interaction</h3>
           <div class="chips"><span class="chip">comparable energies</span><span class="chip">suitable symmetry</span><span class="chip">effective overlap</span></div>
+          <div class="note why"><p><b>Overlap</b> means the two orbital clouds occupy the same region of space. <b>Symmetry</b> here means the orbitals look alike when turned about the bond axis, so their matching lobes can meet. Orbital lobes carry a <b>phase</b> sign (+ or −, like wave crests and troughs): same-sign lobes meeting add up, opposite signs cancel.</p></div>
         ` },
         { title: 'Overlap and energy', html: `
           <p class="lead">The type of overlap decides which MO forms.</p>
@@ -442,9 +501,22 @@ CHUNK({
           <ul>
             <li>The <b>limitations of valence bond theory (VBT)</b> were another reason for developing it.</li>
           </ul>
+          <div class="vs">
+            <div class="side"><h4>Valence bond theory</h4><p>A bond is a pair of electrons <b>shared between two atoms</b>, sitting in the overlap of their atomic orbitals. Electrons stay localised.</p></div>
+            <div class="side"><h4>MO theory</h4><p>Atomic orbitals merge into new <b>molecular orbitals that spread over the whole molecule</b>; electrons fill these MOs.</p></div>
+          </div>
+          <h3>MO labels used in this topic</h3>
+          <div class="kv">
+            <div><span>σ (sigma)</span><b>MO with electron density along the line joining the two nuclei (end-on overlap)</b></div>
+            <div><span>π (pi)</span><b>MO with density above and below that line (side-on overlap of p orbitals)</b></div>
+            <div><span>* (star)</span><b>antibonding, e.g. σ*1s</b></div>
+            <div><span>Node</span><b>a place where the electron density is zero</b></div>
+            <div><span>Homonuclear / heteronuclear</span><b>two identical atoms (H<sub>2</sub>, O<sub>2</sub>) / two different atoms (HCl, CO)</b></div>
+          </div>
         ` },
         { title: 'LCAO', html: `
           <p class="lead">Molecular orbitals can be expressed as a <b>linear combination of atomic orbitals (LCAO)</b>. LCAOs help estimate how the orbitals form in the bonding between the atoms of a molecule.</p>
+          <div class="note why"><p><b>Linear combination</b> just means adding (or subtracting) the atomic orbitals, each multiplied by a number: Ψ = c<sub>1</sub>φ<sub>1</sub> ± c<sub>2</sub>φ<sub>2</sub>. Adding = in phase; subtracting = out of phase.</p></div>
           <ul>
             <li>It is an <b>approximate</b> method for representing molecular orbitals, more of a <b>superimposition</b> method.</li>
             <li><b>Constructive interference</b> of two atomic wavefunctions produces a <b>bonding</b> molecular orbital.</li>
@@ -466,6 +538,7 @@ CHUNK({
             <li><b>Ψ, the wavefunction</b>, describes the quantum state of the electron. <b>|Ψ|²</b> is the <b>probability density</b> of finding the electron in a region of space.</li>
             <li>A valid Ψ must be <b>normalised</b>: the total probability of finding the electron somewhere is 1, ∫|Ψ|²dτ = 1.</li>
           </ul>
+          <div class="note why"><p>Notation: <b>dτ</b> is a tiny volume element, so ∫…dτ means "add up over all space". <b>⟨Ψ|Ĥ|Ψ⟩</b> is shorthand for ∫ΨĤΨdτ, and <b>⟨Ψ|Ψ⟩</b> for ∫ΨΨdτ. A <b>secular equation</b> is the condition (a determinant set to zero) that the coefficients c<sub>1</sub>, c<sub>2</sub> must satisfy; its roots are the allowed energies.</p></div>
           <h3>Procedure</h3>
           <ol class="steps">
             <li><b>Fix the nuclei</b> at a chosen distance from each other.</li>
@@ -504,6 +577,7 @@ CHUNK({
           <figure data-fig="m5-mo-h2"></figure>
           <div data-viz="mo-builder"></div>
           <div class="eq" data-label="Bond order">Bond order = <span class="frac"><span>(bonding electrons) − (antibonding electrons)</span><span>2</span></span></div>
+          <p>Bond order 1 = single bond, 2 = double, 3 = triple; 0 means no bond (the molecule does not exist).</p>
           <h3>Heteronuclear diatomic</h3>
           <p>Two different atoms. The two atomic levels sit at different energies, and the MOs still lie one below and one above them.</p>
           <figure data-fig="m5-mo-heteronuclear"></figure>
@@ -526,6 +600,7 @@ CHUNK({
           <div class="eq" data-label="Configuration">O<sub>2</sub>: KK (σ2s)<sup>2</sup> (σ*2s)<sup>2</sup> (σ2p<sub>z</sub>)<sup>2</sup> (π2p<sub>x</sub>)<sup>2</sup> (π2p<sub>y</sub>)<sup>2</sup> (π*2p<sub>x</sub>)<sup>1</sup> (π*2p<sub>y</sub>)<sup>1</sup></div>
           <div class="eq" data-label="Bond order">Bond order = (10 − 6)/2 = <b>2</b></div>
           <p>Counting all 16 electrons: 10 bonding and 6 antibonding (or 8 and 4 if you count only the valence shell, same answer). O<sub>2</sub> has a <b>double bond</b> and, with <b>two unpaired electrons</b> in π*2p, it is <b>paramagnetic</b>. Valence bond theory pairs every electron and wrongly predicts O<sub>2</sub> to be diamagnetic; MO theory explains the observed paramagnetism.</p>
+          <div class="note why"><p><b>Paramagnetic</b>: has unpaired electrons, so it is pulled into a magnetic field. <b>Diamagnetic</b>: all electrons paired, weakly pushed out. <b>KK</b> is shorthand for the filled inner K shells (σ1s and σ*1s) of both atoms, which cancel out in bonding.</p></div>
           <div class="note heads-up"><p>O<sub>2</sub> is not worked on the slides, but it has been asked in a final exam ("draw the MO diagram of O<sub>2</sub>, predict bond order and magnetic property"). This is the standard textbook treatment.</p></div>
         ` },
         { title: 'Heteronuclear diatomic', html: `
@@ -551,6 +626,7 @@ CHUNK({
         ` },
         { title: 'Hückel method', html: `
           <p class="lead">The <b>Hückel molecular orbital (HMO) method</b>, introduced by Hückel in <b>1931</b>, is a simplified quantum method for <b>conjugated π-electron systems</b>. It keeps the <b>σ framework fixed</b> and treats only the delocalised <b>π electrons</b> explicitly.</p>
+          <div class="note why"><p>A <b>conjugated</b> system has alternating single and double bonds (e.g. butadiene CH<sub>2</sub>=CH–CH=CH<sub>2</sub>, benzene), so the p orbitals on neighbouring carbons line up side by side. Their π electrons are <b>delocalised</b>: spread over the whole chain instead of belonging to one bond. The <b>σ framework</b> is the skeleton of single (σ) bonds, which Hückel leaves untouched. In the table, <b>H<sub>ij</sub></b> is the Hamiltonian integral between orbitals i and j (H<sub>ii</sub> = α, H<sub>ij</sub> = β as in the Schrödinger treatment tab) and <b>S<sub>ij</sub></b> is their overlap integral.</p></div>
           <h3>Approximations</h3>
           <table class="tbl">
             <thead><tr><th>Term</th><th>Value</th><th>Meaning</th></tr></thead>
@@ -583,6 +659,7 @@ CHUNK({
             <li>Method and basis set: <b>B3LYP / 6-31G*</b>.</li>
             <li>HOMO and LUMO are the frontier orbitals used in <b>electronic structure analysis</b>.</li>
           </ul>
+          <div class="note why"><p>They are called <b>frontier</b> orbitals because they sit at the border between filled and empty levels. In a reaction a molecule usually <b>gives electrons from its HOMO</b> and <b>accepts electrons into its LUMO</b>. The <b>HOMO–LUMO gap</b> is their energy difference: a small gap usually means a more reactive molecule that absorbs longer-wavelength light. B3LYP/6-31G* means the DFT functional B3LYP with the 6-31G* basis set.</p></div>
         ` },
         { title: 'AO vs MO', html: `
           <table class="tbl">

@@ -23,7 +23,8 @@ CHUNK({
           </table>
           <div class="note trap"><p>"Reducing electrode" does not mean reduction happens there. The anode reduces something else by handing it electrons, so the anode itself gets <b>oxidised</b>. Oxidation at the anode, reduction at the cathode, every time.</p></div>
           <div class="note why"><p>The electrolyte passes ions but not electrons. So electrons released at the anode have one route to the cathode: the outside wire. That forced detour is the current you use.</p></div>
-          <p>Cells in <b>series</b> add up their voltages; cells in <b>parallel</b> keep the same voltage and share the load, so the pack lasts longer.</p>
+          <p><b>Discharging</b> = the battery is being used and gives out current. <b>Charging</b> = an outside supply pushes current back in. The <b>active materials</b> are the electrode chemicals that actually react to produce the current.</p>
+          <p><b>Series</b> = cells joined end to end (+ of one to − of the next). <b>Parallel</b> = all + terminals joined together and all − terminals joined together. Cells in <b>series</b> add up their voltages; cells in <b>parallel</b> keep the same voltage and share the load, so the pack lasts longer.</p>
         ` },
         { title: 'Three families', html: `
           <p class="lead">Cells are sorted by two tests: can the reaction be <b>run backwards</b>, and are the chemicals <b>sealed in</b> or <b>fed through</b>.</p>
@@ -100,6 +101,7 @@ CHUNK({
             <li>It does <b>not contain metallic lithium</b> as the anode. The lithium lives inside the electrodes as Li<sup>+</sup>.</li>
             <li>Li<sup>+</sup> is the only thing that crosses the electrolyte: one way on charging, back on discharging.</li>
           </ul>
+          <div class="note why"><p><b>Li<sup>+</sup></b> is a lithium atom that has lost its one outer electron, so it carries a +1 charge. The solid it sits inside is called the <b>host</b>; the lithium is stored there like a guest, without the host itself being used up.</p></div>
           <h3>History</h3>
           <div class="kv">
             <div><span>First proposed</span><b>1970s</b></div>
@@ -138,6 +140,7 @@ CHUNK({
               <tr><td>Separator</td><td><b>Polyethylene (PE)</b>, <b>polypropylene (PP)</b> or PE/PP, with pores</td><td>Soaks up electrolyte and lets ions pass, but stops the electrodes touching</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p><b>Polyanionic</b> means the negative part is a group of atoms bonded together, such as phosphate PO<sub>4</sub><sup>3−</sup> or sulphate SO<sub>4</sub><sup>2−</sup>, instead of plain oxide O<sup>2−</sup>. <b>Organic carbonates</b> are carbon-based liquid solvents (here with a lithium salt dissolved in them to supply the ions). <b>Li<sub>0.5</sub>C<sub>6</sub></b> means about one Li for every 12 carbon atoms of graphite.</p></div>
           <figure data-fig="m2-liion-cutaway"></figure>
           <div class="note why"><p>Water can't be the electrolyte here. It splits above about 1.23 V, far below 3.7 V, and it reacts with lithiated graphite. Organic carbonates survive the voltage. The catch is that they burn, which comes back in the explosion story.</p></div>
           <div class="note why"><p>The separator works like a sieve made of an electrical insulator: pores wide enough for ions, but no path for electrons, so the electrodes can't touch and short in normal use. If the cell is badly built, they can (see the explosion causes).</p></div>
@@ -230,6 +233,12 @@ CHUNK({
         ` },
         { title: 'Pros, cons & fires', html: `
           <p class="lead">Li-ion wins on energy, voltage and convenience. It loses on cost, ageing and the need for protection, and its <b>flammable organic electrolyte</b> sits behind every explosion story.</p>
+          <div class="kv">
+            <div><span>Self-discharge</span><b>charge slowly lost while the battery just sits unused</b></div>
+            <div><span>Cycle</span><b>one full charge plus one full discharge</b></div>
+            <div><span>Capacity</span><b>how much charge the battery can hold and deliver</b></div>
+            <div><span>Short circuit</span><b>anode and cathode touch directly, so current rushes through with no load and heats the cell</b></div>
+          </div>
           <div class="vs">
             <div class="side"><h4>Advantages</h4>
               <ul>
@@ -308,6 +317,7 @@ CHUNK({
       tabs: [
         { title: 'What it is', html: `
           <p class="lead">A fuel cell converts <b>chemical potential energy</b> (the energy stored in molecular bonds) into <b>electrical energy</b>, <b>without combustion</b>.</p>
+          <div class="note why"><p><b>Combustion</b> = burning: fuel reacting with oxygen and releasing energy as heat and flame. <b>Efficiency</b> = the share of the fuel's energy that comes out as the form you want (here electricity); 40% means 40 of every 100 units become electricity and the rest is lost, mostly as heat.</p></div>
           <p>Because nothing burns, it gives a <b>higher electrical efficiency (≥ 40%)</b> than conventional power generation systems.</p>
           <div class="note why"><p>A power station burns fuel, makes steam, spins a turbine, then a generator. Every step loses energy, and the heat-to-work step has a hard thermodynamic ceiling. A fuel cell skips the whole chain: electrons come straight off the fuel molecule.</p></div>
           <figure data-fig="m2-fuel-cell-stack"></figure>
@@ -324,6 +334,7 @@ CHUNK({
             <li><b>Electrons detour</b> Electrons cannot pass through the electrolyte, so they travel round it through the external circuit to the cathode. That flow is the current.</li>
             <li><b>Water forms</b> At the cathode, protons react with oxygen (taking up the electrons) to form water.</li>
           </ol>
+          <div class="note why"><p>A <b>proton</b> here is just H<sup>+</sup>: a hydrogen atom (one proton + one electron) minus its electron. So "H<sub>2</sub> splits into protons and electrons" means H<sub>2</sub> → 2H<sup>+</sup> + 2e<sup>−</sup>.</p></div>
           <div class="note why"><p>The electrolyte is the whole point. If electrons could cross it, H<sub>2</sub> and O<sub>2</sub> would react right there and all you'd get is heat.</p></div>
           <div class="note exam"><p>A full "principle" answer names four things: which gas goes to which electrode, what splits at the anode, what crosses the electrolyte, and why the electrons take the outer circuit.</p></div>
         ` },
@@ -356,6 +367,7 @@ CHUNK({
             <div><span>Feed</span><b>H<sub>2</sub> at anode, O<sub>2</sub> at cathode</b></div>
             <div><span>Gas pressure</span><b>About 50 atm</b></div>
           </div>
+          <div class="note why"><p>A <b>catalyst</b> speeds up a reaction without being used up itself; Pt helps H<sub>2</sub> and O<sub>2</sub> molecules break apart on the electrode surface. <b>Porous</b> = full of tiny holes, like a sponge. <b>Aqueous</b> = dissolved in water. <b>atm</b> (atmosphere) is a pressure unit; 1 atm is normal air pressure, so 50 atm is fifty times that.</p></div>
           <figure data-fig="m2-afc-diagram"></figure>
           <p>The gases diffuse into their electrodes, and hydrogen is oxidised by oxygen to give nothing but water.</p>
           <div class="eq" data-label="Overall">2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</div>
@@ -445,6 +457,7 @@ CHUNK({
             <div><span>E°<sub>cell</sub></span><b>1.23 V</b></div>
           </div>
           <p>The cells run at <b>relatively low temperature</b>. That, plus the <b>precious-metal electrodes</b>, means they <b>must be operated on pure hydrogen</b>.</p>
+          <div class="note why"><p>A <b>polymer</b> is a very long chain molecule made of one small unit repeated thousands of times (plastics are polymers). A <b>membrane</b> is a thin sheet that lets some things through and stops others. <b>Teflon</b> is the non-stick polymer made of –CF<sub>2</sub>– units.</p></div>
           <figure data-fig="m2-nafion-structure"></figure>
           <p>Nafion is a Teflon-like chain of –CF<sub>2</sub>–CF<sub>2</sub>– units with side chains ending in <b>–SO<sub>3</sub>H</b> (sulfonic acid) groups, and it holds water (x H<sub>2</sub>O).</p>
           <div class="note why"><p>The –SO<sub>3</sub>H groups give up H<sup>+</sup>, and the absorbed water lets protons hop from one group to the next. The membrane has to stay wet, which is why the cell stays below about 80 °C.</p></div>
@@ -536,6 +549,7 @@ CHUNK({
             <li>It runs at the <b>highest temperature</b> of all fuel cell types.</li>
             <li>It resists <b>small quantities of sulphur</b> better than other fuel cells, so it can be used with <b>coal gas</b>.</li>
           </ul>
+          <div class="note why"><p>A <b>ceramic</b> is a hard, heat-resistant inorganic solid, usually a metal oxide (like pottery). <b>Zirconia</b> = ZrO<sub>2</sub>; <b>yttria</b> = Y<sub>2</sub>O<sub>3</sub>. "Stabilized" means the added yttria keeps zirconia in one crystal form that does not crack on heating. The <b>lattice</b> is the regular grid of ions in the solid; <b>coal gas</b> is a fuel gas made from coal, a mix of mainly H<sub>2</sub> and CO.</p></div>
           <div class="note why"><p>The heat is needed by the electrolyte. Putting Y<sup>3+</sup> in place of some Zr<sup>4+</sup> leaves gaps (oxygen vacancies) in the lattice, and O<sup>2−</sup> moves by hopping into those gaps. The hops are fast enough only when the ceramic is very hot.</p></div>
           <div class="note why"><p>CO works as a fuel because at 800–1000 °C oxide ions oxidise it straight to CO<sub>2</sub>, and there is no platinum catalyst for it to poison. The same heat makes the cell more forgiving of sulphur.</p></div>
         ` },
@@ -593,6 +607,7 @@ CHUNK({
             <li><b>Cogeneration of heat and power</b>: by-product gases go to turbines to make more electricity, raising overall efficiency.</li>
             <li><b>Auxiliary power units</b> in vehicles.</li>
           </ul>
+          <div class="note why"><p><b>Cogeneration</b> = using one fuel to make both electricity and useful heat, instead of throwing the heat away.</p></div>
           <div class="note why"><p>Low activation losses: at 800–1000 °C the electrode reactions run fast without a precious-metal catalyst, so less voltage is wasted just getting them going. Compatibility issues: hot layers expand by different amounts and can react with each other at their boundaries.</p></div>
           <div class="note heads-up"><p>Two temperature ranges appear: <b>800–1000 °C</b> (slide 37) and <b>500–1000 °C</b> (slide 41). Give 800–1000 °C as the operating range; 500 °C is the low end that newer intermediate-temperature SOFCs aim for.</p></div>
         ` },

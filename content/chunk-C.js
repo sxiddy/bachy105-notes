@@ -22,6 +22,7 @@ CHUNK({
             <div><span>Onshore electricity</span><b>≈ 60 TW</b></div>
             <div><span>Photosynthesis</span><b>90 TW</b></div>
           </div>
+          <div class="note why"><p><b>TW</b> = terawatt = 10<sup>12</sup> watts (a large power station is about 0.001 TW). <b>Albedo</b> = the fraction of sunlight a surface reflects straight back; 0.30 means 30% bounces off Earth. <b>Theoretical</b> potential is everything available; <b>practical</b> potential is what we could realistically collect given land, cost and weather.</p></div>
           <h3>Theoretical vs practical</h3>
           <ul>
             <li><b>Theoretical</b>: 1.2 × 10<sup>5</sup> TW. That is what remains of the 1.76 × 10<sup>5</sup> TW striking Earth once the <b>albedo (0.30)</b> has reflected part of it back to space.</li>
@@ -36,6 +37,7 @@ CHUNK({
         ` },
         { title: 'Four routes', html: `
           <p class="lead">Slide 44 sorts every way of tapping sunlight into four routes, A to D. They differ in the part of the spectrum they use and in how much of the energy they keep.</p>
+          <div class="note why"><p>The <b>spectrum</b> is sunlight split by wavelength: <b>UV</b> (ultraviolet, short, high energy), <b>visible</b> (the colours we see) and <b>IR</b> (infrared, long, felt as heat). <b>η</b> (eta) is the symbol for efficiency: useful energy out ÷ light energy in.</p></div>
           <table class="tbl">
             <thead><tr><th>Route</th><th>Example / material</th><th>Light used</th><th>Efficiency η</th></tr></thead>
             <tbody>
@@ -57,6 +59,7 @@ CHUNK({
         { title: 'Chemical routes', html: `
           <p class="lead">Route D uses chemistry rather than a plain semiconductor slab. It splits into copying plants (D1) and photoelectrochemical cells (D2), and D2 splits again by what the cell produces.</p>
           <ul>
+            <li><b>Photoelectrochemical (PEC)</b> = light (photo) + an electrochemical cell: light falls on an electrode dipped in an electrolyte and drives a redox reaction. A <b>liquid junction</b> is where a solid electrode meets a liquid electrolyte.</li>
             <li><b>D1: Biomimetism</b>, mimicking <b>photosynthesis</b> via chemicals.</li>
             <li><b>D2: PEC cells</b>, in two families:</li>
           </ul>
@@ -131,6 +134,7 @@ CHUNK({
         { title: 'Photovoltaic effect', html: `
           <p class="lead">A <b>solar cell</b> converts the energy of sunlight <b>directly into electricity</b> by the photovoltaic effect. No turbine, no moving parts.</p>
           <p>The <b>photovoltaic effect</b> is the creation of a <b>voltage</b> (or the matching electric current) in a material when it is exposed to <b>electromagnetic radiation</b>.</p>
+          <div class="note why"><p><b>Electromagnetic radiation</b> = light in the broad sense (UV, visible, IR, radio...). Light travels as tiny packets of energy called <b>photons</b>; a blue photon carries more energy than a red one. A photon is absorbed only if its energy is at least the band gap of the material (bands and band gap: see the Semiconductors topic).</p></div>
           <h3>Related to the photoelectric effect, but different</h3>
           <div class="vs">
             <div class="side"><h4>Photoelectric effect</h4><p>Light knocks electrons <b>out of</b> a surface (usually a metal) into the space around it.</p></div>
@@ -228,6 +232,7 @@ CHUNK({
             </tbody>
           </table>
           <p><small>On the slide: (i) = indirect, (d) = direct; dia = diamond, zb = zinc blende, ch = chalcopyrite.</small></p>
+          <div class="note why"><p><b>E<sub>g</sub></b> = band gap energy. In a <b>direct</b> gap material an electron can jump the gap by absorbing a photon alone; in an <b>indirect</b> gap material the jump also needs a lattice vibration to help, so absorption is much weaker. Diamond, zinc blende and chalcopyrite are just names of the atom arrangements (crystal structures); you do not need their details. The second table lists <b>transparent conductors</b>: coatings that let light through but still carry current. "In<sub>2</sub>O<sub>3</sub>:Sn" means In<sub>2</sub>O<sub>3</sub> doped with Sn.</p></div>
           <table class="tbl">
             <thead><tr><th>Material</th><th>E<sub>g</sub> (eV)</th></tr></thead>
             <tbody>
@@ -248,6 +253,7 @@ CHUNK({
         ` },
         { title: 'Band gap & efficiency', html: `
           <p class="lead">The band gap E<sub>g</sub> decides which photons a PV cell can use and how much of each photon's energy ends up as electricity. Too small or too large a gap both waste sunlight, so the best single-junction cells use a gap of about <b>1.1–1.5 eV</b>.</p>
+          <div class="note why"><p>Photon energy and wavelength (λ) are linked: <b>E (in eV) = 1240 / λ (in nm)</b>, where nm = nanometre = 10<sup>−9</sup> m. Shorter wavelength = more energy. Visible light runs from about 400 nm (violet, 3.1 eV) to 700 nm (red, 1.8 eV). A <b>single-junction</b> cell has just one p–n junction, so one band gap.</p></div>
           <ul>
             <li><b>Photons below E<sub>g</sub> are not absorbed</b>: a photon with less energy than the gap cannot lift an electron from the valence band to the conduction band, so it passes through the cell and gives no current. For Si (about 1.1 eV) this is light longer than about <b>1100 nm</b> (E = 1240/λ, with λ in nm).</li>
             <li><b>Excess energy above E<sub>g</sub> is lost as heat</b>: a photon with more energy than the gap makes one electron–hole pair, and the extra energy is shed as heat (lattice vibrations) as the electron drops to the bottom of the conduction band. A 2.5 eV blue photon in Si still gives only about 1.1 eV of useful energy; the other 1.4 eV warms the cell.</li>
@@ -332,6 +338,7 @@ CHUNK({
             <li><b>Redox driven</b> The separated charges drive <b>oxidation and reduction</b> reactions in the system.</li>
           </ol>
           <div class="eq" data-label="Condition for pair generation">hν &gt; E<sub>g</sub></div>
+          <div class="note why"><p><b>hν</b> is the energy of one photon: h is Planck's constant and ν (nu) the light's frequency. <b>Photoactive</b> = responds to light; <b>photocurrent</b> = current produced by light. <b>SC</b> is short for semiconductor. The <b>junction potential</b> is the built-in voltage that forms where the semiconductor meets the electrolyte, much like the one across a p–n junction.</p></div>
           <div class="note why"><p>A semiconductor touching an electrolyte behaves much like one half of a p–n junction. Charge flows across the interface until the energy levels match, which bends the bands near the surface and sets up a field. That field is the junction potential. In an n-type electrode it drives holes to the surface, where they oxidise something in solution, while electrons go round the external circuit and reduce something at the counter electrode.</p></div>
           <div class="note trap"><p>Photons with energy below E<sub>g</sub> do nothing, however bright the light. The condition is on the energy of each photon, not on the intensity.</p></div>
         ` },
@@ -354,6 +361,7 @@ CHUNK({
         ` },
         { title: 'Regenerative cells', html: `
           <p class="lead">A <b>regenerative</b> PEC cell is the electricity-making kind. One redox couple is oxidised at the semiconductor and reduced back at the counter electrode, so nothing gets used up.</p>
+          <div class="note why"><p><b>Red</b> and <b>Ox</b> are the reduced and oxidised forms of one dissolved species, a <b>redox couple</b> (for example I<sup>−</sup> and I<sub>3</sub><sup>−</sup>). The <b>counter electrode</b> is the second electrode, usually a metal, that completes the circuit. E<sub>v</sub> and E<sub>c</sub> mark the top of the valence band and the bottom of the conduction band.</p></div>
           <figure data-fig="m2-pec-band-diagram"></figure>
           <ol class="steps">
             <li><b>Absorb</b> A photon (hν) is absorbed in the <b>semiconductor electrode</b>; an electron jumps from the valence band (E<sub>v</sub>) to the conduction band (E<sub>c</sub>).</li>
@@ -377,6 +385,7 @@ CHUNK({
               <tr><td>4. <b>Applied bias</b> (external energy source)</td><td>Makes LJSCs <b>more efficient</b> by helping pull the carriers apart.</td></tr>
             </tbody>
           </table>
+          <div class="note why"><p>The <b>absorption coefficient α</b> measures how strongly a material soaks up light: large α means light is absorbed within a very thin layer. An <b>applied bias</b> is a small extra voltage from an outside source, added to help push the charges apart. <b>Spatial separation</b> = electrons and holes being moved to different places so they cannot recombine (meet and cancel).</p></div>
           <div class="note why"><p>Doping has a sweet spot. Too little and the electrode is a poor conductor; too much and the charged layer near the surface becomes so thin that pairs made deeper in the solid recombine before the field can reach them. Quantum efficiency is simply the fraction of absorbed photons that end up as collected electrons.</p></div>
           <div class="note example"><p>Using the slide 53 table: GaAs (1.424 eV, direct) and CdTe (1.45–1.5 eV, direct) satisfy conditions 1 and 3. c-Si (1.12 eV) has a good gap but is indirect, so it absorbs weakly and needs a thick layer.</p></div>
         ` },
@@ -392,6 +401,7 @@ CHUNK({
               <tr><td><b>Particulate systems</b> can be used</td><td>Powder grains suspended in the electrolyte each act as a tiny short-circuited cell, running both reactions on their own surface.</td></tr>
             </tbody>
           </table>
+          <p><b>In situ</b> = on the spot, in the same place. <b>Photocatalysis</b> = light-driven speeding-up of a reaction on a surface. <b>Particulate</b> = made of fine particles (a powder).</p>
           <div class="note exam"><p>Scenario questions usually hinge on cheap electrodes or hydrogen production. The points that score: junction by simple dipping, poly and thin-film electrodes as good as single crystal, and water splitting in situ.</p></div>
         ` }
       ],
@@ -444,6 +454,7 @@ CHUNK({
             <li>Dye states: <b>S<sub>o</sub></b> = ground state (reduced), <b>S<sup>+</sup></b> = oxidised, <b>S*</b> = excited state.</li>
             <li>The dyed TiO<sub>2</sub> side is the <b>anode</b> (the −ve plate); the counter electrode is the <b>cathode</b>.</li>
           </ul>
+          <div class="note why"><p>Words used here: a <b>dye</b> or <b>sensitizer</b> is a coloured molecule that absorbs visible light. <b>Nanoporous</b> = full of pores only nanometres wide (1 nm = 10<sup>−9</sup> m), giving a huge inner surface. A <b>ligand</b> is a molecule bonded to a central metal ion (here three bipyridyl molecules around Ru). <b>Ground state</b> = a molecule's normal, lowest-energy state; <b>excited state</b> = after it absorbs light and one electron sits at higher energy.</p></div>
           <div class="note why"><p>TiO<sub>2</sub> on its own absorbs only UV. The dye's job is to absorb visible light and hand the electron to the TiO<sub>2</sub>. So light absorption (dye) and charge transport (TiO<sub>2</sub>) are split between two materials, whereas in a silicon cell one material does both.</p></div>
           <div class="note heads-up"><p>The figure marks the anode "+" and the cathode "−". In the working cell the signs are the other way round: electrons pile up in the dyed TiO<sub>2</sub> plate, which slide 60 correctly calls the −ve plate, so the counter electrode is +. "Energitics" and "legand" in the figure mean energetics and ligand.</p></div>
         ` },
@@ -504,6 +515,7 @@ CHUNK({
             <li>Its <b>periphery should be hydrophobic</b>, for long-term stability of the cell.</li>
             <li><b>Co-absorbents</b> such as <b>chenodeoxycholic acid (CDCA)</b>, or <b>anchoring groups</b> such as alkoxy-silyl, phosphoric acid and <b>–COOH</b>, should be present to stop the dye <b>aggregating</b> on the TiO<sub>2</sub> surface.</li>
           </ul>
+          <div class="note why"><p><b>Luminescent</b> = gives out light after absorbing energy (shows the dye absorbs strongly). <b>UV-vis and NIR</b> = ultraviolet, visible and near-infrared light. <b>Periphery</b> = the outer edge of the molecule. <b>Hydrophobic</b> = water-repelling. <b>Aggregating</b> = clumping together. An <b>anchoring group</b> is the part of the dye that bonds it to the TiO<sub>2</sub>.</p></div>
           <div class="note why"><p>Water that reaches the TiO<sub>2</sub> surface can push the dye off, so a water-repelling outer shell keeps the cell alive longer. Dye molecules that clump together pass energy among themselves and waste it instead of each injecting an electron, so they must sit spread out and anchored.</p></div>
           <div class="note heads-up"><p>"Co-absorbents" on the slide means co-<b>ad</b>sorbents: CDCA sits on the TiO<sub>2</sub> surface next to the dye molecules and keeps them apart.</p></div>
           <h3>Kinds of dye</h3>
@@ -526,7 +538,7 @@ CHUNK({
           <ul>
             <li>The redox couple must <b>regenerate the oxidised dye</b> efficiently.</li>
             <li><b>Chemical, thermal and electrochemical stability</b>.</li>
-            <li><b>Non-corrosive</b> towards the DSSC components.</li>
+            <li><b>Non-corrosive</b> (does not eat away or damage) towards the DSSC components.</li>
             <li>Allows <b>fast diffusion</b> of charge carriers, enhances conductivity, and makes <b>effective contact</b> between the working and counter electrodes.</li>
           </ul>
           <h3>Counter electrode (CE)</h3>
