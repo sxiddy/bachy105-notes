@@ -41,7 +41,7 @@ node tools/fig.js content/chunk-H.js      # crop figures, check tmp/preview/
 node tools/validate.js --all              # 0 errors
 node tools/build.js                       # regenerates app/ and protected/
 node tools/qa.js                          # every route, tab and diagram loads
-git add -A && git commit -m "Add Module 5" && git push
+npm run ship -- "Add Module 5"            # build, QA, commit, push, deploy to Cloudflare, confirm live
 ```
 
-Vercel deploys on push. Nothing in `app/js/app.js`, `gate.js` or `api/` needs editing: the sidebar, home page, lock cards, paywall text, free/paid file lists and image access all follow `content/modules.json`.
+**A git push does not update the live site.** bachy105.notix.in runs on Cloudflare Workers and only changes on `wrangler deploy` (`npm run deploy`). `npm run ship` does the push and the deploy together and only reports LIVE once bachy105.notix.in serves the new bundle. Nothing in `app/js/app.js`, `gate.js` or `api/` needs editing: the sidebar, home page, lock cards, paywall text, free/paid file lists and image access all follow `content/modules.json`.

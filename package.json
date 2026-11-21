@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node server.js",
     "cf-build": "node tools/cf-build.js",
-    "deploy": "node tools/cf-build.js && wrangler deploy"
+    "deploy": "node tools/cf-build.js && wrangler deploy",
+    "ship": "node tools/ship.js"
   },
   "engines": {
     "node": ">=22"
