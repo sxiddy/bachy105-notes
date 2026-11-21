@@ -984,6 +984,25 @@ window.__startApp = function () {
     const pct = ids.length ? Math.round(ids.reduce((a, id) => a + fastProg(id).pct, 0) / ids.length) : 0;
     return { pct, weeks: ids.length, mins: ids.reduce((a, id) => a + (FAST[id].minutes || 0), 0), ids };
   }
+  // fast track: facts grouped by topic (in the order they appear), each past question placed under the topic most of its answer facts come from
+  function fastGroups(f) {
+    const facts = f.facts || [], order = [], G = {};
+    facts.forEach((x, k) => { if (!G[x.t]) { G[x.t] = { t: x.t, facts: [], qs: [] }; order.push(G[x.t]); } G[x.t].facts.push(Object.assign({ n: k + 1 }, x)); });
+    (f.practice || []).forEach((pq) => {
+      const c = {}; (pq.f || []).forEach((n) => { const t = facts[n - 1] && facts[n - 1].t; if (t) c[t] = (c[t] || 0) + 1; });
+      const best = Object.keys(c).sort((a, b) => c[b] - c[a])[0];
+      (G[best] || order[order.length - 1]).qs.push(pq);
+    });
+    return order;
+  }
+  function fastFig(t) {
+    const T = TOPIC[t]; if (!T) return '';
+    for (const tb of T.tabs || []) for (const x of String(tb.html || '').matchAll(/data-fig="([a-z0-9-]+)"/g)) if (FIGS[x[1]]) return x[1];
+    return '';
+  }
+  function fastPapers(pq) {
+    return (pq.from || []).map((id) => { const pp = PAPER[id] || PINDEX.find((y) => y.id === id); return pp ? esc((pp.short || pp.title).replace(/ paper$/, '')) : ''; }).filter(Boolean).join(' · ');
+  }
   // ---- fast-track sheet (start) ----
   // The printable Fast track sheet: a standalone light A4 document. modules = [{ num, title, minutes, facts: [{ star, html }], read: [name] }].
   function fastSheetHTML(weeks, opts) {
@@ -1077,10 +1096,41 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
   function printFast(ids) {
     const w = window.open('', '_blank');
     if (!w) { toast('Allow pop-ups for this site to save the PDF', 'warn'); return; }
-    const weeks = ids.map((id) => ({ id, num: +MOD[id].num, title: MOD[id].title, minutes: FAST[id].minutes || 0, facts: FAST[id].facts || [],
-      read: (FAST[id].hy || []).filter((t) => TOPIC[t]).map((t) => plain(TOPIC[t].short || TOPIC[t].title)) }));
-    w.document.write(fastSheetHTML(weeks, { mcqs: QS.filter((q) => q.options).length }));
-    w.document.close();
+    w.document.write('<p style="font:16px sans-serif;padding:24px">Making the PDF…</p>');
+    const keep = (html) => String(html || '').replace(/<(?!\/?(b|strong|i|em|sub|sup|br|div|span)\b)[^>]*>/g, '');
+    const mods = ids.map((id) => ({ id, m: MOD[id], f: FAST[id], groups: fastGroups(FAST[id]) }));
+    const figIds = []; mods.forEach((x) => x.groups.forEach((g) => { g.fig = fastFig(g.t); if (g.fig) figIds.push(g.fig); }));
+    Promise.all(figIds.map((id) => ((D.figs[id] || {}).svg ? loadSvg(id).catch(() => '') : Promise.resolve(`<img src="${location.origin}/img/${id}.webp">`)).then((svg) => [id, svg]))).then((pairs) => {
+      const SV = Object.fromEntries(pairs);
+      const body = mods.map((x) => `<section class="mod"><h1><small>Module ${+x.m.num}</small>${esc(x.m.title)}</h1>
+        ${x.groups.map((g, gi) => { const T = TOPIC[g.t]; return `<div class="topic"><h2><small>Topic ${gi + 1}</small>${T ? plain(T.title) : esc(g.t)}</h2>
+          ${g.fig && SV[g.fig] ? `<figure>${SV[g.fig]}${FIGS[g.fig] && FIGS[g.fig].caption ? `<figcaption>${keep(FIGS[g.fig].caption)}</figcaption>` : ''}</figure>` : ''}
+          <h3>Learn these</h3><ol class="facts">${g.facts.map((fx) => `<li class="${fx.star ? 'star' : ''}"><span class="n">${fx.n}</span><div>${fx.star ? '<span class="tag">Often asked</span> ' : ''}${keep(fx.html)}</div></li>`).join('')}</ol>
+          ${g.qs.length ? `<h3>Asked in past papers</h3>${g.qs.map((pq, qi) => `<div class="q"><p class="qt"><b>Q${qi + 1}.</b> ${keep(pq.q)}</p><p class="from">Asked in: ${fastPapers(pq)}</p><div class="ans"><b>Answer:</b>${(pq.f || []).map((n) => (x.f.facts[n - 1] ? `<p>${keep(x.f.facts[n - 1].html)}</p>` : '')).join('')}</div></div>`).join('')}` : ''}
+        </div>`; }).join('')}</section>`).join('');
+      w.document.open();
+      w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Fast track · BACHY105</title><style>
+@page { size: A4; margin: 14mm; }
+body { font: 10.5pt/1.5 Georgia, serif; color: #16181d; max-width: 180mm; margin: 0 auto; padding: 10px; }
+.bar { position: sticky; top: 0; background: #16181d; color: #fff; padding: 10px; text-align: center; font: 14px sans-serif; }
+.bar button { margin-left: 10px; padding: 6px 14px; font-weight: 600; }
+.mod { break-before: page; } .mod:first-of-type { break-before: auto; }
+h1 { font: 700 22pt/1.15 Arial, sans-serif; border-bottom: 2.5pt solid #16181d; padding-bottom: 6px; margin: 0 0 6px; }
+h1 small, h2 small { display: block; font: 600 8pt Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #777; margin-bottom: 3px; }
+.topic { margin-top: 9mm; } h2 { font: 700 14.5pt/1.25 Arial, sans-serif; margin: 0 0 4px; padding: 6px 10px; background: #eef1f5; border-left: 4pt solid #2a6a96; break-after: avoid; }
+h3 { font: 700 8.5pt Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #2a6a96; margin: 12px 0 4px; break-after: avoid; }
+figure { margin: 8px auto; text-align: center; break-inside: avoid; } figure svg, figure img { max-width: 100%; max-height: 95mm; height: auto; } figcaption { font: 8.5pt Arial, sans-serif; color: #555; margin-top: 3px; }
+.facts { list-style: none; padding: 0; margin: 0; } .facts li { display: grid; grid-template-columns: 8mm 1fr; padding: 4px 0; border-bottom: .5pt dashed #ddd; break-inside: avoid; }
+.facts .n { font: 700 8pt Arial, sans-serif; color: #888; padding-top: 2px; } .facts li.star .n { color: #a8601f; }
+.tag { font: 700 7pt Arial, sans-serif; color: #a8601f; border: .7pt solid #a8601f; border-radius: 6px; padding: 0 4px; }
+.q { margin: 8px 0; padding: 8px 10px; border: .8pt solid #cfd5dc; border-radius: 6px; break-inside: avoid; } .q p { margin: 0; } .from { font: 8.5pt Arial, sans-serif; color: #666; margin: 2px 0 6px !important; }
+.ans { background: #f6f7f9; padding: 6px 9px; border-radius: 4px; } .ans p { margin: 3px 0 0 !important; }
+svg { --white: #16181d; --text-2: #3d424b; --text-dim: #6b717b; --line-2: #c4c8ce; --surface: #fff; --surface-2: #eef0f3; --surface-3: #e2e5e9; --dg-b: #1f6fb8; --dg-o: #c2621a; --dg-r: #c0392b; --dg-p: #7b4fc9; --dg-g: #1f8a55; --dg-y: #9a7400; font-family: Arial, sans-serif; }
+${'.dt{fill:var(--white)}.dt2{fill:var(--text-2)}.dt3{fill:var(--text-dim)}.dtb{fill:var(--dg-b)}.dto{fill:var(--dg-o)}.dtr{fill:var(--dg-r)}.dtp{fill:var(--dg-p)}.dtg{fill:var(--dg-g)}.dty{fill:var(--dg-y)}.ds,.dsw{stroke:var(--white)}.ds2{stroke:var(--text-dim)}.ds3{stroke:var(--line-2)}.dsb{stroke:var(--dg-b)}.dso{stroke:var(--dg-o)}.dsr{stroke:var(--dg-r)}.dsp{stroke:var(--dg-p)}.dsg{stroke:var(--dg-g)}.dsy{stroke:var(--dg-y)}.df{fill:var(--surface)}.df2{fill:var(--surface-2)}.df3{fill:var(--surface-3)}.dfw{fill:var(--white)}.dfd{fill:var(--text-dim)}.dfb{fill:var(--dg-b)}.dfo{fill:var(--dg-o)}.dfr{fill:var(--dg-r)}.dfp{fill:var(--dg-p)}.dfg{fill:var(--dg-g)}.dfy{fill:var(--dg-y)}'}
+@media print { .bar { display: none; } }
+</style></head><body><div class="bar">Pick <b>Save as PDF</b> as the printer. <button onclick="print()">Print / Save as PDF</button></div>${body}<script>setTimeout(function(){print()},600)<\/script></body></html>`);
+      w.document.close();
+    });
   }
   function viewFast(r) {
     const el = h('div', { class: 'view fast' });
@@ -1107,12 +1157,15 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
     el.innerHTML = `
       <div class="eyebrow"><span class="code">Fast track</span><span>Module ${+m.num}</span><span class="dot">·</span><span>about ${fmtMins(f.minutes || 0)}</span></div>
       <h1 class="h-display">${esc(m.title)}</h1>
-      <div class="fast-prog"><div class="ring" data-ring><span></span></div><p class="muted">Read the facts, try the past exam questions and the MCQs, then tick the module off.</p><button class="btn small" data-act="fastpdf" style="margin-left:auto">${icon('download')}Save as PDF</button></div>
-      <section class="sum-sec"><h2 class="h-sec">Must-know facts</h2>
-        <ol class="fast-facts">${(f.facts || []).map((x, k) => `<li id="ff-${k + 1}" class="${x.star ? 'star' : ''}"><span class="fnum" aria-hidden="true"></span><div class="prose">${x.star ? '<span class="hy-tag">Often asked</span> ' : ''}${x.html}${TOPIC[x.t] ? ` <a class="fsrc" href="#${x.t}">${rt(TOPIC[x.t].short || TOPIC[x.t].title)} →</a>` : ''}</div></li>`).join('')}</ol>
-      </section>
-      ${hy.length ? `<section class="sum-sec"><h2 class="h-sec">Read these in full</h2><p class="muted" style="margin-top:0">The topics the past CAT and FAT papers keep asking, most-asked first. If you open only a few, open these.</p><div>${hy.map((t) => topicRow(TOPIC[t])).join('')}</div></section>` : ''}
-      ${(f.practice || []).length ? `<section class="sum-sec"><h2 class="h-sec">Past exam questions</h2><p class="muted" style="margin-top:0">Every question the past CAT and FAT papers asked from this module. Try each one, then check it against the facts listed under it.</p><ol class="fast-qs">${f.practice.map((pq) => { const ps = (pq.from || []).map((id) => { const pp = PAPER[id] || PINDEX.find((y) => y.id === id); return pp ? esc((pp.short || pp.title).replace(/ paper$/, '')) : ''; }).filter(Boolean); return `<li><p>${pq.q}</p><p class="fast-qmeta">${ps.length ? `<span>${ps.join(' · ')}</span>` : ''}${(pq.f || []).length ? `<span>Answer from facts ${pq.f.map((n) => `<a href="#" data-ff="${n}">${n}</a>`).join(', ')}</span>` : ''}</p></li>`; }).join('')}</ol></section>` : ''}
+      <div class="fast-prog"><div class="ring" data-ring><span></span></div><p class="muted">Go topic by topic: learn the facts, try the past questions, then do the 10 MCQs at the end.</p><button class="btn small" data-act="fastpdf" style="margin-left:auto">${icon('download')}Save as PDF</button></div>
+      <div class="ft-how"><b>How to use this page.</b> The module is split into its topics, in syllabus order. Each topic has <b>a diagram</b> (when there is one), <b>the facts to learn</b> (numbered; <span class="hy-tag">Often asked</span> means the past papers ask it a lot), and <b>the questions past CAT and FAT papers asked</b> on it. Try a question first, then tap <b>Show answer</b>.</div>
+      ${fastGroups(f).map((g, gi) => { const T = TOPIC[g.t], fig = fastFig(g.t); return `<section class="ft-topic">
+        <h2 class="ft-h"><span class="ft-k">Topic ${gi + 1}</span>${T ? rt(T.title) : esc(g.t)}${T ? ` <a class="fsrc" href="#${g.t}">Open full notes →</a>` : ''}</h2>
+        ${fig ? `<figure data-fig="${fig}"></figure>` : ''}
+        <h3 class="ft-sub">Learn these</h3>
+        <ol class="fast-facts">${g.facts.map((x) => `<li id="ff-${x.n}" class="${x.star ? 'star' : ''}"><span class="fnum" aria-hidden="true">${String(x.n).padStart(2, '0')}</span><div class="prose">${x.star ? '<span class="hy-tag">Often asked</span> ' : ''}${x.html}</div></li>`).join('')}</ol>
+        ${g.qs.length ? `<h3 class="ft-sub">Asked in past papers</h3><ol class="fast-qs">${g.qs.map((pq) => { const ps = fastPapers(pq); return `<li><p class="ft-q">${pq.q}</p>${ps ? `<p class="fast-qmeta">Asked in: ${ps}</p>` : ''}<details class="ft-ans"><summary>Show answer</summary><div class="prose">${(pq.f || []).map((n) => (f.facts[n - 1] ? `<p><a href="#" data-ff="${n}" class="ft-n">${n}</a> ${f.facts[n - 1].html}</p>` : '')).join('')}</div></details></li>`; }).join('')}</ol>` : ''}
+      </section>`; }).join('')}
       <section class="sum-sec"><h2 class="h-sec">Lock it in: 10 MCQs</h2><p class="muted" style="margin-top:0" data-mcqcount></p><div data-mcqs></div></section>
       <div class="btn-row fast-end"><button class="btn primary" data-done></button>${nextId ? `<a class="btn" href="#fast.${nextId}">Next: Module ${+MOD[nextId].num} ${icon('right')}</a>` : `<a class="btn" href="#fast">All modules</a>`}</div>`;
     const holder = $('[data-mcqs]', el), cnt = $('[data-mcqcount]', el), doneBtn = $('[data-done]', el);
@@ -1127,6 +1180,7 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
     $('[data-act="fastpdf"]', el).addEventListener('click', () => printFast([mid]));
     doneBtn.addEventListener('click', () => { st.done = !st.done; save(); if (st.done) toast(`Module ${+m.num} fast track done`, 'check'); paint(); });
     el.addEventListener('click', (e) => { const a = e.target.closest('[data-ff]'); if (!a) return; e.preventDefault(); const li = $('#ff-' + a.dataset.ff, el); if (!li) return; li.scrollIntoView({ behavior: 'smooth', block: 'center' }); li.classList.remove('ff-hit'); void li.offsetWidth; li.classList.add('ff-hit'); });
+    hydrate(el);
     paint();
     return { el };
   }
