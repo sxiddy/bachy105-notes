@@ -15,7 +15,7 @@ const VIZ_IDS = new Set((['app/js/viz', 'viz-paid'].filter((d) => fs.existsSync(
   .map((f) => [...fs.readFileSync(path.join(ROOT, d, f), 'utf8').matchAll(/\bregister\('([a-z0-9-]+)'/g)].map((m) => m[1])))).flat(2));
 const TAGS = new Set('p h3 h4 b em sub sup br ul ol li table thead tbody tr th td div span figure details summary small code'.split(' '));
 const VOID = new Set(['br']);
-const CLASSES = new Set('lead eq frac tbl kv vs side steps chips chip note why exam trap heads-up example worked given solve result mnemonic more'.split(' '));
+const CLASSES = new Set('eq-steps int isg lims lead eq frac tbl kv vs side steps chips chip note why exam trap heads-up example worked given solve result mnemonic more'.split(' '));
 const ATTRS = new Set(['class', 'data-fig', 'data-viz', 'data-label', 'colspan', 'rowspan']);
 const BANNED = [
   'delve', 'crucial', 'pivotal', 'vital role', 'landscape', 'realm', 'harness', 'leverage', 'seamless', 'robust',
