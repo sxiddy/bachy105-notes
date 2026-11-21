@@ -144,6 +144,10 @@ window.__startApp = function () {
   // Fast track (content/fast-mX.js): starred facts, high-yield topics and 10 must-do MCQs per module
   const FAST = D.fast || {};
   const HY = new Set([].concat(...Object.values(FAST).map((f) => f.hy || [])));
+  // Important topics: asked in 3 or more of the real CAT/FAT papers, starred in the sidebar.
+  const IMP = {};
+  (D.papers || []).filter((p) => p.kind === 'actual').forEach((p) => new Set([].concat(...(p.questions || []).map((q) => q.topics || []))).forEach((t) => { IMP[t] = (IMP[t] || 0) + 1; }));
+  const impStar = (tid) => (IMP[tid] >= 3 ? `<span class="imp-star" title="Important: asked in ${IMP[tid]} past papers" aria-label="Important, asked in ${IMP[tid]} past papers">★</span>` : '');
   const hyTag = (tid) => (HY.has(tid) ? '<span class="hy-tag" title="Topics the quizzes keep coming back to">Often asked</span>' : '');
   // Modules whose files were not loaded (not paid, or not in a single-module grant) show as locked.
   MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && !m.free && !m.topics.length; });
@@ -377,7 +381,7 @@ window.__startApp = function () {
               <span class="sb-gcount" data-count="${m.id}"></span>${icon('chev', 'sb-chev')}
             </button>
             <div class="sb-items"><div>
-              ${m.topics.map((t, i) => rowHead(m, t, i, 'sb-row') + `<a class="sb-topic" href="#${t.id}" data-key="${t.id}"><span class="tick" data-tick="${t.id}"></span><span class="lbl">${rt(t.short || t.title)}</span><button class="tag-dot" data-act="tag" data-t="${t.id}" title="Colour tag" aria-label="Colour tag for ${rt(t.short || t.title)}"></button></a>`).join('')}
+              ${m.topics.map((t, i) => rowHead(m, t, i, 'sb-row') + `<a class="sb-topic" href="#${t.id}" data-key="${t.id}"><span class="tick" data-tick="${t.id}"></span><span class="lbl">${rt(t.short || t.title)}</span>${impStar(t.id)}<button class="tag-dot" data-act="tag" data-t="${t.id}" title="Colour tag" aria-label="Colour tag for ${rt(t.short || t.title)}"></button></a>`).join('')}
               <a class="sb-topic summary" href="#${m.id}-summary" data-key="${m.id}-summary">${icon('book')}<span class="lbl">Module summary</span></a>
             </div></div>
           </div>`).join('')}

@@ -116,6 +116,7 @@ svg.i { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none;
 .sb-group.closed .sb-items { grid-template-rows: 0fr; }
 .sb-items > div { overflow: hidden; padding-left: 8px; }
 .sb-topic .lbl { flex: 1; min-width: 0; }
+.imp-star { flex: none; font-size: 12px; line-height: 1; color: var(--warn); }
 .sb-topic.summary .lbl { font-family: var(--serif); font-style: italic; font-size: 15px; }
 .sb-topic.sub { font-size: 13px; padding-left: 28px; color: var(--text-dim); }
 .tick {
