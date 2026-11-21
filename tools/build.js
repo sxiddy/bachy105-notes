@@ -127,6 +127,14 @@ if (fs.existsSync(path.join(CONTENT, 'papers-free.js'))) {
     if (q.answer != null) (answers[p.id] = answers[p.id] || {})[q.n] = q.answer;
     const o = Object.assign({}, q); delete o.answer; return o;
   }) }));
+  // every topic a real paper's question is tagged with counts as asked, even if the hand-written map missed it
+  d.asked = Object.assign({}, d.asked || {});
+  const plainQ = (h) => String(h || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
+  (d.papers || []).filter((p) => p.kind === 'actual').forEach((p) => (p.questions || []).forEach((q) => (q.topics || []).forEach((t) => {
+    const list = [].concat(d.asked[t] || []);
+    if (list.some((x) => x.paper === p.id)) return;
+    const w = plainQ(q.prompt); list.push({ where: 'Q' + q.n, what: w.length > 120 ? w.slice(0, 117).replace(/\s\S*$/, '') + '…' : w, paper: p.id }); d.asked[t] = list;
+  })));
   const asked = {};
   for (const [t, v] of Object.entries(d.asked || {})) asked[t] = [].concat(v).map((x) => ({ paper: x.paper })); // which paper (so free can say CAT-1/CAT-2/FAT); what/where stay Pro
   write('papers-free.js', js('PAPERS', Object.assign({}, d, { papers, asked }))); freeFiles.push('papers-free.js');
