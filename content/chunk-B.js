@@ -536,101 +536,107 @@ CHUNK({
       source: 'Slides 37–41',
       tabs: [
         { title: 'What it is', html: `
-          <p class="lead">An SOFC is a <b>high-temperature</b> fuel cell whose electrolyte is a <b>solid ceramic inorganic oxide</b>, not a liquid or a membrane. That is why it is also called a <b>ceramic fuel cell</b>.</p>
+          <p class="lead">A fuel cell is a <b>battery that never runs flat</b>: you keep feeding it fuel and air, and it keeps making electricity. The SOFC is the fuel cell whose middle layer is a <b>hot ceramic</b> (like a very hard pottery plate).</p>
+          <h3>The idea in 30 seconds</h3>
+          <ol class="steps">
+            <li><b>Air side</b> Oxygen from the air grabs electrons and becomes <b>oxide ions, O<sup>2−</sup></b>.</li>
+            <li><b>Through the ceramic</b> Only O<sup>2−</sup> can pass through the ceramic plate. It walks across to the fuel side.</li>
+            <li><b>Fuel side</b> O<sup>2−</sup> burns the fuel (H<sub>2</sub> and CO) into H<sub>2</sub>O and CO<sub>2</sub>, and gives its electrons back.</li>
+            <li><b>Outside wire</b> Those electrons flow through the wire back to the air side. That flow is the electricity.</li>
+          </ol>
+          <h3>Facts to remember</h3>
           <div class="kv">
-            <div><span>Electrolyte</span><b>Yttria-stabilized zirconia (YSZ)</b></div>
-            <div><span>YSZ is</span><b>ZrO<sub>2</sub> stabilized with Y<sub>2</sub>O<sub>3</sub></b></div>
-            <div><span>Fuels</span><b>H<sub>2</sub> and CO</b></div>
-            <div><span>Temperature</span><b>800–1000 °C</b></div>
-            <div><span>Efficiency, fuel → electricity</span><b>Over 60%</b></div>
-            <div><span>Sulphur in fuel</span><b>Relatively tolerant</b></div>
+            <div><span>Full name</span><b>Solid Oxide Fuel Cell (also called a ceramic fuel cell)</b></div>
+            <div><span>Electrolyte</span><b>YSZ: zirconia (ZrO<sub>2</sub>) with a little yttria (Y<sub>2</sub>O<sub>3</sub>) added</b></div>
+            <div><span>Ion that moves</span><b>O<sup>2−</sup>, from the air side to the fuel side</b></div>
+            <div><span>Fuels</span><b>H<sub>2</sub> and CO (so coal gas works)</b></div>
+            <div><span>Temperature</span><b>800–1000 °C, the hottest fuel cell</b></div>
+            <div><span>Efficiency</span><b>Over 60%</b></div>
           </div>
-          <ul>
-            <li>It runs at the <b>highest temperature</b> of all fuel cell types.</li>
-            <li>It resists <b>small quantities of sulphur</b> better than other fuel cells, so it can be used with <b>coal gas</b>.</li>
-          </ul>
-          <div class="note why"><p>A <b>ceramic</b> is a hard, heat-resistant inorganic solid, usually a metal oxide (like pottery). <b>Zirconia</b> = ZrO<sub>2</sub>; <b>yttria</b> = Y<sub>2</sub>O<sub>3</sub>. "Stabilized" means the added yttria keeps zirconia in one crystal form that does not crack on heating. The <b>lattice</b> is the regular grid of ions in the solid; <b>coal gas</b> is a fuel gas made from coal, a mix of mainly H<sub>2</sub> and CO.</p></div>
-          <div class="note why"><p>The heat is needed by the electrolyte. Putting Y<sup>3+</sup> in place of some Zr<sup>4+</sup> leaves gaps (oxygen vacancies) in the lattice, and O<sup>2−</sup> moves by hopping into those gaps. The hops are fast enough only when the ceramic is very hot.</p></div>
-          <div class="note why"><p>CO works as a fuel because at 800–1000 °C oxide ions oxidise it straight to CO<sub>2</sub>, and there is no platinum catalyst for it to poison. The same heat makes the cell more forgiving of sulphur.</p></div>
+          <div class="note why"><p><b>Why so hot?</b> O<sup>2−</sup> moves through the ceramic by hopping into small gaps in it. It only hops fast enough when the ceramic is red hot. The yttria is added on purpose to make those gaps.</p></div>
+          <div class="note why"><p><b>Why can it use CO and dirty fuel?</b> At that heat the reactions run fast without platinum, and there is no platinum for CO or sulphur to poison. So it can burn coal gas, which a PEM fuel cell cannot.</p></div>
         ` },
         { title: 'Structure', html: `
-          <p class="lead">Three solid layers: a <b>porous Ni–YSZ cermet anode</b> on the fuel side, an <b>oxide-ion conducting ceramic electrolyte</b> in the middle, and a <b>porous ceramic cathode</b> such as LSM on the air side.</p>
-          <table class="tbl">
-            <thead><tr><th>Layer</th><th>Material</th><th>Built this way because</th></tr></thead>
-            <tbody>
-              <tr><td>Anode, or fuel electrode</td><td><b>Nickel mixed with YSZ</b> = <b>Ni–YSZ cermet</b> (a cermet is a mixture of ceramic and metal)</td><td>It is a <b>porous</b> ceramic layer, so fuel can flow through to the electrolyte</td></tr>
-              <tr><td>Cathode, or air electrode</td><td>A <b>mixed ion-conducting and electronically conducting</b> ceramic, e.g. <b>strontium-doped lanthanum manganite (LSM)</b></td><td>A thin <b>porous</b> ceramic layer where <b>oxygen reduction</b> takes place</td></tr>
-              <tr><td>Electrolyte</td><td><b>Oxide-ion (O<sup>2−</sup>) conducting ceramic</b>. Most popular: a <b>bilayer</b> of YSZ + <b>gadolinium-doped CeO<sub>2</sub> (GDC)</b>, or a mixture of ZrO and CaO</td><td>Solid and dense: passes O<sup>2−</sup> but blocks electrons and gas</td></tr>
-            </tbody>
-          </table>
-          <div class="note why"><p>A cermet does two jobs at once. Nickel conducts electrons and speeds up fuel oxidation; the YSZ in the mix conducts O<sup>2−</sup> and expands with heat much like the electrolyte beside it, so the layers don't crack apart at 1000 °C.</p></div>
-          <div class="note why"><p>The cathode has to pass electrons (arriving from the circuit) and O<sup>2−</sup> (leaving into the electrolyte). A mixed conductor handles both in one material.</p></div>
-          <div class="note heads-up"><p>"ZrO" on the slide should read <b>ZrO<sub>2</sub></b> (zirconia); ZrO<sub>2</sub> with CaO is calcia-stabilized zirconia. The slide also says the cathode is coated "over the solid electrode"; it is coated on the solid electrolyte.</p></div>
+          <p class="lead">An SOFC is a <b>sandwich of three solid layers</b>: fuel electrode, ceramic in the middle, air electrode.</p>
+          <div class="vs">
+            <div class="side"><h4>Anode (fuel side, −)</h4><p><b>Ni–YSZ cermet</b>: nickel metal mixed with the ceramic. <b>Porous</b>, so fuel gas can soak in.</p></div>
+            <div class="side"><h4>Cathode (air side, +)</h4><p><b>LSM</b> (strontium-doped lanthanum manganite), a ceramic. <b>Porous</b>, so air can soak in.</p></div>
+          </div>
+          <div class="vs">
+            <div class="side"><h4>Electrolyte (middle)</h4><p><b>YSZ</b> ceramic, <b>dense</b> (no holes). Lets O<sup>2−</sup> through, blocks gas and electrons.</p></div>
+            <div class="side"><h4>Outside wire</h4><p>Carries the electrons from anode to cathode: this is the current you use.</p></div>
+          </div>
+          <h3>Why each layer is made that way</h3>
+          <ul>
+            <li><b>Electrodes are porous</b> because gas has to reach the ceramic surface to react.</li>
+            <li><b>The electrolyte is dense</b> because if fuel and air mixed directly they would just burn, with no electricity made.</li>
+            <li><b>Nickel</b> in the anode carries electrons and helps burn the fuel. The YSZ mixed in expands with heat like the middle layer, so the sandwich does not crack.</li>
+          </ul>
+          <div class="note exam"><p>For the diagram: draw three vertical layers. Label <b>fuel (H<sub>2</sub>, CO) in</b> on the left, <b>air (O<sub>2</sub>) in</b> on the right, an arrow for <b>O<sup>2−</sup> going right to left</b> through the middle, <b>H<sub>2</sub>O + CO<sub>2</sub> out</b> on the fuel side, and a wire with <b>e<sup>−</sup> going left to right</b> on top.</p></div>
+          <div class="note heads-up"><p>Some slides also name the electrolyte as a YSZ + GDC (gadolinium-doped ceria) bilayer, or zirconia with CaO. For the exam, <b>YSZ</b> is enough.</p></div>
         ` },
         { title: 'Reactions', html: `
-          <p class="lead">Here the moving ion is <b>O<sup>2−</sup></b>. Oxygen picks up electrons at the cathode, crosses the ceramic as O<sup>2−</sup>, and oxidises the fuel at the anode.</p>
+          <p class="lead">Only two reactions, one on each side. Oxygen <b>gains</b> electrons on the air side, fuel <b>loses</b> electrons on the fuel side.</p>
           <figure data-fig="m2-sofc-diagram"></figure>
-          <div class="eq" data-label="At cathode (reduction)">O<sub>2</sub>(g) + 4e<sup>−</sup> → 2O<sup>2−</sup></div>
-          <div class="eq" data-label="At anode (oxidation)">H<sub>2</sub>(g) + CO(g) + 2O<sup>2−</sup> → H<sub>2</sub>O(g) + CO<sub>2</sub>(g) + 4e<sup>−</sup></div>
-          <div class="eq" data-label="Net reaction">H<sub>2</sub>(g) + CO(g) + O<sub>2</sub>(g) → H<sub>2</sub>O(g) + CO<sub>2</sub>(g)</div>
-          <p>The figure writes the same chemistry one fuel at a time, per 2 electrons:</p>
-          <div class="eq" data-label="Anode, CO">CO + O<sup>2−</sup> → CO<sub>2</sub> + 2e<sup>−</sup></div>
-          <div class="eq" data-label="Anode, H₂">H<sub>2</sub> + O<sup>2−</sup> → H<sub>2</sub>O + 2e<sup>−</sup></div>
-          <div class="eq" data-label="Cathode">½O<sub>2</sub> + 2e<sup>−</sup> → O<sup>2−</sup></div>
-          <p>Add the two anode lines and double the cathode line, and you get the slide's 4-electron equations.</p>
-          <div class="note trap"><p>O<sup>2−</sup> travels <b>cathode → anode</b>, so the products (CO<sub>2</sub>, H<sub>2</sub>O) leave on the <b>fuel side</b>; only excess air leaves the cathode. In a PEMFC, H<sup>+</sup> goes the other way and water forms at the cathode.</p></div>
-          <div class="note trap"><p>The figure labels the anode <b>Ni–ZrO<sub>2</sub> cermet</b> and the cathode <b>LaMnO<sub>3</sub></b>. Same materials as the text: YSZ is zirconia-based, and LSM is LaMnO<sub>3</sub> doped with strontium.</p></div>
+          <h3>Simple version (learn this first)</h3>
+          <div class="eq" data-label="Cathode, air side (reduction)">½O<sub>2</sub> + 2e<sup>−</sup> → O<sup>2−</sup></div>
+          <div class="eq" data-label="Anode, fuel side, with H₂">H<sub>2</sub> + O<sup>2−</sup> → H<sub>2</sub>O + 2e<sup>−</sup></div>
+          <div class="eq" data-label="Anode, fuel side, with CO">CO + O<sup>2−</sup> → CO<sub>2</sub> + 2e<sup>−</sup></div>
+          <p>Read them as a story: oxygen takes 2 electrons and becomes O<sup>2−</sup>; O<sup>2−</sup> crosses over; it joins H<sub>2</sub> to make water (or CO to make CO<sub>2</sub>) and lets the 2 electrons go into the wire.</p>
+          <h3>Full version (as on the slides)</h3>
+          <div class="eq" data-label="Cathode">O<sub>2</sub> + 4e<sup>−</sup> → 2O<sup>2−</sup></div>
+          <div class="eq" data-label="Anode">H<sub>2</sub> + CO + 2O<sup>2−</sup> → H<sub>2</sub>O + CO<sub>2</sub> + 4e<sup>−</sup></div>
+          <div class="eq" data-label="Overall">H<sub>2</sub> + CO + O<sub>2</sub> → H<sub>2</sub>O + CO<sub>2</sub></div>
+          <p>This is just the simple version with both fuels added together and the cathode line doubled.</p>
+          <div class="note trap"><p><b>The water comes out on the fuel side</b> (anode), because O<sup>2−</sup> travels to the fuel. In a PEM fuel cell it is the opposite: H<sup>+</sup> travels to the air, so water forms at the cathode. This difference is asked a lot.</p></div>
+          <div class="note heads-up"><p>The diagram labels the anode Ni–ZrO<sub>2</sub> cermet and the cathode LaMnO<sub>3</sub>. These are the same materials as Ni–YSZ and LSM, just named more simply.</p></div>
         ` },
         { title: 'Pros, cons & uses', html: `
-          <p class="lead">Being <b>all-solid</b> and <b>hot</b> is both the SOFC's strength and its problem.</p>
+          <p class="lead">Almost every pro and con comes from two facts: it is <b>all solid</b>, and it is <b>very hot</b>.</p>
           <div class="vs">
             <div class="side"><h4>Advantages</h4>
               <ul>
-                <li>All components solid: <b>no electrolyte-loss maintenance</b>, and <b>electrode corrosion is eliminated</b>.</li>
-                <li>High temperature: <b>better tolerance of impurities</b>, so a longer life.</li>
-                <li><b>High efficiency</b> for electricity, from high-quality waste heat for <b>cogeneration</b> and <b>low activation losses</b>.</li>
-                <li><b>Low emissions</b>: negligible pollution, the <b>cleanest</b> of all fuel cells.</li>
+                <li><b>All solid</b>: no liquid to leak or top up, and the electrodes do not corrode.</li>
+                <li><b>Takes dirty fuel</b> (CO, a little sulphur), so it lasts longer.</li>
+                <li><b>High efficiency</b>: over 60%, more if the hot exhaust is reused (cogeneration).</li>
+                <li><b>No platinum</b> needed, and the <b>cleanest</b> fuel cell (very low pollution).</li>
               </ul>
             </div>
             <div class="side"><h4>Disadvantages</h4>
               <ul>
-                <li><b>High operating temperature (500–1000 °C)</b>: <b>longer start-up times</b> and mechanical/chemical <b>compatibility issues</b>.</li>
-                <li><b>Cost</b> and <b>complex fabrication</b> are still problems to solve.</li>
+                <li><b>Very hot</b>: takes a long time to start up.</li>
+                <li>The hot layers expand differently and can <b>crack or react</b> with each other.</li>
+                <li><b>Expensive</b> and hard to make.</li>
               </ul>
             </div>
           </div>
-          <h3>Applications</h3>
+          <h3>Where it is used</h3>
+          <p>Anywhere that runs <b>non-stop</b> and can use the heat. Slow start-up does not matter there.</p>
           <ul>
-            <li><b>Power systems</b> for trains, ships and vehicles.</li>
-            <li>Electrical power for <b>residential or industrial</b> utility.</li>
-            <li><b>Stationary power generation</b>.</li>
-            <li><b>Cogeneration of heat and power</b>: by-product gases go to turbines to make more electricity, raising overall efficiency.</li>
-            <li><b>Auxiliary power units</b> in vehicles.</li>
+            <li>Power plants and <b>stationary power</b> for homes and factories.</li>
+            <li><b>Cogeneration</b>: electricity plus useful heat from one fuel (the hot exhaust drives a turbine too).</li>
+            <li>Power for <b>trains and ships</b>, and auxiliary power units in vehicles.</li>
           </ul>
-          <div class="note why"><p><b>Cogeneration</b> = using one fuel to make both electricity and useful heat, instead of throwing the heat away.</p></div>
-          <div class="note why"><p>Low activation losses: at 800–1000 °C the electrode reactions run fast without a precious-metal catalyst, so less voltage is wasted just getting them going. Compatibility issues: hot layers expand by different amounts and can react with each other at their boundaries.</p></div>
-          <div class="note heads-up"><p>Two temperature ranges appear: <b>800–1000 °C</b> (slide 37) and <b>500–1000 °C</b> (slide 41). Give 800–1000 °C as the operating range; 500 °C is the low end that newer intermediate-temperature SOFCs aim for.</p></div>
+          <div class="note heads-up"><p>The slides give two temperature ranges, 800–1000 °C and 500–1000 °C. Write <b>800–1000 °C</b> as the operating temperature.</p></div>
         ` },
         { title: 'SOFC vs PEMFC', html: `
-          <p class="lead">The two fuel cells covered in detail sit at opposite ends: one <b>cool and fussy</b>, one <b>hot and flexible</b>. Almost every difference traces back to which ion crosses the electrolyte.</p>
-          <p>Toggle PEMFC and SOFC below and watch which ion crosses and in which direction. Then check the readout card: that one change decides where the water comes out.</p>
+          <p class="lead">PEMFC is the <b>cool, quick, fussy</b> fuel cell. SOFC is the <b>hot, slow, flexible</b> one. The main difference is <b>which ion crosses</b> the middle layer.</p>
+          <p>Switch between PEMFC and SOFC below and watch the ion move the opposite way, and the water come out on the opposite side.</p>
           <div data-viz="fuelcell"></div>
           <table class="tbl">
             <thead><tr><th></th><th>PEMFC</th><th>SOFC</th></tr></thead>
             <tbody>
-              <tr><td>Electrolyte</td><td>Acidic polymer membrane (<b>Nafion</b>)</td><td>Solid ceramic oxide (<b>YSZ</b>)</td></tr>
-              <tr><td>Ion that moves</td><td><b>H<sup>+</sup></b>, anode → cathode</td><td><b>O<sup>2−</sup></b>, cathode → anode</td></tr>
+              <tr><td>Middle layer</td><td>Plastic membrane (<b>Nafion</b>)</td><td>Ceramic (<b>YSZ</b>)</td></tr>
+              <tr><td>Ion that moves</td><td><b>H<sup>+</sup></b>, fuel → air</td><td><b>O<sup>2−</sup></b>, air → fuel</td></tr>
               <tr><td>Temperature</td><td><b>Below 80 °C</b></td><td><b>800–1000 °C</b></td></tr>
-              <tr><td>Fuel</td><td><b>Pure H<sub>2</sub></b></td><td><b>H<sub>2</sub> and CO</b>; coal gas works</td></tr>
-              <tr><td>Electrodes</td><td>Pt-based catalyst on both sides</td><td>Ni–YSZ cermet anode, LSM cathode</td></tr>
-              <tr><td>Water forms at</td><td>Cathode (air side)</td><td>Anode (fuel side), with CO<sub>2</sub></td></tr>
-              <tr><td>Sulphur, impurities</td><td>Not tolerated</td><td>Relatively tolerant</td></tr>
-              <tr><td>Start-up</td><td>Quick, since it runs cool</td><td>Long, it must heat up</td></tr>
-              <tr><td>Waste heat</td><td>Low-grade</td><td>High-quality, used for cogeneration</td></tr>
-              <tr><td>Figures on the slides</td><td>E°<sub>cell</sub> = 1.23 V</td><td>Over 60% efficiency</td></tr>
+              <tr><td>Fuel</td><td><b>Pure H<sub>2</sub> only</b></td><td><b>H<sub>2</sub> and CO</b> (coal gas OK)</td></tr>
+              <tr><td>Catalyst</td><td>Platinum</td><td>None needed (Ni anode)</td></tr>
+              <tr><td>Water forms at</td><td>Cathode (air side)</td><td>Anode (fuel side)</td></tr>
+              <tr><td>Start-up</td><td>Fast</td><td>Slow</td></tr>
+              <tr><td>Best for</td><td>Cars, portable use</td><td>Power plants, factories</td></tr>
             </tbody>
           </table>
-          <div class="note exam"><p>Scenario questions usually turn on three facts. What fuel is available (pure H<sub>2</sub>, or a gas with CO and sulphur)? Does quick start-up matter (cars, portable use)? Can the waste heat be used (factories, power plants)? Cool and quick points to PEMFC; dirty fuel, steady load and useful heat point to SOFC.</p></div>
+          <div class="note exam"><p>Choosing one in a question: <b>pure hydrogen + needs to start fast</b> (a car) → PEMFC. <b>Dirty fuel, runs all day, heat is useful</b> (a factory) → SOFC.</p></div>
         ` }
       ],
       flashcards: [
