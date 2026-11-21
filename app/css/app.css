@@ -1239,3 +1239,6 @@ a.syl-name:hover { text-decoration: underline; }
 .int .lims > span:last-child { margin-bottom: -.45em; }
 .int .lims sub, .int .lims sup { font-size: .85em; }
 .int .isg { font-size: 1.45em; line-height: 1; font-style: italic; }
+/* worked steps: one "= ..." per line, lined up under the first equals sign */
+.eq.eq-steps { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: .35em; row-gap: .3em; }
+.eq.eq-steps > span:nth-child(odd) { text-align: right; white-space: nowrap; }

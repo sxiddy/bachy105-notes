@@ -128,7 +128,7 @@ PAPERS({
 <ol><li><b>Cell:</b> Ni(s) | Ni<sup>2+</sup> (0.5 M) || Ag<sup>+</sup> (0.01 M) | Ag(s)</li>
 <li><b>Oxidation (anode):</b> Ni → Ni<sup>2+</sup> + 2e<sup>−</sup>. <b>Reduction (cathode):</b> 2Ag<sup>+</sup> + 2e<sup>−</sup> → 2Ag. Overall: Ni + 2Ag<sup>+</sup> → Ni<sup>2+</sup> + 2Ag, with n = 2.</li>
 <li><b>E<sub>cell</sub>:</b></li></ol>
-<div class="eq">E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub> = 0.80 − (−0.25) = 1.05 V</div>
+<div class="eq eq-steps"><span>E°<sub>cell</sub></span><span>= E°<sub>cathode</sub> − E°<sub>anode</sub></span><span></span><span>= 0.80 − (−0.25)</span><span></span><span>= 1.05 V</span></div>
 <div class="eq">E<sub>cell</sub> = E°<sub>cell</sub> − (0.0591 / n) log ([Ni<sup>2+</sup>] / [Ag<sup>+</sup>]<sup>2</sup>)</div>
 <div class="eq">= 1.05 − (0.0591 / 2) log (0.5 / (0.01)<sup>2</sup>) = 1.05 − 0.02955 × log 5000</div>
 <div class="eq">= 1.05 − 0.02955 × 3.699 = 1.05 − 0.109 = <b>0.94 V</b></div>
@@ -261,13 +261,13 @@ PAPERS({
 <p><b>Comparison:</b> methylene blue absorbs at a longer wavelength than Congo red because its rigid, planar ring and the two electron-donating –NMe<sub>2</sub> groups delocalise the π electrons over the whole cation, lowering the gap further. Both colours are intense because their π → π* transitions are allowed, with ε of the order of 10<sup>4</sup>–10<sup>5</sup> L mol<sup>−1</sup> cm<sup>−1</sup>.</p>
 <p><b>(b) Wavelength</b> (c = 3.0 × 10<sup>8</sup> m s<sup>−1</sup>)</p>
 <div class="eq">E = 6.93 × 10<sup>3</sup> × 1.602 × 10<sup>−19</sup> = 1.110 × 10<sup>−15</sup> J</div>
-<div class="eq">λ = hc / E = (6.626 × 10<sup>−34</sup> × 3.0 × 10<sup>8</sup>) / 1.110 × 10<sup>−15</sup> = 1.79 × 10<sup>−10</sup> m = <b>0.179 nm (1.79 Å)</b></div>
+<div class="eq eq-steps"><span>λ</span><span>= hc / E</span><span></span><span>= (6.626 × 10<sup>−34</sup> × 3.0 × 10<sup>8</sup>) / 1.110 × 10<sup>−15</sup></span><span></span><span>= 1.79 × 10<sup>−10</sup> m</span><span></span><span>= <b>0.179 nm (1.79 Å)</b></span></div>
 <p>Extra: this matches Co Kα radiation. c is not given in the paper; use 3.0 × 10<sup>8</sup> m s<sup>−1</sup> and say so.</p>
 <figure data-fig="m4-fwhm-peak"></figure>
 <p><b>Crystallite size</b></p>
-<div class="eq">θ = 44.60° / 2 = 22.30°, cos θ = 0.9252</div>
+<div class="eq eq-steps"><span>θ</span><span>= 44.60° / 2</span><span></span><span>= 22.30°,</span><span>cos θ</span><span>= 0.9252</span></div>
 <div class="eq">β = 0.95° × π/180 = 0.01658 rad</div>
-<div class="eq">D = kλ / (β cos θ) = (0.9 × 0.1791) / (0.01658 × 0.9252) = 0.1612 / 0.01534</div>
+<div class="eq eq-steps"><span>D</span><span>= kλ / (β cos θ)</span><span></span><span>= (0.9 × 0.1791) / (0.01658 × 0.9252)</span><span></span><span>= 0.1612 / 0.01534</span></div>
 <div class="eq">D ≈ <b>10.5 nm</b></div>
 <p><b>Significance:</b></p>
 <ul><li>At about 10 nm the material is nanocrystalline (1–100 nm), so the broad peak is real size broadening.</li>
@@ -413,7 +413,7 @@ PAPERS({
 <p><b>(b)</b> 38.2° is the 2θ value, so θ = 19.1°.</p>
 <div class="eq">cos 19.1° = 0.9449</div>
 <div class="eq">β = 0.45° × π/180 = 0.007854 rad</div>
-<div class="eq">D = kλ / (β cos θ) = (0.9 × 0.15406) / (0.007854 × 0.9449) = 0.13865 / 0.007422</div>
+<div class="eq eq-steps"><span>D</span><span>= kλ / (β cos θ)</span><span></span><span>= (0.9 × 0.15406) / (0.007854 × 0.9449)</span><span></span><span>= 0.13865 / 0.007422</span></div>
 <div class="eq">D ≈ <b>18.7 nm</b></div>
 <p>About 18.7 nm, so the gold is nanocrystalline (1–100 nm).</p>
 <div class="note trap"><p>Using 38.2° in cos θ instead of 19.1° gives 22.5 nm, which is wrong. Convert the FWHM to radians before dividing.</p></div>
@@ -448,7 +448,7 @@ PAPERS({
 <p>Diagram: a hyperbola P = nRT/V falling from P<sub>1</sub>, V<sub>1</sub> to P<sub>2</sub>, V<sub>2</sub>; shade the area under it down to the V axis. Heat flows in from the surroundings to keep T constant.</p>
 <p><b>Adiabatic (q = 0, so ΔU = w, T falls on expansion)</b></p>
 <div class="eq">w<sub>max</sub> = ΔU = C<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>) (per mole; negative for expansion)</div>
-<div class="eq">T<sub>1</sub>/T<sub>2</sub> = (V<sub>2</sub>/V<sub>1</sub>)<sup>γ−1</sup>, γ = C<sub>p</sub>/C<sub>v</sub>, so w = [R/(γ−1)](T<sub>2</sub> − T<sub>1</sub>)</div>
+<div class="eq eq-steps"><span>T<sub>1</sub>/T<sub>2</sub></span><span>= (V<sub>2</sub>/V<sub>1</sub>)<sup>γ−1</sup>,</span><span>γ</span><span>= C<sub>p</sub>/C<sub>v</sub>, so</span><span>w</span><span>= [R/(γ−1)](T<sub>2</sub> − T<sub>1</sub>)</span></div>
 <figure data-fig="m1-pv-adiabatic"></figure>
 <p>Diagram: on the same axes the adiabat PV<sup>γ</sup> = constant is steeper than the isotherm, because T also falls. Starting from the same point and ending at the same V<sub>2</sub>, the area under the adiabat is smaller, so less work is obtained than from the isothermal path.</p>
 <div class="note trap"><p>Do not put ΔU = 0 for the adiabatic case: ΔU = 0 belongs to the isothermal process. Use C<sub>v</sub>ΔT for adiabatic work and keep the negative sign for expansion.</p></div>
@@ -470,8 +470,8 @@ PAPERS({
 <li><b>C → D isothermal compression at T<sub>c</sub>:</b> heat rejected, q<sub>c</sub> = RT<sub>c</sub> ln(V<sub>D</sub>/V<sub>C</sub>), which is negative (V<sub>D</sub> &lt; V<sub>C</sub>).</li>
 <li><b>D → A adiabatic compression:</b> q = 0, T rises back to T<sub>h</sub>.</li></ol>
 <p>For the two adiabats T V<sup>γ−1</sup> is constant: T<sub>h</sub>V<sub>B</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>C</sub><sup>γ−1</sup> and T<sub>h</sub>V<sub>A</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>D</sub><sup>γ−1</sup>. Dividing gives V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>.</p>
-<div class="eq">Net work W = q<sub>h</sub> + q<sub>c</sub> = RT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>) − RT<sub>c</sub> ln(V<sub>C</sub>/V<sub>D</sub>) = R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>)</div>
-<div class="eq">η = W/q<sub>h</sub> = R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>) / [RT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>)] = 1 − T<sub>c</sub>/T<sub>h</sub></div>
+<div class="eq eq-steps"><span>Net work W</span><span>= q<sub>h</sub> + q<sub>c</sub></span><span></span><span>= RT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>) − RT<sub>c</sub> ln(V<sub>C</sub>/V<sub>D</sub>)</span><span></span><span>= R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>)</span></div>
+<div class="eq eq-steps"><span>η</span><span>= W/q<sub>h</sub></span><span></span><span>= R(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>) / [RT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>)]</span><span></span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span></div>
 <p>So η depends only on the two temperatures (in kelvin), not on the working substance, and is never 1 unless T<sub>c</sub> = 0 K. Equivalent entropy form: q<sub>h</sub>/T<sub>h</sub> + q<sub>c</sub>/T<sub>c</sub> = 0.</p>
 <div class="note trap"><p>Show the step V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> from the adiabats; without it the logarithms do not cancel. Use kelvin in the final formula.</p></div>
 <div class="note exam"><p>Ten marks: the diagram, the four strokes with heat terms, the adiabat step V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>, the work and η = 1 − T<sub>c</sub>/T<sub>h</sub>.</p></div>`,
@@ -486,11 +486,11 @@ PAPERS({
           prompt: `<p><b>(a)</b> Calculate q, w, ΔU, and ΔH for 1.00 mol of an ideal gas expanding reversibly and isothermally at 273 K from a volume of 22.4 L to a volume of 44.8 L.</p>
 <p><b>(b)</b> The initial temperature and pressure for one mole of an ideal gas is (C<sub>v</sub>=5 cal/mol.K) 27 °C and 1 atm. Pressure is increased reversibly upto 7 atm and temperature is increased to 90 °C. Calculate the entropy change for the process.</p>`,
           answer: `<p><b>(a)</b> Isothermal ideal gas, so ΔU = 0 and ΔH = 0 (both depend only on T). R = 8.314 J mol<sup>−1</sup> K<sup>−1</sup>.</p>
-<div class="eq">w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −(1)(8.314)(273) ln 2 = −2269.7 × 0.6931 = <b>−1573 J</b> (−1.57 kJ)</div>
+<div class="eq eq-steps"><span>w</span><span>= −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −(1)(8.314)(273) ln 2</span><span></span><span>= −2269.7 × 0.6931</span><span></span><span>= <b>−1573 J</b> (−1.57 kJ)</span></div>
 <div class="eq">q = −w = <b>+1573 J</b>, ΔU = <b>0</b>, ΔH = <b>0</b></div>
 <p>The gas takes 1573 J of heat and does 1573 J of work.</p>
 <p><b>(b)</b> Both T and P change, so use ΔS = C<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) − R ln(P<sub>2</sub>/P<sub>1</sub>). C<sub>v</sub> = 5, so C<sub>p</sub> = C<sub>v</sub> + R = 5 + 1.987 = 6.987 ≈ 7 cal mol<sup>−1</sup> K<sup>−1</sup>. T<sub>1</sub> = 300 K, T<sub>2</sub> = 363 K (using 273 + t).</p>
-<div class="eq">ΔS = 7 ln(363/300) − 1.987 ln 7 = 7(0.1906) − 1.987(1.9459) = 1.334 − 3.867</div>
+<div class="eq eq-steps"><span>ΔS</span><span>= 7 ln(363/300) − 1.987 ln 7</span><span></span><span>= 7(0.1906) − 1.987(1.9459)</span><span></span><span>= 1.334 − 3.867</span></div>
 <div class="eq">ΔS = <b>−2.53 cal mol<sup>−1</sup> K<sup>−1</sup></b> (≈ −10.6 J mol<sup>−1</sup> K<sup>−1</sup>)</div>
 <p>Entropy falls: the compression to 7 atm outweighs the rise in T.</p>
 <div class="note trap"><p>Using C<sub>v</sub> ln(T<sub>2</sub>/T<sub>1</sub>) here would be wrong, since the variables are P and T; the matching formula carries C<sub>p</sub>. Also R must be in cal (1.987) because C<sub>v</sub> is in cal. With C<sub>p</sub> taken exactly as 6.987 the answer is −2.53 as well.</p></div>
@@ -511,9 +511,9 @@ PAPERS({
 <p><b>Diagram:</b> a Maxwell–Boltzmann curve of number of molecules against kinetic energy with two curves, T<sub>1</sub> (tall, narrow) and T<sub>2</sub> &gt; T<sub>1</sub> (lower, broader, shifted right), a vertical line at E<sub>a</sub>, and the area to the right of E<sub>a</sub> shaded. The shaded area is bigger for T<sub>2</sub>. The plot of ln k against 1/T is a straight line with slope −E<sub>a</sub>/R.</p>
 <figure data-fig="m1-arrhenius-plot"></figure>
 <p><b>(b)</b> First order, t<sub>1/2</sub> = 15 min.</p>
-<div class="eq">k = 0.693 / t<sub>1/2</sub> = 0.693/15 = <b>0.0462 min<sup>−1</sup></b> (7.7 × 10<sup>−4</sup> s<sup>−1</sup>)</div>
+<div class="eq eq-steps"><span>k</span><span>= 0.693 / t<sub>1/2</sub></span><span></span><span>= 0.693/15</span><span></span><span>= <b>0.0462 min<sup>−1</sup></b> (7.7 × 10<sup>−4</sup> s<sup>−1</sup>)</span></div>
 <p>80% complete: [A] = 20% of [A]<sub>0</sub>.</p>
-<div class="eq">t = (2.303/k) log([A]<sub>0</sub>/[A]) = (2.303/0.0462) log(100/20) = 49.85 × 0.6990 = <b>34.8 min</b></div>
+<div class="eq eq-steps"><span>t</span><span>= (2.303/k) log([A]<sub>0</sub>/[A])</span><span></span><span>= (2.303/0.0462) log(100/20)</span><span></span><span>= 49.85 × 0.6990</span><span></span><span>= <b>34.8 min</b></span></div>
 <p>Check: 80% needs about 2.32 half-lives (log 5/log 2), 2.32 × 15 = 34.8 min.</p>
 <div class="note trap"><p>Use [A]<sub>0</sub>/[A] = 100/20 = 5, not 100/80. 80% completed means 20% is left.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) the Arrhenius equation plus the Maxwell–Boltzmann diagram with the shaded area beyond E<sub>a</sub>. In (b) k = 0.0462 min<sup>−1</sup> and t = 34.8 min with the working.</p></div>`,
@@ -568,7 +568,7 @@ PAPERS({
 <figure data-fig="m1-first-law-flows"></figure>
 <p><b>Work of isothermal reversible expansion (n mol, ideal gas)</b></p>
 <p>Reversible means P<sub>ex</sub> = P of the gas at every step, so dw = −P dV with P = nRT/V.</p>
-<div class="eq">w = −∫ P dV = −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V<sub>2</sub></span><span>V<sub>1</sub></span></span></span> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</div>
+<div class="eq eq-steps"><span>w</span><span>= −∫ P dV</span><span></span><span>= −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V<sub>2</sub></span><span>V<sub>1</sub></span></span></span> dV/V</span><span></span><span>= −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</span></div>
 <div class="eq">Boyle: V<sub>2</sub>/V<sub>1</sub> = P<sub>1</sub>/P<sub>2</sub>, so w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
 <p>At constant T, ΔU = 0 for an ideal gas, so q = −w = nRT ln(V<sub>2</sub>/V<sub>1</sub>): all the heat absorbed is turned into work. The work is the area under the isotherm P = nRT/V on the P–V diagram.</p>
 <p><b>Practical significance</b></p>
@@ -609,11 +609,11 @@ PAPERS({
           prompt: `<p><b>(a)</b> Calculate the Gibbs free energy change for a reaction at 25°C if the enthalpy change is −120 kJ mol<sup>−1</sup> and the entropy change is −180 J mol<sup>−1</sup> K<sup>−1</sup>. State whether the reaction is spontaneous and justify your answer.</p>
 <p><b>(b)</b> A Carnot engine absorbs 800 J of heat from the source and rejects 500 J to the sink. Calculate the efficiency and work done.</p>`,
           answer: `<p><b>(a)</b> T = 25 + 273 = 298 K (273.15 gives the same answer to 3 figures). Convert ΔS to kJ: −180 J = −0.180 kJ.</p>
-<div class="eq">ΔG = ΔH − TΔS = −120 − (298)(−0.180) = −120 + 53.6 = <b>−66.4 kJ mol<sup>−1</sup></b></div>
+<div class="eq eq-steps"><span>ΔG</span><span>= ΔH − TΔS</span><span></span><span>= −120 − (298)(−0.180)</span><span></span><span>= −120 + 53.6</span><span></span><span>= <b>−66.4 kJ mol<sup>−1</sup></b></span></div>
 <p>ΔG is negative, so the reaction is <b>spontaneous</b> at 25 °C. It is enthalpy-driven: ΔS is unfavourable (−), but TΔS = −53.6 kJ is smaller in size than ΔH. It would turn non-spontaneous above T = ΔH/ΔS = 120000/180 = 667 K.</p>
 <p><b>(b)</b> q<sub>h</sub> = 800 J, q<sub>c</sub> = 500 J rejected.</p>
 <div class="eq">W = q<sub>h</sub> − q<sub>c</sub> = 800 − 500 = <b>300 J</b></div>
-<div class="eq">η = W/q<sub>h</sub> = 300/800 = 0.375 = <b>37.5%</b></div>
+<div class="eq eq-steps"><span>η</span><span>= W/q<sub>h</sub></span><span></span><span>= 300/800</span><span></span><span>= 0.375</span><span></span><span>= <b>37.5%</b></span></div>
 <div class="note trap"><p>In (a) the usual slip is mixing units: ΔH in kJ and ΔS in J. Convert one of them. In (b) use heat absorbed in the denominator, not heat rejected.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) show the unit conversion, the number and the verdict with a reason. In (b) write W = q<sub>h</sub> − q<sub>c</sub> and η = W/q<sub>h</sub> with the answers 300 J and 37.5%.</p></div>`,
           topics: ['m1-free-energy', 'm1-carnot-cycle', 'm1-thermo-numericals'],
@@ -714,7 +714,7 @@ PAPERS({
 <div class="eq">ΔS<sub>total</sub> = ΔS<sub>sys</sub> + ΔS<sub>surr</sub> &gt; 0</div>
 <p>Equivalent statements: Kelvin (no engine is 100% efficient) and Clausius (heat does not flow unaided from cold to hot). The first law says what is possible energetically, and the second says which way it goes.</p>
 <p><b>(i) Work in an isothermal reversible process.</b> For an ideal gas at constant T, U depends only on T, so ΔU = 0 and q = −w. In a reversible path the external pressure matches the gas pressure at every step (P<sub>ex</sub> = nRT/V), so</p>
-<div class="eq">w = −∫P dV = −nRT ∫dV/V = −nRT ln (V<sub>2</sub>/V<sub>1</sub>) = −nRT ln (P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq eq-steps"><span>w</span><span>= −∫P dV</span><span></span><span>= −nRT ∫dV/V</span><span></span><span>= −nRT ln (V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −nRT ln (P<sub>1</sub>/P<sub>2</sub>)</span></div>
 <p>This is the area under the isotherm and the <b>maximum work</b> obtainable. On expansion w is negative (work done by the gas) and q = +nRT ln(V<sub>2</sub>/V<sub>1</sub>) flows in.</p>
 <p><b>(ii) Gibbs free energy change for a spontaneous reaction.</b> At constant T and P, ΔS<sub>surr</sub> = −ΔH/T, so ΔS<sub>total</sub> = −(ΔH − TΔS)/T. Define G = H − TS:</p>
 <div class="eq">ΔG = ΔH − TΔS = −TΔS<sub>total</sub></div>
@@ -735,8 +735,8 @@ PAPERS({
           prompt: `<p><b>(a)</b> Compute the maximum work done observed in a Carnot engine that absorbs 2×10<sup>6</sup> J heat and operates between 90 °C and 10 °C.</p>
 <p><b>(b)</b> Predict the spontaneity of a chemical reaction working at 25 °C with change in entropy 110 J/mol·K and ΔH = 30 kJ/mol.</p>`,
           answer: `<p><b>(a)</b> Convert to kelvin: T<sub>h</sub> = 90 + 273.15 = 363.15 K, T<sub>c</sub> = 10 + 273.15 = 283.15 K.</p>
-<div class="eq">η = 1 − T<sub>c</sub>/T<sub>h</sub> = (363.15 − 283.15)/363.15 = 80/363.15 = 0.2203</div>
-<div class="eq">W<sub>max</sub> = η × q<sub>h</sub> = 0.2203 × 2 × 10<sup>6</sup> = <b>4.41 × 10<sup>5</sup> J</b> (about 441 kJ)</div>
+<div class="eq eq-steps"><span>η</span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span><span></span><span>= (363.15 − 283.15)/363.15</span><span></span><span>= 80/363.15</span><span></span><span>= 0.2203</span></div>
+<div class="eq eq-steps"><span>W<sub>max</sub></span><span>= η × q<sub>h</sub></span><span></span><span>= 0.2203 × 2 × 10<sup>6</sup></span><span></span><span>= <b>4.41 × 10<sup>5</sup> J</b> (about 441 kJ)</span></div>
 <p>The Carnot engine is reversible, so this is the maximum work. The heat rejected is 2 × 10<sup>6</sup> − 4.41 × 10<sup>5</sup> = 1.56 × 10<sup>6</sup> J. (Using 273 K instead of 273.15 K gives the same result to three figures: 80/363 = 0.2204.)</p>
 <div class="note trap"><p>Putting 90 and 10 directly into 1 − T<sub>c</sub>/T<sub>h</sub> gives η = 0.89, which is wrong. The °C values must be converted to kelvin.</p></div>
 <p><b>(b)</b> At 25 °C, T = 298.15 K. A reaction at constant T and P is spontaneous when ΔG &lt; 0.</p>
@@ -759,7 +759,7 @@ PAPERS({
 <div class="eq">Rate = −d[A]/dt = k[A]</div>
 <p>Separate the variables and integrate from [A]<sub>0</sub> at t = 0 to [A] at time t:</p>
 <div class="eq">∫ d[A]/[A] = −k ∫ dt, so ln [A] − ln [A]<sub>0</sub> = −kt</div>
-<div class="eq">ln [A] = ln [A]<sub>0</sub> − kt, or [A] = [A]<sub>0</sub> e<sup>−kt</sup>, or k = (1/t) ln ([A]<sub>0</sub>/[A])</div>
+<div class="eq eq-steps"><span>ln [A]</span><span>= ln [A]<sub>0</sub> − kt,</span><span>or [A]</span><span>= [A]<sub>0</sub> e<sup>−kt</sup>,</span><span>or k</span><span>= (1/t) ln ([A]<sub>0</sub>/[A])</span></div>
 <p>A plot of ln [A] against t is a straight line with slope −k. The unit of k is s<sup>−1</sup> (time<sup>−1</sup>).</p>
 <p><b>Half-life.</b> At t = t<sub>½</sub>, [A] = [A]<sub>0</sub>/2:</p>
 <div class="eq">k t<sub>½</sub> = ln ([A]<sub>0</sub> / ([A]<sub>0</sub>/2)) = ln 2</div>
@@ -769,7 +769,7 @@ PAPERS({
 <p><b>(b)</b> Given t<sub>½</sub> = 7 h.</p>
 <div class="eq">k = 0.693 / 7 = 0.0990 h<sup>−1</sup></div>
 <p>80% complete means 20% is left, [A]<sub>0</sub>/[A] = 5.</p>
-<div class="eq">t = (1/k) ln 5 = 1.609 / 0.0990 = <b>16.25 h ≈ 16.3 h</b></div>
+<div class="eq eq-steps"><span>t</span><span>= (1/k) ln 5</span><span></span><span>= 1.609 / 0.0990</span><span></span><span>= <b>16.25 h ≈ 16.3 h</b></span></div>
 <p>Check by half-lives: 80% needs ln 5/ln 2 = 2.32 half-lives, and 2.32 × 7 = 16.25 h. The result lies between two half-lives (14 h, 75%) and three (21 h, 87.5%), as it should.</p>
 <div class="note trap"><p>For 80% completion the fraction left is 0.20, not 0.80. Using ln(1/0.8) gives only 1.56 h, which is wrong.</p></div>
 <div class="note exam"><p>Five marks each. In (a) the differential rate law, the integration steps and the cancellation of [A]<sub>0</sub> are the marks. In (b) show k, ln 5 and the final time with its unit.</p></div>`,
@@ -917,12 +917,12 @@ PAPERS({
 <div class="eq">E°<sub>cell</sub> = 0.80 − (−0.76) = 1.56 V</div>
 <div class="eq">E<sub>cell</sub> = E°<sub>cell</sub> − (0.0591/n) log([Zn<sup>2+</sup>]/[Ag<sup>+</sup>]<sup>2</sup>)</div>
 <div class="eq">1.50 = 1.56 − 0.02955 log([Zn<sup>2+</sup>]/(0.1)<sup>2</sup>)</div>
-<div class="eq">log([Zn<sup>2+</sup>]/0.01) = 0.06/0.02955 = 2.030, so [Zn<sup>2+</sup>]/0.01 = 107.3</div>
+<div class="eq eq-steps"><span>log([Zn<sup>2+</sup>]/0.01)</span><span>= 0.06/0.02955</span><span></span><span>= 2.030, so</span><span>[Zn<sup>2+</sup>]/0.01</span><span>= 107.3</span></div>
 <div class="eq">[Zn<sup>2+</sup>] = <b>1.07 M</b> (about 1.1 M)</div>
 <p><b>(b)</b> Scherrer equation, D = kλ/(β cos θ).</p>
-<div class="eq">θ = 36.50°/2 = 18.25°, cos θ = 0.9497</div>
-<div class="eq">β = 0.85° × π/180 = 0.014835 rad; λ = 0.15406 nm</div>
-<div class="eq">D = (0.9 × 0.15406) / (0.014835 × 0.9497) = 0.13865/0.014089 = <b>9.84 nm ≈ 9.8 nm</b></div>
+<div class="eq eq-steps"><span>θ</span><span>= 36.50°/2</span><span></span><span>= 18.25°,</span><span>cos θ</span><span>= 0.9497</span></div>
+<div class="eq eq-steps"><span>β</span><span>= 0.85° × π/180</span><span></span><span>= 0.014835 rad;</span><span>λ</span><span>= 0.15406 nm</span></div>
+<div class="eq eq-steps"><span>D</span><span>= (0.9 × 0.15406) / (0.014835 × 0.9497)</span><span></span><span>= 0.13865/0.014089</span><span></span><span>= <b>9.84 nm ≈ 9.8 nm</b></span></div>
 <p><b>Comment:</b> D is below 100 nm (below 10 nm), so the material is nanocrystalline, which explains the broad peak. A large fraction of atoms is at the surface, so expect high surface area, reactivity and possible size-dependent optical or electronic properties. Scherrer gives crystallite size (coherent domains), which can be smaller than the particle or grain size; instrument broadening and strain are ignored, so the true crystallite size is at least this value.</p>
 <div class="note trap"><p>Use θ (18.25°) in cos θ, not 2θ, and convert FWHM to radians. In (a) square [Ag<sup>+</sup>] and note that the quotient has Zn<sup>2+</sup> on top because the lower E means Zn is the anode. The printed E°(Zn<sup>2+</sup>/Zn) = −0.76 V and E°(Ag<sup>+</sup>/Ag) = 0.8 V (rounded from 0.80 V); the answer is the same.</p></div>
 <div class="note exam"><p>Five marks each part. In (a) E° = 1.56 V, the squared Ag<sup>+</sup> term and 1.07 M. In (b) θ = 18.25°, β in radians, D = 9.8 nm and the nanocrystalline comment.</p></div>`,
@@ -960,7 +960,7 @@ PAPERS({
 <p><b>Work and efficiency.</b> The two adiabatic works cancel. Over the full cycle ΔU = 0, so the net work done by the engine is W = q<sub>h</sub> − q<sub>c</sub> (both taken as positive magnitudes).</p>
 <div class="eq">W = nR(T<sub>h</sub> − T<sub>c</sub>) ln(V<sub>B</sub>/V<sub>A</sub>)</div>
 <p>For the adiabats, T V<sup>γ−1</sup> = constant gives T<sub>h</sub>V<sub>B</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>C</sub><sup>γ−1</sup> and T<sub>h</sub>V<sub>A</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>D</sub><sup>γ−1</sup>. Dividing, V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>, so the logarithms match and</p>
-<div class="eq">η = W / q<sub>h</sub> = (q<sub>h</sub> − q<sub>c</sub>) / q<sub>h</sub> = (T<sub>h</sub> − T<sub>c</sub>) / T<sub>h</sub> = 1 − T<sub>c</sub>/T<sub>h</sub></div>
+<div class="eq eq-steps"><span>η</span><span>= W / q<sub>h</sub></span><span></span><span>= (q<sub>h</sub> − q<sub>c</sub>) / q<sub>h</sub></span><span></span><span>= (T<sub>h</sub> − T<sub>c</sub>) / T<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span></div>
 <p><b>Proof that every reversible engine has the same efficiency.</b> Suppose engine X has efficiency greater than the Carnot engine C, both between T<sub>h</sub> and T<sub>c</sub>. Run X forward and drive C backwards as a refrigerator using X's work output. For the same heat q<sub>h</sub> drawn from the source, X would give more work than C needs, so the pair would deliver net work with no net heat taken from the surroundings, or would move heat from cold to hot with no work. Either result violates the second law (Kelvin–Planck or Clausius). So η<sub>X</sub> cannot exceed η<sub>C</sub>. The same argument with the roles swapped (C forward, X reversed, possible because X is reversible) shows η<sub>C</sub> cannot exceed η<sub>X</sub>. Hence η<sub>X</sub> = η<sub>C</sub> = 1 − T<sub>c</sub>/T<sub>h</sub>, which depends only on the two temperatures and not on the working substance.</p>
 <div class="note trap"><p>The proof needs <b>reversibility</b> of both engines: it is what lets you run one backwards. An irreversible engine is always less efficient, never more. Also use Kelvin temperatures in η.</p></div>
 <div class="note exam"><p>Ten marks: the labelled P-V diagram with the four steps and their heat and work terms carries about half. Then the derivation of V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> and η = 1 − T<sub>c</sub>/T<sub>h</sub>, and the second-law argument (run one engine backwards) for the proof.</p></div>`,
@@ -983,7 +983,7 @@ PAPERS({
 <tr><td>+</td><td>+</td><td>− at high T</td><td>only above T = ΔH/ΔS</td></tr></tbody></table>
 <p><b>Adsorption.</b> A gas molecule that sticks to a surface loses its translational freedom, so ΔS &lt; 0 and the −TΔS term is positive (it opposes the process). Adsorption also forms attractive bonds between gas and surface (physisorption or chemisorption), so ΔH is <b>negative</b> and fairly large. This is the (−, −) row: ΔG = ΔH − TΔS = −|ΔH| + T|ΔS|.</p>
 <p>Adsorption is spontaneous while |ΔH| &gt; T|ΔS|, that is, below the limiting temperature T<sub>lim</sub> = ΔH/ΔS. Lowering T shrinks the unfavourable TΔS term, so the enthalpy wins. Raising T above T<sub>lim</sub> makes ΔG positive and the gas desorbs. This is why adsorption is favoured at low temperature and high pressure.</p>
-<div class="eq">Example: ΔH = −40 kJ/mol, ΔS = −100 J/mol/K gives ΔG<sub>300</sub> = −40 000 + 300 × 100 = −10 000 J/mol (spontaneous); T<sub>lim</sub> = 40 000/100 = 400 K.</div>
+<div class="eq eq-steps"><span>Example: ΔH</span><span>= −40 kJ/mol,</span><span>ΔS</span><span>= −100 J/mol/K gives ΔG<sub>300</sub></span><span></span><span>= −40 000 + 300 × 100</span><span></span><span>= −10 000 J/mol (spontaneous);</span><span>T<sub>lim</sub></span><span>= 40 000/100</span><span></span><span>= 400 K.</span></div>
 <div class="note trap"><p>Do not say a negative ΔS makes a process non-spontaneous. The surroundings gain entropy (ΔS<sub>surr</sub> = −ΔH/T &gt; 0 for an exothermic step), and the total entropy still rises. Also keep ΔH in kJ and ΔS in J, so convert before subtracting.</p></div>
 <div class="note exam"><p>Write ΔG = ΔH − TΔS, give the sign table, then spend the second half on adsorption: ΔH negative, ΔS negative, spontaneous below T = ΔH/ΔS. A short numeric example earns the application mark.</p></div>`,
           topics: ['m1-free-energy', 'm1-gibbs-helmholtz-third-law'],
@@ -997,11 +997,11 @@ PAPERS({
           prompt: `<p><b>(a)</b> One mole of an ideal gas undergoes a reversible isothermal expansion at 300 K, increasing its volume from 5 L to 20 L. Calculate the work done (w) during the process. Determine the values of heat exchanged (q), change in internal energy (ΔU), and change in enthalpy (ΔH). Give the data in Joules.</p>
 <p><b>(b)</b> One mole of an ideal monoatomic gas is heated from 400 K to 1000 K at constant pressure. Calculate the change in entropy for the process. C<sub>P</sub> = 5R/2.</p>`,
           answer: `<p><b>(a)</b> Constants: R = 8.314 J/mol/K. Sign convention: w is work done on the system, so expansion gives negative w.</p>
-<div class="eq">w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −1 × 8.314 × 300 × ln(20/5) = −2494.2 × 1.3863 = <b>−3458 J</b></div>
+<div class="eq eq-steps"><span>w</span><span>= −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −1 × 8.314 × 300 × ln(20/5)</span><span></span><span>= −2494.2 × 1.3863</span><span></span><span>= <b>−3458 J</b></span></div>
 <p>For an ideal gas at constant T, internal energy and enthalpy depend only on T, so ΔU = 0 and ΔH = ΔU + Δ(PV) = ΔU + nRΔT = 0. From the first law, q = −w.</p>
-<div class="eq">q = <b>+3458 J</b> (absorbed), ΔU = <b>0</b>, ΔH = <b>0</b></div>
+<div class="eq eq-steps"><span>q</span><span>= <b>+3458 J</b> (absorbed),</span><span>ΔU</span><span>= <b>0</b>,</span><span>ΔH</span><span>= <b>0</b></span></div>
 <p><b>(b)</b> At constant pressure, dS = nC<sub>p</sub> dT/T.</p>
-<div class="eq">ΔS = nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) = 1 × 2.5 × 8.314 × ln(1000/400) = 20.785 × 0.9163 = <b>19.05 J/K</b></div>
+<div class="eq eq-steps"><span>ΔS</span><span>= nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>)</span><span></span><span>= 1 × 2.5 × 8.314 × ln(1000/400)</span><span></span><span>= 20.785 × 0.9163</span><span></span><span>= <b>19.05 J/K</b></span></div>
 <div class="note trap"><p>In (a), the sign of w depends on convention. If your class writes w = +nRT ln(V<sub>2</sub>/V<sub>1</sub>) for work done by the gas, say so and give +3458 J, with q = +3458 J too. Use ln, not log<sub>10</sub>, and Kelvin.</p></div>
 <div class="note exam"><p>Part (a) gives w, q, ΔU, ΔH in Joules with signs and units; part (b) needs C<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) with the number 19.05 J/K. State R = 8.314 and show the substitution.</p></div>`,
           topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity'],
@@ -1020,8 +1020,8 @@ PAPERS({
 <ul><li>From k = A e<sup>−E<sub>a</sub>/RT</sup>, a smaller E<sub>a</sub> raises k exponentially, because a larger fraction of molecular collisions has enough energy to cross the barrier.</li>
 <li>ΔH, ΔG and the equilibrium constant are unchanged, because the reactants and products are the same. The catalyst speeds the forward and reverse reactions equally and so reaches equilibrium sooner, but does not shift it.</li></ul>
 <p><b>(b)</b> First order: k = (1/t) ln(C<sub>0</sub>/C). Mass is proportional to concentration, so use grams directly.</p>
-<div class="eq">k = (1/15) ln(5.0/0.5) = (1/15) × 2.3026 = <b>0.1535 min<sup>−1</sup></b></div>
-<div class="eq">t<sub>1/2</sub> = 0.693/k = 0.6931/0.1535 = <b>4.52 min</b></div>
+<div class="eq eq-steps"><span>k</span><span>= (1/15) ln(5.0/0.5)</span><span></span><span>= (1/15) × 2.3026</span><span></span><span>= <b>0.1535 min<sup>−1</sup></b></span></div>
+<div class="eq eq-steps"><span>t<sub>1/2</sub></span><span>= 0.693/k</span><span></span><span>= 0.6931/0.1535</span><span></span><span>= <b>4.52 min</b></span></div>
 <div class="note trap"><p>The 80 °C is only the condition; it is not used in the arithmetic. Do not convert to Kelvin here. If seconds are wanted: k = 2.56 × 10<sup>−3</sup> s<sup>−1</sup>.</p></div>
 <div class="note exam"><p>Part (a): the diagram with two humps and the same ΔH, plus the sentence linking lower E<sub>a</sub> to larger k. Part (b): the first-order formula, k = 0.1535 min<sup>−1</sup> and t<sub>1/2</sub> = 4.52 min with units.</p></div>`,
           topics: ['m1-catalysis', 'm1-integrated-rate'],
@@ -1069,7 +1069,7 @@ PAPERS({
 <figure data-fig="m1-pv-isothermal"></figure>
 <p><b>Diagram to draw:</b> a P–V plot with the isotherm PV = RT from (V<sub>1</sub>, P<sub>1</sub>) to (V<sub>2</sub>, P<sub>2</sub>). Shade the whole area under the curve for the reversible case, and a smaller rectangle of height P<sub>2</sub> and width V<sub>2</sub> − V<sub>1</sub> for the irreversible (single-step) case.</p>
 <p><b>Reversible:</b> the external pressure is always within an infinitesimal amount of the gas pressure, P = RT/V.</p>
-<div class="eq">w<sub>rev</sub> = −RT ∫ dV/V = −RT ln(V<sub>2</sub>/V<sub>1</sub>) = −RT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq eq-steps"><span>w<sub>rev</sub></span><span>= −RT ∫ dV/V</span><span></span><span>= −RT ln(V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −RT ln(P<sub>1</sub>/P<sub>2</sub>)</span></div>
 <p><b>Irreversible (against constant P<sub>ex</sub> = P<sub>2</sub>):</b></p>
 <div class="eq">w<sub>irr</sub> = −P<sub>2</sub>(V<sub>2</sub> − V<sub>1</sub>) = −RT (1 − P<sub>2</sub>/P<sub>1</sub>)</div>
 <p>For an expansion, |w<sub>rev</sub>| &gt; |w<sub>irr</sub>|: the reversible path gives the <b>maximum work</b>, and for compression it needs the minimum. Free expansion into vacuum (P<sub>ex</sub> = 0) gives w = 0.</p>
@@ -1092,12 +1092,12 @@ PAPERS({
 <li>C→D isothermal compression at T<sub>c</sub>: heat q<sub>c</sub> = nRT<sub>c</sub> ln(V<sub>C</sub>/V<sub>D</sub>) rejected to the sink.</li>
 <li>D→A adiabatic compression: q = 0, gas warms T<sub>c</sub> → T<sub>h</sub>.</li></ol>
 <p><b>Efficiency.</b> The adiabats satisfy T V<sup>γ−1</sup> = constant, so T<sub>h</sub>V<sub>B</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>C</sub><sup>γ−1</sup> and T<sub>h</sub>V<sub>A</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>D</sub><sup>γ−1</sup>, giving V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub>. Then</p>
-<div class="eq">η = W/q<sub>h</sub> = (q<sub>h</sub> − q<sub>c</sub>)/q<sub>h</sub> = 1 − T<sub>c</sub>ln(V<sub>C</sub>/V<sub>D</sub>) / (T<sub>h</sub>ln(V<sub>B</sub>/V<sub>A</sub>)) = 1 − T<sub>c</sub>/T<sub>h</sub></div>
+<div class="eq eq-steps"><span>η</span><span>= W/q<sub>h</sub></span><span></span><span>= (q<sub>h</sub> − q<sub>c</sub>)/q<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub>ln(V<sub>C</sub>/V<sub>D</sub>) / (T<sub>h</sub>ln(V<sub>B</sub>/V<sub>A</sub>))</span><span></span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span></div>
 <p><b>Strategy to maximise efficiency.</b> Since η = 1 − T<sub>c</sub>/T<sub>h</sub>:</p>
 <ul><li>Raise T<sub>h</sub> as far as the materials allow (higher steam or combustion temperature).</li>
 <li>Lower T<sub>c</sub> (cooling towers, condenser at low temperature, a cold sink). T<sub>c</sub> cannot go below the surroundings in practice.</li>
 <li>Keep every step reversible: no friction, no finite temperature differences in heat transfer, no leaks, so that the real engine approaches the Carnot limit.</li></ul>
-<div class="eq">Example: T<sub>h</sub> = 600 K, T<sub>c</sub> = 300 K gives η = 0.50. Raising T<sub>h</sub> to 900 K gives 0.667; lowering T<sub>c</sub> to 200 K at T<sub>h</sub> = 600 K gives 0.667.</div>
+<div class="eq eq-steps"><span>Example: T<sub>h</sub></span><span>= 600 K,</span><span>T<sub>c</sub></span><span>= 300 K gives η</span><span></span><span>= 0.50. Raising T<sub>h</sub> to 900 K gives 0.667;</span><span>lowering T<sub>c</sub> to 200 K at T<sub>h</sub></span><span>= 600 K gives 0.667.</span></div>
 <div class="note trap"><p>Efficiency never reaches 1, since that needs T<sub>c</sub> = 0 K (or T<sub>h</sub> infinite). Use Kelvin throughout.</p></div>
 <div class="note exam"><p>The four labelled steps on the PV diagram and the efficiency derivation take most marks. The last part is answered with the two points: higher T<sub>h</sub> and lower T<sub>c</sub>, plus keeping the engine reversible.</p></div>`,
           topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
@@ -1111,10 +1111,10 @@ PAPERS({
           prompt: `<p><b>(a)</b> 1 mole of an ideal gas expand reversibly and isothermally from a pressure of 10 atm to 5 atm at 300 K. Calculate the work done.</p>
 <p><b>(b)</b> Calculate the change in entropy accompanying the heating of 5 mole of ideal gas from a temperature of 350 K to a temperature of 800 K at constant pressure. Assume C<sub>v</sub> = 3/2 R</p>`,
           answer: `<p><b>(a)</b> R = 8.314 J/mol/K, w on the system.</p>
-<div class="eq">w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>) = −1 × 8.314 × 300 × ln(10/5) = −2494.2 × 0.6931 = <b>−1729 J</b> (about −1.73 kJ)</div>
+<div class="eq eq-steps"><span>w</span><span>= −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</span><span></span><span>= −1 × 8.314 × 300 × ln(10/5)</span><span></span><span>= −2494.2 × 0.6931</span><span></span><span>= <b>−1729 J</b> (about −1.73 kJ)</span></div>
 <p>The gas does 1729 J of work on the surroundings (q = +1729 J, ΔU = 0).</p>
 <p><b>(b)</b> At constant pressure the relevant heat capacity is C<sub>p</sub> = C<sub>v</sub> + R = 3R/2 + R = 5R/2.</p>
-<div class="eq">ΔS = nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>) = 5 × 2.5 × 8.314 × ln(800/350) = 103.925 × 0.8267 = <b>85.9 J/K</b></div>
+<div class="eq eq-steps"><span>ΔS</span><span>= nC<sub>p</sub> ln(T<sub>2</sub>/T<sub>1</sub>)</span><span></span><span>= 5 × 2.5 × 8.314 × ln(800/350)</span><span></span><span>= 103.925 × 0.8267</span><span></span><span>= <b>85.9 J/K</b></span></div>
 <div class="note trap"><p>The question gives C<sub>v</sub> but the process is at constant P, so convert to C<sub>p</sub>. Using C<sub>v</sub> directly gives 51.5 J/K, which is wrong. The ratio of pressures, not volumes, appears in (a); the question gives pressures.</p></div>
 <div class="note exam"><p>Part (a): w = −1729 J with the formula shown. Part (b): convert to C<sub>p</sub> = 5R/2 and give 85.9 J/K. The conversion step is the mark that is usually lost.</p></div>`,
           topics: ['m1-expansion-work', 'm1-thermo-numericals', 'm1-enthalpy-heat-capacity'],
@@ -1206,10 +1206,10 @@ PAPERS({
 <p><b>Cycle (draw P–V, clockwise A→B→C→D):</b> A→B isothermal expansion at T<sub>h</sub> (heat q<sub>h</sub> in); B→C adiabatic expansion to T<sub>c</sub>; C→D isothermal compression at T<sub>c</sub> (heat q<sub>c</sub> out); D→A adiabatic compression back to T<sub>h</sub>.</p>
 <div class="eq">q<sub>h</sub> = nRT<sub>h</sub> ln(V<sub>B</sub>/V<sub>A</sub>), &nbsp; q<sub>c</sub> = nRT<sub>c</sub> ln(V<sub>C</sub>/V<sub>D</sub>)</div>
 <p>Adiabats: T<sub>h</sub>V<sub>B</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>C</sub><sup>γ−1</sup> and T<sub>h</sub>V<sub>A</sub><sup>γ−1</sup> = T<sub>c</sub>V<sub>D</sub><sup>γ−1</sup>, so V<sub>B</sub>/V<sub>A</sub> = V<sub>C</sub>/V<sub>D</sub> and the logarithms cancel:</p>
-<div class="eq">η = W/q<sub>h</sub> = (q<sub>h</sub> − q<sub>c</sub>)/q<sub>h</sub> = 1 − T<sub>c</sub>/T<sub>h</sub></div>
+<div class="eq eq-steps"><span>η</span><span>= W/q<sub>h</sub></span><span></span><span>= (q<sub>h</sub> − q<sub>c</sub>)/q<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span></div>
 <p>V, n, the gas and γ have dropped out, so η depends only on T<sub>h</sub> and T<sub>c</sub>. Because a reversible engine between two temperatures has the same efficiency whatever the working substance (any more efficient engine would break the second law), this is the maximum possible efficiency.</p>
 <p><b>Why not 100%.</b> η = 1 requires T<sub>c</sub> = 0 K, which the third law says is unattainable, or T<sub>h</sub> infinite. Equivalently, the second law (Kelvin–Planck) forbids an engine that turns all the heat taken from one reservoir into work: some heat q<sub>c</sub> must be rejected to a colder sink to keep the entropy of the universe from falling.</p>
-<div class="eq">Example: T<sub>h</sub> = 500 K, T<sub>c</sub> = 300 K gives η = 1 − 300/500 = 0.40 (40%).</div>
+<div class="eq eq-steps"><span>Example: T<sub>h</sub></span><span>= 500 K,</span><span>T<sub>c</sub></span><span>= 300 K gives η</span><span></span><span>= 1 − 300/500</span><span></span><span>= 0.40 (40%).</span></div>
 <div class="note trap"><p>Temperatures must be in Kelvin. Using 27 °C and 227 °C directly would give 1 − 27/227 = 0.88, which is wrong.</p></div>
 <div class="note exam"><p>Derive η = 1 − T<sub>c</sub>/T<sub>h</sub> from the cycle, point out that the volume ratios cancel, and give both reasons it cannot reach 1 (third law and the second law).</p></div>`,
           topics: ['m1-carnot-cycle', 'm1-second-law-entropy'],
@@ -1223,12 +1223,12 @@ PAPERS({
           prompt: `<p><b>(a)</b> For a reaction, ΔH = +25 kJ/mol and ΔS = +80 J/mol·K. Calculate ΔG at 298 K and at 500 K. Comment on the spontaneity of the reaction at both the temperatures. Use your result to explain how the signs of ΔH and ΔS influence the temperature-dependent spontaneity.</p>
 <p><b>(b)</b> An ideal gas (1 mol) undergoes a reversible expansion, changing its state from 25 dm<sup>3</sup> at 250 K to 40 dm<sup>3</sup> at 350 K. Given that the molar heat capacity at constant volume C<sub>v</sub> = 1.5R, calculate the total change in entropy for the process. R = 8.314 J mol<sup>−1</sup> K<sup>−1</sup>.</p>`,
           answer: `<p><b>(a)</b> Convert ΔS = 80 J/mol/K = 0.080 kJ/mol/K.</p>
-<div class="eq">ΔG<sub>298</sub> = 25 − 298 × 0.080 = 25 − 23.84 = <b>+1.16 kJ/mol</b> (non-spontaneous)</div>
-<div class="eq">ΔG<sub>500</sub> = 25 − 500 × 0.080 = 25 − 40.0 = <b>−15.0 kJ/mol</b> (spontaneous)</div>
+<div class="eq eq-steps"><span>ΔG<sub>298</sub></span><span>= 25 − 298 × 0.080</span><span></span><span>= 25 − 23.84</span><span></span><span>= <b>+1.16 kJ/mol</b> (non-spontaneous)</span></div>
+<div class="eq eq-steps"><span>ΔG<sub>500</sub></span><span>= 25 − 500 × 0.080</span><span></span><span>= 25 − 40.0</span><span></span><span>= <b>−15.0 kJ/mol</b> (spontaneous)</span></div>
 <p>The switch happens at T = ΔH/ΔS = 25 000/80 = 312.5 K. Here ΔH &gt; 0 (unfavourable) and ΔS &gt; 0 (favourable): the TΔS term grows with T, so the reaction becomes spontaneous only above 312.5 K. In general: (−, +) always spontaneous; (+, −) never; (−, −) spontaneous at low T; (+, +) spontaneous at high T.</p>
 <p><b>(b)</b> For an ideal gas the entropy change for a change in both T and V is</p>
 <div class="eq">ΔS = C<sub>v</sub> ln(T<sub>2</sub>/T<sub>1</sub>) + R ln(V<sub>2</sub>/V<sub>1</sub>)</div>
-<div class="eq">= 1.5 × 8.314 × ln(350/250) + 8.314 × ln(40/25) = 12.471 × 0.3365 + 8.314 × 0.4700 = 4.196 + 3.908 = <b>8.10 J/K</b></div>
+<div class="eq eq-steps"><span>= 1.5 × 8.314 × ln(350/250) + 8.314 × ln(40/25)</span><span>= 12.471 × 0.3365 + 8.314 × 0.4700</span><span></span><span>= 4.196 + 3.908</span><span></span><span>= <b>8.10 J/K</b></span></div>
 <div class="note trap"><p>In (a), 25 kJ against 80 J: not converting units gives 25 − 298 × 80, nonsense. In (b) the process is reversible, so ΔS<sub>total</sub> is the system's ΔS plus ΔS<sub>surr</sub> = −ΔS, which sums to zero; the 8.10 J/K is for the gas. The question's "total change in entropy" means the sum of the T and V terms.</p></div>
 <div class="note exam"><p>Part (a): ΔG<sub>298</sub> = +1.16 kJ/mol, ΔG<sub>500</sub> = −15.0 kJ/mol, with the units converted, and the comment on the crossover at 312.5 K. Part (b): both terms and 8.10 J/K.</p></div>`,
           topics: ['m1-free-energy', 'm1-thermo-numericals', 'm1-second-law-entropy'],
@@ -1252,7 +1252,7 @@ PAPERS({
 <tr><td>Unit of k</td><td>mol L<sup>−1</sup> s<sup>−1</sup></td><td>s<sup>−1</sup></td><td>L mol<sup>−1</sup> s<sup>−1</sup></td></tr></tbody></table>
 <p><b>Diagram to draw:</b> [A] against t with three curves from the same [A]<sub>0</sub>: a straight line (zero), a curve with constant successive half-lives (first), and a curve whose half-lives lengthen as [A] falls (second). Then three small plots: [A] vs t, ln[A] vs t, 1/[A] vs t. Second-order characteristic: the rate depends on the square of concentration (or two reactants each first order), and the half-life grows as the reaction proceeds.</p>
 <p><b>(b)</b> First order: k = (1/t) ln([A]<sub>0</sub>/[A]).</p>
-<div class="eq">k = (1/60) ln(0.4/0.1) = 1.3863/60 = <b>0.0231 min<sup>−1</sup></b></div>
+<div class="eq eq-steps"><span>k</span><span>= (1/60) ln(0.4/0.1)</span><span></span><span>= 1.3863/60</span><span></span><span>= <b>0.0231 min<sup>−1</sup></b></span></div>
 <div class="eq">t<sub>1/2</sub> = 0.6931/0.02310 = <b>30 min</b></div>
 <div class="note trap"><p>The concentration fell by a factor of 4, which is exactly two half-lives, so t<sub>1/2</sub> = 60/2 = 30 min is a quick check. Time is in minutes, so k is in min<sup>−1</sup>; k = 3.85 × 10<sup>−4</sup> s<sup>−1</sup>.</p></div>
 <div class="note exam"><p>Part (a): the comparison table and the three plots. Part (b): k = 0.0231 min<sup>−1</sup> and t<sub>1/2</sub> = 30 min, with the two-half-lives check.</p></div>`,
@@ -1310,7 +1310,7 @@ PAPERS({
 <ul><li>The system is thermally insulated, so no heat crosses the boundary and <b>q = 0</b>.</li>
 <li>The first law reduces to <b>ΔU = w</b>. The gas pays for its work out of its internal energy, so on expansion T falls, and on compression T rises.</li>
 <li>The adiabatic curve is steeper than the isotherm on the P–V diagram, because P falls both from the larger volume and from the falling T.</li></ul>
-<div class="eq">w = ΔU = C<sub>v</sub> ΔT (per mole), ΔH = C<sub>p</sub> ΔT, q = 0</div>
+<div class="eq eq-steps"><span>w</span><span>= ΔU</span><span></span><span>= C<sub>v</sub> ΔT (per mole),</span><span>ΔH</span><span>= C<sub>p</sub> ΔT,</span><span>q</span><span>= 0</span></div>
 <div class="eq">T<sub>i</sub> / T<sub>f</sub> = (V<sub>f</sub> / V<sub>i</sub>)<sup>γ−1</sup> (reversible)</div>
 <figure data-fig="m1-pv-adiabatic"></figure>
 <table class="tbl"><thead><tr><th>Quantity</th><th>Isothermal (ideal gas)</th><th>Adiabatic</th></tr></thead><tbody>
@@ -1342,7 +1342,7 @@ PAPERS({
 <p><b>P–V diagram to draw:</b> two isotherms (the upper one at T<sub>h</sub>, A to B; the lower at T<sub>c</sub>, C to D) joined by two steeper adiabats (B to C and D to A). The closed loop is traversed clockwise. The <b>area enclosed</b> equals the net work done by the engine in one cycle.</p>
 <p><b>Significance for efficiency</b></p>
 <p>Around the cycle, ΔS = q<sub>h</sub>/T<sub>h</sub> + q<sub>c</sub>/T<sub>c</sub> = 0, so q<sub>h</sub>/q<sub>c</sub> = −T<sub>h</sub>/T<sub>c</sub>.</p>
-<div class="eq">η = W / q<sub>h</sub> = 1 − q<sub>c</sub>/q<sub>h</sub> = 1 − T<sub>c</sub> / T<sub>h</sub></div>
+<div class="eq eq-steps"><span>η</span><span>= W / q<sub>h</sub></span><span></span><span>= 1 − q<sub>c</sub>/q<sub>h</sub></span><span></span><span>= 1 − T<sub>c</sub> / T<sub>h</sub></span></div>
 <ul><li>η depends only on the two reservoir temperatures (in kelvin), not on the working substance.</li>
 <li>No real engine working between the same T<sub>h</sub> and T<sub>c</sub> can beat this value, so the Carnot efficiency is the benchmark for judging real engines.</li>
 <li>η is always below 1, because T<sub>c</sub> = 0 K cannot be reached. This is the Kelvin statement of the second law.</li>
@@ -1365,11 +1365,11 @@ PAPERS({
           answer: `<p><b>(a)</b> At constant T and P a reaction is spontaneous when ΔG &lt; 0.</p>
 <div class="eq">ΔG = ΔH − TΔS</div>
 <p>Convert both terms to the same unit. ΔS = 100 J/mol·K = 0.100 kJ/mol·K.</p>
-<div class="eq">ΔG = 40 − (298 × 0.100) = 40 − 29.8 = +10.2 kJ/mol</div>
+<div class="eq eq-steps"><span>ΔG</span><span>= 40 − (298 × 0.100)</span><span></span><span>= 40 − 29.8</span><span></span><span>= +10.2 kJ/mol</span></div>
 <p>ΔG is positive, so the reaction is <b>not spontaneous</b> at 298 K. It is endothermic (ΔH positive, unfavourable) and the entropy gain (ΔS positive, favourable) is not large enough at this temperature. It becomes spontaneous above T = ΔH/ΔS = 40000/100 = 400 K.</p>
 <div class="note trap"><p>The units of ΔH (kJ) and ΔS (J) differ. Using 40 − 298 × 100 without converting gives nonsense. Convert first.</p></div>
 <p><b>(b)</b> T<sub>h</sub> = 500 K, T<sub>c</sub> = 300 K, q<sub>h</sub> = 600 J.</p>
-<div class="eq">η = 1 − T<sub>c</sub>/T<sub>h</sub> = 1 − 300/500 = 0.40 (40%)</div>
+<div class="eq eq-steps"><span>η</span><span>= 1 − T<sub>c</sub>/T<sub>h</sub></span><span></span><span>= 1 − 300/500</span><span></span><span>= 0.40 (40%)</span></div>
 <div class="eq">W = η × q<sub>h</sub> = 0.40 × 600 = <b>240 J</b></div>
 <p>The heat rejected to the cold reservoir is 600 − 240 = 360 J.</p>
 <div class="note exam"><p>Five marks each. In (a) show the unit conversion, the sign of ΔG and the verdict. In (b) give η as a fraction or percentage and W with its unit.</p></div>`,
@@ -1393,9 +1393,9 @@ PAPERS({
 <li><b>Order different from molecularity:</b> hydrolysis of ethyl acetate in excess water is bimolecular but follows first-order kinetics (pseudo-first order), since [H<sub>2</sub>O] is effectively constant.</li></ul>
 <p><b>(b)</b> For a first-order reaction k = (1/t) ln([A]<sub>0</sub>/[A]).</p>
 <p>70% complete means 30% is left, [A]<sub>0</sub>/[A] = 1/0.30.</p>
-<div class="eq">k = (1/12) ln (1/0.30) = 1.204 / 12 = 0.1003 h<sup>−1</sup></div>
+<div class="eq eq-steps"><span>k</span><span>= (1/12) ln (1/0.30)</span><span></span><span>= 1.204 / 12</span><span></span><span>= 0.1003 h<sup>−1</sup></span></div>
 <p>90% complete means 10% is left, [A]<sub>0</sub>/[A] = 10.</p>
-<div class="eq">t = (1/k) ln 10 = 2.303 / 0.1003 = <b>22.95 h ≈ 23 h</b></div>
+<div class="eq eq-steps"><span>t</span><span>= (1/k) ln 10</span><span></span><span>= 2.303 / 0.1003</span><span></span><span>= <b>22.95 h ≈ 23 h</b></span></div>
 <div class="note trap"><p>Use the fraction remaining, not the fraction reacted, inside the logarithm. Putting 0.70 in place of 0.30 gives a wrong k. Check: 23 h is greater than 12 h, as it must be for a higher conversion.</p></div>
 <div class="note exam"><p>In (a) the key words are experimental against theoretical, overall against elementary step, with one fractional and one zero-order example. In (b) show k, then t with its unit.</p></div>`,
           topics: ['m1-rate-law', 'm1-integrated-rate'],
@@ -1556,9 +1556,9 @@ PAPERS({
 <div class="eq">nλ = 2d sin θ</div>
 <p>As the angle is scanned, a peak appears at each θ where a set of planes satisfies this. The peak positions give d and identify the phase; the width gives the crystallite size.</p>
 <p><b>Crystallite size (Scherrer):</b></p>
-<div class="eq">θ = 25.61°/2 = 12.805°, cos θ = 0.9751</div>
+<div class="eq eq-steps"><span>θ</span><span>= 25.61°/2</span><span></span><span>= 12.805°,</span><span>cos θ</span><span>= 0.9751</span></div>
 <div class="eq">β = 0.85° × π/180 = 0.014835 rad</div>
-<div class="eq">D = kλ / (β cos θ) = (0.9 × 1.5406 Å) / (0.014835 × 0.9751) = 1.3865 / 0.014466</div>
+<div class="eq eq-steps"><span>D</span><span>= kλ / (β cos θ)</span><span></span><span>= (0.9 × 1.5406 Å) / (0.014835 × 0.9751)</span><span></span><span>= 1.3865 / 0.014466</span></div>
 <div class="eq">D ≈ <b>95.8 Å ≈ 9.6 nm</b></div>
 <div class="note trap"><p>The printed peak position is 2θ, so use θ = 12.805° in cos θ. The FWHM must be in radians. Using 25.61° inside the cosine gives 10.6 nm, which is wrong.</p></div>
 <div class="note exam"><p>Diagram with labels (tube, sample, goniometer, detector) and nλ = 2d sin θ for about half the marks; the rest for θ, β in radians and D with unit.</p></div>`,
@@ -1591,11 +1591,11 @@ PAPERS({
           prompt: `<p><b>(a)</b> One mole of Nitrogen gas contained in a cylinder at 300K is allowed to expand irreversibly and isothermally against an external pressure of 5 atm from a volume of 5.0 dm<sup>3</sup> to 7.0 dm<sup>3</sup>. Calculate W, ΔU and ΔH.</p>
 <p><b>(b)</b> The half-life of a homogeneous gaseous reaction SO<sub>2</sub>Cl<sub>2</sub> ⟶ SO<sub>2</sub> + Cl<sub>2</sub>, which obeys first-order kinetics, is 8 minutes. How long will it take for the concentration of SO<sub>2</sub>Cl<sub>2</sub> to be reduced to 1% of the initial value.</p>`,
           answer: `<p><b>(a)</b> Treat N<sub>2</sub> as an ideal gas. Constant external pressure:</p>
-<div class="eq">W = −P<sub>ex</sub>ΔV = −5 atm × (7.0 − 5.0) dm<sup>3</sup> = −10 dm<sup>3</sup> atm</div>
+<div class="eq eq-steps"><span>W</span><span>= −P<sub>ex</sub>ΔV</span><span></span><span>= −5 atm × (7.0 − 5.0) dm<sup>3</sup></span><span></span><span>= −10 dm<sup>3</sup> atm</span></div>
 <div class="eq">1 dm<sup>3</sup> atm = 101.325 J, so W = −1013 J ≈ −1.01 kJ</div>
 <p>For an isothermal ideal gas U depends only on T, so <b>ΔU = 0</b>. Also H = U + PV = U + nRT is unchanged, so <b>ΔH = 0</b>. Then q = −W = +1013 J (heat absorbed).</p>
 <p><b>(b)</b> k = 0.693/t<sub>½</sub> = 0.693/8 = 0.0866 min<sup>−1</sup>.</p>
-<div class="eq">t = (2.303/k) log([A]<sub>0</sub>/[A]) = (2.303/0.0866) × log 100 = 26.6 × 2</div>
+<div class="eq eq-steps"><span>t</span><span>= (2.303/k) log([A]<sub>0</sub>/[A])</span><span></span><span>= (2.303/0.0866) × log 100</span><span></span><span>= 26.6 × 2</span></div>
 <div class="eq">t ≈ <b>53.2 min</b> (about 6.64 half-lives)</div>
 <div class="note trap"><p>In (a) the work is not nRT ln(V<sub>2</sub>/V<sub>1</sub>); that is the reversible path and would give −1.70 kJ. Irreversible expansion against a fixed pressure uses −P<sub>ex</sub>ΔV. In (b), 1% means [A]/[A]<sub>0</sub> = 0.01.</p></div>
 <div class="note exam"><p>(a) the formula, the dm<sup>3</sup> atm to J conversion, and the reason ΔU = ΔH = 0. (b) k from the half-life, then the first-order integrated form.</p></div>`,
@@ -1807,9 +1807,9 @@ PAPERS({
 <p>Chemical analysis gives "SiO<sub>2</sub>" for all three; only XRD tells them apart.</p>
 <p><b>(b) Scherrer equation</b></p>
 <div class="eq">D = Kλ / (β cos θ)</div>
-<div class="eq">θ = 26.43°/2 = 13.215°, cos θ = 0.9735</div>
+<div class="eq eq-steps"><span>θ</span><span>= 26.43°/2</span><span></span><span>= 13.215°,</span><span>cos θ</span><span>= 0.9735</span></div>
 <div class="eq">β = 2.685 × π/180 = 0.04686 rad</div>
-<div class="eq">D = (0.9 × 1.5406) / (0.04686 × 0.9735) = 1.3865 / 0.04562 = 30.4 Å = <b>3.04 nm</b></div>
+<div class="eq eq-steps"><span>D</span><span>= (0.9 × 1.5406) / (0.04686 × 0.9735)</span><span></span><span>= 1.3865 / 0.04562</span><span></span><span>= 30.4 Å</span><span></span><span>= <b>3.04 nm</b></span></div>
 <div class="note trap"><p>Use θ, not 2θ, in cos θ, and β in radians. Using 2θ gives the wrong answer.</p></div>`,
           topics: ['m4-bragg', 'm4-xrd-patterns', 'm4-scherrer'],
           notes: ['m4-bragg.3', 'm4-bragg.4', 'm4-bragg.2', 'm4-scherrer.1', 'm4-scherrer.2']
@@ -1872,16 +1872,16 @@ PAPERS({
 <div class="eq">= 10 × 12.471 × ln(323.15/298.15) + 10 × 8.314 × ln 2</div>
 <div class="eq">= 124.71 × 0.08052 + 83.14 × 0.6931 = 10.04 + 57.63 = <b>67.7 J K<sup>−1</sup></b></div>
 <p><b>(a)(ii)</b></p>
-<div class="eq">k = 0.693 / t<sub>½</sub> = 0.693 / 15 = <b>0.0462 min<sup>−1</sup></b></div>
-<div class="eq">t = (2.303/k) log[100/(100 − 80)] = (2.303/0.0462) × log 5 = 49.85 × 0.699 = <b>34.8 min</b></div>
+<div class="eq eq-steps"><span>k</span><span>= 0.693 / t<sub>½</sub></span><span></span><span>= 0.693 / 15</span><span></span><span>= <b>0.0462 min<sup>−1</sup></b></span></div>
+<div class="eq eq-steps"><span>t</span><span>= (2.303/k) log[100/(100 − 80)]</span><span></span><span>= (2.303/0.0462) × log 5</span><span></span><span>= 49.85 × 0.699</span><span></span><span>= <b>34.8 min</b></span></div>
 <p><b>(OR)</b></p>
 <p><b>(b)(i)</b> T = 300.15 K, n = 0.5 mol.</p>
-<div class="eq">w = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −0.5 × 8.314 × 300.15 × ln(5/2) = −1247.7 × 0.9163 = <b>−1143 J</b></div>
-<div class="eq">ΔU = 0 (isothermal, ideal gas), so q = −w = <b>+1143 J</b></div>
+<div class="eq eq-steps"><span>w</span><span>= −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −0.5 × 8.314 × 300.15 × ln(5/2)</span><span></span><span>= −1247.7 × 0.9163</span><span></span><span>= <b>−1143 J</b></span></div>
+<div class="eq eq-steps"><span>ΔU</span><span>= 0 (isothermal, ideal gas), so</span><span>q</span><span>= −w</span><span></span><span>= <b>+1143 J</b></span></div>
 <p>The gas does 1143 J of work on the surroundings and absorbs the same heat.</p>
 <p><b>(b)(ii)</b> t = 1.5 h = 5400 s.</p>
 <div class="eq">kt = 3.2 × 10<sup>−5</sup> × 5400 = 0.1728</div>
-<div class="eq">[A]/[A]<sub>0</sub> = e<sup>−kt</sup> = e<sup>−0.1728</sup> = 0.841, so <b>84.1% remains</b> (15.9% has reacted)</div>
+<div class="eq eq-steps"><span>[A]/[A]<sub>0</sub></span><span>= e<sup>−kt</sup></span><span></span><span>= e<sup>−0.1728</sup></span><span></span><span>= 0.841, so <b>84.1% remains</b> (15.9% has reacted)</span></div>
 <div class="note trap"><p>Convert 1.5 h to seconds to match k in s<sup>−1</sup>; and use kelvin (298.15 K and 323.15 K) for the temperature ratio.</p></div>`,
           topics: ['m1-thermo-numericals', 'm1-kinetics-numericals', 'm1-second-law-entropy', 'm1-expansion-work'],
           notes: ['m1-second-law-entropy.3', 'm1-thermo-numericals.2', 'm1-kinetics-numericals.0', 'm1-kinetics-numericals.1', 'm1-thermo-numericals.0', 'm1-kinetics-numericals.2']
@@ -1948,7 +1948,7 @@ PAPERS({
 <p><b>Isothermal reversible expansion of an ideal gas.</b> The internal energy of an ideal gas depends only on temperature, so at constant T:</p>
 <div class="eq">ΔU = 0, so q = −w</div>
 <p>For reversible expansion P<sub>ext</sub> = P = nRT/V at every step:</p>
-<div class="eq">w = −<span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> P dV = −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> dV/V = −nRT ln(V<sub>2</sub>/V<sub>1</sub>) = −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</div>
+<div class="eq eq-steps"><span>w</span><span>= −<span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> P dV</span><span></span><span>= −nRT <span class="int"><span class="isg">∫</span><span class="lims"><span>V₂</span><span>V₁</span></span></span> dV/V</span><span></span><span>= −nRT ln(V<sub>2</sub>/V<sub>1</sub>)</span><span></span><span>= −nRT ln(P<sub>1</sub>/P<sub>2</sub>)</span></div>
 <div class="eq">q = +nRT ln(V<sub>2</sub>/V<sub>1</sub>): all the heat absorbed is turned into work done by the gas</div>
 <figure data-fig="m1-pv-isothermal"></figure>
 <p><b>Adiabatic reversible expansion of an ideal gas.</b> No heat is exchanged, q = 0, so</p>
@@ -1989,7 +1989,7 @@ PAPERS({
 <li>Zinc is oxidised and its electrons flow through the wire to the copper, where Cu<sup>2+</sup> is reduced. The salt bridge completes the circuit and keeps both solutions electrically neutral.</li></ul>
 <div class="eq">Anode (−, oxidation): Zn → Zn<sup>2+</sup> + 2e<sup>−</sup></div>
 <div class="eq">Cathode (+, reduction): Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu</div>
-<div class="eq">Overall: Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, E°<sub>cell</sub> = 0.34 − (−0.76) = 1.10 V</div>
+<div class="eq eq-steps"><span>Overall: Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu,</span><span></span><span>E°<sub>cell</sub></span><span>= 0.34 − (−0.76)</span><span></span><span>= 1.10 V</span></div>
 <div class="eq">Cell notation: Zn | ZnSO<sub>4</sub>(aq) ‖ CuSO<sub>4</sub>(aq) | Cu</div>
 <p><b>Electrolytic cell: electrolysis of molten NaCl</b></p>
 <figure data-fig="m2-electrolytic-cell"></figure>
@@ -2123,7 +2123,7 @@ PAPERS({
 <div class="eq">β = 2.560° × π/180 = 0.044680 rad</div>
 <div class="eq">cos 12.3° = 0.977046</div>
 <div class="eq">β cos θ = 0.044680 × 0.977046 = 0.043655</div>
-<div class="eq">D = (0.9 × 1.5809) / 0.043655 = 1.42281 / 0.043655 = 32.59 Å</div>
+<div class="eq eq-steps"><span>D</span><span>= (0.9 × 1.5809) / 0.043655</span><span></span><span>= 1.42281 / 0.043655</span><span></span><span>= 32.59 Å</span></div>
 <div class="eq"><b>D ≈ 32.6 Å = 3.26 nm</b></div>
 <div class="note trap"><p>Convert FWHM to radians and halve 2θ before taking the cosine. With K = 0.94 the same data give 34.0 Å (3.40 nm); state which K you used.</p></div>`,
           topics: ['m4-xrd-patterns', 'm4-xrays', 'm4-bragg', 'm4-scherrer'],
@@ -2177,7 +2177,7 @@ PAPERS({
 <li>For the antibonding MO, ψ<sub>a</sub><sup>2</sup> = ψ<sub>A</sub><sup>2</sup> + ψ<sub>B</sub><sup>2</sup> − 2ψ<sub>A</sub>ψ<sub>B</sub>: density is removed from between the nuclei and there is a <b>node</b> (zero density) on the plane midway between them. The nuclei are left poorly shielded and repel each other, and the electron is held mainly on the far sides of the nuclei. The energy rises above the atomic orbitals.</li>
 <li>The antibonding MO is raised slightly more than the bonding MO is lowered, which is why He<sub>2</sub> (two bonding and two antibonding electrons) does not exist.</li></ul>
 <figure data-fig="m5-mo-h2"></figure>
-<div class="eq">Bond order = ½ (N<sub>b</sub> − N<sub>a</sub>); H<sub>2</sub>: (σ1s)<sup>2</sup>, bond order = ½(2 − 0) = 1</div>
+<div class="eq eq-steps"><span>Bond order</span><span>= ½ (N<sub>b</sub> − N<sub>a</sub>); H<sub>2</sub>: (σ1s)<sup>2</sup>,</span><span>bond order</span><span>= ½(2 − 0)</span><span></span><span>= 1</span></div>
 <div class="note exam"><p>Write both LCAO combinations, the three conditions, the ψ<sup>2</sup> argument with the node, and draw the H<sub>2</sub> MO energy diagram with the AOs at the sides and σ below, σ* above.</p></div>`,
           topics: ['m5-molecular-orbitals', 'm5-orbital-overlap'],
           notes: ['m5-molecular-orbitals.1', 'm5-molecular-orbitals.2', 'm5-molecular-orbitals.3', 'm5-orbital-overlap.1']
@@ -2193,22 +2193,22 @@ PAPERS({
           answer: `<p><b>(a)(i)</b> n = 10 mol, T = 300 K, P<sub>1</sub> = 10 atm, P<sub>2</sub> = 2 atm, R = 8.314 J K<sup>−1</sup> mol<sup>−1</sup>.</p>
 <div class="eq">w = −nRT ln(P<sub>1</sub>/P<sub>2</sub>) = −2.303 nRT log(P<sub>1</sub>/P<sub>2</sub>)</div>
 <div class="eq">nRT = 10 × 8.314 × 300 = 24 942 J</div>
-<div class="eq">w = −24 942 × ln 5 = −24 942 × 1.6094 = <b>−40 143 J ≈ −40.1 kJ</b></div>
+<div class="eq eq-steps"><span>w</span><span>= −24 942 × ln 5</span><span></span><span>= −24 942 × 1.6094</span><span></span><span>= <b>−40 143 J ≈ −40.1 kJ</b></span></div>
 <p>The gas does 40.1 kJ of work on the surroundings. Since ΔU = 0 for an isothermal ideal-gas change, q = +40.1 kJ.</p>
 <p><b>(a)(ii)</b></p>
-<div class="eq">k = 0.693 / t<sub>½</sub> = 0.693 / 10 min = <b>0.0693 min<sup>−1</sup></b> = 0.0693/60 = <b>1.155 × 10<sup>−3</sup> s<sup>−1</sup></b></div>
+<div class="eq eq-steps"><span>k</span><span>= 0.693 / t<sub>½</sub></span><span></span><span>= 0.693 / 10 min</span><span></span><span>= <b>0.0693 min<sup>−1</sup></b></span><span></span><span>= 0.0693/60</span><span></span><span>= <b>1.155 × 10<sup>−3</sup> s<sup>−1</sup></b></span></div>
 <p><b>(OR)</b></p>
 <p><b>(b)(i)</b> T<sub>1</sub> (source) = 100 °C = 373.15 K, T<sub>2</sub> (sink) = 0 °C = 273.15 K, q<sub>1</sub> = 1897.8 kJ.</p>
 <figure data-fig="m1-carnot-pv"></figure>
-<div class="eq">η = (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub> = 100/373.15 = 0.2680</div>
-<div class="eq">w = η × q<sub>1</sub> = 0.2680 × 1897.8 = <b>508.6 kJ</b></div>
+<div class="eq eq-steps"><span>η</span><span>= (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub></span><span></span><span>= 100/373.15</span><span></span><span>= 0.2680</span></div>
+<div class="eq eq-steps"><span>w</span><span>= η × q<sub>1</sub></span><span></span><span>= 0.2680 × 1897.8</span><span></span><span>= <b>508.6 kJ</b></span></div>
 <p>Heat rejected to the sink = 1897.8 − 508.6 = 1389.2 kJ. (Using 273 K and 373 K gives η = 0.2681 and w = 508.8 kJ.)</p>
 <p><b>(b)(ii)</b> [A]<sub>0</sub> = 3.0 g, [A] = 0.375 g, t = 36 min.</p>
-<div class="eq">[A]<sub>0</sub>/[A] = 3.0/0.375 = 8 = 2<sup>3</sup>, so 3 half-lives have passed in 36 min</div>
+<div class="eq eq-steps"><span>[A]<sub>0</sub>/[A]</span><span>= 3.0/0.375</span><span></span><span>= 8</span><span></span><span>= 2<sup>3</sup>, so 3 half-lives have passed in 36 min</span></div>
 <div class="eq">t<sub>½</sub> = 36/3 = <b>12 min</b></div>
 <p>Check with the integrated rate law:</p>
-<div class="eq">k = (2.303/t) log([A]<sub>0</sub>/[A]) = (2.303/36) × log 8 = (2.303 × 0.9031)/36 = 0.0578 min<sup>−1</sup></div>
-<div class="eq">t<sub>½</sub> = 0.693/k = 0.693/0.0578 = 12.0 min</div>
+<div class="eq eq-steps"><span>k</span><span>= (2.303/t) log([A]<sub>0</sub>/[A])</span><span></span><span>= (2.303/36) × log 8</span><span></span><span>= (2.303 × 0.9031)/36</span><span></span><span>= 0.0578 min<sup>−1</sup></span></div>
+<div class="eq eq-steps"><span>t<sub>½</sub></span><span>= 0.693/k</span><span></span><span>= 0.693/0.0578</span><span></span><span>= 12.0 min</span></div>
 <div class="note trap"><p>Use kelvin in the Carnot efficiency: (100 − 0)/100 would wrongly give 100%. For (a)(i) the pressure ratio is P<sub>1</sub>/P<sub>2</sub> (initial over final), which equals V<sub>2</sub>/V<sub>1</sub>.</p></div>`,
           topics: ['m1-thermo-numericals', 'm1-expansion-work', 'm1-carnot-cycle', 'm1-kinetics-numericals'],
           notes: ['m1-thermo-numericals.0', 'm1-expansion-work.0', 'm1-kinetics-numericals.0', 'm1-thermo-numericals.4', 'm1-carnot-cycle.2', 'm1-kinetics-numericals.2']
@@ -2285,7 +2285,7 @@ PAPERS({
 <div class="eq">−w = q<sub>1</sub> + q<sub>2</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>) + RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>)</div>
 <p>For the adiabats, T<sub>1</sub>V<sub>2</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>3</sub><sup>γ−1</sup> and T<sub>1</sub>V<sub>1</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>4</sub><sup>γ−1</sup>. Dividing gives V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub>, so</p>
 <div class="eq">−w = R(T<sub>1</sub> − T<sub>2</sub>) ln(V<sub>2</sub>/V<sub>1</sub>)</div>
-<div class="eq">η = −w/q<sub>1</sub> = (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub> = 1 − T<sub>2</sub>/T<sub>1</sub> = (q<sub>1</sub> + q<sub>2</sub>)/q<sub>1</sub></div>
+<div class="eq eq-steps"><span>η</span><span>= −w/q<sub>1</sub></span><span></span><span>= (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub></span><span></span><span>= 1 − T<sub>2</sub>/T<sub>1</sub></span><span></span><span>= (q<sub>1</sub> + q<sub>2</sub>)/q<sub>1</sub></span></div>
 <p>η depends only on the two temperatures and is always below 1, because T<sub>2</sub> cannot be 0 K: no engine turns all its heat into work (second law).</p>
 <p><b>(b) Effect of a catalyst.</b> A catalyst is a substance that changes the rate of a reaction without itself being used up.</p>
 <figure data-fig="m1-catalyst-profile"></figure>
@@ -2436,10 +2436,10 @@ PAPERS({
 <p><b>(b) Scherrer equation</b></p>
 <figure data-fig="m4-fwhm-peak"></figure>
 <div class="eq">D = Kλ / (β cos θ)</div>
-<div class="eq">θ = 21.61°/2 = 10.805°, cos 10.805° = 0.98227</div>
+<div class="eq eq-steps"><span>θ</span><span>= 21.61°/2</span><span></span><span>= 10.805°,</span><span>cos 10.805°</span><span>= 0.98227</span></div>
 <div class="eq">β = 2.51 × π/180 = 0.043807 rad</div>
 <div class="eq">β cos θ = 0.043807 × 0.98227 = 0.043030</div>
-<div class="eq">D = (0.9 × 1.5406) / 0.043030 = 1.38654 / 0.043030 = 32.2 Å</div>
+<div class="eq eq-steps"><span>D</span><span>= (0.9 × 1.5406) / 0.043030</span><span></span><span>= 1.38654 / 0.043030</span><span></span><span>= 32.2 Å</span></div>
 <div class="eq"><b>D ≈ 32.2 Å ≈ 3.22 nm</b></div>
 <div class="note trap"><p>Halve 2θ before taking the cosine and convert FWHM to radians. Using cos 21.61° or β in degrees gives a wrong answer.</p></div>`,
           topics: ['m4-xrd-patterns', 'm4-bragg', 'm4-scherrer'],
@@ -2520,12 +2520,12 @@ PAPERS({
 <p><b>(OR)</b></p>
 <p><b>(b)</b> (i) 1 mole of an ideal monoatomic gas (C<sub>v</sub> = 12.5 J/mol·K) undergoes adiabatic expansion, and the temperature drops from 400 K to 300 K. Find ΔU. (5 marks)<br>(ii) 5 mole of an ideal gas expands reversibly from a volume of 8 dm<sup>3</sup> to 80 dm<sup>3</sup> at a temperature of 27 °C. Calculate the change in entropy. (5 marks)</p>`,
           answer: `<p><b>(a)(i)</b> First find T from PV = nRT at the final state (P = 4.9 atm, V = 2 L, R = 0.0821 L atm K<sup>−1</sup> mol<sup>−1</sup>).</p>
-<div class="eq">T = PV/nR = (4.9 × 2)/(1 × 0.0821) = 119.4 K</div>
-<div class="eq">ΔS = q<sub>rev</sub>/T = 2504/119.4 = <b>20.98 J K<sup>−1</sup></b></div>
+<div class="eq eq-steps"><span>T</span><span>= PV/nR</span><span></span><span>= (4.9 × 2)/(1 × 0.0821)</span><span></span><span>= 119.4 K</span></div>
+<div class="eq eq-steps"><span>ΔS</span><span>= q<sub>rev</sub>/T</span><span></span><span>= 2504/119.4</span><span></span><span>= <b>20.98 J K<sup>−1</sup></b></span></div>
 <p><b>(a)(ii)</b> ΔG = ΔH − TΔS, with ΔS = 80 J K<sup>−1</sup> mol<sup>−1</sup> = 0.080 kJ K<sup>−1</sup> mol<sup>−1</sup>.</p>
-<div class="eq">298 K: ΔG = 25 − 298 × 0.080 = 25 − 23.84 = <b>+1.16 kJ mol<sup>−1</sup></b> → non-spontaneous</div>
-<div class="eq">500 K: ΔG = 25 − 500 × 0.080 = 25 − 40 = <b>−15 kJ mol<sup>−1</sup></b> → spontaneous</div>
-<div class="eq">Crossover: ΔG = 0 at T = ΔH/ΔS = 25 000/80 = 312.5 K</div>
+<div class="eq eq-steps"><span>298 K: ΔG</span><span>= 25 − 298 × 0.080</span><span></span><span>= 25 − 23.84</span><span></span><span>= <b>+1.16 kJ mol<sup>−1</sup></b> → non-spontaneous</span></div>
+<div class="eq eq-steps"><span>500 K: ΔG</span><span>= 25 − 500 × 0.080</span><span></span><span>= 25 − 40</span><span></span><span>= <b>−15 kJ mol<sup>−1</sup></b> → spontaneous</span></div>
+<div class="eq eq-steps"><span>Crossover: ΔG</span><span>= 0 at T</span><span></span><span>= ΔH/ΔS</span><span></span><span>= 25 000/80</span><span></span><span>= 312.5 K</span></div>
 <figure data-fig="m1-gibbs-four-cases"></figure>
 <p><b>Signs of ΔH and ΔS:</b> here ΔH &gt; 0 opposes the reaction and ΔS &gt; 0 favours it. The −TΔS term grows with T, so the reaction becomes spontaneous above 312.5 K: <b>entropy-driven at high temperature</b>. In general:</p>
 <table><tr><th>ΔH</th><th>ΔS</th><th>Spontaneous?</th></tr>
@@ -2535,11 +2535,11 @@ PAPERS({
 <tr><td>+</td><td>+</td><td>at high T (above ΔH/ΔS), as in this reaction</td></tr></table>
 <p><b>(OR)</b></p>
 <p><b>(b)(i)</b> Adiabatic, so q = 0 and ΔU = w.</p>
-<div class="eq">ΔU = nC<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>) = 1 × 12.5 × (300 − 400) = <b>−1250 J = −1.25 kJ</b></div>
+<div class="eq eq-steps"><span>ΔU</span><span>= nC<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>)</span><span></span><span>= 1 × 12.5 × (300 − 400)</span><span></span><span>= <b>−1250 J</span><span></span><span>= −1.25 kJ</b></span></div>
 <p>w = −1250 J: the gas does 1250 J of work at the expense of its internal energy, which is why it cools.</p>
 <p><b>(b)(ii)</b> Isothermal reversible, T = 300 K (T does not appear in the result).</p>
 <div class="eq">ΔS = nR ln(V<sub>2</sub>/V<sub>1</sub>) = 2.303 nR log(V<sub>2</sub>/V<sub>1</sub>)</div>
-<div class="eq">ΔS = 5 × 8.314 × ln(80/8) = 41.57 × 2.3026 = <b>95.7 J K<sup>−1</sup></b></div>
+<div class="eq eq-steps"><span>ΔS</span><span>= 5 × 8.314 × ln(80/8)</span><span></span><span>= 41.57 × 2.3026</span><span></span><span>= <b>95.7 J K<sup>−1</sup></b></span></div>
 <div class="note trap"><p>In (a)(i) use R = 0.0821 L atm K<sup>−1</sup> mol<sup>−1</sup> for T (litres and atm), then joules for q. In (a)(ii) put ΔH and ΔS in the same units (kJ or J) before subtracting.</p></div>`,
           topics: ['m1-thermo-numericals', 'm1-second-law-entropy', 'm1-free-energy', 'm1-expansion-work'],
           notes: ['m1-thermo-numericals.2', 'm1-thermo-numericals.3', 'm1-free-energy.3', 'm1-thermo-numericals.1', 'm1-second-law-entropy.3']
