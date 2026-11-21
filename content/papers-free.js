@@ -2277,10 +2277,10 @@ PAPERS({
 <p><b>(b)</b> Explain the effect of a catalyst on the rate of reaction.</p>`,
           answer: `<p><b>(a) Carnot cycle:</b> an idealised reversible cycle in which one mole of an ideal gas in a frictionless piston takes heat q<sub>1</sub> from a source at T<sub>1</sub>, does work, and rejects heat q<sub>2</sub> to a sink at T<sub>2</sub> (T<sub>1</sub> &gt; T<sub>2</sub>). It has four reversible strokes.</p>
 <figure data-fig="m1-carnot-pv"></figure>
-<ol><li><b>Isothermal expansion at T<sub>1</sub></b> (A → B, V<sub>1</sub> → V<sub>2</sub>): ΔU = 0, so <span class="eq">q<sub>1</sub> = −w<sub>1</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>)</span></li>
-<li><b>Adiabatic expansion</b> (B → C, T<sub>1</sub> → T<sub>2</sub>): q = 0, <span class="eq">w<sub>2</sub> = C<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>)</span></li>
-<li><b>Isothermal compression at T<sub>2</sub></b> (C → D, V<sub>3</sub> → V<sub>4</sub>): <span class="eq">q<sub>2</sub> = RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>) (negative, heat rejected)</span></li>
-<li><b>Adiabatic compression</b> (D → A, T<sub>2</sub> → T<sub>1</sub>): <span class="eq">w<sub>4</sub> = C<sub>v</sub>(T<sub>1</sub> − T<sub>2</sub>)</span></li></ol>
+<ol><li><b>Isothermal expansion at T<sub>1</sub></b> (A → B, V<sub>1</sub> → V<sub>2</sub>): ΔU = 0, so <div class="eq">q<sub>1</sub> = −w<sub>1</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>)</div></li>
+<li><b>Adiabatic expansion</b> (B → C, T<sub>1</sub> → T<sub>2</sub>): q = 0, <div class="eq">w<sub>2</sub> = C<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>)</div></li>
+<li><b>Isothermal compression at T<sub>2</sub></b> (C → D, V<sub>3</sub> → V<sub>4</sub>): <div class="eq">q<sub>2</sub> = RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>)</div><p>q<sub>2</sub> is negative: heat is rejected to the sink.</p></li>
+<li><b>Adiabatic compression</b> (D → A, T<sub>2</sub> → T<sub>1</sub>): <div class="eq">w<sub>4</sub> = C<sub>v</sub>(T<sub>1</sub> − T<sub>2</sub>)</div></li></ol>
 <p><b>Efficiency.</b> The two adiabatic work terms cancel. For the cycle ΔU = 0, so the net work done by the gas is</p>
 <div class="eq">−w = q<sub>1</sub> + q<sub>2</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>) + RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>)</div>
 <p>For the adiabats, T<sub>1</sub>V<sub>2</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>3</sub><sup>γ−1</sup> and T<sub>1</sub>V<sub>1</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>4</sub><sup>γ−1</sup>. Dividing gives V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub>, so</p>
