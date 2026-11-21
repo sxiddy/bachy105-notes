@@ -82,6 +82,13 @@ PAPERS({
       title: 'FAT · Slot B2+TB2 · Nov 2026',
       sub: 'Actual paper · Fall 2026–27',
       exam: 'fat'
+    },
+    {
+      id: 'fat-d1td1-2026',
+      kind: 'actual',
+      title: 'FAT · Slot D1+TD1 · Nov 2026',
+      sub: 'Actual paper · Fall 2026–27',
+      exam: 'fat'
     }
   ],
   papers: [
@@ -2250,9 +2257,356 @@ PAPERS({
           notes: ['m3-magnetic-basics.1', 'm3-magnetic-classes.0', 'm3-magnetic-classes.1', 'm3-magnetic-classes.2', 'm2-dssc.0', 'm2-dssc.1', 'm2-dssc.6']
         }
       ]
+    },
+    {
+      id: 'fat-d1td1-2026',
+      kind: 'actual',
+      exam: 'fat',
+      title: 'FAT · Slot D1+TD1 · Nov 2026',
+      short: 'D1+TD1 FAT',
+      sub: 'Actual paper · Fall 2026–27',
+      meta: [['Slot', 'D1+TD1'], ['Date', 'November 2026'], ['Duration', '3 hours'], ['Max marks', '100'], ['Programme', 'B.Tech.']],
+      instructions: `<b>General instructions:</b> Part A: 10 × 10 = 100 marks, answer all questions (Q9 and Q10 have an internal choice). BL – Blooms Taxonomy Level (1 – Remember, 2 – Understand, 3 – Apply, 4 – Analyse, 5 – Evaluate, 6 – Create).<br><b>Course Outcomes:</b> CO1: Apply the concepts of thermodynamics and kinetics. CO2: Use chemical concepts for the advancement of materials in electrical, magnetic, and energy domains. CO3: Demonstrate UV Visible spectroscopic and X-ray diffraction techniques. CO4: Discuss molecular orbitals and its energies through computational chemistry. CO5: Apply instrumental, wet-chemical, and computational methods to analyze materials, molecules, and ions.`,
+      questions: [
+        {
+          n: '1',
+          marks: '5+5',
+          co: '1',
+          bl: '2',
+          prompt: `<p><b>(a)</b> Describe the Carnot cycle and derive the expression for the efficiency of a Carnot engine.</p>
+<p><b>(b)</b> Explain the effect of a catalyst on the rate of reaction.</p>`,
+          answer: `<p><b>(a) Carnot cycle:</b> an idealised reversible cycle in which one mole of an ideal gas in a frictionless piston takes heat q<sub>1</sub> from a source at T<sub>1</sub>, does work, and rejects heat q<sub>2</sub> to a sink at T<sub>2</sub> (T<sub>1</sub> &gt; T<sub>2</sub>). It has four reversible strokes.</p>
+<figure data-fig="m1-carnot-pv"></figure>
+<ol><li><b>Isothermal expansion at T<sub>1</sub></b> (A → B, V<sub>1</sub> → V<sub>2</sub>): ΔU = 0, so <span class="eq">q<sub>1</sub> = −w<sub>1</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>)</span></li>
+<li><b>Adiabatic expansion</b> (B → C, T<sub>1</sub> → T<sub>2</sub>): q = 0, <span class="eq">w<sub>2</sub> = C<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>)</span></li>
+<li><b>Isothermal compression at T<sub>2</sub></b> (C → D, V<sub>3</sub> → V<sub>4</sub>): <span class="eq">q<sub>2</sub> = RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>) (negative, heat rejected)</span></li>
+<li><b>Adiabatic compression</b> (D → A, T<sub>2</sub> → T<sub>1</sub>): <span class="eq">w<sub>4</sub> = C<sub>v</sub>(T<sub>1</sub> − T<sub>2</sub>)</span></li></ol>
+<p><b>Efficiency.</b> The two adiabatic work terms cancel. For the cycle ΔU = 0, so the net work done by the gas is</p>
+<div class="eq">−w = q<sub>1</sub> + q<sub>2</sub> = RT<sub>1</sub> ln(V<sub>2</sub>/V<sub>1</sub>) + RT<sub>2</sub> ln(V<sub>4</sub>/V<sub>3</sub>)</div>
+<p>For the adiabats, T<sub>1</sub>V<sub>2</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>3</sub><sup>γ−1</sup> and T<sub>1</sub>V<sub>1</sub><sup>γ−1</sup> = T<sub>2</sub>V<sub>4</sub><sup>γ−1</sup>. Dividing gives V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub>, so</p>
+<div class="eq">−w = R(T<sub>1</sub> − T<sub>2</sub>) ln(V<sub>2</sub>/V<sub>1</sub>)</div>
+<div class="eq">η = −w/q<sub>1</sub> = (T<sub>1</sub> − T<sub>2</sub>)/T<sub>1</sub> = 1 − T<sub>2</sub>/T<sub>1</sub> = (q<sub>1</sub> + q<sub>2</sub>)/q<sub>1</sub></div>
+<p>η depends only on the two temperatures and is always below 1, because T<sub>2</sub> cannot be 0 K: no engine turns all its heat into work (second law).</p>
+<p><b>(b) Effect of a catalyst.</b> A catalyst is a substance that changes the rate of a reaction without itself being used up.</p>
+<figure data-fig="m1-catalyst-profile"></figure>
+<ul><li>It provides an <b>alternative pathway with a lower activation energy</b> (E<sub>a</sub>), usually by forming an intermediate with a reactant or by adsorbing reactants on its surface.</li>
+<li>By the Arrhenius equation, k = A e<sup>−E<sub>a</sub>/RT</sup>, a lower E<sub>a</sub> means a much larger fraction of collisions have enough energy, so <b>k and the rate increase</b> at the same temperature.</li>
+<li>It speeds up the forward and backward reactions equally, so it does <b>not change ΔH, ΔG, K or the position of equilibrium</b>; equilibrium is only reached sooner.</li>
+<li>It is not consumed and a small amount is enough; it is often specific to one reaction.</li>
+<li>Positive catalysts raise the rate (Fe in the Haber process, MnO<sub>2</sub> for KClO<sub>3</sub>, Br<sup>−</sup> for H<sub>2</sub>O<sub>2</sub> decomposition, enzymes); inhibitors (negative catalysts) slow it down.</li></ul>
+<div class="note exam"><p>(a) needs all four strokes on a P–V diagram and the step V<sub>2</sub>/V<sub>1</sub> = V<sub>3</sub>/V<sub>4</sub>. (b) needs the energy profile with and without catalyst.</p></div>`,
+          topics: ['m1-carnot-cycle', 'm1-catalysis'],
+          notes: ['m1-carnot-cycle.1', 'm1-carnot-cycle.2', 'm1-catalysis.0', 'm1-catalysis.1']
+        },
+        {
+          n: '2',
+          marks: 10,
+          co: '2',
+          bl: '3',
+          prompt: `<p>Explain the construction and working principle of a Solid Oxide Fuel Cell (SOFC). Compare it with the PEM fuel cell.</p>`,
+          answer: `<p>A <b>solid oxide fuel cell</b> is a high-temperature fuel cell (about 600–1000 °C) whose electrolyte is a solid ceramic oxide that conducts O<sup>2−</sup> ions.</p>
+<figure data-fig="m2-sofc-diagram"></figure>
+<p><b>Construction</b></p>
+<ul><li><b>Electrolyte:</b> dense yttria-stabilised zirconia (YSZ, ZrO<sub>2</sub> + Y<sub>2</sub>O<sub>3</sub>). Y<sup>3+</sup> in place of Zr<sup>4+</sup> creates oxide-ion vacancies, so O<sup>2−</sup> can hop through at high temperature. It blocks electrons and gases.</li>
+<li><b>Anode (fuel electrode):</b> porous Ni–YSZ cermet.</li>
+<li><b>Cathode (air electrode):</b> porous strontium-doped lanthanum manganite (LSM, La<sub>1−x</sub>Sr<sub>x</sub>MnO<sub>3</sub>).</li>
+<li><b>Interconnect:</b> doped lanthanum chromite or steel joins cells into a stack. Cells are built in planar or tubular designs.</li></ul>
+<p><b>Working</b></p>
+<ol><li>Air reaches the cathode; O<sub>2</sub> takes electrons from the outer circuit and becomes O<sup>2−</sup>.</li>
+<li>O<sup>2−</sup> ions move through the YSZ to the anode.</li>
+<li>At the anode they oxidise the fuel (H<sub>2</sub>, CO or reformed CH<sub>4</sub>), giving water/CO<sub>2</sub> and releasing electrons that flow through the load back to the cathode.</li></ol>
+<div class="eq">Cathode: ½O<sub>2</sub> + 2e<sup>−</sup> → O<sup>2−</sup></div>
+<div class="eq">Anode: H<sub>2</sub> + O<sup>2−</sup> → H<sub>2</sub>O + 2e<sup>−</sup> (and CO + O<sup>2−</sup> → CO<sub>2</sub> + 2e<sup>−</sup>)</div>
+<div class="eq">Overall: H<sub>2</sub> + ½O<sub>2</sub> → H<sub>2</sub>O</div>
+<p><b>Comparison with PEMFC</b></p>
+<figure data-fig="m2-pemfc-diagram"></figure>
+<table><tr><th>Point</th><th>SOFC</th><th>PEMFC</th></tr>
+<tr><td>Electrolyte</td><td>solid ceramic YSZ</td><td>polymer membrane (Nafion)</td></tr>
+<tr><td>Ion carried</td><td>O<sup>2−</sup>, cathode → anode</td><td>H<sup>+</sup>, anode → cathode</td></tr>
+<tr><td>Temperature</td><td>600–1000 °C</td><td>60–100 °C</td></tr>
+<tr><td>Catalyst</td><td>Ni, LSM; no precious metal</td><td>Pt on carbon</td></tr>
+<tr><td>Fuel</td><td>H<sub>2</sub>, CO, CH<sub>4</sub>, biogas (internal reforming)</td><td>pure H<sub>2</sub>; poisoned by CO</td></tr>
+<tr><td>Water formed at</td><td>anode</td><td>cathode</td></tr>
+<tr><td>Efficiency</td><td>50–60 %, up to ~85 % with heat use</td><td>40–60 %</td></tr>
+<tr><td>Start-up</td><td>slow; thermal stress on ceramics</td><td>fast</td></tr>
+<tr><td>Uses</td><td>stationary power plants, combined heat and power</td><td>vehicles, portable and backup power</td></tr></table>`,
+          topics: ['m2-sofc', 'm2-pemfc', 'm2-fuel-cells'],
+          notes: ['m2-sofc.1', 'm2-sofc.2', 'm2-sofc.4', 'm2-pemfc.1']
+        },
+        {
+          n: '3',
+          marks: 10,
+          co: '2',
+          bl: '4',
+          prompt: `<p>Describe the sol-gel method of nanomaterial synthesis with its principle, procedure, advantages, and applications.</p>`,
+          answer: `<p><b>Principle:</b> sol-gel is a <b>bottom-up</b> wet-chemical route. A molecular precursor, usually a metal alkoxide M(OR)<sub>n</sub> (for silica, tetraethyl orthosilicate, TEOS), is hydrolysed and condensed into a colloidal suspension (<b>sol</b>), which links up into a continuous 3-D network filled with solvent (<b>gel</b>). Drying and heating the gel give oxide nanoparticles, films or ceramics.</p>
+<figure data-fig="m3-sol-gel-routes"></figure>
+<p><b>Procedure</b></p>
+<ol><li><b>Hydrolysis:</b> the alkoxide reacts with water in alcohol, with an acid or base catalyst.<div class="eq">M(OR)<sub>4</sub> + 4H<sub>2</sub>O → M(OH)<sub>4</sub> + 4ROH; Si(OC<sub>2</sub>H<sub>5</sub>)<sub>4</sub> + 4H<sub>2</sub>O → Si(OH)<sub>4</sub> + 4C<sub>2</sub>H<sub>5</sub>OH</div></li>
+<li><b>Condensation:</b> M–O–M bridges form, releasing water or alcohol; particles grow into a sol and then a gel.<div class="eq">–M–OH + HO–M– → –M–O–M– + H<sub>2</sub>O</div><div class="eq">–M–OH + RO–M– → –M–O–M– + ROH</div></li>
+<li><b>Aging:</b> condensation continues in the pore liquid; the network strengthens and shrinks.</li>
+<li><b>Drying:</b> solvent is removed. Normal drying gives a <b>xerogel</b>; supercritical drying keeps the pores and gives an <b>aerogel</b>.</li>
+<li><b>Calcination:</b> heating removes –OH and organic residues and crystallises the oxide nanoparticles.</li></ol>
+<figure data-fig="m3-siloxane-network"></figure>
+<p><b>Advantages</b></p>
+<ul><li>Low processing temperature compared with solid-state methods.</li>
+<li>High purity and homogeneity, since mixing happens at the molecular level.</li>
+<li>Good control over particle size, shape, porosity and composition.</li>
+<li>Gives many forms: powders, thin films, fibres, monoliths, aerogels; easy dip or spin coating.</li>
+<li>Simple, cheap equipment.</li></ul>
+<p>(Limitations: costly alkoxides, long processing, shrinkage and cracking on drying.)</p>
+<p><b>Applications</b></p>
+<ul><li>Nano SiO<sub>2</sub>, TiO<sub>2</sub>, ZnO, Al<sub>2</sub>O<sub>3</sub> powders; TiO<sub>2</sub> layers for DSSC photoanodes and photocatalysis.</li>
+<li>Protective, anti-reflective and self-cleaning coatings on glass and metals.</li>
+<li>Optical fibres, lenses, sensors.</li>
+<li>Aerogels for thermal insulation; porous supports for catalysts.</li>
+<li>Bioactive glass and drug-delivery carriers.</li></ul>`,
+          topics: ['m3-sol-gel', 'm3-synthesis'],
+          notes: ['m3-sol-gel.0', 'm3-sol-gel.1', 'm3-sol-gel.2', 'm3-sol-gel.5']
+        },
+        {
+          n: '4',
+          marks: 10,
+          co: '3',
+          bl: '4',
+          prompt: `<p>Describe the instrumentation of a UV-Visible spectrophotometer. Explain the function of each component and compare single-beam and double-beam instruments.</p>`,
+          answer: `<p>A UV-visible spectrophotometer measures how much light a sample absorbs at each wavelength from about 200 to 800 nm, using the Beer–Lambert law A = log(I<sub>0</sub>/I) = εcl.</p>
+<figure data-fig="m4-single-beam"></figure>
+<p><b>Components and their functions</b></p>
+<ol><li><b>Radiation source:</b> deuterium (or hydrogen) lamp for UV (190–400 nm); tungsten-halogen lamp for visible (350–800 nm). Gives a steady continuous spectrum.</li>
+<li><b>Monochromator:</b> entrance slit, prism or diffraction grating, exit slit. Splits the light and passes one narrow band of wavelengths, which is scanned across the range.</li>
+<li><b>Sample and reference cells (cuvettes):</b> hold the solution, usually 1 cm path. Quartz or fused silica for UV (glass absorbs below ~350 nm); glass or plastic for visible.</li>
+<li><b>Detector:</b> photomultiplier tube, photodiode or photodiode array; converts the transmitted light into an electrical signal proportional to intensity.</li>
+<li><b>Amplifier and read-out / computer:</b> amplifies the signal, calculates absorbance or transmittance and plots the spectrum (A vs λ).</li></ol>
+<figure data-fig="m4-double-beam"></figure>
+<p>A double-beam instrument adds a <b>beam splitter or rotating chopper mirror</b> after the monochromator, which sends the light alternately through the sample and the reference (solvent) cell, and the electronics take the ratio of the two.</p>
+<p><b>Single-beam vs double-beam</b></p>
+<table><tr><th>Point</th><th>Single-beam</th><th>Double-beam</th></tr>
+<tr><td>Light path</td><td>one beam through one cell at a time</td><td>beam split; passes through sample and reference</td></tr>
+<tr><td>Reference</td><td>blank measured first, then sample (separately)</td><td>measured at the same time as the sample</td></tr>
+<tr><td>Lamp drift, solvent absorption</td><td>not corrected; errors if source fluctuates</td><td>cancelled automatically</td></tr>
+<tr><td>Accuracy and stability</td><td>lower</td><td>higher</td></tr>
+<tr><td>Spectrum scanning</td><td>slow, re-zero at each λ</td><td>fast, continuous scan</td></tr>
+<tr><td>Design and cost</td><td>simple, cheaper, more light reaches detector</td><td>complex, costlier, needs chopper and extra optics</td></tr>
+<tr><td>Use</td><td>routine single-λ concentration work</td><td>full spectra, research, kinetics</td></tr></table>`,
+          topics: ['m4-uv-vis-instrument', 'm4-beer-lambert'],
+          notes: ['m4-uv-vis-instrument.0', 'm4-uv-vis-instrument.1']
+        },
+        {
+          n: '5',
+          marks: 10,
+          co: '4',
+          bl: '5',
+          prompt: `<p>What are the different types of basis sets used in computational chemistry? Explain its importance in quantum chemical calculations.</p>`,
+          answer: `<p>A <b>basis set</b> is a set of mathematical functions (usually Gaussian-type orbitals, sometimes Slater-type) that are combined to represent the atomic orbitals, and from them the molecular orbitals, of a molecule: ψ<sub>MO</sub> = Σ c<sub>i</sub>φ<sub>i</sub>. Every quantum chemical calculation is specified as a <b>method / basis set</b>, for example B3LYP/6-31G*.</p>
+<p><b>Types of basis sets</b></p>
+<table><tr><th>Type</th><th>Idea</th><th>Examples</th><th>Use</th></tr>
+<tr><td>Minimal</td><td>one function per occupied atomic orbital</td><td>STO-3G, STO-6G</td><td>fast, low accuracy; small molecules (H<sub>2</sub>, H<sub>2</sub>O, NH<sub>3</sub>)</td></tr>
+<tr><td>Split-valence</td><td>core orbitals one function; valence orbitals two or more, so they can expand or contract</td><td>3-21G, 4-31G, 6-31G, 6-311G</td><td>widely used for organic molecules</td></tr>
+<tr><td>Polarisation</td><td>adds higher-ℓ functions (d on heavy atoms, p on H) so orbitals can distort in bonds</td><td>6-31G*, 6-31G**, 6-311G(d,p)</td><td>accurate geometries, bond angles, lone pairs</td></tr>
+<tr><td>Diffuse</td><td>adds very spread-out functions for loosely held electrons</td><td>6-31+G, 6-31++G</td><td>anions (OH<sup>−</sup>, F<sup>−</sup>, CN<sup>−</sup>), excited states, weak interactions, H-bonding</td></tr>
+<tr><td>Correlation consistent</td><td>built to converge systematically for correlated methods</td><td>cc-pVDZ, cc-pVTZ, cc-pVQZ</td><td>high-accuracy ab initio (MP2, CCSD(T))</td></tr>
+<tr><td>Effective core potential</td><td>replaces inner-core electrons with a potential; only valence treated explicitly</td><td>LANL2DZ, Stuttgart–Dresden, def2</td><td>transition metals and heavy atoms; includes relativistic effects</td></tr></table>
+<p><b>Importance in quantum chemical calculations</b></p>
+<ul><li><b>Sets the accuracy:</b> the exact orbitals are unknown, so the quality of energies, geometries, dipole moments, vibrational frequencies and spectra depends on how flexible the basis is. A larger basis approaches the complete-basis-set limit.</li>
+<li><b>Sets the cost:</b> computing time rises steeply with the number of basis functions (roughly N<sup>4</sup> for Hartree–Fock), so the basis is chosen to balance accuracy against time.</li>
+<li><b>Must match the chemistry:</b> polarisation functions for bonding and geometry, diffuse functions for anions and weak interactions, ECPs for heavy metals. A poor choice gives wrong answers even with a good method.</li>
+<li><b>Must match the method:</b> correlated methods need correlation-consistent sets to benefit; DFT works well with polarised split-valence sets.</li>
+<li><b>Reproducibility:</b> quoting method/basis lets results be compared and repeated.</li></ul>
+<div class="note exam"><p>BL5 (evaluate): end with a judgement, e.g. 6-31G* is the usual cost/accuracy compromise for organic molecules; add + for anions and use an ECP set for metals.</p></div>`,
+          topics: ['m5-qm-calculations', 'm5-comp-methods'],
+          notes: ['m5-qm-calculations.1', 'm5-qm-calculations.2', 'm5-comp-methods.7']
+        },
+        {
+          n: '6',
+          marks: '5+5',
+          co: '3',
+          bl: '3',
+          prompt: `<p><b>(a)</b> Describe the instrumentation and working of a powder X-ray diffractometer.</p>
+<p><b>(b)</b> Estimate the crystallite size of the given nanomaterial using p-XRD data: Peak position 2θ = 21.61°, FWHM of sample = 2.51°, k = 0.9 and λ = 1.5406 Å (degree to radian = Degree × π/180).</p>`,
+          answer: `<p><b>(a) Powder X-ray diffractometer</b></p>
+<figure data-fig="m4-diffractometer-layout"></figure>
+<ul><li><b>X-ray tube:</b> electrons from a heated tungsten filament are accelerated by 30–50 kV onto a Cu target, producing X-rays; a Ni filter removes Kβ, leaving Cu Kα (λ = 1.5406 Å).</li>
+<li><b>Slits / collimator:</b> shape the beam into a narrow, parallel beam.</li>
+<li><b>Sample holder:</b> finely ground powder pressed flat, so crystallites lie in every orientation and every set of planes can diffract.</li>
+<li><b>Goniometer:</b> turns the sample through θ while the detector turns through 2θ (θ–2θ geometry).</li>
+<li><b>Detector:</b> scintillation counter or solid-state detector counts diffracted X-rays.</li>
+<li><b>Computer:</b> records intensity against 2θ (the diffractogram).</li></ul>
+<p><b>Working:</b> X-rays scattered by successive lattice planes interfere constructively only when <b>Bragg's law</b>, nλ = 2d sin θ, holds. As 2θ is scanned, each set of planes gives a peak. Peak positions give d-spacings and phase (matched to JCPDS/ICDD cards), intensities give relative amounts and structure, and peak widths give crystallite size.</p>
+<p><b>(b) Scherrer equation</b></p>
+<figure data-fig="m4-fwhm-peak"></figure>
+<div class="eq">D = Kλ / (β cos θ)</div>
+<div class="eq">θ = 21.61°/2 = 10.805°, cos 10.805° = 0.98227</div>
+<div class="eq">β = 2.51 × π/180 = 0.043807 rad</div>
+<div class="eq">β cos θ = 0.043807 × 0.98227 = 0.043030</div>
+<div class="eq">D = (0.9 × 1.5406) / 0.043030 = 1.38654 / 0.043030 = 32.2 Å</div>
+<div class="eq"><b>D ≈ 32.2 Å ≈ 3.22 nm</b></div>
+<div class="note trap"><p>Halve 2θ before taking the cosine and convert FWHM to radians. Using cos 21.61° or β in degrees gives a wrong answer.</p></div>`,
+          topics: ['m4-xrd-patterns', 'm4-bragg', 'm4-scherrer'],
+          notes: ['m4-xrd-patterns.0', 'm4-xrd-patterns.1', 'm4-bragg.3', 'm4-scherrer.1', 'm4-scherrer.2']
+        },
+        {
+          n: '7',
+          marks: 10,
+          co: '2',
+          bl: '5',
+          prompt: `<p>What are insulators? Explain them using band theory, and discuss dielectric polarisation, dielectric breakdown and applications. How do insulators differ from semiconductors?</p>`,
+          answer: `<p><b>Insulators</b> are materials that do not allow electric current to pass through them under normal conditions, with very high resistivity (10<sup>8</sup>–10<sup>16</sup> Ω m). Examples: glass, mica, porcelain, rubber, PVC, diamond.</p>
+<p><b>Band theory</b></p>
+<figure data-fig="m3-band-classes"></figure>
+<ul><li>The valence band is completely filled and the conduction band completely empty.</li>
+<li>They are separated by a very wide forbidden gap, E<sub>g</sub> &gt; 5 eV (diamond ~5.5 eV, glass ~9 eV).</li>
+<li>Thermal energy at room temperature (kT ≈ 0.025 eV) cannot lift electrons across, so there are no free carriers and conductivity is negligible.</li></ul>
+<p><b>Dielectric polarisation:</b> insulators are dielectrics. In an electric field the charges inside cannot flow, but they shift slightly, creating induced dipoles; this is polarisation. Types:</p>
+<figure data-fig="m3-dielectric-tree"></figure>
+<ul><li><b>Electronic:</b> the electron cloud shifts relative to the nucleus (all materials).</li>
+<li><b>Ionic:</b> positive and negative ions shift in opposite directions (NaCl).</li>
+<li><b>Orientation (dipolar):</b> permanent dipoles line up with the field (H<sub>2</sub>O).</li>
+<li><b>Space-charge (interfacial):</b> charges pile up at grain boundaries and interfaces.</li></ul>
+<p>Polarisation reduces the field inside and raises the capacitance (dielectric constant ε<sub>r</sub> &gt; 1).</p>
+<p><b>Dielectric breakdown</b></p>
+<figure data-fig="m3-insulator-breakdown"></figure>
+<p>Above a critical field (the dielectric strength, kV mm<sup>−1</sup>) electrons are torn free and accelerated, an avalanche of carriers forms, and the insulator suddenly conducts, often with sparking and permanent damage. Causes: intrinsic (electronic avalanche), thermal (heating runs away), electrochemical (ageing, moisture), and defect/discharge breakdown at voids and cracks.</p>
+<p><b>Applications</b></p>
+<ul><li>PVC and rubber insulation on wires and cables.</li>
+<li>Porcelain and glass insulators on transmission towers.</li>
+<li>Mica, ceramics and oil-impregnated paper in capacitors and transformers.</li>
+<li>Epoxy/fibreglass PCB boards; SF<sub>6</sub> gas in high-voltage switchgear.</li></ul>
+<p><b>Insulators vs semiconductors</b></p>
+<table><tr><th>Point</th><th>Insulator</th><th>Semiconductor</th></tr>
+<tr><td>Band gap</td><td>large, &gt; 5 eV</td><td>small, ~1 eV (Si 1.1, Ge 0.7)</td></tr>
+<tr><td>Resistivity</td><td>10<sup>8</sup>–10<sup>16</sup> Ω m</td><td>10<sup>−5</sup>–10<sup>6</sup> Ω m</td></tr>
+<tr><td>Carriers at room temperature</td><td>practically none</td><td>some electrons and holes</td></tr>
+<tr><td>Effect of heat / doping</td><td>little change</td><td>conductivity rises sharply</td></tr>
+<tr><td>Use</td><td>isolation, dielectrics</td><td>diodes, transistors, solar cells</td></tr>
+<tr><td>Examples</td><td>glass, mica, rubber, diamond</td><td>Si, Ge, GaAs</td></tr></table>`,
+          topics: ['m3-insulators', 'm3-band-theory', 'm2-semiconductors'],
+          notes: ['m3-insulators.0', 'm3-insulators.2', 'm3-band-theory.2', 'm3-band-theory.3']
+        },
+        {
+          n: '8',
+          marks: 10,
+          co: '4',
+          bl: '4',
+          prompt: `<p>Explain the construction of a potential energy curve for a diatomic molecule and discuss its physical significance with a neat diagram.</p>`,
+          answer: `<p>A <b>potential energy curve (PEC)</b> is a plot of the potential energy of a diatomic molecule against the internuclear distance R between its two atoms. For a diatomic, R is the only geometric variable, so the result is a 2-D curve.</p>
+<p><b>Construction</b></p>
+<ol><li>Start from a geometry near the expected bond length.</li>
+<li>Fix R at one value and solve the electronic Schrödinger equation (Born–Oppenheimer approximation: nuclei held still) with a chosen method and basis set to get the total energy.</li>
+<li>Change R step by step (a <b>scan</b>), from short distances to well beyond the bond length, and repeat.</li>
+<li>Plot energy (Hartree or kJ mol<sup>−1</sup>) against R (Å); the zero is usually set at the separated atoms.</li></ol>
+<figure data-fig="m5-pec-diatomic"></figure>
+<p><b>Regions and physical significance</b></p>
+<ul><li><b>Repulsive region (small R):</b> energy rises steeply because nucleus–nucleus and electron–electron repulsion dominate; atoms cannot be pushed together.</li>
+<li><b>Minimum, R<sub>e</sub>:</b> the equilibrium bond length, the most stable arrangement (H<sub>2</sub> ≈ 0.74 Å, HCl ≈ 1.3 Å). Attraction and repulsion balance.</li>
+<li><b>Well depth, D<sub>e</sub>:</b> the bond dissociation energy measured from the minimum; a deeper well means a stronger bond. D<sub>0</sub> = D<sub>e</sub> − zero-point energy.</li>
+<li><b>Attractive region and dissociation limit (large R):</b> energy rises and levels off; the atoms no longer interact, so the bond is broken.</li>
+<li><b>Curvature at the minimum</b> gives the force constant k, and hence the vibrational frequency (IR); vibrational levels sit inside the well.</li></ul>
+<p><b>Harmonic vs Morse:</b></p>
+<figure data-fig="m5-morse-harmonic"></figure>
+<div class="eq">Harmonic: V = ½k(R − R<sub>e</sub>)<sup>2</sup> (symmetric parabola, valid only near R<sub>e</sub>)</div>
+<div class="eq">Morse: V = D<sub>e</sub>(1 − e<sup>−a(R − R<sub>e</sub>)</sup>)<sup>2</sup> (asymmetric, levels off at D<sub>e</sub>)</div>
+<p>Real bonds are anharmonic; only the Morse form describes dissociation.</p>
+<p><b>Uses:</b> bond length and strength, molecular stability, vibrational spectra and spectroscopic transitions, and it is the 1-D starting point for potential energy surfaces of polyatomic molecules and reactions.</p>`,
+          topics: ['m5-potential-energy-surface'],
+          notes: ['m5-potential-energy-surface.0', 'm5-potential-energy-surface.1', 'm5-potential-energy-surface.6']
+        },
+        {
+          n: '9',
+          marks: 10,
+          co: '1',
+          bl: '3',
+          prompt: `<p><b>(a)</b> (i) 1 mole of an ideal gas, maintained at 4.9 atm and at a certain temperature, absorbs heat 2504 J and expands to 2 litres. Calculate the entropy change in expansion process. (5 marks)<br>(ii) For a reaction, ΔH = +25 kJ/mol and ΔS = +80 J/mol·K. Calculate ΔG at 298 K and at 500 K. Comment on the spontaneity of the reaction at both temperatures. Use your result to explain how the signs of ΔH and ΔS influence the temperature-dependent spontaneity. (5 marks)</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> (i) 1 mole of an ideal monoatomic gas (C<sub>v</sub> = 12.5 J/mol·K) undergoes adiabatic expansion, and the temperature drops from 400 K to 300 K. Find ΔU. (5 marks)<br>(ii) 5 mole of an ideal gas expands reversibly from a volume of 8 dm<sup>3</sup> to 80 dm<sup>3</sup> at a temperature of 27 °C. Calculate the change in entropy. (5 marks)</p>`,
+          answer: `<p><b>(a)(i)</b> First find T from PV = nRT at the final state (P = 4.9 atm, V = 2 L, R = 0.0821 L atm K<sup>−1</sup> mol<sup>−1</sup>).</p>
+<div class="eq">T = PV/nR = (4.9 × 2)/(1 × 0.0821) = 119.4 K</div>
+<div class="eq">ΔS = q<sub>rev</sub>/T = 2504/119.4 = <b>20.98 J K<sup>−1</sup></b></div>
+<p><b>(a)(ii)</b> ΔG = ΔH − TΔS, with ΔS = 80 J K<sup>−1</sup> mol<sup>−1</sup> = 0.080 kJ K<sup>−1</sup> mol<sup>−1</sup>.</p>
+<div class="eq">298 K: ΔG = 25 − 298 × 0.080 = 25 − 23.84 = <b>+1.16 kJ mol<sup>−1</sup></b> → non-spontaneous</div>
+<div class="eq">500 K: ΔG = 25 − 500 × 0.080 = 25 − 40 = <b>−15 kJ mol<sup>−1</sup></b> → spontaneous</div>
+<div class="eq">Crossover: ΔG = 0 at T = ΔH/ΔS = 25 000/80 = 312.5 K</div>
+<figure data-fig="m1-gibbs-four-cases"></figure>
+<p><b>Signs of ΔH and ΔS:</b> here ΔH &gt; 0 opposes the reaction and ΔS &gt; 0 favours it. The −TΔS term grows with T, so the reaction becomes spontaneous above 312.5 K: <b>entropy-driven at high temperature</b>. In general:</p>
+<table><tr><th>ΔH</th><th>ΔS</th><th>Spontaneous?</th></tr>
+<tr><td>−</td><td>+</td><td>at all temperatures</td></tr>
+<tr><td>+</td><td>−</td><td>never</td></tr>
+<tr><td>−</td><td>−</td><td>at low T (below ΔH/ΔS)</td></tr>
+<tr><td>+</td><td>+</td><td>at high T (above ΔH/ΔS), as in this reaction</td></tr></table>
+<p><b>(OR)</b></p>
+<p><b>(b)(i)</b> Adiabatic, so q = 0 and ΔU = w.</p>
+<div class="eq">ΔU = nC<sub>v</sub>(T<sub>2</sub> − T<sub>1</sub>) = 1 × 12.5 × (300 − 400) = <b>−1250 J = −1.25 kJ</b></div>
+<p>w = −1250 J: the gas does 1250 J of work at the expense of its internal energy, which is why it cools.</p>
+<p><b>(b)(ii)</b> Isothermal reversible, T = 300 K (T does not appear in the result).</p>
+<div class="eq">ΔS = nR ln(V<sub>2</sub>/V<sub>1</sub>) = 2.303 nR log(V<sub>2</sub>/V<sub>1</sub>)</div>
+<div class="eq">ΔS = 5 × 8.314 × ln(80/8) = 41.57 × 2.3026 = <b>95.7 J K<sup>−1</sup></b></div>
+<div class="note trap"><p>In (a)(i) use R = 0.0821 L atm K<sup>−1</sup> mol<sup>−1</sup> for T (litres and atm), then joules for q. In (a)(ii) put ΔH and ΔS in the same units (kJ or J) before subtracting.</p></div>`,
+          topics: ['m1-thermo-numericals', 'm1-second-law-entropy', 'm1-free-energy', 'm1-expansion-work'],
+          notes: ['m1-thermo-numericals.2', 'm1-thermo-numericals.3', 'm1-free-energy.3', 'm1-thermo-numericals.1', 'm1-second-law-entropy.3']
+        },
+        {
+          n: '10',
+          marks: 10,
+          co: '2',
+          bl: '4',
+          prompt: `<p><b>(a)</b> Explain anti-ferromagnetism and ferrimagnetism. Compare them with ferromagnetism, with examples and applications.</p>
+<p><b>(OR)</b></p>
+<p><b>(b)</b> Explain with a diagram on working principle of a DSSC with the sequence of electron-transfer steps and reactions.</p>`,
+          answer: `<p><b>(a)</b></p>
+<figure data-fig="m3-spin-arrangements"></figure>
+<p><b>Antiferromagnetism:</b> neighbouring atomic moments are equal in size and aligned <b>antiparallel</b>, so they cancel and the net magnetisation is zero. The coupling often runs through an oxygen atom between the metal ions (superexchange).</p>
+<ul><li>χ small and positive; it <b>rises</b> with temperature up to the <b>Néel temperature</b> T<sub>N</sub>, then falls; above T<sub>N</sub> the material is paramagnetic.</li>
+<li>Examples: MnO (T<sub>N</sub> ≈ 116 K), FeO, NiO, CoO, Cr, MnF<sub>2</sub>.</li>
+<li>Uses: pinning layers in spin-valve read heads and MRAM (exchange bias), magnetic sensors.</li></ul>
+<figure data-fig="m3-superexchange"></figure>
+<p><b>Ferrimagnetism:</b> moments on two sub-lattices are antiparallel but <b>unequal</b>, so they cancel only partly and a large net magnetisation remains.</p>
+<ul><li>χ large and positive; shows domains and hysteresis; paramagnetic above its Curie temperature.</li>
+<li>Examples: ferrites, Fe<sub>3</sub>O<sub>4</sub> (magnetite), MFe<sub>2</sub>O<sub>4</sub> (M = Ni, Zn, Mn, Co), garnets such as YIG.</li>
+<li>They are insulators, so eddy-current losses are low. Uses: transformer and inductor cores at high frequency, microwave devices, magnetic recording, MRI contrast agents.</li></ul>
+<p><b>Ferromagnetism</b> (for comparison): moments aligned <b>parallel</b> in domains; very large χ; hysteresis; Curie temperature (Fe 1043 K). Fe, Co, Ni, Gd. Uses: electromagnets, motors, transformers, permanent magnets.</p>
+<figure data-fig="m3-chi-temperature"></figure>
+<table><tr><th>Point</th><th>Ferromagnetic</th><th>Antiferromagnetic</th><th>Ferrimagnetic</th></tr>
+<tr><td>Spin alignment</td><td>parallel ↑↑↑↑</td><td>antiparallel, equal ↑↓↑↓</td><td>antiparallel, unequal ↑↓↑↓ (big/small)</td></tr>
+<tr><td>Net moment</td><td>large</td><td>zero</td><td>large, but less than ferro</td></tr>
+<tr><td>Susceptibility</td><td>very large, positive</td><td>small, positive</td><td>large, positive</td></tr>
+<tr><td>Critical temperature</td><td>Curie T<sub>C</sub></td><td>Néel T<sub>N</sub></td><td>Curie T<sub>C</sub></td></tr>
+<tr><td>Hysteresis</td><td>yes</td><td>no</td><td>yes</td></tr>
+<tr><td>Conduction</td><td>usually metals</td><td>mostly oxides</td><td>mostly insulating oxides</td></tr>
+<tr><td>Examples</td><td>Fe, Co, Ni</td><td>MnO, NiO, Cr</td><td>Fe<sub>3</sub>O<sub>4</sub>, ferrites</td></tr>
+<tr><td>Applications</td><td>motors, transformers, permanent magnets</td><td>spin valves, sensors</td><td>HF cores, microwave devices</td></tr></table>
+<p><b>(OR)</b></p>
+<p><b>(b) Dye-sensitized solar cell</b> (Grätzel cell): a dye absorbs light and injects electrons into nanocrystalline TiO<sub>2</sub>; an iodide/tri-iodide electrolyte returns the electrons to the dye.</p>
+<figure data-fig="m2-dssc-schematic"></figure>
+<p><b>Parts:</b> FTO-coated glass; photoanode of mesoporous TiO<sub>2</sub> (band gap 3.2 eV) coated with dye (Ru complexes N3/N719, or natural anthocyanins); I<sup>−</sup>/I<sub>3</sub><sup>−</sup> electrolyte; Pt- or graphite-coated counter electrode.</p>
+<p><b>Sequence of electron-transfer steps</b></p>
+<ol><li><b>Photoexcitation:</b> the dye absorbs a photon; an electron goes from HOMO to LUMO.<div class="eq">S + hν → S*</div></li>
+<li><b>Injection:</b> the excited dye injects the electron into the TiO<sub>2</sub> conduction band (femtoseconds), leaving the dye oxidised.<div class="eq">S* → S<sup>+</sup> + e<sup>−</sup>(CB, TiO<sub>2</sub>)</div></li>
+<li><b>Transport:</b> electrons diffuse through the TiO<sub>2</sub> network to the FTO and flow through the external load, doing work.</li>
+<li><b>Counter-electrode reduction:</b> at the Pt electrode electrons reduce tri-iodide.<div class="eq">I<sub>3</sub><sup>−</sup> + 2e<sup>−</sup> → 3I<sup>−</sup></div></li>
+<li><b>Dye regeneration:</b> iodide diffuses back and reduces the oxidised dye.<div class="eq">2S<sup>+</sup> + 3I<sup>−</sup> → 2S + I<sub>3</sub><sup>−</sup></div></li></ol>
+<p>Net: no chemical is used up; light is turned into electricity. Losses come from recombination of injected electrons with S<sup>+</sup> or I<sub>3</sub><sup>−</sup>. The open-circuit voltage is set by the gap between the TiO<sub>2</sub> Fermi level and the I<sup>−</sup>/I<sub>3</sub><sup>−</sup> redox potential.</p>
+<p><b>Merits:</b> cheap, simple to make, works in diffuse light, can be flexible and coloured. <b>Limits:</b> lower efficiency (~11–14 %), dye degradation, liquid electrolyte can leak or evaporate.</p>`,
+          topics: ['m3-magnetic-classes', 'm2-dssc'],
+          notes: ['m3-magnetic-classes.3', 'm3-magnetic-classes.4', 'm3-magnetic-classes.5', 'm3-magnetic-classes.6', 'm2-dssc.1', 'm2-dssc.2']
+        }
+      ]
     }
   ],
   asked: {
+    'm3-insulators': [
+      {
+        where: 'Q7, 10 marks',
+        what: 'insulators by band theory, dielectric polarisation and breakdown, vs semiconductors',
+        paper: 'fat-d1td1-2026'
+      }
+    ],
+    'm5-qm-calculations': [
+      {
+        where: 'Q5, 10 marks',
+        what: 'types of basis sets and their importance',
+        paper: 'fat-d1td1-2026'
+      }
+    ],
     'm1-kinetics-numericals': [
       {
         where: 'Q9, 10 marks',
@@ -2319,6 +2673,11 @@ PAPERS({
         paper: 'fat-g1tg1-2025'
       }    ],
     'm2-dssc': [
+      {
+        where: 'Q10(b), 10 marks',
+        what: 'DSSC working with the electron-transfer sequence and reactions',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q10(b), 10 marks',
         what: 'DSSC in detail with reactions and schematic',
@@ -2408,6 +2767,11 @@ PAPERS({
     'm3-sol-gel': [
       {
         where: 'Q3, 10 marks',
+        what: 'sol-gel: principle, procedure, advantages and applications',
+        paper: 'fat-d1td1-2026'
+      },
+      {
+        where: 'Q3, 10 marks',
         what: 'any one synthesis method of nanomaterials',
         paper: 'fat-b2tb2-2026'
       },
@@ -2468,6 +2832,11 @@ PAPERS({
     'm4-scherrer': [
       {
         where: 'Q6(b), 5 marks',
+        what: 'crystallite size from 2θ = 21.61°, FWHM = 2.51°',
+        paper: 'fat-d1td1-2026'
+      },
+      {
+        where: 'Q6(b), 5 marks',
         what: 'crystallite size from 2θ = 24.6°, FWHM 2.560°, λ = 1.5809 Å',
         paper: 'fat-b2tb2-2026'
       },
@@ -2499,6 +2868,11 @@ PAPERS({
     ],
     'm2-sofc': [
       {
+        where: 'Q2, 10 marks',
+        what: 'SOFC construction and working; comparison with PEMFC',
+        paper: 'fat-d1td1-2026'
+      },
+      {
         where: 'Q1(a), 5 marks',
         what: 'identify the all-ceramic fuel cell (SOFC) and explain it with a diagram',
         paper: 'cat2-b2tb2'
@@ -2515,6 +2889,11 @@ PAPERS({
       }
     ],
     'm4-xrd-patterns': [
+      {
+        where: 'Q6(a), 5 marks',
+        what: 'powder X-ray diffractometer instrumentation and working',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q6(a), 5 marks',
         what: 'XRD instrumentation with diagram and applications',
@@ -2549,6 +2928,11 @@ PAPERS({
       }
     ],
     'm1-carnot-cycle': [
+      {
+        where: 'Q1(a), 5 marks',
+        what: 'Carnot cycle and derivation of its efficiency',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q1, 10 marks',
         what: 'four Carnot steps on a P-V diagram, work and efficiency, all reversible engines have equal efficiency',
@@ -2642,6 +3026,11 @@ PAPERS({
       }
     ],
     'm1-free-energy': [
+      {
+        where: 'Q9(a)(ii), 5 marks',
+        what: 'ΔG at 298 K and 500 K; signs of ΔH and ΔS',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q2, 10 marks',
         what: 'predicting spontaneity from enthalpy and entropy; adsorption with negative entropy change',
@@ -2803,6 +3192,11 @@ PAPERS({
     'm1-thermo-numericals': [
       {
         where: 'Q9, 10 marks',
+        what: 'ΔS from q/T, ΔG at two temperatures, adiabatic ΔU, isothermal ΔS',
+        paper: 'fat-d1td1-2026'
+      },
+      {
+        where: 'Q9, 10 marks',
         what: 'isothermal work (10 mol, 10 → 2 atm, 300 K) and Carnot useful work numericals',
         paper: 'fat-b2tb2-2026'
       },
@@ -2853,6 +3247,11 @@ PAPERS({
       }
     ],
     'm1-catalysis': [
+      {
+        where: 'Q1(b), 5 marks',
+        what: 'effect of a catalyst on the rate of reaction',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q4(a), 5 marks',
         what: 'how a catalyst changes rate, with a labelled energy diagram',
@@ -3013,6 +3412,11 @@ PAPERS({
     'm2-photovoltaics': [
     ],
     'm2-pemfc': [
+      {
+        where: 'Q2, 10 marks',
+        what: 'PEMFC compared with SOFC',
+        paper: 'fat-d1td1-2026'
+      },
     ],
     'm3-superconductors': [
       {
@@ -3027,6 +3431,11 @@ PAPERS({
       }
     ],
     'm3-magnetic-classes': [
+      {
+        where: 'Q10(a), 10 marks',
+        what: 'antiferro- and ferrimagnetism compared with ferromagnetism',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q10(a), 10 marks',
         what: 'define magnetism, its origin, and two types with examples',
@@ -3117,6 +3526,11 @@ PAPERS({
       }    ],
     'm5-potential-energy-surface': [
       {
+        where: 'Q8, 10 marks',
+        what: 'construction and significance of a diatomic potential energy curve',
+        paper: 'fat-d1td1-2026'
+      },
+      {
         where: 'Q5, 10 marks',
         what: 'short note on potential energy curve and surface',
         paper: 'fat-b1tb1-2026'
@@ -3137,6 +3551,11 @@ PAPERS({
       }
     ],
     'm4-uv-vis-instrument': [
+      {
+        where: 'Q4, 10 marks',
+        what: 'UV-Vis components and their functions; single- vs double-beam',
+        paper: 'fat-d1td1-2026'
+      },
       {
         where: 'Q4, 10 marks',
         what: 'UV-Vis working and instrumentation with diagram',
