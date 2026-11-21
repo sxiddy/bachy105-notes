@@ -128,7 +128,7 @@ if (fs.existsSync(path.join(CONTENT, 'papers-free.js'))) {
     const o = Object.assign({}, q); delete o.answer; return o;
   }) }));
   const asked = {};
-  for (const [t, v] of Object.entries(d.asked || {})) asked[t] = [].concat(v).map(() => ({}));
+  for (const [t, v] of Object.entries(d.asked || {})) asked[t] = [].concat(v).map((x) => ({ paper: x.paper })); // which paper (so free can say CAT-1/CAT-2/FAT); what/where stay Pro
   write('papers-free.js', js('PAPERS', Object.assign({}, d, { papers, asked }))); freeFiles.push('papers-free.js');
   write('papers-pro-answers.js', js('PAPERS_PRO', { answers, asked: d.asked || {} })); proFiles.push('papers-pro-answers.js');
 }

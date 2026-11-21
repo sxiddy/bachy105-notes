@@ -2582,15 +2582,18 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
   PAPERS.forEach((p) => { PAPER[p.id] = p; });
   const PINDEX = D.paperIndex || PAPERS.map((p) => ({ id: p.id, kind: p.kind, title: p.title, sub: p.sub }));
   const ASKED = (PP && PP.asked) || D.asked || {};
-  const CAT2_UNTIL = Date.parse('2026-10-04T23:59:59+05:30'); // the "asked in CAT-2" note shows until CAT-2 ends
+  // "This topic was asked in ..." on every topic a real CAT-1, CAT-2 or FAT paper asked (as on the BAEEE101 site)
+  const EXAMNAME = [['cat1', 'CAT-1'], ['cat2', 'CAT-2'], ['fat', 'FAT']];
+  const examOfAsked = (x) => { const id = x.paper || ''; const e = /^fat/.test(id) ? 'fat' : /^cat1/.test(id) ? 'cat1' : /^cat2/.test(id) ? 'cat2' : ''; return (EXAMNAME.find((v) => v[0] === e) || [])[1] || ''; };
   function askedBadge(id) {
-    // one entry, or a list when the topic came up in more than one slot's paper
     const list = [].concat(ASKED[id] || []);
-    if (!list.length || Date.now() > CAT2_UNTIL) return '';
-    if (!PRO) return `<div class="note exam cat2-asked"><p><b>This topic was asked in CAT-2.</b> <a href="#pro" data-from="asked">Which slot and what was asked: Pro ${icon('right')}</a></p></div>`;
+    if (!list.length) return '';
+    const kinds = EXAMNAME.map((v) => v[1]).filter((k) => list.some((x) => examOfAsked(x) === k));
+    const where = kinds.length ? kinds.join(', ').replace(/, ([^,]*)$/, ' and $1') + ' papers' : 'a past paper';
+    if (!PRO || !list[0].what) return `<div class="note exam cat2-asked"><p><b>This topic was asked in ${esc(where)}${list.length > 1 ? `, ${list.length} times` : ''}.</b> <a href="#pro" data-from="asked">Which paper and what was asked: Pro ${icon('right')}</a></p></div>`;
     const slot = (x) => { const p = PAPER[x.paper] || PINDEX.find((y) => y.id === x.paper); return p ? (p.short || p.title).replace(/ paper$/, '') : ''; };
-    const lines = list.map((x) => `${list.length > 1 ? `<b>${esc(slot(x))}</b> ` : ''}(${esc(x.where)}): ${esc(x.what)}. <a href="#papers.${esc(x.paper)}">See the question paper ${icon('right')}</a>`);
-    return `<div class="note exam cat2-asked"><p><b>This topic was asked in CAT-2</b>${list.length > 1 ? ` in ${list.length} slots` : ''}${list.length > 1 ? ':</p><p>' + lines.join('</p><p>') : ' ' + lines[0]}</p></div>`;
+    const lines = list.map((x) => `<b>${esc([examOfAsked(x), slot(x)].filter(Boolean).join(' '))}</b> (${esc(x.where)}): ${esc(x.what)}. <a href="#papers.${esc(x.paper)}">See the question paper ${icon('right')}</a>`);
+    return `<div class="note exam cat2-asked"><p><b>This topic was asked in ${esc(where)}${list.length > 1 ? `, ${list.length} times` : ''}</b>${list.length > 1 ? ':</p><p>' + lines.join('</p><p>') : ' ' + lines[0]}</p></div>`;
   }
   function viewPapers(r) {
     const p = r.arg && PAPER[r.arg];
