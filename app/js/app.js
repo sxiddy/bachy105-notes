@@ -144,10 +144,17 @@ window.__startApp = function () {
   // Fast track (content/fast-mX.js): starred facts, high-yield topics and 10 must-do MCQs per module
   const FAST = D.fast || {};
   const HY = new Set([].concat(...Object.values(FAST).map((f) => f.hy || [])));
-  // Important topics: asked in 3 or more of the real CAT/FAT papers, starred in the sidebar.
+  // Important topics, starred in the sidebar. A topic is judged only against the real papers that could have asked it:
+  // CAT-1 covered module 1, CAT-2 modules 2-4, FAT everything (worked out from the modules each exam's papers used).
+  // Starred when asked in 2+ papers and in at least 40% of those that covered its module.
   const IMP = {};
-  (D.papers || []).filter((p) => p.kind === 'actual').forEach((p) => new Set([].concat(...(p.questions || []).map((q) => q.topics || []))).forEach((t) => { IMP[t] = (IMP[t] || 0) + 1; }));
-  const impStar = (tid) => (IMP[tid] >= 3 ? `<span class="imp-star" title="Important: asked in ${IMP[tid]} past papers" aria-label="Important, asked in ${IMP[tid]} past papers">★</span>` : '');
+  {
+    const act = (D.papers || []).filter((p) => p.kind === 'actual'), exOf = (p) => (p.exam === 'fat' ? 'fat' : /^cat1/.test(p.id) ? 'cat1' : 'cat2');
+    const tops = (p) => new Set([].concat(...(p.questions || []).map((q) => q.topics || []))), modOf = (t) => t.split('-')[0], cov = {}, n = {};
+    act.forEach((p) => tops(p).forEach((t) => { (cov[exOf(p)] = cov[exOf(p)] || new Set()).add(modOf(t)); n[t] = (n[t] || 0) + 1; }));
+    Object.keys(n).forEach((t) => { const of = act.filter((p) => cov[exOf(p)].has(modOf(t))).length; if (n[t] >= 2 && n[t] / of >= 0.4) IMP[t] = [n[t], of]; });
+  }
+  const impStar = (tid) => (IMP[tid] ? `<span class="imp-star" title="Important: asked in ${IMP[tid][0]} of the ${IMP[tid][1]} past papers that covered this module" aria-label="Important, asked in ${IMP[tid][0]} of ${IMP[tid][1]} past papers">★</span>` : '');
   const hyTag = (tid) => (HY.has(tid) ? '<span class="hy-tag" title="Topics the quizzes keep coming back to">Often asked</span>' : '');
   // Modules whose files were not loaded (not paid, or not in a single-module grant) show as locked.
   MODULES.forEach((m) => { m.locked = !!window.APP_LOCKED && !m.free && !m.topics.length; });
