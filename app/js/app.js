@@ -1097,16 +1097,16 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
     const w = window.open('', '_blank');
     if (!w) { toast('Allow pop-ups for this site to save the PDF', 'warn'); return; }
     w.document.write('<p style="font:16px sans-serif;padding:24px">Making the PDF…</p>');
-    const keep = (html) => String(html || '').replace(/<(?!\/?(b|strong|i|em|sub|sup|br|div|span)\b)[^>]*>/g, '');
+    const keep = (html) => String(html || '').replace(/<\/?(div|p|li|ul|ol|tr)\b[^>]*>/g, '<br>').replace(/<(?!\/?(b|strong|i|em|sub|sup|br)\b)[^>]*>/g, '').replace(/^(\s*<br>)+|(<br>\s*)+$/g, '').replace(/(<br>\s*){2,}/g, '<br>');
     const mods = ids.map((id) => ({ id, m: MOD[id], f: FAST[id], groups: fastGroups(FAST[id]) }));
     const figIds = []; mods.forEach((x) => x.groups.forEach((g) => { g.fig = fastFig(g.t); if (g.fig) figIds.push(g.fig); }));
     Promise.all(figIds.map((id) => ((D.figs[id] || {}).svg ? loadSvg(id).catch(() => '') : Promise.resolve(`<img src="${location.origin}/img/${id}.webp">`)).then((svg) => [id, svg]))).then((pairs) => {
       const SV = Object.fromEntries(pairs);
       const body = mods.map((x) => `<section class="mod"><h1><small>Module ${+x.m.num}</small>${esc(x.m.title)}</h1>
-        ${x.groups.map((g, gi) => { const T = TOPIC[g.t]; return `<div class="topic"><h2><small>Topic ${gi + 1}</small>${T ? plain(T.title) : esc(g.t)}</h2>
-          ${g.fig && SV[g.fig] ? `<figure>${SV[g.fig]}${FIGS[g.fig] && FIGS[g.fig].caption ? `<figcaption>${keep(FIGS[g.fig].caption)}</figcaption>` : ''}</figure>` : ''}
+        ${x.groups.map((g, gi) => { const T = TOPIC[g.t]; return `<div class="topic"><div class="th"><h2><small>Topic ${gi + 1}</small>${T ? plain(T.title) : esc(g.t)}</h2>
+          ${g.fig && SV[g.fig] ? `<figure>${SV[g.fig]}${FIGS[g.fig] && FIGS[g.fig].caption ? `<figcaption>${keep(FIGS[g.fig].caption)}</figcaption>` : ''}</figure>` : ''}</div>
           <h3>Learn these</h3><ol class="facts">${g.facts.map((fx) => `<li class="${fx.star ? 'star' : ''}"><span class="n">${fx.n}</span><div>${fx.star ? '<span class="tag">Often asked</span> ' : ''}${keep(fx.html)}</div></li>`).join('')}</ol>
-          ${g.qs.length ? `<h3>Asked in past papers</h3>${g.qs.map((pq, qi) => `<div class="q"><p class="qt"><b>Q${qi + 1}.</b> ${keep(pq.q)}</p><p class="from">Asked in: ${fastPapers(pq)}</p><div class="ans"><b>Answer:</b>${(pq.f || []).map((n) => (x.f.facts[n - 1] ? `<p>${keep(x.f.facts[n - 1].html)}</p>` : '')).join('')}</div></div>`).join('')}` : ''}
+          ${g.qs.length ? `<h3>Asked in past papers</h3>${g.qs.map((pq, qi) => `<div class="q"><div class="qh"><p class="qt"><b>Q${qi + 1}.</b> ${keep(pq.q)}</p><p class="from">Asked in: ${fastPapers(pq)}</p></div><div class="ans"><b>Answer:</b>${(pq.f || []).map((n) => (x.f.facts[n - 1] ? `<p>${keep(x.f.facts[n - 1].html)}</p>` : '')).join('')}</div></div>`).join('')}` : ''}
         </div>`; }).join('')}</section>`).join('');
       w.document.open();
       w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Fast track · BACHY105</title><style>
@@ -1120,10 +1120,10 @@ h1 small, h2 small { display: block; font: 600 8pt Arial, sans-serif; letter-spa
 .topic { margin-top: 9mm; } h2 { font: 700 14.5pt/1.25 Arial, sans-serif; margin: 0 0 4px; padding: 6px 10px; background: #eef1f5; border-left: 4pt solid #2a6a96; break-after: avoid; }
 h3 { font: 700 8.5pt Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #2a6a96; margin: 12px 0 4px; break-after: avoid; }
 figure { margin: 8px auto; text-align: center; break-inside: avoid; } figure svg, figure img { max-width: 100%; max-height: 95mm; height: auto; } figcaption { font: 8.5pt Arial, sans-serif; color: #555; margin-top: 3px; }
-.facts { list-style: none; padding: 0; margin: 0; } .facts li { display: grid; grid-template-columns: 8mm 1fr; padding: 4px 0; border-bottom: .5pt dashed #ddd; break-inside: avoid; }
-.facts .n { font: 700 8pt Arial, sans-serif; color: #888; padding-top: 2px; } .facts li.star .n { color: #a8601f; }
+.facts { list-style: none; padding: 0; margin: 0; } .facts li { position: relative; padding: 4px 0 4px 8mm; border-bottom: .5pt dashed #ddd; break-inside: avoid; }
+.facts .n { position: absolute; left: 0; top: 6px; font: 700 8pt Arial, sans-serif; color: #888; } .facts li.star .n { color: #a8601f; }
 .tag { font: 700 7pt Arial, sans-serif; color: #a8601f; border: .7pt solid #a8601f; border-radius: 6px; padding: 0 4px; }
-.q { margin: 8px 0; padding: 8px 10px; border: .8pt solid #cfd5dc; border-radius: 6px; break-inside: avoid; } .q p { margin: 0; } .from { font: 8.5pt Arial, sans-serif; color: #666; margin: 2px 0 6px !important; }
+.th, .qh { break-inside: avoid; } .q { margin: 8px 0; padding: 8px 10px; border: .8pt solid #cfd5dc; border-radius: 6px; } h3 { break-after: avoid; } .q p { margin: 0; } .from { font: 8.5pt Arial, sans-serif; color: #666; margin: 2px 0 6px !important; }
 .ans { background: #f6f7f9; padding: 6px 9px; border-radius: 4px; } .ans p { margin: 3px 0 0 !important; }
 svg { --white: #16181d; --text-2: #3d424b; --text-dim: #6b717b; --line-2: #c4c8ce; --surface: #fff; --surface-2: #eef0f3; --surface-3: #e2e5e9; --dg-b: #1f6fb8; --dg-o: #c2621a; --dg-r: #c0392b; --dg-p: #7b4fc9; --dg-g: #1f8a55; --dg-y: #9a7400; font-family: Arial, sans-serif; }
 ${'.dt{fill:var(--white)}.dt2{fill:var(--text-2)}.dt3{fill:var(--text-dim)}.dtb{fill:var(--dg-b)}.dto{fill:var(--dg-o)}.dtr{fill:var(--dg-r)}.dtp{fill:var(--dg-p)}.dtg{fill:var(--dg-g)}.dty{fill:var(--dg-y)}.ds,.dsw{stroke:var(--white)}.ds2{stroke:var(--text-dim)}.ds3{stroke:var(--line-2)}.dsb{stroke:var(--dg-b)}.dso{stroke:var(--dg-o)}.dsr{stroke:var(--dg-r)}.dsp{stroke:var(--dg-p)}.dsg{stroke:var(--dg-g)}.dsy{stroke:var(--dg-y)}.df{fill:var(--surface)}.df2{fill:var(--surface-2)}.df3{fill:var(--surface-3)}.dfw{fill:var(--white)}.dfd{fill:var(--text-dim)}.dfb{fill:var(--dg-b)}.dfo{fill:var(--dg-o)}.dfr{fill:var(--dg-r)}.dfp{fill:var(--dg-p)}.dfg{fill:var(--dg-g)}.dfy{fill:var(--dg-y)}'}
