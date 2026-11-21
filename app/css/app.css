@@ -1242,3 +1242,11 @@ a.syl-name:hover { text-decoration: underline; }
 /* worked steps: one "= ..." per line, lined up under the first equals sign */
 .eq.eq-steps { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: .35em; row-gap: .3em; }
 .eq.eq-steps > span:nth-child(odd) { text-align: right; white-space: nowrap; }
+/* fast track: past exam questions, each pointing at the facts that answer it */
+.fast-qs { margin: 0; padding-left: 22px; display: grid; gap: 12px; }
+.fast-qs li { padding-left: 4px; }
+.fast-qs li p { margin: 0; }
+.fast-qmeta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 4px !important; font-size: 13.5px; color: var(--text-dim); }
+.fast-qmeta a { color: var(--text-2); font-weight: 600; }
+.fast-facts li.ff-hit { animation: ffhit 1.6s ease-out; }
+@keyframes ffhit { 0% { background: color-mix(in srgb, var(--warn) 28%, transparent); } 100% { background: transparent; } }

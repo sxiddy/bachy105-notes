@@ -1107,11 +1107,12 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
     el.innerHTML = `
       <div class="eyebrow"><span class="code">Fast track</span><span>Module ${+m.num}</span><span class="dot">·</span><span>about ${fmtMins(f.minutes || 0)}</span></div>
       <h1 class="h-display">${esc(m.title)}</h1>
-      <div class="fast-prog"><div class="ring" data-ring><span></span></div><p class="muted">Read the facts, try the 10 MCQs, then tick the module off.</p><button class="btn small" data-act="fastpdf" style="margin-left:auto">${icon('download')}Save as PDF</button></div>
+      <div class="fast-prog"><div class="ring" data-ring><span></span></div><p class="muted">Read the facts, try the past exam questions and the MCQs, then tick the module off.</p><button class="btn small" data-act="fastpdf" style="margin-left:auto">${icon('download')}Save as PDF</button></div>
       <section class="sum-sec"><h2 class="h-sec">Must-know facts</h2>
-        <ol class="fast-facts">${(f.facts || []).map((x) => `<li class="${x.star ? 'star' : ''}"><span class="fnum" aria-hidden="true"></span><div class="prose">${x.star ? '<span class="hy-tag">Often asked</span> ' : ''}${x.html}${TOPIC[x.t] ? ` <a class="fsrc" href="#${x.t}">${rt(TOPIC[x.t].short || TOPIC[x.t].title)} →</a>` : ''}</div></li>`).join('')}</ol>
+        <ol class="fast-facts">${(f.facts || []).map((x, k) => `<li id="ff-${k + 1}" class="${x.star ? 'star' : ''}"><span class="fnum" aria-hidden="true"></span><div class="prose">${x.star ? '<span class="hy-tag">Often asked</span> ' : ''}${x.html}${TOPIC[x.t] ? ` <a class="fsrc" href="#${x.t}">${rt(TOPIC[x.t].short || TOPIC[x.t].title)} →</a>` : ''}</div></li>`).join('')}</ol>
       </section>
       ${hy.length ? `<section class="sum-sec"><h2 class="h-sec">Read these in full</h2><p class="muted" style="margin-top:0">The topics the past CAT and FAT papers keep asking, most-asked first. If you open only a few, open these.</p><div>${hy.map((t) => topicRow(TOPIC[t])).join('')}</div></section>` : ''}
+      ${(f.practice || []).length ? `<section class="sum-sec"><h2 class="h-sec">Past exam questions</h2><p class="muted" style="margin-top:0">Every question the past CAT and FAT papers asked from this module. Try each one, then check it against the facts listed under it.</p><ol class="fast-qs">${f.practice.map((pq) => { const ps = (pq.from || []).map((id) => { const pp = PAPER[id] || PINDEX.find((y) => y.id === id); return pp ? esc((pp.short || pp.title).replace(/ paper$/, '')) : ''; }).filter(Boolean); return `<li><p>${pq.q}</p><p class="fast-qmeta">${ps.length ? `<span>${ps.join(' · ')}</span>` : ''}${(pq.f || []).length ? `<span>Answer from facts ${pq.f.map((n) => `<a href="#" data-ff="${n}">${n}</a>`).join(', ')}</span>` : ''}</p></li>`; }).join('')}</ol></section>` : ''}
       <section class="sum-sec"><h2 class="h-sec">Lock it in: 10 MCQs</h2><p class="muted" style="margin-top:0" data-mcqcount></p><div data-mcqs></div></section>
       <div class="btn-row fast-end"><button class="btn primary" data-done></button>${nextId ? `<a class="btn" href="#fast.${nextId}">Next: Module ${+MOD[nextId].num} ${icon('right')}</a>` : `<a class="btn" href="#fast">All modules</a>`}</div>`;
     const holder = $('[data-mcqs]', el), cnt = $('[data-mcqcount]', el), doneBtn = $('[data-done]', el);
@@ -1125,6 +1126,7 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
     ids.forEach((id) => holder.appendChild(qCard(QID[id], { onAnswer: () => setTimeout(paint) })));
     $('[data-act="fastpdf"]', el).addEventListener('click', () => printFast([mid]));
     doneBtn.addEventListener('click', () => { st.done = !st.done; save(); if (st.done) toast(`Module ${+m.num} fast track done`, 'check'); paint(); });
+    el.addEventListener('click', (e) => { const a = e.target.closest('[data-ff]'); if (!a) return; e.preventDefault(); const li = $('#ff-' + a.dataset.ff, el); if (!li) return; li.scrollIntoView({ behavior: 'smooth', block: 'center' }); li.classList.remove('ff-hit'); void li.offsetWidth; li.classList.add('ff-hit'); });
     paint();
     return { el };
   }
