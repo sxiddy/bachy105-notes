@@ -1,0 +1,10 @@
+// Why each wrong option is wrong, per question id. Index order matches the options; the correct one is ''.
+WHY({
+  'm5-q-01': ['Ab initio on tens of thousands of atoms is far too costly; MM with MD suits the protein.', '', 'This is swapped: DFT is too costly for the protein, and MM cannot describe bond breaking.', 'Molecular mechanics is not an electronic structure method, so it cannot give the reaction barrier.'],
+  'm5-q-03': ['Full DFT on thousands of atoms is the very cost the group is trying to avoid.', 'Plain molecular mechanics cannot describe bond breaking.', '', 'MD with MM forces is not an electronic structure method, so it cannot model the reaction.'],
+  'm5-q-04': ['', 'STO-3G lacks the diffuse functions an anion needs, and iron needs an effective core potential.', 'ECPs are for heavy atoms like Fe; the F<sup>−</sup> anion needs diffuse functions.', 'Anions need diffuse functions and transition metals need ECP basis sets, not a minimal basis.'],
+  'm5-q-06': ['The antibonding MO is also filled, which cancels the bonding stabilisation.', 'He<sub>2</sub> has four electrons, so the antibonding MO is filled as well and there is no net bond.', 'Distance does not matter here; four electrons fill both MOs and give no net stabilisation.', ''],
+  'm5-q-10': ['A minimum has zero imaginary frequencies; one imaginary frequency means a transition state.', '', 'An intermediate is a local minimum with all real frequencies; the imaginary one is real information.', 'A global minimum would also have no imaginary frequencies, and the basis set is not the issue.'],
+  'm5-q-13': ['Water stabilises the Cl<sup>−</sup> nucleophile strongly; it does not destabilise it.', 'The leaving group is the same in both; the change is in solvation of Cl<sup>−</sup> and the TS.', '', 'Solvent does not turn SN2 into SN1; the same SN2 path simply gets a higher barrier.'],
+  'm5-q-15': ['', 'The ranking is data dependent and must still be validated before conclusions are drawn.', 'Removing duplicates and standardising units is the data preparation step, done before training.', 'Defining the goal is the first step of the workflow; it is already done.'],
+});

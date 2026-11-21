@@ -1,0 +1,10 @@
+// Why each wrong option is wrong, per question id. Index order matches the options; the correct one is ''.
+WHY({
+  'm2-q-01': ['A PEMFC needs pure H<sub>2</sub> on a Pt catalyst, and its fast start-up is no use to a plant that never stops.', '', 'The PEMFC cannot take CO or sulphur, so the two are not interchangeable on coal gas.', 'The SOFC anode oxidises CO with O<sup>2−</sup> ions, so a fuel cell can use CO.'],
+  'm2-q-03': ['The Nernst term is positive here because [Zn<sup>2+</sup>] is below [Cu<sup>2+</sup>], so E rises above 1.10 V.', 'The Nernst equation shows E<sub>cell</sub> depends on ion concentrations away from 1 M.', '', '1.21 V would need a log term of −4; the ratio 0.001/0.1 gives only −2.'],
+  'm2-q-05': ['Silicon is a semiconductor, so heating creates carriers and lowers its resistance.', 'This is swapped: silicon resistance falls and copper resistance rises on heating.', '', 'Both change: heat promotes electrons in Si and increases lattice scattering in Cu.'],
+  'm2-q-07': ['Zone refining already gives 99.9999% purity; purity is not the problem.', 'Zone-refined Si is polycrystalline (many crystals), not amorphous.', 'Zone refining removes impurities; it does not dope the silicon n-type.', ''],
+  'm2-q-10': ['Melting graphite is not one of the explosion routes the notes list.', '', 'In this chain the cathode releases O<sub>2</sub>; lithium reacting with air moisture is not the route described.', 'The separator dissolving in water is not a route the notes describe.'],
+  'm2-q-12': ['This is swapped: amorphous Si is least efficient (4–8%) and single-crystal Si is most efficient.', '', 'Polycrystalline Si (12–16%) is a middle option, neither the most efficient nor a flexible thin film.', 'Single-crystal Si is expensive and grown as one rigid crystal, so it does not suit cheap curved shelters.'],
+  'm2-q-14': ['', 'Silicon PV cells are opaque, high cost and high environmental impact.', 'PEC and DSSC cells are transparent, per the comparison table.', 'PV has high environmental impact; DSSC and PEC are the low-impact ones.'],
+});
