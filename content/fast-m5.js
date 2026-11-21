@@ -1,0 +1,21 @@
+FAST({
+  module: 'm5',
+  minutes: 25,
+  hy: ['m5-comp-methods', 'm5-atomic-orbitals', 'm5-molecular-orbitals', 'm5-potential-energy-surface'],
+  facts: [
+    { t: 'm5-comp-intro', star: false, html: '<b>Computational chemistry</b> uses computers to model molecules and predict their properties.' },
+    { t: 'm5-comp-methods', star: true, html: '<b>Molecular mechanics</b> treats atoms as balls and springs; <b>ab initio</b> methods solve the Schrödinger equation from first principles.' },
+    { t: 'm5-comp-methods', star: false, html: '<b>DFT</b> works from the electron density; <b>semi-empirical</b> methods borrow parameters from experiment.' },
+    { t: 'm5-qm-calculations', star: false, html: 'A <b>basis set</b> is the set of functions used to build the orbitals in a quantum calculation.' },
+    { t: 'm5-atomic-orbitals', star: true, html: '<b>Aufbau</b>: fill the lowest energy first. <b>Pauli</b>: at most two electrons per orbital, with opposite spins.' },
+    { t: 'm5-atomic-orbitals', star: false, html: '<b>Hund\'s rule</b>: electrons fill orbitals of equal energy singly before they pair up.' },
+    { t: 'm5-orbital-overlap', star: false, html: '<b>Constructive</b> overlap of orbitals forms a bond; <b>destructive</b> overlap does not.' },
+    { t: 'm5-molecular-orbitals', star: true, html: '<b>LCAO</b>: molecular orbitals are built as linear combinations of atomic orbitals, giving bonding and antibonding MOs.' },
+    { t: 'm5-molecular-orbitals', star: false, html: 'MO theory explains why <b>O₂ is paramagnetic</b>: it has two unpaired electrons.' },
+    { t: 'm5-potential-energy-surface', star: true, html: 'A <b>potential energy surface</b> shows energy against geometry; minima are stable structures and saddle points are transition states.' },
+    { t: 'm5-geometry-frequency', star: false, html: '<b>Geometry optimisation</b> searches for the lowest-energy structure; a frequency calculation then checks it.' },
+    { t: 'm5-reaction-mechanisms', star: true, html: '<b>S<sub>N</sub>2</b> takes one concerted step; <b>S<sub>N</sub>1</b> goes through a carbocation in two steps.' },
+    { t: 'm5-ai-ml-screening', star: false, html: '<b>AI and machine learning</b> speed up the screening of candidate materials by predicting their properties.' }
+  ],
+  mcqs: ['m5-q-01', 'm5-q-03', 'm5-q-04', 'm5-q-06', 'm5-q-10', 'm5-q-13', 'm5-q-15']
+});

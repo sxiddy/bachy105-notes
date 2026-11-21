@@ -103,6 +103,9 @@ for (const m of MODULES) {
     const af = qf.replace(/^q-/, 'qa-');
     write(af, js('QANSWERS', ans)); proFiles.push(af); fileModule[af] = m.id;
   }
+  // fast track: free (starred facts, high-yield topic ids, the ids of 10 must-do MCQs whose answers stay Pro)
+  const ff = `fast-${m.id}.js`;
+  if (fs.existsSync(path.join(CONTENT, ff))) { write(ff, js('FAST', read(ff, 'FAST'))); freeFiles.push(ff); fileModule[ff] = m.id; }
   // module summary: free in full; questions inside it follow the same rule
   const sf = `summary-${m.id}.js`;
   if (fs.existsSync(path.join(CONTENT, sf))) {

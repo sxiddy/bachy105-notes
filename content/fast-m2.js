@@ -1,0 +1,23 @@
+FAST({
+  module: 'm2',
+  minutes: 30,
+  hy: ['m2-electrochemical-cells', 'm2-semiconductors', 'm2-batteries', 'm2-fuel-cells', 'm2-photovoltaics'],
+  facts: [
+    { t: 'm2-electrochemical-cells', star: true, html: 'A <b>galvanic</b> cell turns chemical energy into electricity; an <b>electrolytic</b> cell uses electricity to drive a reaction.' },
+    { t: 'm2-electrochemical-cells', star: false, html: 'In every cell, <b>oxidation happens at the anode</b> and <b>reduction at the cathode</b>.' },
+    { t: 'm2-electrochemical-cells', star: false, html: 'The <b>salt bridge</b> in a Daniell cell completes the circuit and keeps both solutions neutral.' },
+    { t: 'm2-electrochemical-cells', star: false, html: 'The <b>Nernst equation</b> gives the cell EMF at concentrations other than standard.' },
+    { t: 'm2-semiconductors', star: true, html: 'Heat lets more electrons cross the band gap, so a <b>semiconductor conducts better when hot</b>.' },
+    { t: 'm2-semiconductors', star: true, html: 'Phosphorus (5 electrons) makes <b>n-type</b> silicon; boron (3 electrons) makes <b>p-type</b>.' },
+    { t: 'm2-semiconductor-purification', star: false, html: '<b>Zone refining</b> purifies Si and Ge; <b>Czochralski</b> pulling grows a single crystal.' },
+    { t: 'm2-electrolysis', star: false, html: 'Electrolysis of <b>molten NaCl</b> gives sodium and chlorine; electrolysis of water gives hydrogen and oxygen.' },
+    { t: 'm2-batteries', star: true, html: '<b>Primary</b> batteries cannot be recharged; <b>secondary</b> batteries can.' },
+    { t: 'm2-li-ion', star: false, html: 'In a <b>Li-ion</b> cell, Li⁺ ions move between the electrodes through the electrolyte on charge and discharge.' },
+    { t: 'm2-fuel-cells', star: true, html: 'A <b>fuel cell</b> turns the fuel\'s chemical energy straight into electricity for as long as fuel is fed; an H₂–O₂ cell gives only water.' },
+    { t: 'm2-pemfc', star: false, html: 'The <b>PEMFC</b> works at low temperature with a <b>Nafion</b> membrane and needs pure hydrogen.' },
+    { t: 'm2-sofc', star: false, html: 'The <b>SOFC</b> uses a ceramic <b>YSZ</b> electrolyte at 800–1000 °C and can run on H₂ or CO.' },
+    { t: 'm2-photovoltaics', star: true, html: 'A <b>p–n junction</b> separates the electrons and holes that light creates, which gives a current: the <b>photovoltaic effect</b>.' },
+    { t: 'm2-dssc', star: false, html: 'In a <b>dye-sensitised (Grätzel) cell</b>, a dye on TiO₂ absorbs the light and iodide carries electrons back.' }
+  ],
+  mcqs: ['m2-q-01', 'm2-q-03', 'm2-q-05', 'm2-q-07', 'm2-q-10', 'm2-q-12', 'm2-q-14']
+});
