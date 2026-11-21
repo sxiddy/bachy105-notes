@@ -154,6 +154,10 @@ window.__startApp = function () {
     act.forEach((p) => tops(p).forEach((t) => { (cov[exOf(p)] = cov[exOf(p)] || new Set()).add(modOf(t)); n[t] = (n[t] || 0) + 1; }));
     Object.keys(n).forEach((t) => { const of = act.filter((p) => cov[exOf(p)].has(modOf(t))).length; if (n[t] >= 2 && n[t] / of >= 0.4) IMP[t] = [n[t], of]; });
   }
+  // Important tabs inside a topic: the model answers' notes refs (topic.tab) cited by 2 or more real papers.
+  const IMPTAB = {};
+  (D.papers || []).filter((p) => p.kind === 'actual').forEach((p) => new Set([].concat(...(p.questions || []).map((q) => q.notes || []))).forEach((r) => { IMPTAB[r] = (IMPTAB[r] || 0) + 1; }));
+  const tabStar = (tid, k) => (IMPTAB[tid + '.' + k] >= 2 ? `<span class="imp-star" title="Important: used in ${IMPTAB[tid + '.' + k]} past-paper answers" aria-label="Important">★</span>` : '');
   const impStar = (tid) => (IMP[tid] ? `<span class="imp-star" title="Important: asked in ${IMP[tid][0]} of the ${IMP[tid][1]} past papers that covered this module" aria-label="Important, asked in ${IMP[tid][0]} of ${IMP[tid][1]} past papers">★</span>` : '');
   const hyTag = (tid) => (HY.has(tid) ? '<span class="hy-tag" title="Topics the quizzes keep coming back to">Often asked</span>' : '');
   // Modules whose files were not loaded (not paid, or not in a single-module grant) show as locked.
@@ -1274,7 +1278,7 @@ ${opts.autoprint === false ? '' : `<script>(document.fonts ? document.fonts.read
       </div>
       <div class="t-progress"><div class="bar"><i></i></div><span data-tp></span><span class="faint">· ticks itself when every tab is read</span></div>
       <div class="tabs-wrap"><div class="tabs" role="tablist" aria-label="Sections">
-        ${t.tabs.map((tb, k) => `<button class="tab" role="tab" data-i="${k}" id="tab-${k}"><span class="seen"></span>${rt(tb.title)}</button>`).join('')}
+        ${t.tabs.map((tb, k) => `<button class="tab" role="tab" data-i="${k}" id="tab-${k}"><span class="seen"></span>${rt(tb.title)}${tabStar(t.id, k)}</button>`).join('')}
         <span class="tab-ink"></span></div></div>
       <div class="panel prose" role="tabpanel" aria-live="polite"></div>
       <div class="tab-nav"></div>
